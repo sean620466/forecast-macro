@@ -8,6 +8,10 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/discover-markets.yml"
+      - "scripts/discover_macro_markets.py"
+      - "scripts/review_macro_markets.py"
+      - "src/forecast_macro/market_discovery.py"
+      - "src/forecast_macro/market_review.py"
 
 permissions:
   contents: read
@@ -24,8 +28,13 @@ jobs:
       - run: pip install -e .
       - name: Discover review candidates
         run: python scripts/discover_macro_markets.py --output artifacts/macro_market_candidates.json
+      - name: Review contract structure and approval gates
+        run: |
+          python scripts/review_macro_markets.py \
+            --input artifacts/macro_market_candidates.json \
+            --output artifacts/macro_market_review.json
       - uses: actions/upload-artifact@v4
         with:
-          name: macro-market-candidates
-          path: artifacts/macro_market_candidates.json
+          name: macro-market-review
+          path: artifacts/
           retention-days: 14
