@@ -1,5 +1,5 @@
 name: Build historical snapshots
-# Builds the complete point-in-time evaluation range, including emergency decisions.
+# Builds the complete point-in-time range with throttled FRED requests.
 
 on:
   workflow_dispatch:
