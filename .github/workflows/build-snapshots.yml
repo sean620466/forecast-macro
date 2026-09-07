@@ -1,4 +1,5 @@
 name: Build historical snapshots
+# Builds the complete point-in-time evaluation range, including emergency decisions.
 
 on:
   workflow_dispatch:
