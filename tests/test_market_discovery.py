@@ -9,6 +9,7 @@ from forecast_macro.market_discovery import (
 def test_classification_requires_topic_words() -> None:
     assert classify_macro_title("Will the Fed cut interest rates?")[0] is MacroTopic.FED_RATE
     assert classify_macro_title("What will CPI inflation be?")[0] is MacroTopic.CPI
+    assert classify_macro_title("Will China CPI exceed 1%?") is None
     assert classify_macro_title("Who will win the election?") is None
 
 
@@ -60,3 +61,29 @@ def test_polymarket_requires_complete_token_mapping() -> None:
     assert len(candidates) == 1
     assert candidates[0].topic is MacroTopic.CPI
     assert candidates[0].outcome_token_ids == ("yes-token", "no-token")
+
+
+def test_polymarket_uses_event_title_to_classify_outcome_markets() -> None:
+    candidates = polymarket_candidates(
+        {
+            "events": [
+                {
+                    "id": "fed-event",
+                    "title": "Fed decision in October",
+                    "markets": [
+                        {
+                            "id": "hold-market",
+                            "question": "No change?",
+                            "active": True,
+                            "closed": False,
+                            "outcomes": ["Yes", "No"],
+                            "clobTokenIds": ["yes", "no"],
+                        }
+                    ],
+                }
+            ]
+        }
+    )
+
+    assert len(candidates) == 1
+    assert candidates[0].topic is MacroTopic.FED_RATE

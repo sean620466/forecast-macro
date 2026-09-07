@@ -28,3 +28,4 @@ jobs:
         with:
           name: macro-market-candidates
           path: artifacts/macro_market_candidates.json
+          retention-days: 14
