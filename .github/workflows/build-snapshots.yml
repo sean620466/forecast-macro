@@ -25,9 +25,9 @@ jobs:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: >-
           python scripts/build_fomc_snapshots.py
-          --meetings data/fomc_meetings_2022_2024.csv
-          --output artifacts/fomc_feature_snapshots.json
+          --meetings data/fomc_meetings_2019_2024.csv
+          --output artifacts/fomc_feature_snapshots_2019_2024.json
       - uses: actions/upload-artifact@v4
         with:
-          name: fomc-feature-snapshots
-          path: artifacts/fomc_feature_snapshots.json
+          name: fomc-feature-snapshots-2019-2024
+          path: artifacts/fomc_feature_snapshots_2019_2024.json
