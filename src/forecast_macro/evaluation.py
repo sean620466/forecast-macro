@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from datetime import datetime
 
@@ -12,6 +13,8 @@ class ForecastRecord:
     outcome: int
 
     def __post_init__(self) -> None:
+        if self.forecast_at.tzinfo is None or self.outcome_at.tzinfo is None:
+            raise ValueError("forecast and outcome timestamps must be timezone-aware")
         if self.forecast_at >= self.outcome_at:
             raise ValueError("forecast_at must be earlier than outcome_at")
         if not 0.0 <= self.probability <= 1.0:
@@ -45,15 +48,14 @@ def calibration_table(
 
     result: list[CalibrationBin] = []
     width = 1.0 / bins
+    grouped: list[list[ForecastRecord]] = [[] for _ in range(bins)]
+    for row in records:
+        index = min(bins - 1, math.floor(row.probability * bins + 1e-12))
+        grouped[index].append(row)
     for index in range(bins):
         lower = index * width
         upper = (index + 1) * width
-        members = [
-            row
-            for row in records
-            if lower <= row.probability < upper
-            or (index == bins - 1 and row.probability == 1.0)
-        ]
+        members = grouped[index]
         if not members:
             continue
         result.append(
@@ -75,3 +77,17 @@ def expected_calibration_error(records: list[ForecastRecord], *, bins: int = 10)
         row.count / total * abs(row.mean_probability - row.observed_frequency)
         for row in table
     )
+
+
+def climatology_probability(records: list[ForecastRecord]) -> float:
+    if not records:
+        raise ValueError("at least one forecast is required")
+    return sum(row.outcome for row in records) / len(records)
+
+
+def brier_skill_score(model_score: float, baseline_score: float) -> float:
+    if not math.isfinite(model_score) or not math.isfinite(baseline_score):
+        raise ValueError("scores must be finite")
+    if baseline_score <= 0:
+        raise ValueError("baseline_score must be positive")
+    return 1.0 - model_score / baseline_score
