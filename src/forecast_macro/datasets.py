@@ -3,11 +3,17 @@ from __future__ import annotations
 import csv
 from dataclasses import dataclass
 from datetime import date, datetime, time
+from enum import StrEnum
 from itertools import pairwise
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from forecast_macro.fomc import RateDecision, label_rate_decision
+
+
+class FomcEventType(StrEnum):
+    SCHEDULED = "scheduled"
+    EMERGENCY = "emergency"
 
 
 @dataclass(frozen=True)
@@ -18,6 +24,7 @@ class HistoricalFomcRow:
     change_bps: int
     decision: RateDecision
     source: str
+    event_type: FomcEventType = FomcEventType.SCHEDULED
 
 
 def load_fomc_history(path: str | Path) -> list[HistoricalFomcRow]:
@@ -33,6 +40,7 @@ def load_fomc_history(path: str | Path) -> list[HistoricalFomcRow]:
             after = float(raw["upper_after"])
             change_bps = int(raw["change_bps"])
             decision = RateDecision(raw["decision"])
+            event_type = FomcEventType(raw.get("event_type") or "scheduled")
             calculated_change = round((after - before) * 100)
             if change_bps != calculated_change:
                 raise ValueError(f"change_bps mismatch for {meeting_at.date()}")
@@ -48,6 +56,7 @@ def load_fomc_history(path: str | Path) -> list[HistoricalFomcRow]:
                     change_bps=change_bps,
                     decision=decision,
                     source=raw["source"],
+                    event_type=event_type,
                 )
             )
 
@@ -63,3 +72,7 @@ def load_fomc_history(path: str | Path) -> list[HistoricalFomcRow]:
 
 def decision_counts(rows: list[HistoricalFomcRow]) -> dict[RateDecision, int]:
     return {decision: sum(row.decision is decision for row in rows) for decision in RateDecision}
+
+
+def scheduled_meetings(rows: list[HistoricalFomcRow]) -> list[HistoricalFomcRow]:
+    return [row for row in rows if row.event_type is FomcEventType.SCHEDULED]
