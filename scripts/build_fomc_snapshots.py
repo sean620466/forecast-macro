@@ -20,7 +20,8 @@ def main() -> None:
     if not api_key:
         raise SystemExit("FRED_API_KEY is required; never commit it to the repository")
 
-    client = AlfredClient(api_key)
+    # Stay below FRED's burst limit; the client also retries explicit 429 responses.
+    client = AlfredClient(api_key, request_interval=0.6)
     meetings = load_fomc_history(args.meetings)
     snapshots = [build_historical_snapshot(client, meeting).to_dict() for meeting in meetings]
     args.output.parent.mkdir(parents=True, exist_ok=True)
