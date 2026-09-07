@@ -6,7 +6,12 @@ from forecast_macro.types import Probability
 
 
 def _sigmoid(value: float) -> float:
-    return 1.0 / (1.0 + math.exp(-value))
+    if not math.isfinite(value):
+        raise ValueError("model inputs must be finite")
+    if value >= 0:
+        return 1.0 / (1.0 + math.exp(-value))
+    exp_value = math.exp(value)
+    return exp_value / (1.0 + exp_value)
 
 
 def rate_cut_probability(
@@ -25,9 +30,9 @@ def rate_cut_probability(
         + 0.25 * (policy_rate - neutral_rate)
         - 0.5
     )
-    cut = _sigmoid(score)
+    cut = round(_sigmoid(score), 6)
     hold = 1.0 - cut
     return [
-        Probability("cut", round(cut, 6)),
-        Probability("hold_or_hike", round(hold, 6)),
+        Probability("cut", cut),
+        Probability("hold_or_hike", hold),
     ]
