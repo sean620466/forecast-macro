@@ -22,14 +22,19 @@ class FedBacktestPrediction:
 class FedBacktestReport:
     total_meetings: int
     evaluated_meetings: int
+    non_zlb_evaluated_meetings: int
     warmup_meetings: int
     actual_cuts: int
     model_brier: float
     sequential_climatology_brier: float
+    always_hold_brier: float
     constant_50_brier: float
     brier_skill_vs_climatology: float
+    brier_skill_vs_always_hold: float
     calibration_ece: float
     minimum_sample_required: int
+    passes_climatology_gate: bool
+    market_baseline_available: bool
     signal_eligible: bool
     predictions: list[FedBacktestPrediction]
 
@@ -57,6 +62,7 @@ def run_fed_baseline_backtest(
     model_records: list[ForecastRecord] = []
     climatology_records: list[ForecastRecord] = []
     constant_records: list[ForecastRecord] = []
+    always_hold_records: list[ForecastRecord] = []
     prior_cuts = sum(row.decision is RateDecision.CUT for row in meetings[:warmup])
 
     for index, meeting in enumerate(meetings[warmup:], start=warmup):
@@ -84,6 +90,7 @@ def run_fed_baseline_backtest(
             ForecastRecord(forecast_at, meeting.meeting_at, baseline_probability, outcome)
         )
         constant_records.append(ForecastRecord(forecast_at, meeting.meeting_at, 0.5, outcome))
+        always_hold_records.append(ForecastRecord(forecast_at, meeting.meeting_at, 0.0, outcome))
         predictions.append(
             FedBacktestPrediction(
                 meeting_date=meeting.meeting_at.date().isoformat(),
@@ -97,18 +104,29 @@ def run_fed_baseline_backtest(
 
     model_brier = brier_score(model_records)
     climate_brier = brier_score(climatology_records)
+    always_hold_brier = brier_score(always_hold_records)
     evaluated = len(predictions)
+    non_zlb_evaluated = sum(
+        float(by_date[row.meeting_at.date().isoformat()]["policy_rate_upper"]) > 0.25
+        for row in meetings[warmup:]
+    )
     return FedBacktestReport(
         total_meetings=len(meetings),
         evaluated_meetings=evaluated,
+        non_zlb_evaluated_meetings=non_zlb_evaluated,
         warmup_meetings=warmup,
         actual_cuts=sum(item.actual_cut for item in predictions),
         model_brier=model_brier,
         sequential_climatology_brier=climate_brier,
+        always_hold_brier=always_hold_brier,
         constant_50_brier=brier_score(constant_records),
         brier_skill_vs_climatology=1.0 - model_brier / climate_brier,
+        brier_skill_vs_always_hold=1.0 - model_brier / always_hold_brier,
         calibration_ece=expected_calibration_error(model_records, bins=5),
         minimum_sample_required=minimum_sample_required,
-        signal_eligible=evaluated >= minimum_sample_required and model_brier < climate_brier,
+        passes_climatology_gate=non_zlb_evaluated >= minimum_sample_required
+        and model_brier < climate_brier,
+        market_baseline_available=False,
+        signal_eligible=False,
         predictions=predictions,
     )

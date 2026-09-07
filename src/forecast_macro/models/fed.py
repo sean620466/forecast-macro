@@ -4,6 +4,10 @@ import math
 
 from forecast_macro.types import Probability
 
+PROBABILITY_EPSILON = 1e-6
+ZLB_UPPER_BOUND = 0.25
+ZLB_CUT_PROBABILITY = 0.005
+
 
 def _sigmoid(value: float) -> float:
     if not math.isfinite(value):
@@ -12,6 +16,14 @@ def _sigmoid(value: float) -> float:
         return 1.0 / (1.0 + math.exp(-value))
     exp_value = math.exp(value)
     return exp_value / (1.0 + exp_value)
+
+
+def apply_cut_feasibility(probability: float, *, policy_rate: float) -> float:
+    if not math.isfinite(probability) or not math.isfinite(policy_rate):
+        raise ValueError("model inputs must be finite")
+    if policy_rate <= ZLB_UPPER_BOUND:
+        return ZLB_CUT_PROBABILITY
+    return min(max(probability, PROBABILITY_EPSILON), 1.0 - PROBABILITY_EPSILON)
 
 
 def rate_cut_probability(
@@ -30,7 +42,7 @@ def rate_cut_probability(
         + 0.25 * (policy_rate - neutral_rate)
         - 0.5
     )
-    cut = round(_sigmoid(score), 6)
+    cut = apply_cut_feasibility(_sigmoid(score), policy_rate=policy_rate)
     hold = 1.0 - cut
     return [
         Probability("cut", cut),

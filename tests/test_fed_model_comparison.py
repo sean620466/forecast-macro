@@ -18,9 +18,10 @@ def test_walk_forward_comparison_has_required_sample() -> None:
     report = run_walk_forward_logistic(meetings, snapshots)
 
     assert report.evaluated_meetings == 39
+    assert report.non_zlb_evaluated_meetings == 23
     assert report.actual_cuts == 3
     assert 0.0 <= report.model_brier <= 1.0
     assert report.minimum_sample_required == 30
-    assert report.climatology_gate_passed is True
+    assert report.climatology_gate_passed is False
     assert report.market_baseline_available is False
     assert report.signal_eligible is False

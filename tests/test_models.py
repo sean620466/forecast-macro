@@ -67,9 +67,21 @@ def test_fed_extreme_values_do_not_overflow():
         unemployment_change_3m=0.0,
         policy_rate=4.0,
     )
-    assert high[0].probability == 1.0
-    assert low[0].probability == 0.0
+    assert 0.0 < high[0].probability < 1.0
+    assert 0.0 < low[0].probability < 1.0
     assert sum(item.probability for item in high) == 1.0
+
+
+def test_fed_zlb_applies_structural_probability_cap():
+    result = rate_cut_probability(
+        inflation_yoy=-5.0,
+        unemployment_rate=15.0,
+        unemployment_change_3m=10.0,
+        policy_rate=0.25,
+    )
+
+    assert result[0].probability == 0.005
+    assert result[1].probability == 0.995
 
 
 def test_fed_rejects_nan():

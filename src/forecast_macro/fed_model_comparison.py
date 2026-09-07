@@ -5,12 +5,14 @@ from dataclasses import asdict, dataclass
 from forecast_macro.datasets import HistoricalFomcRow
 from forecast_macro.evaluation import ForecastRecord, brier_score, expected_calibration_error
 from forecast_macro.fomc import RateDecision
+from forecast_macro.models.fed import apply_cut_feasibility
 from forecast_macro.models.logistic import fit_logistic
 
 
 @dataclass(frozen=True)
 class WalkForwardReport:
     evaluated_meetings: int
+    non_zlb_evaluated_meetings: int
     actual_cuts: int
     model_brier: float
     sequential_climatology_brier: float
@@ -59,7 +61,10 @@ def run_walk_forward_logistic(
         )
         meeting = meetings[index]
         snapshot = by_date[meeting.meeting_at.date().isoformat()]
-        probability = model.predict(_features(snapshot))
+        probability = apply_cut_feasibility(
+            model.predict(_features(snapshot)),
+            policy_rate=float(snapshot["policy_rate_upper"]),
+        )
         outcome = int(meeting.decision is RateDecision.CUT)
         prior_cuts = sum(row.decision is RateDecision.CUT for row in training)
         baseline = (prior_cuts + 1) / (len(training) + 2)
@@ -70,15 +75,20 @@ def run_walk_forward_logistic(
     model_brier = brier_score(model_records)
     baseline_brier = brier_score(baseline_records)
     evaluated = len(model_records)
+    non_zlb_evaluated = sum(
+        float(by_date[row.meeting_at.date().isoformat()]["policy_rate_upper"]) > 0.25
+        for row in meetings[warmup:]
+    )
     return WalkForwardReport(
         evaluated_meetings=evaluated,
+        non_zlb_evaluated_meetings=non_zlb_evaluated,
         actual_cuts=sum(record.outcome for record in model_records),
         model_brier=model_brier,
         sequential_climatology_brier=baseline_brier,
         brier_skill_vs_climatology=1.0 - model_brier / baseline_brier,
         calibration_ece=expected_calibration_error(model_records, bins=5),
         minimum_sample_required=minimum_sample_required,
-        climatology_gate_passed=evaluated >= minimum_sample_required
+        climatology_gate_passed=non_zlb_evaluated >= minimum_sample_required
         and model_brier < baseline_brier,
         market_baseline_available=False,
         # D-007 requires positive out-of-sample skill against market prices.

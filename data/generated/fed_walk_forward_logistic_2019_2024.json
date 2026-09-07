@@ -1,12 +1,13 @@
 {
   "evaluated_meetings": 39,
+  "non_zlb_evaluated_meetings": 23,
   "actual_cuts": 3,
-  "model_brier": 0.08127792500168789,
+  "model_brier": 0.07048000673857399,
   "sequential_climatology_brier": 0.09561158834879059,
-  "brier_skill_vs_climatology": 0.1499155447016901,
-  "calibration_ece": 0.04819792301127915,
+  "brier_skill_vs_climatology": 0.26285079083234886,
+  "calibration_ece": 0.02836392084606641,
   "minimum_sample_required": 30,
-  "climatology_gate_passed": true,
+  "climatology_gate_passed": false,
   "market_baseline_available": false,
   "signal_eligible": false
 }

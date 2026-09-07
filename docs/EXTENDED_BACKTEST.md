@@ -2,13 +2,14 @@
 
 ## Result
 
-The evaluation now clears the D-007 sample-size floor, but the baseline model does not
-clear the skill requirement. Signals therefore remain disabled.
+The ZLB-aware evaluation improves materially, but signals remain disabled. Only non-ZLB
+meetings count toward the strengthened research sample floor, and no market-price baseline
+is available yet.
 
-| Scope | Events | OOS predictions | Cuts | Model Brier | Sequential climatology Brier | BSS | Eligible |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
-| All decisions | 49 | 41 | 5 | 0.141745 | 0.127604 | -0.110820 | No |
-| Scheduled only | 47 | 39 | 3 | 0.116812 | 0.095612 | -0.221731 | No |
+| Scope | OOS | Non-ZLB OOS | Model Brier | Climatology | Always hold | BSS vs climatology |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| All decisions | 41 | 25 | 0.077271 | 0.127604 | 0.121951 | +0.394449 |
+| Scheduled only | 39 | 23 | 0.049031 | 0.095612 | 0.076923 | +0.487186 |
 
 The all-decisions scope explicitly includes the emergency cuts of March 3 and March 15,
 2020. The scheduled-only scope excludes them rather than silently treating them as ordinary
@@ -17,11 +18,16 @@ prior calendar day.
 
 ## Interpretation
 
-The earlier 2022–2024 result was positive but had only 16 out-of-sample predictions. Once
-the history is extended beyond 30 observations, the simple fixed-form Fed model performs
-worse than a Laplace-smoothed sequential cut-rate baseline. D-007 correctly blocks signal
-publication. The next modeling step must improve genuine out-of-sample skill rather than
-relax the gate.
+The original negative result was dominated by a structural error: it allowed very high cut
+probabilities while the target upper bound was already 0.25%. D-011 now assigns a fixed
+0.005 cut probability at the ZLB and clips all other probabilities away from exact zero and
+one. This constraint was registered as prior institutional knowledge, not tuned as a fitted
+coefficient.
+
+The improvement is diagnostic rather than proof of general forecasting skill. There are
+only 25 all-decision and 23 scheduled non-ZLB observations, below D-013's 30-observation
+research floor, and only three evaluated scheduled cuts. D-007 also requires comparison
+against actual market prices. `signal_eligible` therefore remains false.
 
 ## Reproduce
 
