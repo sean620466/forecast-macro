@@ -58,6 +58,9 @@ class OutcomeQuote:
     observed_at: datetime
     tick_size: float
     fee_schedule_id: str
+    venue: str = "unknown"
+    venue_contract_id: str | None = None
+    quote_type: Literal["book"] = "book"
 
     def __post_init__(self) -> None:
         if self.observed_at.tzinfo is None:
@@ -66,6 +69,10 @@ class OutcomeQuote:
             raise ValueError("quote requires 0 <= bid <= ask <= 1")
         if self.bid_size < 0 or self.ask_size < 0 or self.tick_size <= 0:
             raise ValueError("sizes must be non-negative and tick_size positive")
+
+    @property
+    def mid(self) -> float:
+        return (self.bid + self.ask) / 2.0
 
 
 def fomc_decision_time(meeting_date: date) -> datetime:
