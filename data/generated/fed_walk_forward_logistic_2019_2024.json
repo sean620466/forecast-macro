@@ -1,0 +1,12 @@
+{
+  "evaluated_meetings": 39,
+  "actual_cuts": 3,
+  "model_brier": 0.08127792500168789,
+  "sequential_climatology_brier": 0.09561158834879059,
+  "brier_skill_vs_climatology": 0.1499155447016901,
+  "calibration_ece": 0.04819792301127915,
+  "minimum_sample_required": 30,
+  "climatology_gate_passed": true,
+  "market_baseline_available": false,
+  "signal_eligible": false
+}
