@@ -6,8 +6,10 @@ from typing import Any
 import httpx
 
 from forecast_macro.contracts import OutcomeQuote
+from forecast_macro.market_discovery import MarketCandidate, polymarket_candidates
 
 POLYMARKET_CLOB_URL = "https://clob.polymarket.com"
+POLYMARKET_GAMMA_URL = "https://gamma-api.polymarket.com"
 
 
 def parse_polymarket_orderbook(
@@ -50,3 +52,12 @@ class PolymarketPublicClient:
         return parse_polymarket_orderbook(
             response.json(), token_id=token_id, observed_at=datetime.now(UTC)
         )
+
+    def search_macro_markets(self, query: str) -> list[MarketCandidate]:
+        response = httpx.get(
+            f"{POLYMARKET_GAMMA_URL}/public-search",
+            params={"q": query},
+            timeout=self.timeout,
+        )
+        response.raise_for_status()
+        return polymarket_candidates(response.json())

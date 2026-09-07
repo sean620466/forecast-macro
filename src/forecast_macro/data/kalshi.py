@@ -6,6 +6,7 @@ from typing import Any
 import httpx
 
 from forecast_macro.contracts import OutcomeQuote
+from forecast_macro.market_discovery import MarketCandidate, kalshi_candidates
 
 KALSHI_API_URL = "https://external-api.kalshi.com/trade-api/v2"
 
@@ -59,3 +60,12 @@ class KalshiPublicClient:
         return parse_kalshi_orderbook(
             response.json(), ticker=ticker, observed_at=datetime.now(UTC)
         )
+
+    def discover_open_macro_markets(self) -> list[MarketCandidate]:
+        response = httpx.get(
+            f"{KALSHI_API_URL}/markets",
+            params={"status": "open", "limit": 1000, "mve_filter": "exclude"},
+            timeout=self.timeout,
+        )
+        response.raise_for_status()
+        return kalshi_candidates(response.json())
