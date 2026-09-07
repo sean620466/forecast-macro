@@ -50,10 +50,10 @@ def test_vintage_mismatch_is_rejected():
     with pytest.raises(ValueError, match="vintages must match"):
         build_fomc_snapshot(
             forecast_at=cutoff,
-            inflation_yoy=ReleasedValue("inflation_yoy", 2.4, prior, "v1"),
-            unemployment_rate=ReleasedValue("unemployment_rate", 4.3, prior, "v1"),
-            unemployment_3m_ago=ReleasedValue("unemployment_3m_ago", 4.0, prior, "v2"),
-            policy_rate=ReleasedValue("policy_rate", 4.5, prior, "v1"),
+            inflation_yoy=ReleasedValue("inflation_yoy", 2.4, prior, "v1", True),
+            unemployment_rate=ReleasedValue("unemployment_rate", 4.3, prior, "v1", True),
+            unemployment_3m_ago=ReleasedValue("unemployment_3m_ago", 4.0, prior, "v2", True),
+            policy_rate=ReleasedValue("policy_rate", 4.5, prior, "v1", True),
         )
 
 
