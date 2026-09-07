@@ -1,0 +1,30 @@
+name: Discover macro markets
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/discover-markets.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e .
+      - name: Discover review candidates
+        run: python scripts/discover_macro_markets.py --output artifacts/macro_market_candidates.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macro-market-candidates
+          path: artifacts/macro_market_candidates.json
