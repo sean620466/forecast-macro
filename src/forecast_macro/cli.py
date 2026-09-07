@@ -35,7 +35,7 @@ def main() -> None:
         model,
         market,
         threshold=args.threshold,
-        calibrated=args.allow_uncalibrated_signal,
+        signal_eligible=args.allow_uncalibrated_signal,
     )
     payload = {
         "model_version": "fed-baseline-0.1-uncalibrated",
