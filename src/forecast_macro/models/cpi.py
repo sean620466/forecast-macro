@@ -19,6 +19,10 @@ def cpi_bucket_probabilities(
     upper_cutoff: float = 0.35,
 ) -> list[Probability]:
     """Return probabilities for CPI MoM below/in/above a configured range."""
+    if not all(math.isfinite(value) for value in (forecast_mom, lower_cutoff, upper_cutoff)):
+        raise ValueError("model inputs must be finite")
+    if lower_cutoff >= upper_cutoff:
+        raise ValueError("lower_cutoff must be less than upper_cutoff")
     below = _normal_cdf(lower_cutoff, forecast_mom, uncertainty)
     at_or_below_upper = _normal_cdf(upper_cutoff, forecast_mom, uncertainty)
     middle = max(0.0, at_or_below_upper - below)
