@@ -25,12 +25,13 @@ def test_fomc_change_is_in_basis_points():
 
 def test_snapshot_calculates_unemployment_change():
     cutoff = datetime(2026, 6, 1, tzinfo=UTC)
+    available_before = cutoff - timedelta(seconds=1)
     snapshot = build_fomc_snapshot(
         forecast_at=cutoff,
-        inflation_yoy=released("inflation_yoy", 2.4, cutoff),
-        unemployment_rate=released("unemployment_rate", 4.3, cutoff),
-        unemployment_3m_ago=released("unemployment_3m_ago", 4.0, cutoff),
-        policy_rate=released("policy_rate", 4.5, cutoff),
+        inflation_yoy=released("inflation_yoy", 2.4, available_before),
+        unemployment_rate=released("unemployment_rate", 4.3, available_before),
+        unemployment_3m_ago=released("unemployment_3m_ago", 4.0, available_before),
+        policy_rate=released("policy_rate", 4.5, available_before),
     )
     assert snapshot.unemployment_change_3m == pytest.approx(0.3)
     assert snapshot.vintages["inflation_yoy"] == "2026-01-01"
