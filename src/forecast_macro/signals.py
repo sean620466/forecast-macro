@@ -8,7 +8,7 @@ def compare_to_market(
     market: dict[str, float],
     *,
     threshold: float = 0.08,
-    calibrated: bool = False,
+    signal_eligible: bool = False,
 ) -> list[MarketSignal]:
     if threshold < 0:
         raise ValueError("threshold must be non-negative")
@@ -27,7 +27,7 @@ def compare_to_market(
                 model_probability=estimate.probability,
                 market_probability=market_probability,
                 edge=edge,
-                should_display=calibrated and abs(edge) >= threshold,
+                should_display=signal_eligible and abs(edge) >= threshold,
             )
         )
     return signals
