@@ -37,3 +37,7 @@ def label_rate_decision(*, upper_before: float, upper_after: float) -> RateDecis
     if change > 0:
         return RateDecision.HIKE
     return RateDecision.HOLD
+
+
+def to_binary_model_outcome(decision: RateDecision) -> str:
+    return "cut" if decision is RateDecision.CUT else "hold_or_hike"
