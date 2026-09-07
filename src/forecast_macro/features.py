@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, time
+from zoneinfo import ZoneInfo
+
+from forecast_macro.data.alfred import VintageObservation
 
 
 @dataclass(frozen=True)
@@ -10,11 +13,35 @@ class ReleasedValue:
     value: float
     released_at: datetime
     vintage: str
-    vintage_verified: bool = True
+    vintage_verified: bool = False
 
     def __post_init__(self) -> None:
         if self.released_at.tzinfo is None:
             raise ValueError("released_at must be timezone-aware")
+
+
+def released_value_from_vintage(
+    observation: VintageObservation,
+    *,
+    name: str,
+    release_time: time,
+    timezone: str = "America/New_York",
+) -> ReleasedValue:
+    """Promote an ALFRED vintage date using an explicit source release-time rule."""
+    if release_time.tzinfo is not None:
+        raise ValueError("release_time must be a local wall-clock time")
+    released_at = datetime.combine(
+        observation.realtime_start,
+        release_time,
+        tzinfo=ZoneInfo(timezone),
+    )
+    return ReleasedValue(
+        name=name,
+        value=observation.value,
+        released_at=released_at,
+        vintage=observation.realtime_start.isoformat(),
+        vintage_verified=True,
+    )
 
 
 @dataclass(frozen=True)
