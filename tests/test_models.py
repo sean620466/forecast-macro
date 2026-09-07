@@ -29,7 +29,7 @@ def test_signal_threshold():
         policy_rate=5.0,
     )
     market = {"cut": 0.1, "hold_or_hike": 0.9}
-    signals = compare_to_market(model, market, threshold=0.08, calibrated=True)
+    signals = compare_to_market(model, market, threshold=0.08, signal_eligible=True)
     assert any(signal.should_display for signal in signals)
 
 
