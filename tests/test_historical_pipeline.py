@@ -1,15 +1,21 @@
-from datetime import UTC, date, datetime, timedelta
+from datetime import UTC, date, datetime, time, timedelta
 
 import httpx
 import pytest
 
 from forecast_macro.data.alfred import AlfredClient
-from forecast_macro.features import ReleasedValue, build_fomc_snapshot
+from forecast_macro.features import ReleasedValue, build_fomc_snapshot, released_value_from_vintage
 from forecast_macro.fomc import FomcMeeting, RateDecision, label_rate_decision
 
 
 def released(name: str, value: float, when: datetime) -> ReleasedValue:
-    return ReleasedValue(name=name, value=value, released_at=when, vintage="2026-01-01")
+    return ReleasedValue(
+        name=name,
+        value=value,
+        released_at=when,
+        vintage="2026-01-01",
+        vintage_verified=True,
+    )
 
 
 def test_fomc_labels_cut_hold_and_hike():
@@ -76,3 +82,12 @@ def test_alfred_client_sends_vintage_date(monkeypatch):
     assert captured["vintage_dates"] == "2026-01-15"
     assert rows[0].value == 2.7
     assert rows[0].realtime_start == date(2026, 1, 15)
+    value = released_value_from_vintage(rows[0], name="cpi", release_time=time(8, 30))
+    assert value.vintage_verified
+    assert value.released_at.hour == 8
+
+
+def test_direct_released_value_is_not_vintage_verified():
+    cutoff = datetime(2026, 6, 1, tzinfo=UTC)
+    raw = ReleasedValue("inflation_yoy", 2.4, cutoff - timedelta(days=1), "manual")
+    assert not raw.vintage_verified
