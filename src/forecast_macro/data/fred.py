@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import httpx
 
@@ -34,5 +34,5 @@ class FredClient:
         return Observation(
             series_id=series_id,
             value=float(row["value"]),
-            observed_at=datetime.fromisoformat(row["date"]).replace(tzinfo=timezone.utc),
+            observed_at=datetime.fromisoformat(row["date"]).replace(tzinfo=UTC),
         )
