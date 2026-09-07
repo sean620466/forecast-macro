@@ -1,0 +1,345 @@
+[
+  {
+    "venue": "polymarket",
+    "venue_market_id": "3539692",
+    "venue_event_id": "838712",
+    "title": "Will Core CPI YoY be 2.0% or less in August?",
+    "topic": "cpi",
+    "closes_at": "2026-09-11 03:59:00+00:00",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "outcome_token_ids": [
+      "104330981813137477581739291733438731182936617884228128642861434548302492504283",
+      "90266247259297062748545033747629585931862990639681942757294954153351880792614"
+    ],
+    "match_basis": "CPI/inflation",
+    "requires_review": true
+  },
+  {
+    "venue": "polymarket",
+    "venue_market_id": "3539693",
+    "venue_event_id": "838712",
+    "title": "Will Core CPI YoY be 2.1% in August?",
+    "topic": "cpi",
+    "closes_at": "2026-09-11 03:59:00+00:00",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "outcome_token_ids": [
+      "73061007136179113264644632694527200986080586501925653342798414797635693604417",
+      "109108489759237740686910589938172128386158205146683900223844105959764015887348"
+    ],
+    "match_basis": "CPI/inflation",
+    "requires_review": true
+  },
+  {
+    "venue": "polymarket",
+    "venue_market_id": "3539694",
+    "venue_event_id": "838712",
+    "title": "Will Core CPI YoY be 2.2% in August?",
+    "topic": "cpi",
+    "closes_at": "2026-09-11 03:59:00+00:00",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "outcome_token_ids": [
+      "111676121275560479815032092629002658568108231249985083584239625479278985573489",
+      "98309400924138282485363411115556602785358085861427665678527412271511570096734"
+    ],
+    "match_basis": "CPI/inflation",
+    "requires_review": true
+  },
+  {
+    "venue": "polymarket",
+    "venue_market_id": "3539695",
+    "venue_event_id": "838712",
+    "title": "Will Core CPI YoY be 2.3% in August?",
+    "topic": "cpi",
+    "closes_at": "2026-09-11 03:59:00+00:00",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "outcome_token_ids": [
+      "86606621431270273700128640078368528790326394924599645255138679311415970686557",
+      "80715383029511153404077139921024625445274039955048871500319482506366348472962"
+    ],
+    "match_basis": "CPI/inflation",
+    "requires_review": true
+  },
+  {
+    "venue": "polymarket",
+    "venue_market_id": "3539696",
+    "venue_event_id": "838712",
+    "title": "Will Core CPI YoY be 2.4% in August?",
+    "topic": "cpi",
+    "closes_at": "2026-09-11 03:59:00+00:00",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "outcome_token_ids": [
+      "3324244931924459340017197777196190350809525680236576167575460333391469674350",
+      "63829239813136022926213213239365948979007765208724043287224731394649780472355"
+    ],
+    "match_basis": "CPI/inflation",
+    "requires_review": true
+  },
+  {
+    "venue": "polymarket",
+    "venue_market_id": "3539697",
+    "venue_event_id": "838712",
+    "title": "Will Core CPI YoY be 2.5% in August?",
+    "topic": "cpi",
+    "closes_at": "2026-09-11 03:59:00+00:00",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "outcome_token_ids": [
+      "81083186130843690472716783839381517106518811667243959907909894323889489750964",
+      "72406712541375347502841445609465958603432594332737699849425339822108232321784"
+    ],
+    "match_basis": "CPI/inflation",
+    "requires_review": true
+  },
+  {
+    "venue": "polymarket",
+    "venue_market_id": "3539698",
+    "venue_event_id": "838712",
+    "title": "Will Core CPI YoY be 2.6% in August?",
+    "topic": "cpi",
+    "closes_at": "2026-09-11 03:59:00+00:00",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "outcome_token_ids": [
+      "409883319275249861135947405387971873964557759432218229653363451279890633609",
+      "2430801246794813216703932323635141869187172585578113605334024874609994951260"
+    ],
+    "match_basis": "CPI/inflation",
+    "requires_review": true
+  },
+  {
+    "venue": "polymarket",
+    "venue_market_id": "3539699",
+    "venue_event_id": "838712",
+    "title": "Will Core CPI YoY be 2.7% in August?",
+    "topic": "cpi",
+    "closes_at": "2026-09-11 03:59:00+00:00",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "outcome_token_ids": [
+      "45913494438158310417978840280427230519029901535141239400877995181916394474022",
+      "80530329626015649422747434907052281057171048026011443907687641269415054576431"
+    ],
+    "match_basis": "CPI/inflation",
+    "requires_review": true
+  },
+  {
+    "venue": "polymarket",
+    "venue_market_id": "3539700",
+    "venue_event_id": "838712",
+    "title": "Will Core CPI YoY be 2.8% in August?",
+    "topic": "cpi",
+    "closes_at": "2026-09-11 03:59:00+00:00",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "outcome_token_ids": [
+      "110879698781774972992866325873189461697856058841120843660616321861309542986726",
+      "40218267018261180624584302645731645169140812264448273947261855485541390254067"
+    ],
+    "match_basis": "CPI/inflation",
+    "requires_review": true
+  },
+  {
+    "venue": "polymarket",
+    "venue_market_id": "3539701",
+    "venue_event_id": "838712",
+    "title": "Will Core CPI YoY be 2.9% or more in August?",
+    "topic": "cpi",
+    "closes_at": "2026-09-11 03:59:00+00:00",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "outcome_token_ids": [
+      "17623787495286733512954066819745050156865366971555050423852089822601553865962",
+      "91212306644798169009265916183461752705521238319095976981715718479356296174089"
+    ],
+    "match_basis": "CPI/inflation",
+    "requires_review": true
+  },
+  {
+    "venue": "polymarket",
+    "venue_market_id": "4217154",
+    "venue_event_id": "964993",
+    "title": "Will the September 2026 unemployment rate be 3.9%?",
+    "topic": "unemployment",
+    "closes_at": "2026-10-02 08:30:00+00:00",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "outcome_token_ids": [
+      "34632528860756816786880366661299884114276684590214060905019302027756330833664",
+      "33338105639684059375490197330230102878347092955885115388228810055192714707083"
+    ],
+    "match_basis": "unemployment",
+    "requires_review": true
+  },
+  {
+    "venue": "polymarket",
+    "venue_market_id": "4217155",
+    "venue_event_id": "964993",
+    "title": "Will the September 2026 unemployment rate be 4.0%?",
+    "topic": "unemployment",
+    "closes_at": "2026-10-02 08:30:00+00:00",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "outcome_token_ids": [
+      "6692889365855285522836212368286492316203881023950252157662557189506696893387",
+      "31265682423996026524477357573791441422042826077223566182451303184611417575584"
+    ],
+    "match_basis": "unemployment",
+    "requires_review": true
+  },
+  {
+    "venue": "polymarket",
+    "venue_market_id": "4217156",
+    "venue_event_id": "964993",
+    "title": "Will the September 2026 unemployment rate be 4.1%?",
+    "topic": "unemployment",
+    "closes_at": "2026-10-02 08:30:00+00:00",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "outcome_token_ids": [
+      "3130435767803780616169748133393995783118140774302750614179447460004673317476",
+      "39385734324734722187511948411589267683102961276541843363121410246320828487363"
+    ],
+    "match_basis": "unemployment",
+    "requires_review": true
+  },
+  {
+    "venue": "polymarket",
+    "venue_market_id": "4217157",
+    "venue_event_id": "964993",
+    "title": "Will the September 2026 unemployment rate be 4.2%?",
+    "topic": "unemployment",
+    "closes_at": "2026-10-02 08:30:00+00:00",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "outcome_token_ids": [
+      "75255408388690499895865140816190828881833032241788035292798015680567808215352",
+      "106335081919112106924273985224223448440785067648486433030023312180806983638790"
+    ],
+    "match_basis": "unemployment",
+    "requires_review": true
+  },
+  {
+    "venue": "polymarket",
+    "venue_market_id": "4217158",
+    "venue_event_id": "964993",
+    "title": "Will the September 2026 unemployment rate be 4.3%?",
+    "topic": "unemployment",
+    "closes_at": "2026-10-02 08:30:00+00:00",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "outcome_token_ids": [
+      "68447120348760100901752962629024743844260160756878150016880543098743228803187",
+      "76011510361170669265553040811806094940765893178640998902094021797160652050107"
+    ],
+    "match_basis": "unemployment",
+    "requires_review": true
+  },
+  {
+    "venue": "polymarket",
+    "venue_market_id": "4217159",
+    "venue_event_id": "964993",
+    "title": "Will the September 2026 unemployment rate be 4.4%?",
+    "topic": "unemployment",
+    "closes_at": "2026-10-02 08:30:00+00:00",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "outcome_token_ids": [
+      "48305848321724002665035198710350436273640695938274138403698133540350745396745",
+      "4603616285136307868179579371617174785651490820910633033309576537680943904165"
+    ],
+    "match_basis": "unemployment",
+    "requires_review": true
+  },
+  {
+    "venue": "polymarket",
+    "venue_market_id": "4217160",
+    "venue_event_id": "964993",
+    "title": "Will the September 2026 unemployment rate be 4.5%?",
+    "topic": "unemployment",
+    "closes_at": "2026-10-02 08:30:00+00:00",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "outcome_token_ids": [
+      "6126502480733743953881186716194488121215139030131533176169781600254519131213",
+      "2219254287937949533438753379102233867922115626300378309955286410186157343113"
+    ],
+    "match_basis": "unemployment",
+    "requires_review": true
+  },
+  {
+    "venue": "polymarket",
+    "venue_market_id": "4217153",
+    "venue_event_id": "964993",
+    "title": "Will the September 2026 unemployment rate be \u22643.8%?",
+    "topic": "unemployment",
+    "closes_at": "2026-10-02 08:30:00+00:00",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "outcome_token_ids": [
+      "2125882592832183320724694568276599452225589851799304770116419832059881056637",
+      "102901726307447763468384331445481791118733749957728717643470892146574458413501"
+    ],
+    "match_basis": "unemployment",
+    "requires_review": true
+  },
+  {
+    "venue": "polymarket",
+    "venue_market_id": "4217161",
+    "venue_event_id": "964993",
+    "title": "Will the September 2026 unemployment rate be \u22654.6%?",
+    "topic": "unemployment",
+    "closes_at": "2026-10-02 08:30:00+00:00",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "outcome_token_ids": [
+      "201906131097362155576721764851134341848607432714590457881359523945090214643",
+      "52009913249254773923787926348541378323460665358584125631406238984272267001466"
+    ],
+    "match_basis": "unemployment",
+    "requires_review": true
+  }
+]
+
