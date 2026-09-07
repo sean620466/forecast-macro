@@ -1,0 +1,314 @@
+[
+  {
+    "meeting_date": "2022-01-26",
+    "vintage_date": "2022-01-25",
+    "cpi_yoy_nsa": 7.036402865545144,
+    "unemployment_rate": 3.9,
+    "unemployment_change_3m": -0.8000000000000003,
+    "policy_rate_upper": 0.25,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2022-03-16",
+    "vintage_date": "2022-03-15",
+    "cpi_yoy_nsa": 7.871063897739283,
+    "unemployment_rate": 3.8,
+    "unemployment_change_3m": -0.40000000000000036,
+    "policy_rate_upper": 0.25,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2022-05-04",
+    "vintage_date": "2022-05-03",
+    "cpi_yoy_nsa": 8.542455554842432,
+    "unemployment_rate": 3.6,
+    "unemployment_change_3m": -0.2999999999999998,
+    "policy_rate_upper": 0.5,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2022-06-15",
+    "vintage_date": "2022-06-14",
+    "cpi_yoy_nsa": 8.581511543676523,
+    "unemployment_rate": 3.6,
+    "unemployment_change_3m": -0.19999999999999973,
+    "policy_rate_upper": 1.0,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2022-07-27",
+    "vintage_date": "2022-07-26",
+    "cpi_yoy_nsa": 9.059757964784154,
+    "unemployment_rate": 3.6,
+    "unemployment_change_3m": 0.0,
+    "policy_rate_upper": 1.75,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2022-09-21",
+    "vintage_date": "2022-09-20",
+    "cpi_yoy_nsa": 8.262692503116241,
+    "unemployment_rate": 3.7,
+    "unemployment_change_3m": 0.10000000000000009,
+    "policy_rate_upper": 2.5,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2022-11-02",
+    "vintage_date": "2022-11-01",
+    "cpi_yoy_nsa": 8.20166964383362,
+    "unemployment_rate": 3.5,
+    "unemployment_change_3m": -0.10000000000000009,
+    "policy_rate_upper": 3.25,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2022-12-14",
+    "vintage_date": "2022-12-13",
+    "cpi_yoy_nsa": 7.110322794191726,
+    "unemployment_rate": 3.7,
+    "unemployment_change_3m": 0.0,
+    "policy_rate_upper": 4.0,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2023-02-01",
+    "vintage_date": "2023-01-31",
+    "cpi_yoy_nsa": 6.4544013314108195,
+    "unemployment_rate": 3.5,
+    "unemployment_change_3m": 0.0,
+    "policy_rate_upper": 4.5,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2023-03-22",
+    "vintage_date": "2023-03-21",
+    "cpi_yoy_nsa": 6.035613077866597,
+    "unemployment_rate": 3.6,
+    "unemployment_change_3m": 0.0,
+    "policy_rate_upper": 4.75,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2023-05-03",
+    "vintage_date": "2023-05-02",
+    "cpi_yoy_nsa": 4.984974122099173,
+    "unemployment_rate": 3.5,
+    "unemployment_change_3m": 0.0,
+    "policy_rate_upper": 5.0,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2023-06-14",
+    "vintage_date": "2023-06-13",
+    "cpi_yoy_nsa": 4.047609272791974,
+    "unemployment_rate": 3.7,
+    "unemployment_change_3m": 0.10000000000000009,
+    "policy_rate_upper": 5.25,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2023-07-26",
+    "vintage_date": "2023-07-25",
+    "cpi_yoy_nsa": 2.9691776545588855,
+    "unemployment_rate": 3.6,
+    "unemployment_change_3m": 0.10000000000000009,
+    "policy_rate_upper": 5.25,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2023-09-20",
+    "vintage_date": "2023-09-19",
+    "cpi_yoy_nsa": 3.6651123843995492,
+    "unemployment_rate": 3.8,
+    "unemployment_change_3m": 0.09999999999999964,
+    "policy_rate_upper": 5.5,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2023-11-01",
+    "vintage_date": "2023-10-31",
+    "cpi_yoy_nsa": 3.69969812134443,
+    "unemployment_rate": 3.8,
+    "unemployment_change_3m": 0.19999999999999973,
+    "policy_rate_upper": 5.5,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2023-12-13",
+    "vintage_date": "2023-12-12",
+    "cpi_yoy_nsa": 3.1372707088417773,
+    "unemployment_rate": 3.7,
+    "unemployment_change_3m": -0.09999999999999964,
+    "policy_rate_upper": 5.5,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2024-01-31",
+    "vintage_date": "2024-01-30",
+    "cpi_yoy_nsa": 3.3521228314302265,
+    "unemployment_rate": 3.7,
+    "unemployment_change_3m": -0.09999999999999964,
+    "policy_rate_upper": 5.5,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2024-03-20",
+    "vintage_date": "2024-03-19",
+    "cpi_yoy_nsa": 3.1531711208615976,
+    "unemployment_rate": 3.9,
+    "unemployment_change_3m": 0.19999999999999973,
+    "policy_rate_upper": 5.5,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2024-05-01",
+    "vintage_date": "2024-04-30",
+    "cpi_yoy_nsa": 3.4773850700380304,
+    "unemployment_rate": 3.8,
+    "unemployment_change_3m": 0.09999999999999964,
+    "policy_rate_upper": 5.5,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2024-06-12",
+    "vintage_date": "2024-06-11",
+    "cpi_yoy_nsa": 3.357363950119163,
+    "unemployment_rate": 4.0,
+    "unemployment_change_3m": 0.10000000000000009,
+    "policy_rate_upper": 5.5,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2024-07-31",
+    "vintage_date": "2024-07-30",
+    "cpi_yoy_nsa": 2.971397107263307,
+    "unemployment_rate": 4.1,
+    "unemployment_change_3m": 0.2999999999999998,
+    "policy_rate_upper": 5.5,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2024-09-18",
+    "vintage_date": "2024-09-17",
+    "cpi_yoy_nsa": 2.5307302964569622,
+    "unemployment_rate": 4.2,
+    "unemployment_change_3m": 0.20000000000000018,
+    "policy_rate_upper": 5.5,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2024-11-07",
+    "vintage_date": "2024-11-06",
+    "cpi_yoy_nsa": 2.440633031069983,
+    "unemployment_rate": 4.1,
+    "unemployment_change_3m": -0.20000000000000018,
+    "policy_rate_upper": 5.0,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  },
+  {
+    "meeting_date": "2024-12-18",
+    "vintage_date": "2024-12-17",
+    "cpi_yoy_nsa": 2.7493803960905616,
+    "unemployment_rate": 4.2,
+    "unemployment_change_3m": 0.0,
+    "policy_rate_upper": 4.75,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    }
+  }
+]
