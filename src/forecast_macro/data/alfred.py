@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import time
 from dataclasses import dataclass
 from datetime import UTC, date, datetime
 
@@ -19,11 +20,35 @@ class VintageObservation:
 
 
 class AlfredClient:
-    def __init__(self, api_key: str, timeout: float = 15.0) -> None:
+    def __init__(
+        self,
+        api_key: str,
+        timeout: float = 15.0,
+        *,
+        request_interval: float = 0.0,
+        max_retries: int = 4,
+    ) -> None:
         if not api_key:
             raise ValueError("FRED_API_KEY is required")
         self.api_key = api_key
         self.timeout = timeout
+        self.request_interval = request_interval
+        self.max_retries = max_retries
+        self._last_request_at: float | None = None
+
+    def _get(self, params: dict[str, str | int]) -> httpx.Response:
+        for attempt in range(self.max_retries + 1):
+            if self._last_request_at is not None:
+                elapsed = time.monotonic() - self._last_request_at
+                time.sleep(max(0.0, self.request_interval - elapsed))
+            response = httpx.get(FRED_OBSERVATIONS_URL, params=params, timeout=self.timeout)
+            self._last_request_at = time.monotonic()
+            if response.status_code != 429 or attempt == self.max_retries:
+                return response
+            retry_after = response.headers.get("Retry-After")
+            delay = float(retry_after) if retry_after else min(2**attempt, 16)
+            time.sleep(delay)
+        raise AssertionError("retry loop must return")
 
     def observations_as_of(
         self,
@@ -45,7 +70,7 @@ class AlfredClient:
         if observation_end:
             params["observation_end"] = observation_end.isoformat()
 
-        response = httpx.get(FRED_OBSERVATIONS_URL, params=params, timeout=self.timeout)
+        response = self._get(params)
         response.raise_for_status()
         fetched_at = datetime.now(UTC)
         result: list[VintageObservation] = []
