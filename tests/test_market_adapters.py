@@ -79,7 +79,7 @@ def test_kalshi_discovery_follows_all_cursors(monkeypatch) -> None:
         def json(self):
             return self.payload
 
-    def fake_get(url, *, params, timeout):
+    def fake_get(url, *, params, timeout, headers=None):
         calls.append(params.copy())
         if "cursor" not in params:
             return Response({"markets": [], "cursor": "next-page"})

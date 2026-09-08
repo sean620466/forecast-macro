@@ -9,6 +9,8 @@ from forecast_macro.contracts import OutcomeQuote
 from forecast_macro.market_discovery import MarketCandidate, kalshi_candidates
 
 KALSHI_API_URL = "https://external-api.kalshi.com/trade-api/v2"
+# Identify the research client explicitly; anonymous default agents are more often rate-limited.
+REQUEST_HEADERS = {"User-Agent": "forecast-macro/0.1 (+https://github.com/sean620466/forecast-macro)"}
 
 
 def _levels(book: dict[str, Any], dollar_key: str, cent_key: str) -> list[tuple[float, float]]:
@@ -54,6 +56,7 @@ class KalshiPublicClient:
     def orderbook(self, ticker: str) -> OutcomeQuote:
         response = httpx.get(
             f"{KALSHI_API_URL}/markets/{ticker}/orderbook",
+            headers=REQUEST_HEADERS,
             timeout=self.timeout,
         )
         response.raise_for_status()
@@ -72,6 +75,7 @@ class KalshiPublicClient:
             response = httpx.get(
                 f"{KALSHI_API_URL}/markets",
                 params=params,
+                headers=REQUEST_HEADERS,
                 timeout=self.timeout,
             )
             response.raise_for_status()

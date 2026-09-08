@@ -89,3 +89,17 @@ def test_polymarket_uses_event_title_to_classify_outcome_markets() -> None:
     assert candidates[0].topic is MacroTopic.FED_RATE
     assert candidates[0].closes_at is None
     assert candidates[0].close_time_verified is False
+
+
+def test_classification_rejects_foreign_and_non_statistic_titles() -> None:
+    # Kalshi pagination surfaced these on 2026-09-07; none settle on a US statistic.
+    assert classify_macro_title("Brazil unemployment rate in August 2026?") is None
+    assert classify_macro_title("Brazil Nominal GDP in 2026?") is None
+    assert classify_macro_title("How many Federal Reserve posts on X this week?") is None
+    assert classify_macro_title("Will the ECB cut rates in October?") is None
+    # Genuine US statistics still classify.
+    assert classify_macro_title("CPI core month-over-month in Aug 2026?")[0] is MacroTopic.CPI
+    assert (
+        classify_macro_title("Will the upper bound of the federal funds rate be above 4.25%?")[0]
+        is MacroTopic.FED_RATE
+    )
