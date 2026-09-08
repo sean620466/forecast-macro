@@ -30,7 +30,7 @@ class FedBacktestReport:
     always_hold_brier: float
     constant_50_brier: float
     brier_skill_vs_climatology: float
-    brier_skill_vs_always_hold: float
+    brier_skill_vs_always_hold: float | None
     calibration_ece: float
     minimum_sample_required: int
     passes_climatology_gate: bool
@@ -121,7 +121,10 @@ def run_fed_baseline_backtest(
         always_hold_brier=always_hold_brier,
         constant_50_brier=brier_score(constant_records),
         brier_skill_vs_climatology=1.0 - model_brier / climate_brier,
-        brier_skill_vs_always_hold=1.0 - model_brier / always_hold_brier,
+        # Always-hold is perfect (Brier 0) when no cut occurred, so the ratio is undefined.
+        brier_skill_vs_always_hold=(
+            1.0 - model_brier / always_hold_brier if always_hold_brier > 0 else None
+        ),
         calibration_ece=expected_calibration_error(model_records, bins=5),
         minimum_sample_required=minimum_sample_required,
         passes_climatology_gate=non_zlb_evaluated >= minimum_sample_required
