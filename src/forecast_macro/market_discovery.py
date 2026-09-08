@@ -26,6 +26,7 @@ class MarketCandidate:
     outcome_token_ids: tuple[str, ...]
     match_basis: str
     requires_review: bool = True
+    close_time_verified: bool = False
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -82,6 +83,7 @@ def kalshi_candidates(payload: dict[str, Any]) -> list[MarketCandidate]:
                 outcome_labels=("yes", "no"),
                 outcome_token_ids=("yes", "no"),
                 match_basis=basis,
+                close_time_verified=True,
             )
         )
     return candidates
@@ -121,7 +123,9 @@ def polymarket_candidates(payload: dict[str, Any]) -> list[MarketCandidate]:
                 venue_event_id=str(market.get("_event_id") or "") or None,
                 title=title,
                 topic=topic,
-                closes_at=_timestamp(market.get("endDate") or market.get("end_date_iso")),
+                # Gamma endDate can encode a wall-clock ET rule as if it were UTC.
+                # Keep it unusable until the natural-language rule is reconciled.
+                closes_at=None,
                 outcome_labels=tuple(str(value) for value in labels),
                 outcome_token_ids=tuple(str(value) for value in tokens),
                 match_basis=basis,
