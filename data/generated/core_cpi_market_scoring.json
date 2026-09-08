@@ -1,0 +1,11 @@
+{
+  "scored_releases": 0,
+  "minimum_sample_required": 30,
+  "model_brier": null,
+  "market_brier": null,
+  "model_skill_vs_market": null,
+  "sample_gate_passed": false,
+  "signal_eligible": false,
+  "signal_eligible_reason": "sample gate not met (D-013 analogue: 30 scored releases)",
+  "records": []
+}
