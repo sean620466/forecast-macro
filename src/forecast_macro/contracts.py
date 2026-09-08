@@ -101,3 +101,71 @@ def normalize_outcome_prices(
     if abs(total - 1.0) > tolerance:
         raise ValueError("outcome prices are too far from a complete market")
     return {outcome: price / total for outcome, price in prices.items()}
+
+
+@dataclass(frozen=True)
+class BucketProbabilities:
+    """D-015 normalization of mutually exclusive YES quotes."""
+
+    probabilities: dict[str, float]
+    lower_bounds: dict[str, float]  # best bid per outcome
+    upper_bounds: dict[str, float]  # best ask per outcome
+    bid_sum: float
+    ask_sum: float
+    mid_sum: float
+
+
+def normalize_bucket_quotes(
+    quotes: dict[str, tuple[float, float]],
+    *,
+    expected_outcomes: tuple[str, ...] | None = None,
+    completeness_tolerance: float = 0.01,
+    max_width: float = 0.35,
+) -> BucketProbabilities:
+    """Turn (bid, ask) pairs for a complete outcome set into probabilities with bounds.
+
+    The market is complete when the bid sum does not exceed 1 and the ask sum is at least 1
+    (within tolerance). The point estimate removes the mid overround from each outcome in
+    proportion to its spread, so wide tail quotes absorb the excess; that keeps every
+    estimate inside its own [bid, ask] and makes the estimates sum to exactly 1 (D-015).
+    """
+    if len(quotes) < 2:
+        raise ValueError("at least two outcome quotes are required")
+    if expected_outcomes is not None and set(quotes) != set(expected_outcomes):
+        raise ValueError("quote outcomes do not match the complete contract")
+    if completeness_tolerance < 0 or max_width <= 0:
+        raise ValueError("tolerance and width must be positive")
+    for outcome, (bid, ask) in quotes.items():
+        if not (math.isfinite(bid) and math.isfinite(ask)) or not 0 <= bid <= ask <= 1:
+            raise ValueError(f"quote for {outcome} must satisfy 0 <= bid <= ask <= 1")
+    bid_sum = sum(bid for bid, _ in quotes.values())
+    ask_sum = sum(ask for _, ask in quotes.values())
+    if bid_sum > 1.0 + completeness_tolerance:
+        raise ValueError("bid sum exceeds 1: outcomes overlap or are not exclusive")
+    if ask_sum < 1.0 - completeness_tolerance:
+        raise ValueError("ask sum is below 1: outcome set is incomplete")
+    if ask_sum - bid_sum > max_width:
+        raise ValueError("quoted range is too wide to price the event")
+
+    mids = {outcome: (bid + ask) / 2.0 for outcome, (bid, ask) in quotes.items()}
+    spreads = {outcome: ask - bid for outcome, (bid, ask) in quotes.items()}
+    mid_sum = sum(mids.values())
+    excess = mid_sum - 1.0
+    spread_total = sum(spreads.values())
+    if spread_total > 0:
+        estimates = {
+            outcome: mids[outcome] - excess * spreads[outcome] / spread_total for outcome in quotes
+        }
+    else:
+        # Zero spreads everywhere: the mids already sum to 1 within tolerance; scale.
+        estimates = {outcome: mids[outcome] / mid_sum for outcome in quotes}
+    for outcome, (bid, ask) in quotes.items():
+        estimates[outcome] = min(max(estimates[outcome], bid), ask)
+    return BucketProbabilities(
+        probabilities=estimates,
+        lower_bounds={outcome: bid for outcome, (bid, _) in quotes.items()},
+        upper_bounds={outcome: ask for outcome, (_, ask) in quotes.items()},
+        bid_sum=bid_sum,
+        ask_sum=ask_sum,
+        mid_sum=mid_sum,
+    )

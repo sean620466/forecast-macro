@@ -4,7 +4,7 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 
-from forecast_macro.contracts import OutcomeQuote, normalize_outcome_prices
+from forecast_macro.contracts import OutcomeQuote, normalize_bucket_quotes
 from forecast_macro.market_discovery import MarketCandidate
 from forecast_macro.market_review import CandidateReview, ReviewStatus
 
@@ -17,6 +17,12 @@ class EventPriceSnapshot:
     probabilities: dict[str, float]
     source_mid_prices: dict[str, float]
     rules_text_hashes: dict[str, str]
+    # D-015: probability bounds from best bid/ask, plus the completeness evidence.
+    lower_bounds: dict[str, float]
+    upper_bounds: dict[str, float]
+    bid_sum: float
+    ask_sum: float
+    mid_sum: float
 
 
 def build_event_price_snapshot(
@@ -43,6 +49,7 @@ def build_event_price_snapshot(
         raise ValueError("venue_event_id is required")
 
     mids: dict[str, float] = {}
+    bid_ask: dict[str, tuple[float, float]] = {}
     hashes: dict[str, str] = {}
     timestamps: list[datetime] = []
     for candidate in candidates:
@@ -65,20 +72,26 @@ def build_event_price_snapshot(
         if not rules_hash:
             raise ValueError("approved contract requires a rules hash")
         mids[candidate.venue_market_id] = quote.mid
+        bid_ask[candidate.venue_market_id] = (quote.bid, quote.ask)
         hashes[candidate.venue_market_id] = rules_hash
         timestamps.append(quote.observed_at)
 
     if max(timestamps) - min(timestamps) > max_timestamp_skew:
         raise ValueError("event orderbooks were not observed at the same time")
-    probabilities = normalize_outcome_prices(
-        mids,
+    normalized = normalize_bucket_quotes(
+        bid_ask,
         expected_outcomes=tuple(candidate.venue_market_id for candidate in candidates),
     )
     return EventPriceSnapshot(
         venue=venue,
         venue_event_id=event_id,
         observed_at=max(timestamps),
-        probabilities=probabilities,
+        probabilities=normalized.probabilities,
         source_mid_prices=mids,
         rules_text_hashes=hashes,
+        lower_bounds=normalized.lower_bounds,
+        upper_bounds=normalized.upper_bounds,
+        bid_sum=normalized.bid_sum,
+        ask_sum=normalized.ask_sum,
+        mid_sum=normalized.mid_sum,
     )

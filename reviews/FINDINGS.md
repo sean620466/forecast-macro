@@ -86,6 +86,13 @@
 
 | ID | 등급 | 요약 | 상태 | 비고 |
 | --- | --- | --- | --- | --- |
-| R8-M1 | Medium | 실업률 9구간 mid 합계 1.14 (overround 14%) → D-010 허용 5% 초과로 스냅샷 거부. bid 합 0.995, ask 합 1.285. 꼬리 구간 스프레드(0.01/0.05)가 mid 합을 부풀림 | open | fail-closed 정상 동작. D-010 재검토 제안: bid합·ask합을 확률 구간 하한·상한으로 기록하고 mid 정규화는 스프레드 가중으로 |
+| R8-M1 | Medium | 실업률 9구간 mid 합계 1.14 (overround 14%) → D-010 허용 5% 초과로 스냅샷 거부. bid 합 0.995, ask 합 1.285. 꼬리 구간 스프레드(0.01/0.05)가 mid 합을 부풀림 | fixed | D-015 (2026-09-08 승인). `normalize_bucket_quotes`: 완전성 `Σbid ≤ 1 ≤ Σask`, 폭 ≤ 0.35, 확률을 `[bid, ask]` 범위와 함께 기록. 실측 첫 스냅샷 성공 |
 | R8-L1 | Low | `fee_schedule_id`가 여전히 `polymarket-current-unknown`. Polymarket은 현재 무수수료 시장이 많으나 계약별 확인 필요 | open | R5-L2와 동일 |
 | R8-L2 | Low | 스냅샷은 워크플로 아티팩트(14일 보관)에만 남음. D-007 baseline 축적을 위해 저장소 또는 외부 저장 필요 | open | 결정 필요: `data/generated/market_prices/`에 커밋 vs 별도 저장 |
+
+## 과제 09 — D-015 정규화 (`reviews/tasks/09-overround-normalization.md`)
+
+| ID | 등급 | 요약 | 상태 | 비고 |
+| --- | --- | --- | --- | --- |
+| R9-L1 | Low | `normalize_outcome_prices`(D-010 mid 규칙)는 코드에 남아 있으나 파이프라인에서 더는 쓰지 않음 | open | 리뷰 3 테스트가 참조. 제거 또는 "legacy" 표시 필요 |
+| R9-L2 | Low | 점추정의 스프레드 비례 배분은 결정으로 고정했으나, 대안(bid 기준, 유동성 가중)과의 비교는 시장 데이터가 쌓인 뒤 가능 | open | 스냅샷에 bid·ask·mid 합을 모두 저장하므로 사후 재계산 가능 |

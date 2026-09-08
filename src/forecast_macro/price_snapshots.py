@@ -23,6 +23,8 @@ class EventPriceRecord:
     outcome_at: str | None
     contracts: dict[str, str]  # venue_market_id -> title
     probabilities: dict[str, float]
+    probability_bounds: dict[str, list[float]]  # venue_market_id -> [bid, ask] (D-015)
+    completeness: dict[str, float]  # bid_sum, ask_sum, mid_sum
     source_mid_prices: dict[str, float]
     quotes: dict[str, dict[str, float | str]]
     rules_text_hashes: dict[str, str]
@@ -139,11 +141,25 @@ def price_event(
         )
     except ValueError as error:
         return EventPriceRecord(
-            **base, probabilities={}, source_mid_prices={}, rejected_reason=str(error)
+            **base,
+            probabilities={},
+            probability_bounds={},
+            completeness={},
+            source_mid_prices={},
+            rejected_reason=str(error),
         )
     return EventPriceRecord(
         **base,
         probabilities=snapshot.probabilities,
+        probability_bounds={
+            market_id: [snapshot.lower_bounds[market_id], snapshot.upper_bounds[market_id]]
+            for market_id in snapshot.probabilities
+        },
+        completeness={
+            "bid_sum": snapshot.bid_sum,
+            "ask_sum": snapshot.ask_sum,
+            "mid_sum": snapshot.mid_sum,
+        },
         source_mid_prices=snapshot.source_mid_prices,
         rejected_reason=None,
     )
