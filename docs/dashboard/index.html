@@ -43,14 +43,14 @@ svg.chart{width:100%;height:auto;display:block} svg.chart text{font-family:"IBM 
 section{margin-bottom:22px} .verdict{background:var(--panel);border-left:4px solid var(--accent);border-radius:6px;padding:14px 16px;margin-bottom:22px} .verdict b{font-size:15px} .verdict p{margin:6px 0 0;color:var(--ink2);font-size:13.5px}
 </style></head><body>
 <div class="wrap">
-<header><h1>Forecast Macro 콘솔</h1><div class="meta">main d7efe5d · 데이터 기준 2026-09-08 18:47 UTC · 자동 생성 (scripts/build_dashboard.py)</div></header>
+<header><h1>Forecast Macro 콘솔</h1><div class="meta">main caee6ab · 데이터 기준 2026-09-08 19:48 UTC · 자동 생성 (scripts/build_dashboard.py)</div></header>
 <div class="verdict"><b>현재 판정: 신호 없음 (설계대로)</b><p>모델과 시장 확률은 매일 기록되지만, 시장보다 낫다는 증거는 아직 0건입니다. 첫 채점은 다음 CPI 발표(9월 11일)·FOMC·고용보고서 이후입니다. 이 화면의 모든 확률은 연구 기록이며 투자 신호가 아닙니다.</p></div>
 <div class="tiles">
 <div class="tile"><div class="k">다음 FOMC</div><div class="v">9월 16일</div><div class="d">현재 상단 3.75% · KXFED-26SEP</div></div>
 <div class="tile"><div class="k">다음 고용보고서</div><div class="v">10월 2일</div><div class="d">최신 실업률 4.1% (2026-08)</div></div>
 <div class="tile"><div class="k">다음 CPI 발표</div><div class="v">9월 11일</div><div class="d">최신 Core CPI YoY 2.5% (2026-07)</div></div>
 <div class="tile"><div class="k">시장 대비 채점</div><div class="v">0 / 30</div><div class="d">D-013 표본 기준까지 남은 회의 수</div></div>
-<div class="tile"><div class="k">검토 장부</div><div class="v">63 해결</div><div class="d">19 미해결 · 4 부분 · 결정 19건</div></div>
+<div class="tile"><div class="k">검토 장부</div><div class="v">65 해결</div><div class="d">18 미해결 · 4 부분 · 결정 19건</div></div>
 </div>
 <div class="grid">
 <div class="panel"><h2>2026-09-16 FOMC: 상단 금리는 어디로</h2><p class="sub">Kalshi 관측 2026-09-08 18:43 UTC · 모델 vintage 2026-09-08</p>
@@ -80,7 +80,7 @@ section{margin-bottom:22px} .verdict{background:var(--panel);border-left:4px sol
 <div class="row"><div class="lbl">2.6%</div><div class="bars"><div class="bar model" style="--v:22.94"><span>모델 22.9%</span></div><div class="bar market" style="--v:1.57;--lo:1.50;--hi:2.70"><i class="rng"></i><span>시장 1.6%</span></div></div></div>
 <div class="row"><div class="lbl">2.7%</div><div class="bars"><div class="bar model" style="--v:5.50"><span>모델 5.5%</span></div><div class="bar market" style="--v:1.13;--lo:1.00;--hi:3.40"><i class="rng"></i><span>시장 1.1%</span></div></div></div>
 <div class="row"><div class="lbl">2.8%</div><div class="bars"><div class="bar model" style="--v:1.83"><span>모델 1.8%</span></div><div class="bar market" style="--v:0.60;--lo:0.50;--hi:2.30"><i class="rng"></i><span>시장 0.6%</span></div></div></div>
-<div class="row"><div class="lbl">≥2.9%</div><div class="bars"><div class="bar model" style="--v:2.75"><span>모델 2.8%</span></div><div class="bar market" style="--v:0.52;--lo:0.50;--hi:0.90"><i class="rng"></i><span>시장 0.5%</span></div></div></div><p class="note">모델은 "최신 YoY + 1990년 이후 YoY 1개월 변화의 경험분포". 기저효과(12개월 전 지수)를 명시적으로 넣지 않은 무조정 baseline (R35-M1). 채점은 발표 당일 첫 공표치 기준.</p></div>
+<div class="row"><div class="lbl">≥2.9%</div><div class="bars"><div class="bar model" style="--v:2.75"><span>모델 2.8%</span></div><div class="bar market" style="--v:0.52;--lo:0.50;--hi:0.90"><i class="rng"></i><span>시장 0.5%</span></div></div></div><p class="note">모델은 "최신 YoY + 1990년 이후 YoY 1개월 변화의 경험분포". 기저효과를 명시한 baseline과의 연구 백테스트(2000–2026, 317개월): Core는 경험분포가 낫고(Brier 0.803 vs 0.841), 헤드라인은 기저효과가 낫다(0.813 vs 0.889). 그래서 헤드라인(Kalshi)만 기저효과 모델을 쓴다. 채점은 발표 당일 첫 공표치 기준.</p></div>
 </div>
 <section><h2>왜 아직 신호가 아닌가</h2><p class="sub">각 게이트는 코드에서 강제됩니다. 하나라도 빨간색이면 화면에 신호가 나가지 않습니다.</p>
 <div class="gates">
@@ -99,7 +99,7 @@ section{margin-bottom:22px} .verdict{background:var(--panel);border-left:4px sol
 <section class="panel"><h2>시장이 보는 금리 경로</h2><p class="sub">Kalshi 사다리를 회의별로 이어 본 것. 막대는 회의 후 상단 금리의 확률분포(<span style="color:var(--cut)">■</span> 현재보다 낮음 · <span style="color:var(--hold)">■</span> 현재 3.75% · <span style="color:var(--hike)">■</span> 높음), 오른쪽은 기대 상단 금리. 모델 없이 시장만 본 값.</p><div class="path"><div><b>2026-12-09</b><br><small style="color:var(--muted)">KXFED-26DEC</small></div><div><div class="dist"><i class="c" style="width:1.49%" title="le_2.75: 1.5%"></i><i class="c" style="width:1.99%" title="3.25: 2.0%"></i><i class="c" style="width:3.98%" title="3.50: 4.0%"></i><i class="h" style="width:13.93%" title="3.75: 13.9%"></i><i class="k" style="width:41.79%" title="4.00: 41.8%"></i><i class="k" style="width:30.35%" title="4.25: 30.3%"></i><i class="k" style="width:5.47%" title="4.50: 5.5%"></i><i class="k" style="width:0.50%" title="5.25: 0.5%"></i><i class="k" style="width:0.50%" title="gt_5.25: 0.5%"></i></div><small style="color:var(--ink2)">인하 7% · 동결 14% · 인상 79%</small></div><div class="n">4.03%</div></div>
 <div class="path"><div><b>2026-10-28</b><br><small style="color:var(--muted)">KXFED-26OCT</small></div><div><div class="dist"><i class="c" style="width:0.50%" title="le_2.75: 0.5%"></i><i class="c" style="width:1.00%" title="3.25: 1.0%"></i><i class="c" style="width:1.99%" title="3.50: 2.0%"></i><i class="h" style="width:33.33%" title="3.75: 33.3%"></i><i class="k" style="width:55.22%" title="4.00: 55.2%"></i><i class="k" style="width:6.97%" title="4.25: 7.0%"></i><i class="k" style="width:1.00%" title="gt_5.25: 1.0%"></i></div><small style="color:var(--ink2)">인하 3% · 동결 33% · 인상 63%</small></div><div class="n">3.93%</div></div>
 <div class="path"><div><b>2026-09-16</b><br><small style="color:var(--muted)">KXFED-26SEP</small></div><div><div class="dist"><i class="c" style="width:0.50%" title="le_2.75: 0.5%"></i><i class="h" style="width:46.00%" title="3.75: 46.0%"></i><i class="k" style="width:52.50%" title="4.00: 52.5%"></i><i class="k" style="width:0.50%" title="4.25: 0.5%"></i><i class="k" style="width:0.50%" title="gt_5.25: 0.5%"></i></div><small style="color:var(--ink2)">인하 1% · 동결 46% · 인상 54%</small></div><div class="n">3.89%</div></div></section>
-<section class="panel"><h2>2026-09-16 FOMC 예측 추이</h2><p class="sub">기록 20건 (첫 기록 2026-09-08). 실선 = 인상 확률, 점선 = 동결 확률. <span style="color:var(--market)">■</span> 시장 · <span style="color:var(--model)">■</span> 모델. 회의일까지 매일 한 점씩 늘어납니다.</p><svg class="chart" viewBox="0 0 560 170" role="img">
+<section class="panel"><h2>2026-09-16 FOMC 예측 추이</h2><p class="sub">기록 21건 (첫 기록 2026-09-08). 실선 = 인상 확률, 점선 = 동결 확률. <span style="color:var(--market)">■</span> 시장 · <span style="color:var(--model)">■</span> 모델. 회의일까지 매일 한 점씩 늘어납니다.</p><svg class="chart" viewBox="0 0 560 170" role="img">
 <line class="grid" x1="42" x2="550" y1="146.0" y2="146.0"/>
 <text x="36" y="149.0" text-anchor="end">0%</text>
 <line class="grid" x1="42" x2="550" y1="112.0" y2="112.0"/>
@@ -111,14 +111,14 @@ section{margin-bottom:22px} .verdict{background:var(--panel);border-left:4px sol
 <line class="grid" x1="42" x2="550" y1="10.0" y2="10.0"/>
 <text x="36" y="13.0" text-anchor="end">100%</text>
 <text x="42.0" y="162" text-anchor="middle">2026-09-08 03:20</text>
-<text x="550.0" y="162" text-anchor="middle">2026-09-08 18:47</text>
-<path d="M42.0,74.6 L68.7,74.6 L95.5,74.6 L122.2,74.6 L148.9,74.6 L175.7,74.6 L202.4,74.6 L229.2,74.6 L255.9,74.6 L282.6,73.2 L309.4,73.2 L336.1,73.2 L362.8,73.2 L389.6,73.2 L416.3,73.2 L443.1,73.2 L469.8,73.2 L496.5,73.2 L523.3,73.2 L550.0,73.2" fill="none" stroke="var(--market)" stroke-width="2"/>
+<text x="550.0" y="162" text-anchor="middle">2026-09-08 19:48</text>
+<path d="M42.0,74.6 L67.4,74.6 L92.8,74.6 L118.2,74.6 L143.6,74.6 L169.0,74.6 L194.4,74.6 L219.8,74.6 L245.2,74.6 L270.6,73.2 L296.0,73.2 L321.4,73.2 L346.8,73.2 L372.2,73.2 L397.6,73.2 L423.0,73.2 L448.4,73.2 L473.8,73.2 L499.2,73.2 L524.6,73.2 L550.0,73.2" fill="none" stroke="var(--market)" stroke-width="2"/>
 <circle cx="550.0" cy="73.2" r="3.5" fill="var(--market)"><title>시장 인상: 54%</title></circle>
-<path d="M42.0,136.4 L68.7,136.4 L95.5,136.4 L122.2,136.4 L148.9,136.4 L175.7,136.4 L202.4,136.4 L229.2,136.4 L255.9,136.4 L282.6,136.4 L309.4,136.4 L336.1,136.4 L362.8,136.4 L389.6,136.4 L416.3,136.4 L443.1,120.7 L469.8,120.7 L496.5,120.7 L523.3,120.7 L550.0,120.7" fill="none" stroke="var(--model)" stroke-width="2"/>
+<path d="M42.0,136.4 L67.4,136.4 L92.8,136.4 L118.2,136.4 L143.6,136.4 L169.0,136.4 L194.4,136.4 L219.8,136.4 L245.2,136.4 L270.6,136.4 L296.0,136.4 L321.4,136.4 L346.8,136.4 L372.2,136.4 L397.6,136.4 L423.0,120.7 L448.4,120.7 L473.8,120.7 L499.2,120.7 L524.6,120.7 L550.0,120.7" fill="none" stroke="var(--model)" stroke-width="2"/>
 <circle cx="550.0" cy="120.7" r="3.5" fill="var(--model)"><title>모델 인상: 19%</title></circle>
-<path d="M42.0,82.1 L68.7,82.1 L95.5,82.1 L122.2,82.1 L148.9,82.1 L175.7,82.1 L202.4,82.1 L229.2,82.1 L255.9,82.1 L282.6,83.4 L309.4,83.4 L336.1,83.4 L362.8,83.4 L389.6,83.4 L416.3,83.4 L443.1,83.4 L469.8,83.4 L496.5,83.4 L523.3,83.4 L550.0,83.4" fill="none" stroke="var(--market)" stroke-width="2" stroke-dasharray="5 4"/>
+<path d="M42.0,82.1 L67.4,82.1 L92.8,82.1 L118.2,82.1 L143.6,82.1 L169.0,82.1 L194.4,82.1 L219.8,82.1 L245.2,82.1 L270.6,83.4 L296.0,83.4 L321.4,83.4 L346.8,83.4 L372.2,83.4 L397.6,83.4 L423.0,83.4 L448.4,83.4 L473.8,83.4 L499.2,83.4 L524.6,83.4 L550.0,83.4" fill="none" stroke="var(--market)" stroke-width="2" stroke-dasharray="5 4"/>
 <circle cx="550.0" cy="83.4" r="3.5" fill="var(--market)"><title>시장 동결: 46%</title></circle>
-<path d="M42.0,40.6 L68.7,40.6 L95.5,40.6 L122.2,40.6 L148.9,40.6 L175.7,40.6 L202.4,40.6 L229.2,40.6 L255.9,40.6 L282.6,40.6 L309.4,40.6 L336.1,40.6 L362.8,40.6 L389.6,40.6 L416.3,40.6 L443.1,51.5 L469.8,51.5 L496.5,51.5 L523.3,51.5 L550.0,51.5" fill="none" stroke="var(--model)" stroke-width="2" stroke-dasharray="5 4"/>
+<path d="M42.0,40.6 L67.4,40.6 L92.8,40.6 L118.2,40.6 L143.6,40.6 L169.0,40.6 L194.4,40.6 L219.8,40.6 L245.2,40.6 L270.6,40.6 L296.0,40.6 L321.4,40.6 L346.8,40.6 L372.2,40.6 L397.6,40.6 L423.0,51.5 L448.4,51.5 L473.8,51.5 L499.2,51.5 L524.6,51.5 L550.0,51.5" fill="none" stroke="var(--model)" stroke-width="2" stroke-dasharray="5 4"/>
 <circle cx="550.0" cy="51.5" r="3.5" fill="var(--model)"><title>모델 동결: 69%</title></circle>
 </svg></section>
 <section class="panel"><h2>다가오는 일정</h2><p class="sub">공식 발표 일정(BLS·연준). 각 날짜에 어떤 채점이 일어나는지.</p><div class="tablewrap"><table><tr><th class="n">날짜</th><th>시각</th><th>발표</th><th>대상</th><th>우리 시스템</th></tr><tr><td class="n">2026-09-11</td><td>08:30 ET</td><td>CPI (소비자물가)</td><td>2026-08</td><td>Core CPI YoY 비교 채점</td></tr>
