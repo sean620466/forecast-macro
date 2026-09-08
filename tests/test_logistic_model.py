@@ -17,3 +17,13 @@ def test_logistic_learns_ordered_signal() -> None:
 def test_logistic_rejects_invalid_shapes() -> None:
     with pytest.raises(ValueError, match="aligned"):
         fit_logistic([(1.0,)], [])
+
+
+def test_default_ridge_does_not_erase_learned_signal() -> None:
+    model = fit_logistic(
+        [(-3.0,), (-2.0,), (-1.0,), (1.0,), (2.0,), (3.0,)],
+        [0, 0, 0, 1, 1, 1],
+    )
+    assert abs(model.coefficients[0]) > 0.5
+    assert model.predict((-2.0,)) < 0.25
+    assert model.predict((2.0,)) > 0.75
