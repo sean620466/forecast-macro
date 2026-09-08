@@ -105,3 +105,11 @@
 | R12-M2 | Medium | Kalshi 규칙의 출처는 URL이 아닌 문구("Federal Reserve's official website")로 기재. 정확 문구 3개만 매핑, 기원 `rules_text_reference`가 아닌 `field`로 기록됨 | open | 기원 라벨을 `rules_text_reference`로 구분해야 감사 시 URL 출처와 구별 가능 |
 | R12-L1 | Low | KXFEDFUNDSYEAR(연말 금리), KXEFFR(실효금리) 이벤트는 구조는 통과했으나 발표 일정이 없어 `close_time` 미검증 | open | 연말 계약은 12월 FOMC로 매핑 가능, EFFR은 NY Fed 일별 게시라 별도 규칙 필요 |
 | R12-L2 | Low | 봇이 커밋하던 `macro_market_review_latest.json`이 38,960줄 | fixed | 같은 브랜치: 요약과 승인 행만 커밋 |
+
+## 과제 13 — 실시간 모델 vs 시장 기록 (`reviews/2026-09-08-task-13-response.md`)
+
+| ID | 등급 | 요약 | 상태 | 비고 |
+| --- | --- | --- | --- | --- |
+| R13-M1 | Medium | 실시간 비교의 모델 확률은 2019–2024 전체로 학습한 로지스틱 + 휴리스틱. D-013(비-ZLB 30건) 미충족 상태의 모델이므로 기록 전용 | open | `signal_eligible=false`, 이유 필드 기록. 회의가 지나면 결과 라벨을 붙여 시장 대비 Brier를 누적하는 평가 스크립트가 다음 과제 |
+| R13-M2 | Medium | 실시간 특징의 vintage는 "오늘"이며 발표 시각(08:30 ET)과 워크플로 실행 시각(13:40 UTC = 09:40 ET) 사이 관계는 ALFRED `realtime_start`에 의존 | open | 발표 당일 ALFRED 반영 지연이 있으면 전날 값이 잡힘. 기록에 vintage 날짜가 남으므로 사후 검증 가능 |
+| R13-L1 | Low | 시장 P(cut)은 최신 **가격 성공** 스냅샷에서 읽음. 스냅샷이 6시간 주기라 모델 계산 시각과 최대 6시간 차이 | open | 비교 기록에 `market.observed_at`과 `source_file` 보존 |

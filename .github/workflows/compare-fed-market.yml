@@ -1,0 +1,46 @@
+name: Compare Fed model with market
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "40 13 * * 1-5"  # weekdays after the 08:30 ET releases have settled
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/compare-fed-market.yml"
+      - "scripts/compare_fed_market.py"
+      - "src/forecast_macro/live_comparison.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: compare-fed-market
+  cancel-in-progress: false
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e .
+      - name: Record model vs market for the next FOMC decision
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: python scripts/compare_fed_market.py
+      - name: Persist comparison in the repository
+        run: |
+          git config user.name "forecast-macro-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/generated/fed_market_comparisons
+          if git diff --cached --quiet; then
+            echo "no new comparison"
+            exit 0
+          fi
+          git commit -m "Record Fed model vs market comparison $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          git pull --rebase origin main
+          git push origin HEAD:main

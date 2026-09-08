@@ -52,6 +52,24 @@ def build_historical_snapshot(
 ) -> HistoricalFeatureSnapshot:
     # A prior-calendar-day cutoff avoids ambiguous same-day release timestamps.
     vintage_date = meeting.meeting_at.date() - timedelta(days=1)
+    return build_feature_snapshot(
+        client, meeting_date=meeting.meeting_at.date(), vintage_date=vintage_date
+    )
+
+
+def build_feature_snapshot(
+    client: AlfredClient,
+    *,
+    meeting_date: date,
+    vintage_date: date,
+) -> HistoricalFeatureSnapshot:
+    """Point-in-time features for a meeting as they were visible on vintage_date.
+
+    Used both for the historical backtest (vintage = day before the meeting) and for the live
+    comparison (vintage = today, meeting = next scheduled decision).
+    """
+    if vintage_date >= meeting_date:
+        raise ValueError("vintage_date must precede the meeting date")
     start = date(vintage_date.year - 2, 1, 1)
     series = {
         series_id: client.observations_as_of(
@@ -67,7 +85,7 @@ def build_historical_snapshot(
     unemployment = _monthly_tail(series["UNRATE"], on_or_before=vintage_date, count=4)
     policy_rate = _latest(series["DFEDTARU"], on_or_before=vintage_date)
     return HistoricalFeatureSnapshot(
-        meeting_date=meeting.meeting_at.date().isoformat(),
+        meeting_date=meeting_date.isoformat(),
         vintage_date=vintage_date.isoformat(),
         cpi_yoy_nsa=percent_change(cpi[-1].value, cpi[0].value),
         unemployment_rate=unemployment[-1].value,
