@@ -39,6 +39,27 @@ def parse_polymarket_orderbook(
     )
 
 
+def _clob_timestamp(value: object) -> datetime:
+    raw = float(value)
+    if raw > 10_000_000_000:
+        raw /= 1000
+    return datetime.fromtimestamp(raw, tz=UTC)
+
+
+def parse_polymarket_orderbooks(payload: list[dict[str, Any]]) -> dict[str, OutcomeQuote]:
+    quotes: dict[str, OutcomeQuote] = {}
+    for book in payload:
+        token_id = str(book.get("asset_id") or "")
+        if not token_id or token_id in quotes:
+            raise ValueError("each Polymarket orderbook requires a unique asset_id")
+        quotes[token_id] = parse_polymarket_orderbook(
+            book,
+            token_id=token_id,
+            observed_at=_clob_timestamp(book["timestamp"]),
+        )
+    return quotes
+
+
 class PolymarketPublicClient:
     def __init__(self, *, timeout: float = 15.0) -> None:
         self.timeout = timeout
@@ -53,6 +74,17 @@ class PolymarketPublicClient:
         return parse_polymarket_orderbook(
             response.json(), token_id=token_id, observed_at=datetime.now(UTC)
         )
+
+    def orderbooks(self, token_ids: list[str]) -> dict[str, OutcomeQuote]:
+        if not token_ids:
+            raise ValueError("at least one token id is required")
+        response = httpx.post(
+            f"{POLYMARKET_CLOB_URL}/books",
+            json=[{"token_id": token_id} for token_id in token_ids],
+            timeout=self.timeout,
+        )
+        response.raise_for_status()
+        return parse_polymarket_orderbooks(response.json())
 
     def search_macro_markets(self, query: str) -> list[MarketCandidate]:
         response = httpx.get(
