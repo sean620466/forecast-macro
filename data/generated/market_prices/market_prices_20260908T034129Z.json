@@ -1,0 +1,264 @@
+[
+  {
+    "venue": "polymarket",
+    "venue_event_id": "964993",
+    "topic": "unemployment",
+    "observed_at": "2026-09-08T03:41:29.028033+00:00",
+    "outcome_at": "2026-10-02T08:30:00-04:00",
+    "contracts": {
+      "4217154": "Will the September 2026 unemployment rate be 3.9%?",
+      "4217155": "Will the September 2026 unemployment rate be 4.0%?",
+      "4217156": "Will the September 2026 unemployment rate be 4.1%?",
+      "4217157": "Will the September 2026 unemployment rate be 4.2%?",
+      "4217158": "Will the September 2026 unemployment rate be 4.3%?",
+      "4217159": "Will the September 2026 unemployment rate be 4.4%?",
+      "4217160": "Will the September 2026 unemployment rate be 4.5%?",
+      "4217153": "Will the September 2026 unemployment rate be \u22643.8%?",
+      "4217161": "Will the September 2026 unemployment rate be \u22654.6%?"
+    },
+    "probabilities": {
+      "4217154": 0.021206896551724114,
+      "4217155": 0.1709655172413793,
+      "4217156": 0.34048275862068966,
+      "4217157": 0.2804827586206897,
+      "4217158": 0.11024137931034482,
+      "4217159": 0.03096551724137929,
+      "4217160": 0.010893103448275841,
+      "4217153": 0.022868965517241355,
+      "4217161": 0.011893103448275839
+    },
+    "probability_bounds": {
+      "4217154": [
+        0.02,
+        0.07
+      ],
+      "4217155": [
+        0.17,
+        0.21
+      ],
+      "4217156": [
+        0.34,
+        0.36
+      ],
+      "4217157": [
+        0.28,
+        0.3
+      ],
+      "4217158": [
+        0.11,
+        0.12
+      ],
+      "4217159": [
+        0.03,
+        0.07
+      ],
+      "4217160": [
+        0.01,
+        0.047
+      ],
+      "4217153": [
+        0.022,
+        0.058
+      ],
+      "4217161": [
+        0.011,
+        0.048
+      ]
+    },
+    "completeness": {
+      "bid_sum": 0.9930000000000001,
+      "ask_sum": 1.2830000000000001,
+      "mid_sum": 1.1380000000000001
+    },
+    "source_mid_prices": {
+      "4217154": 0.045000000000000005,
+      "4217155": 0.19,
+      "4217156": 0.35,
+      "4217157": 0.29000000000000004,
+      "4217158": 0.11499999999999999,
+      "4217159": 0.05,
+      "4217160": 0.0285,
+      "4217153": 0.04,
+      "4217161": 0.0295
+    },
+    "quotes": {
+      "4217154": {
+        "token_id": "34632528860756816786880366661299884114276684590214060905019302027756330833664",
+        "bid": 0.02,
+        "ask": 0.07,
+        "mid": 0.045000000000000005,
+        "bid_size": 243.01,
+        "ask_size": 164.51,
+        "tick_size": 0.01,
+        "fees": {
+          "fee_schedule_id": "polymarket-economics",
+          "known": true,
+          "verified": true,
+          "taker_fee_at_ask": 0.003255,
+          "break_even_probability": 0.073255,
+          "source_url": "https://docs.polymarket.com/polymarket-learn/trading/fees"
+        }
+      },
+      "4217155": {
+        "token_id": "6692889365855285522836212368286492316203881023950252157662557189506696893387",
+        "bid": 0.17,
+        "ask": 0.21,
+        "mid": 0.19,
+        "bid_size": 20.0,
+        "ask_size": 20.0,
+        "tick_size": 0.01,
+        "fees": {
+          "fee_schedule_id": "polymarket-economics",
+          "known": true,
+          "verified": true,
+          "taker_fee_at_ask": 0.008295,
+          "break_even_probability": 0.218295,
+          "source_url": "https://docs.polymarket.com/polymarket-learn/trading/fees"
+        }
+      },
+      "4217156": {
+        "token_id": "3130435767803780616169748133393995783118140774302750614179447460004673317476",
+        "bid": 0.34,
+        "ask": 0.36,
+        "mid": 0.35,
+        "bid_size": 186.99,
+        "ask_size": 18.0,
+        "tick_size": 0.01,
+        "fees": {
+          "fee_schedule_id": "polymarket-economics",
+          "known": true,
+          "verified": true,
+          "taker_fee_at_ask": 0.011519999999999999,
+          "break_even_probability": 0.37151999999999996,
+          "source_url": "https://docs.polymarket.com/polymarket-learn/trading/fees"
+        }
+      },
+      "4217157": {
+        "token_id": "75255408388690499895865140816190828881833032241788035292798015680567808215352",
+        "bid": 0.28,
+        "ask": 0.3,
+        "mid": 0.29000000000000004,
+        "bid_size": 80.0,
+        "ask_size": 53.63,
+        "tick_size": 0.01,
+        "fees": {
+          "fee_schedule_id": "polymarket-economics",
+          "known": true,
+          "verified": true,
+          "taker_fee_at_ask": 0.010499999999999999,
+          "break_even_probability": 0.3105,
+          "source_url": "https://docs.polymarket.com/polymarket-learn/trading/fees"
+        }
+      },
+      "4217158": {
+        "token_id": "68447120348760100901752962629024743844260160756878150016880543098743228803187",
+        "bid": 0.11,
+        "ask": 0.12,
+        "mid": 0.11499999999999999,
+        "bid_size": 20.0,
+        "ask_size": 146.75,
+        "tick_size": 0.01,
+        "fees": {
+          "fee_schedule_id": "polymarket-economics",
+          "known": true,
+          "verified": true,
+          "taker_fee_at_ask": 0.00528,
+          "break_even_probability": 0.12528,
+          "source_url": "https://docs.polymarket.com/polymarket-learn/trading/fees"
+        }
+      },
+      "4217159": {
+        "token_id": "48305848321724002665035198710350436273640695938274138403698133540350745396745",
+        "bid": 0.03,
+        "ask": 0.07,
+        "mid": 0.05,
+        "bid_size": 5.0,
+        "ask_size": 52.0,
+        "tick_size": 0.01,
+        "fees": {
+          "fee_schedule_id": "polymarket-economics",
+          "known": true,
+          "verified": true,
+          "taker_fee_at_ask": 0.003255,
+          "break_even_probability": 0.073255,
+          "source_url": "https://docs.polymarket.com/polymarket-learn/trading/fees"
+        }
+      },
+      "4217160": {
+        "token_id": "6126502480733743953881186716194488121215139030131533176169781600254519131213",
+        "bid": 0.01,
+        "ask": 0.047,
+        "mid": 0.0285,
+        "bid_size": 8.0,
+        "ask_size": 27.35,
+        "tick_size": 0.001,
+        "fees": {
+          "fee_schedule_id": "polymarket-economics",
+          "known": true,
+          "verified": true,
+          "taker_fee_at_ask": 0.00223955,
+          "break_even_probability": 0.04923955,
+          "source_url": "https://docs.polymarket.com/polymarket-learn/trading/fees"
+        }
+      },
+      "4217153": {
+        "token_id": "2125882592832183320724694568276599452225589851799304770116419832059881056637",
+        "bid": 0.022,
+        "ask": 0.058,
+        "mid": 0.04,
+        "bid_size": 45.46,
+        "ask_size": 10.0,
+        "tick_size": 0.001,
+        "fees": {
+          "fee_schedule_id": "polymarket-economics",
+          "known": true,
+          "verified": true,
+          "taker_fee_at_ask": 0.0027318,
+          "break_even_probability": 0.0607318,
+          "source_url": "https://docs.polymarket.com/polymarket-learn/trading/fees"
+        }
+      },
+      "4217161": {
+        "token_id": "201906131097362155576721764851134341848607432714590457881359523945090214643",
+        "bid": 0.011,
+        "ask": 0.048,
+        "mid": 0.0295,
+        "bid_size": 20.0,
+        "ask_size": 153.24,
+        "tick_size": 0.001,
+        "fees": {
+          "fee_schedule_id": "polymarket-economics",
+          "known": true,
+          "verified": true,
+          "taker_fee_at_ask": 0.0022848,
+          "break_even_probability": 0.050284800000000004,
+          "source_url": "https://docs.polymarket.com/polymarket-learn/trading/fees"
+        }
+      }
+    },
+    "rules_text_hashes": {
+      "4217154": "sha256:ed68ae7db2316e9c3daee290495a75b518218c1a4647a588757c32ae1fedf234",
+      "4217155": "sha256:29770e23811418f47b5918151498ae4b3941baa68b25def91361c00bbe595de0",
+      "4217156": "sha256:63a64c3992053a7eae20973d27c874e4e4cfa60c5dd85d7cb191b2745e24fa97",
+      "4217157": "sha256:3fcbe9a83ed94f0bb3b04d62aeeab1292de38bc6eee614a3f9d6147b3db57ed4",
+      "4217158": "sha256:f35485aac9696f0351fa9cd35b6bb3d6fe54de498706a0a07a29a9cbf72e0084",
+      "4217159": "sha256:dc62cbe23b9b4060e4546825215637aa182edea2f7f42e169336b8ccfe86f217",
+      "4217160": "sha256:b2b0985ec0404e597ac117537842c883b41a4ac88060c47be9854b65191542cb",
+      "4217153": "sha256:ae2c1f3155c2c759023b92e98ccbc989ad99b390925b3ba21a9b41458be0cdc7",
+      "4217161": "sha256:6d7e6980f87ddbdbde9af6eb008bd12785b71ca70d4890b18cdada7d4d0dc1dc"
+    },
+    "book_updated_at": {
+      "4217154": "2026-09-08T03:36:45.695000+00:00",
+      "4217155": "2026-09-08T03:41:22.245000+00:00",
+      "4217156": "2026-09-08T03:41:17.725000+00:00",
+      "4217157": "2026-09-08T03:40:46.046000+00:00",
+      "4217158": "2026-09-08T03:39:52.891000+00:00",
+      "4217159": "2026-09-08T03:39:52.894000+00:00",
+      "4217160": "2026-09-08T03:40:57.056000+00:00",
+      "4217153": "2026-09-08T03:40:57.053000+00:00",
+      "4217161": "2026-09-08T03:40:57.311000+00:00"
+    },
+    "rejected_reason": null,
+    "signal_eligible": false
+  }
+]
