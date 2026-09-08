@@ -35,7 +35,7 @@
 | R4-M4 | Medium | forecast cutoff = 시장 관측시각 정렬 규칙 | fixed | D-017 (2026-09-08 승인). 실시간 기록에 `same_day_release`(일정표 기준), 스냅샷에 다음 발표일 조회 기반 플래그, 채점에 clean 부분집합·같은 날 발표 집계 |
 | R4-L1 | Low | CSV `source`를 결정별 보도자료 URL로 | fixed | claude/task-10: 49행 전부 교체(HTTP 200 확인), 로더가 패턴 강제 |
 | R4-L2 | Low | scheduled 스코프 연속성 검증 | fixed | claude/task-10: `validate_continuity`, 스크립트는 `--allow-rate-gaps` 없이는 거부 |
-| R4-L3 | Low | `forecast_at` 인위적 시각 문서화 | open | R5-M5와 연결 |
+| R4-L3 | Low | `forecast_at` 인위적 시각 문서화 | fixed | 과제 44: `docs/WALK_FORWARD_MODEL.md`에 `forecast_at`(vintage 날짜 23:59 UTC, 누출 검사용 인위적 시각) 문서화 |
 | R4-L4 | Low | 테스트 공백(ZLB, JSON 회귀, 확률 0/1 금지, 연속성) | fixed | claude/task-10: all/window JSON 회귀, 연속성, 출처 패턴 테스트 |
 
 ## 리뷰 5 — 워크포워드 모델·시장 파이프라인 (`2026-09-07-walk-forward-market-pipeline-claude-review-5.md`)
@@ -79,7 +79,7 @@
 | ID | 등급 | 요약 | 상태 | 비고 |
 | --- | --- | --- | --- | --- |
 | R7-H1 | High | `verify_market_rules.py`/`review_macro_markets.py`가 `signal_eligible = approved > 0`으로 기록. 계약 승인과 D-007 신호 자격을 혼동 | fixed | 같은 브랜치. `approved_contracts` 카운트로 분리, `signal_eligible`은 항상 `false` + 이유 |
-| R7-M1 | Medium | BLS가 스크립트 요청(HTML·ICS 모두)을 403으로 거부해 일정 자동 갱신 불가 | partial | 브라우저로 읽어 CSV에 수동 전사, 절차는 `docs/RELEASE_SCHEDULE.md`. 2027 FOMC 8회 추가(잠정). 자동 갱신은 미해결 |
+| R7-M1 | Medium | BLS가 스크립트 요청(HTML·ICS 모두)을 403으로 거부해 일정 자동 갱신 불가 | partial | 브라우저로 읽어 CSV에 수동 전사(`docs/RELEASE_SCHEDULE.md`). 과제 44: 매일 워크플로 첫 단계가 시리즈별 남은 일정 45일 미만이면 실패해 이슈로 알림. 자동 수집은 여전히 불가 |
 | R7-M2 | Medium | Polymarket `endDate`가 ET 벽시계인지 UTC인지 확정 불가. 현재는 "발표 이전이면 그대로 채택"(보수적) | fixed | D-014(과제 22): 결과 확정 시각을 거래소 `endDate`가 아니라 공식 발표 일정에서 생성. 거래소 값은 `venue_close_raw`로 기록만 |
 
 ## 과제 08 — 가격 스냅샷 (`reviews/tasks/08-price-snapshots.md`)

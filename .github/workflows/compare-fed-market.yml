@@ -25,6 +25,8 @@ on:
       - "src/forecast_macro/snapshots.py"
       - "src/forecast_macro/data/alfred.py"
       - "scripts/scoring_alerts.py"
+      - "scripts/check_release_schedule.py"
+      - "data/release_schedule.csv"
       - "src/forecast_macro/alerts.py"
 
 permissions:
@@ -45,6 +47,8 @@ jobs:
           python-version: "3.11"
           cache: pip
       - run: pip install -e .
+      - name: Check that the transcribed release calendar reaches 45 days ahead (R7-M1)
+        run: python scripts/check_release_schedule.py
       - name: Record model vs market for the next FOMC decision
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}

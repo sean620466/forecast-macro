@@ -8,6 +8,15 @@ For every prediction, scaling and coefficients are fitted again using only earli
 decisions. No future observation or outcome enters training. The information cutoff is the
 end of the prior-day ALFRED vintage, the same rule `fed_backtest` uses.
 
+## The `forecast_at` timestamp
+
+Every forecast record carries `forecast_at` = 23:59 UTC on the vintage date (the day before
+the meeting). It is not a real observation time: ALFRED vintages are daily, so the exact
+moment a value became available inside that day is unknown. The timestamp exists only so the
+leakage checks in `fed_backtest`/`fed_model_comparison` can assert `forecast_at <
+meeting_at` with the same rule the backtest uses (R4-L3). Live comparison records store the
+actual model run time (`as_of`) and the market observation time separately (D-017).
+
 ## Scheduled-meeting result
 
 | Metric | All 39 | Non-ZLB 23 |

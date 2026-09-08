@@ -13,6 +13,8 @@
 ## 갱신 절차
 
 BLS는 스크립트 요청(HTML, ICS 모두)에 403을 돌려준다. 자동 수집은 하지 않는다.
+대신 매일 비교 워크플로의 첫 단계 `scripts/check_release_schedule.py`가 시리즈별(cpi, employment_situation, fomc)로
+남은 일정이 45일 미만이면 실패하고, 실패는 `workflow-failure` 이슈로 알린다(과제 44). 그때 다음 달들을 전사한다.
 
 1. 브라우저로 위 페이지를 연다.
 2. 표의 행을 CSV에 추가한다. `timezone`은 항상 `America/New_York`, `fetched_at`은 읽은 시각(UTC ISO).
