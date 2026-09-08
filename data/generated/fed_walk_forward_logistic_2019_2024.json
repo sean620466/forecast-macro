@@ -17,5 +17,10 @@
   "minimum_sample_required": 30,
   "climatology_gate_passed": false,
   "market_baseline_available": false,
-  "signal_eligible": false
+  "signal_eligible": false,
+  "three_way_brier": 0.34351063948574134,
+  "three_way_climatology_brier": 0.5557810585578704,
+  "hold_brier": 0.16133025346192936,
+  "hike_brier": 0.11438964722056963,
+  "actual_hikes": 11
 }

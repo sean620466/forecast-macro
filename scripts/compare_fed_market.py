@@ -14,7 +14,7 @@ from forecast_macro.live_comparison import (
     kalshi_event_ticker,
     latest_ladder_record,
     market_cut_probability,
-    model_cut_probabilities,
+    model_three_way_probabilities,
     next_scheduled_meeting,
 )
 from forecast_macro.release_schedule import load_release_schedule
@@ -25,11 +25,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description="Record today's model cut probability next to the market's (no signals)"
     )
-    parser.add_argument("--meetings", type=Path, default=Path("data/fomc_meetings_2019_2024.csv"))
+    parser.add_argument("--meetings", type=Path, default=Path("data/fomc_meetings_2019_2026.csv"))
     parser.add_argument(
         "--training-snapshots",
         type=Path,
-        default=Path("data/generated/fomc_feature_snapshots_2019_2024.json"),
+        default=Path("data/generated/fomc_feature_snapshots_2019_2026.json"),
     )
     parser.add_argument("--price-snapshots", type=Path, default=Path("data/generated/market_prices"))
     parser.add_argument("--output-dir", type=Path, default=Path("data/generated/fed_market_comparisons"))
@@ -53,7 +53,10 @@ def main() -> None:
 
     training = scheduled_meetings(load_fomc_history(args.meetings))
     training_snapshots = json.loads(args.training_snapshots.read_text(encoding="utf-8"))
-    heuristic, logistic = model_cut_probabilities(snapshot, training, training_snapshots)
+    heuristic_vector, logistic_vector = model_three_way_probabilities(
+        snapshot, training, training_snapshots
+    )
+    heuristic, logistic = heuristic_vector["cut"], logistic_vector["cut"]
 
     market = None
     found = latest_ladder_record(args.price_snapshots, event_ticker=kalshi_event_ticker(meeting.release_at.date()))
@@ -69,6 +72,8 @@ def main() -> None:
         logistic_cut=logistic,
         training_size=len(training),
         market=market,
+        heuristic_three_way=heuristic_vector,
+        logistic_three_way=logistic_vector,
     )
     args.output_dir.mkdir(parents=True, exist_ok=True)
     output = args.output_dir / f"fed_comparison_{as_of.strftime('%Y%m%dT%H%M%SZ')}.json"

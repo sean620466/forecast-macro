@@ -7,8 +7,13 @@ from datetime import UTC, datetime, time
 from forecast_macro.datasets import HistoricalFomcRow
 from forecast_macro.evaluation import ForecastRecord, brier_score, expected_calibration_error
 from forecast_macro.fomc import RateDecision
-from forecast_macro.models.fed import ZLB_UPPER_BOUND, apply_cut_feasibility
-from forecast_macro.models.logistic import fit_logistic
+from forecast_macro.models.fed import (
+    PROBABILITY_EPSILON,
+    ZLB_UPPER_BOUND,
+    apply_cut_feasibility,
+    split_remainder,
+)
+from forecast_macro.models.logistic import LogisticModel, fit_logistic
 
 
 @dataclass(frozen=True)
@@ -37,6 +42,12 @@ class WalkForwardReport:
     climatology_gate_passed: bool
     market_baseline_available: bool
     signal_eligible: bool
+    # D-016 three-way metrics (cut component identical to the binary metrics above).
+    three_way_brier: float = 0.0
+    three_way_climatology_brier: float = 0.0
+    hold_brier: float = 0.0
+    hike_brier: float = 0.0
+    actual_hikes: int = 0
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -49,6 +60,28 @@ def _features(snapshot: dict[str, object]) -> tuple[float, ...]:
         float(snapshot["unemployment_change_3m"]),
         float(snapshot["policy_rate_upper"]),
     )
+
+
+def fit_hike_given_no_cut(
+    training: list[HistoricalFomcRow], training_snapshots: list[dict[str, object]]
+) -> LogisticModel | None:
+    """Hike-vs-hold model fitted on the meetings that were not cuts (D-016, stage one)."""
+    by_date = {str(row["meeting_date"]): row for row in training_snapshots}
+    rows = [row for row in training if row.decision is not RateDecision.CUT]
+    if len(rows) < 4:
+        return None
+    return fit_logistic(
+        [_features(by_date[row.meeting_at.date().isoformat()]) for row in rows],
+        [int(row.decision is RateDecision.HIKE) for row in rows],
+    )
+
+
+def hike_probability_given_no_cut(
+    model: LogisticModel | None, features: tuple[float, ...]
+) -> float:
+    if model is None:
+        return PROBABILITY_EPSILON
+    return min(max(model.predict(features), PROBABILITY_EPSILON), 1.0 - PROBABILITY_EPSILON)
 
 
 def _skill(model: float, baseline: float) -> float | None:
@@ -95,6 +128,11 @@ def run_walk_forward_logistic(
     always_hold_records: list[ForecastRecord] = []
     intercept_records: list[ForecastRecord] = []
     zlb_flags: list[bool] = []
+    three_way_errors: list[float] = []
+    three_way_baseline_errors: list[float] = []
+    hold_errors: list[float] = []
+    hike_errors: list[float] = []
+    actual_hikes = 0
     for index in range(warmup, len(meetings)):
         training = meetings[:index]
         training_snapshots = [by_date[row.meeting_at.date().isoformat()] for row in training]
@@ -102,16 +140,36 @@ def run_walk_forward_logistic(
             [_features(snapshot) for snapshot in training_snapshots],
             [int(row.decision is RateDecision.CUT) for row in training],
         )
+        hike_model = fit_hike_given_no_cut(training, training_snapshots)
         meeting = meetings[index]
         snapshot = by_date[meeting.meeting_at.date().isoformat()]
         policy_rate = float(snapshot["policy_rate_upper"])
         probability = apply_cut_feasibility(
             model.predict(_features(snapshot)), policy_rate=policy_rate
         )
+        _, hold_probability, hike_probability = split_remainder(
+            probability, hike_probability_given_no_cut(hike_model, _features(snapshot))
+        )
         intercept_only = apply_cut_feasibility(_sigmoid(model.intercept), policy_rate=policy_rate)
         outcome = int(meeting.decision is RateDecision.CUT)
+        is_hike = int(meeting.decision is RateDecision.HIKE)
+        is_hold = int(meeting.decision is RateDecision.HOLD)
+        actual_hikes += is_hike
         prior_cuts = sum(row.decision is RateDecision.CUT for row in training)
+        prior_hikes = sum(row.decision is RateDecision.HIKE for row in training)
         baseline = (prior_cuts + 1) / (len(training) + 2)
+        baseline_hike = (prior_hikes + 1) / (len(training) + 3)
+        baseline_hold = max(0.0, 1.0 - baseline - baseline_hike)
+        three_way_errors.append(
+            (probability - outcome) ** 2
+            + (hold_probability - is_hold) ** 2
+            + (hike_probability - is_hike) ** 2
+        )
+        three_way_baseline_errors.append(
+            (baseline - outcome) ** 2 + (baseline_hold - is_hold) ** 2 + (baseline_hike - is_hike) ** 2
+        )
+        hold_errors.append((hold_probability - is_hold) ** 2)
+        hike_errors.append((hike_probability - is_hike) ** 2)
         # Same information cutoff as fed_backtest: end of the prior-day vintage.
         forecast_at = datetime.combine(
             datetime.fromisoformat(str(snapshot["vintage_date"])).date(),
@@ -169,4 +227,9 @@ def run_walk_forward_logistic(
         market_baseline_available=False,
         # D-007 requires positive out-of-sample skill against market prices.
         signal_eligible=False,
+        three_way_brier=sum(three_way_errors) / len(model_records),
+        three_way_climatology_brier=sum(three_way_baseline_errors) / len(model_records),
+        hold_brier=sum(hold_errors) / len(model_records),
+        hike_brier=sum(hike_errors) / len(model_records),
+        actual_hikes=actual_hikes,
     )

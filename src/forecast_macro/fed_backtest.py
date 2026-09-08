@@ -6,7 +6,7 @@ from datetime import UTC, datetime, time
 from forecast_macro.datasets import HistoricalFomcRow
 from forecast_macro.evaluation import ForecastRecord, brier_score, expected_calibration_error
 from forecast_macro.fomc import RateDecision
-from forecast_macro.models.fed import rate_cut_probability
+from forecast_macro.models.fed import rate_decision_probabilities
 
 
 @dataclass(frozen=True)
@@ -16,6 +16,10 @@ class FedBacktestPrediction:
     baseline_probability_cut: float
     actual_cut: int
     squared_error: float
+    # D-016 three-way view; probability_cut equals probability_hold + probability_hike's complement.
+    probability_hold: float = 0.0
+    probability_hike: float = 0.0
+    actual_decision: str = ""
 
 
 @dataclass(frozen=True)
@@ -37,6 +41,12 @@ class FedBacktestReport:
     market_baseline_available: bool
     signal_eligible: bool
     predictions: list[FedBacktestPrediction]
+    # D-016: three-way Brier = sum over cut/hold/hike of squared error, averaged over meetings.
+    three_way_brier: float = 0.0
+    three_way_climatology_brier: float = 0.0
+    hold_brier: float = 0.0
+    hike_brier: float = 0.0
+    actual_hikes: int = 0
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -64,22 +74,46 @@ def run_fed_baseline_backtest(
     constant_records: list[ForecastRecord] = []
     always_hold_records: list[ForecastRecord] = []
     prior_cuts = sum(row.decision is RateDecision.CUT for row in meetings[:warmup])
+    prior_hikes = sum(row.decision is RateDecision.HIKE for row in meetings[:warmup])
+    three_way_errors: list[float] = []
+    three_way_baseline_errors: list[float] = []
+    hold_errors: list[float] = []
+    hike_errors: list[float] = []
 
     for index, meeting in enumerate(meetings[warmup:], start=warmup):
         snapshot = by_date[meeting.meeting_at.date().isoformat()]
         policy_rate = float(snapshot["policy_rate_upper"])
         if abs(policy_rate - meeting.upper_before) > 1e-9:
             raise ValueError(f"policy-rate snapshot mismatch for {meeting.meeting_at.date()}")
-        estimates = rate_cut_probability(
-            inflation_yoy=float(snapshot["cpi_yoy_nsa"]),
-            unemployment_rate=float(snapshot["unemployment_rate"]),
-            unemployment_change_3m=float(snapshot["unemployment_change_3m"]),
-            policy_rate=policy_rate,
-        )
-        probability = next(item.probability for item in estimates if item.outcome == "cut")
+        estimates = {
+            item.outcome: item.probability
+            for item in rate_decision_probabilities(
+                inflation_yoy=float(snapshot["cpi_yoy_nsa"]),
+                unemployment_rate=float(snapshot["unemployment_rate"]),
+                unemployment_change_3m=float(snapshot["unemployment_change_3m"]),
+                policy_rate=policy_rate,
+            )
+        }
+        probability = estimates["cut"]
         outcome = int(meeting.decision is RateDecision.CUT)
+        is_hike = int(meeting.decision is RateDecision.HIKE)
+        is_hold = int(meeting.decision is RateDecision.HOLD)
         # Laplace smoothing prevents a zero baseline before the first historical cut.
         baseline_probability = (prior_cuts + 1) / (index + 2)
+        baseline_hike = (prior_hikes + 1) / (index + 3)
+        baseline_hold = max(0.0, 1.0 - baseline_probability - baseline_hike)
+        three_way_errors.append(
+            (probability - outcome) ** 2
+            + (estimates["hold"] - is_hold) ** 2
+            + (estimates["hike"] - is_hike) ** 2
+        )
+        three_way_baseline_errors.append(
+            (baseline_probability - outcome) ** 2
+            + (baseline_hold - is_hold) ** 2
+            + (baseline_hike - is_hike) ** 2
+        )
+        hold_errors.append((estimates["hold"] - is_hold) ** 2)
+        hike_errors.append((estimates["hike"] - is_hike) ** 2)
         forecast_at = datetime.combine(
             datetime.fromisoformat(str(snapshot["vintage_date"])).date(),
             time(23, 59),
@@ -98,9 +132,13 @@ def run_fed_baseline_backtest(
                 baseline_probability_cut=baseline_probability,
                 actual_cut=outcome,
                 squared_error=(probability - outcome) ** 2,
+                probability_hold=estimates["hold"],
+                probability_hike=estimates["hike"],
+                actual_decision=meeting.decision.value,
             )
         )
         prior_cuts += outcome
+        prior_hikes += is_hike
 
     model_brier = brier_score(model_records)
     climate_brier = brier_score(climatology_records)
@@ -132,4 +170,9 @@ def run_fed_baseline_backtest(
         market_baseline_available=False,
         signal_eligible=False,
         predictions=predictions,
+        three_way_brier=sum(three_way_errors) / evaluated,
+        three_way_climatology_brier=sum(three_way_baseline_errors) / evaluated,
+        hold_brier=sum(hold_errors) / evaluated,
+        hike_brier=sum(hike_errors) / evaluated,
+        actual_hikes=sum(item.actual_decision == "hike" for item in predictions),
     )

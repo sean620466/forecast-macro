@@ -8,14 +8,22 @@ from pathlib import Path
 from typing import Any
 
 from forecast_macro.datasets import HistoricalFomcRow
-from forecast_macro.fed_model_comparison import _features
+from forecast_macro.fed_model_comparison import (
+    _features,
+    fit_hike_given_no_cut,
+    hike_probability_given_no_cut,
+)
 from forecast_macro.fomc import RateDecision
-from forecast_macro.models.fed import apply_cut_feasibility, rate_cut_probability
+from forecast_macro.models.fed import (
+    apply_cut_feasibility,
+    rate_decision_probabilities,
+    split_remainder,
+)
 from forecast_macro.models.logistic import fit_logistic
 from forecast_macro.release_schedule import ScheduledRelease
 from forecast_macro.snapshots import HistoricalFeatureSnapshot
 
-MODEL_VERSION = "fed-live-0.1-uncalibrated"
+MODEL_VERSION = "fed-live-0.2-three-way-uncalibrated"
 _MONTH_CODES = ("JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC")
 
 
@@ -29,6 +37,11 @@ class MarketCutProbability:
     current_upper: float
     observed_at: str
     source_file: str
+    # D-016: full three-way view with bounds; `probability` above is the cut component.
+    hold_lower_bound: float = 0.0
+    hold_upper_bound: float = 0.0
+    hike_lower_bound: float = 0.0
+    hike_upper_bound: float = 0.0
 
 
 @dataclass(frozen=True)
@@ -44,6 +57,11 @@ class FedComparisonRecord:
     market: dict[str, object] | None
     heuristic_edge: float | None
     logistic_edge: float | None
+    # D-016 three-way probabilities (cut/hold/hike) and per-outcome edges vs the market.
+    heuristic_three_way: dict[str, float] | None = None
+    logistic_three_way: dict[str, float] | None = None
+    heuristic_three_way_edge: dict[str, float] | None = None
+    logistic_three_way_edge: dict[str, float] | None = None
     # D-007/D-012: comparisons are recorded for a future skill evaluation, never shown as signals.
     signal_eligible: bool = False
     signal_eligible_reason: str = "no out-of-sample Brier skill against market prices yet (D-007)"
@@ -82,34 +100,34 @@ def market_cut_probability(
     bounds = record.get("probability_bounds") or {}
     if not probabilities:
         raise ValueError("price record has no probabilities")
-    cut = hold = hike = 0.0
-    lower = upper = 0.0
+    totals = {"cut": 0.0, "hold": 0.0, "hike": 0.0}
+    lowers = {"cut": 0.0, "hold": 0.0, "hike": 0.0}
+    uppers = {"cut": 0.0, "hold": 0.0, "hike": 0.0}
     for key, value in probabilities.items():
         kind, rate = _bucket_rate(key)
         lo, hi = bounds.get(key, (value, value))
-        if kind == "le":
-            below = rate < current_upper
-        elif kind == "gt":
-            below = False
-        else:
-            below = rate < current_upper
-        if below:
-            cut += value
-            lower += lo
-            upper += hi
+        if kind != "gt" and rate < current_upper:
+            outcome = "cut"
         elif kind == "eq" and abs(rate - current_upper) < 1e-9:
-            hold += value
+            outcome = "hold"
         else:
-            hike += value
+            outcome = "hike"
+        totals[outcome] += value
+        lowers[outcome] += lo
+        uppers[outcome] += hi
     return MarketCutProbability(
-        probability=cut,
-        lower_bound=min(lower, 1.0),
-        upper_bound=min(upper, 1.0),
-        hold_probability=hold,
-        hike_probability=hike,
+        probability=totals["cut"],
+        lower_bound=min(lowers["cut"], 1.0),
+        upper_bound=min(uppers["cut"], 1.0),
+        hold_probability=totals["hold"],
+        hike_probability=totals["hike"],
         current_upper=current_upper,
         observed_at=str(record.get("observed_at", "")),
         source_file=source_file,
+        hold_lower_bound=min(lowers["hold"], 1.0),
+        hold_upper_bound=min(uppers["hold"], 1.0),
+        hike_lower_bound=min(lowers["hike"], 1.0),
+        hike_upper_bound=min(uppers["hike"], 1.0),
     )
 
 
@@ -128,30 +146,49 @@ def latest_ladder_record(
     return None
 
 
-def model_cut_probabilities(
-    snapshot: HistoricalFeatureSnapshot, training: Sequence[HistoricalFomcRow],
+def model_three_way_probabilities(
+    snapshot: HistoricalFeatureSnapshot,
+    training: Sequence[HistoricalFomcRow],
     training_snapshots: Sequence[Mapping[str, Any]],
-) -> tuple[float, float]:
-    """Heuristic baseline and the logistic candidate refitted on all available history."""
-    heuristic = next(
-        item.probability
-        for item in rate_cut_probability(
+) -> tuple[dict[str, float], dict[str, float]]:
+    """Heuristic baseline and logistic candidate as cut/hold/hike vectors (D-016)."""
+    heuristic = {
+        item.outcome: item.probability
+        for item in rate_decision_probabilities(
             inflation_yoy=snapshot.cpi_yoy_nsa,
             unemployment_rate=snapshot.unemployment_rate,
             unemployment_change_3m=snapshot.unemployment_change_3m,
             policy_rate=snapshot.policy_rate_upper,
         )
-        if item.outcome == "cut"
-    )
+    }
     by_date = {str(row["meeting_date"]): row for row in training_snapshots}
-    model = fit_logistic(
-        [_features(by_date[row.meeting_at.date().isoformat()]) for row in training],
-        [int(row.decision is RateDecision.CUT) for row in training],
+    rows = list(training)
+    cut_model = fit_logistic(
+        [_features(by_date[row.meeting_at.date().isoformat()]) for row in rows],
+        [int(row.decision is RateDecision.CUT) for row in rows],
     )
-    logistic = apply_cut_feasibility(
-        model.predict(_features(snapshot.to_dict())), policy_rate=snapshot.policy_rate_upper
-    )
-    return heuristic, logistic
+    hike_model = fit_hike_given_no_cut(rows, [dict(item) for item in training_snapshots])
+    features = _features(snapshot.to_dict())
+    cut = apply_cut_feasibility(cut_model.predict(features), policy_rate=snapshot.policy_rate_upper)
+    cut, hold, hike = split_remainder(cut, hike_probability_given_no_cut(hike_model, features))
+    return heuristic, {"cut": cut, "hold": hold, "hike": hike}
+
+
+def model_cut_probabilities(
+    snapshot: HistoricalFeatureSnapshot, training: Sequence[HistoricalFomcRow],
+    training_snapshots: Sequence[Mapping[str, Any]],
+) -> tuple[float, float]:
+    """Cut components of the three-way models (kept for older callers)."""
+    heuristic, logistic = model_three_way_probabilities(snapshot, training, training_snapshots)
+    return heuristic["cut"], logistic["cut"]
+
+
+def _market_three_way(market: MarketCutProbability) -> dict[str, float]:
+    return {
+        "cut": market.probability,
+        "hold": market.hold_probability,
+        "hike": market.hike_probability,
+    }
 
 
 def build_comparison(
@@ -163,10 +200,19 @@ def build_comparison(
     logistic_cut: float,
     training_size: int,
     market: MarketCutProbability | None,
+    heuristic_three_way: Mapping[str, float] | None = None,
+    logistic_three_way: Mapping[str, float] | None = None,
 ) -> FedComparisonRecord:
     if as_of.tzinfo is None:
         raise ValueError("as_of must be timezone-aware")
     meeting_date = meeting.release_at.date()
+    market_vector = _market_three_way(market) if market else None
+
+    def edges(vector: Mapping[str, float] | None) -> dict[str, float] | None:
+        if vector is None or market_vector is None:
+            return None
+        return {key: vector[key] - market_vector[key] for key in ("cut", "hold", "hike")}
+
     return FedComparisonRecord(
         as_of=as_of.astimezone(UTC).isoformat(),
         meeting_date=meeting_date.isoformat(),
@@ -179,4 +225,8 @@ def build_comparison(
         market=asdict(market) if market else None,
         heuristic_edge=(heuristic_cut - market.probability) if market else None,
         logistic_edge=(logistic_cut - market.probability) if market else None,
+        heuristic_three_way=dict(heuristic_three_way) if heuristic_three_way else None,
+        logistic_three_way=dict(logistic_three_way) if logistic_three_way else None,
+        heuristic_three_way_edge=edges(heuristic_three_way),
+        logistic_three_way_edge=edges(logistic_three_way),
     )

@@ -83,3 +83,11 @@ Files: `fed_baseline_backtest_{all,scheduled,window}_2019_2026.json`. October 20
 unemployment were never published (2025 shutdown); the affected snapshots record that month in
 `data_gaps` and the 12-month and 3-month changes use their endpoints. The 2019–2024 files are
 untouched and their regression tests still pass.
+
+## Three-way view of the heuristic (D-016)
+
+The heuristic's hike score is the cut score with its economic terms sign-flipped. On 2019–2026
+window scope it scores a three-way Brier of 0.688 against 0.532 for three-way climatology, with
+hike Brier 0.247. The mirrored score is not a calibrated model of hikes; it is recorded so the
+weakness is visible, not tuned to the sample. The cut component and every cut metric are
+unchanged.

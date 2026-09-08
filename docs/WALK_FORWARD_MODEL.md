@@ -88,3 +88,19 @@ assigned 0.09–0.35. `signal_eligible` stays false because D-007 needs a market
 Compared with the 2019–2024 run, skill fell (BSS vs climatology +0.29 → +0.17): the 2025–2026
 period has three cuts followed by a long hold with inflation re-accelerating to 3–4% YoY,
 which the four-feature model reads as mixed. It also cannot express a hike at all.
+
+## Three-way outcome space (D-016)
+
+Since task 16 the report also carries `three_way_brier` (sum of squared errors over
+cut/hold/hike, averaged over meetings), the matching climatology, and per-outcome `hold_brier`
+and `hike_brier`. The hike probability comes from a second logistic model fitted on the
+non-cut meetings (hike vs hold) and applied to the remainder after the cut model, so every
+cut metric above is unchanged.
+
+| Sample | Three-way Brier | Three-way climatology | Hike Brier | Hold Brier |
+| --- | ---: | ---: | ---: | ---: |
+| 2019–2024 | 0.343 | 0.556 | 0.114 | 0.161 |
+| 2019–2026 | 0.353 | 0.525 | 0.087 | 0.168 |
+
+The 2022–2023 hikes are learnable from inflation, but that is one tightening cycle. The
+heuristic baseline's mirrored hike score is worse than climatology (see `EXTENDED_BACKTEST.md`).
