@@ -15,6 +15,9 @@ from forecast_macro.market_rules import (
 )
 from forecast_macro.release_schedule import load_release_schedule, verify_close_time
 
+# The statistic each *contract-facing* model settles on. These are not the Fed-model features:
+# the Fed baseline reads CPIAUCNS YoY NSA as an input, but the CPI bucket model (models/cpi.py)
+# forecasts headline MoM SA, which is what a CPI contract would be compared against (R6-L2).
 MODEL_SERIES = {
     "cpi": "headline_cpi_mom_sa",
     "unemployment": "unemployment_rate_sa",

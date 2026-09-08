@@ -71,7 +71,7 @@
 | R6-M2 | Medium | 엄격 부등호·월·시리즈 혼합 미감지 | fixed | 같은 브랜치 |
 | R6-M3 | Medium | 본문 URL 미활용으로 CPI 영구 차단 | fixed | 같은 브랜치 |
 | R6-L1 | Low | http 평문 출처 통과 | fixed | 같은 브랜치. https 강제 |
-| R6-L2 | Low | `MODEL_SERIES["cpi"]`가 어느 모델 기준인지 불명확 | open | CPI 구간 모델(MoM SA) 기준. Fed 특징(YoY NSA)과 다름을 문서화 필요 |
+| R6-L2 | Low | `MODEL_SERIES["cpi"]`가 어느 모델 기준인지 불명확 | fixed | claude/task-10: 스크립트 주석으로 명시 |
 | R6-X1 | Medium | 실업률 9건은 규칙 검증 전부 통과, `close_time_verified=False`만 남음 | fixed | claude/task-07: 2026-09-08 실측에서 실업률 9건 `approved`, CPI 10건은 시리즈 불일치로 차단 유지 |
 
 ## 과제 07 — 공식 발표 일정 (`reviews/tasks/07-release-schedule.md`)
@@ -79,7 +79,7 @@
 | ID | 등급 | 요약 | 상태 | 비고 |
 | --- | --- | --- | --- | --- |
 | R7-H1 | High | `verify_market_rules.py`/`review_macro_markets.py`가 `signal_eligible = approved > 0`으로 기록. 계약 승인과 D-007 신호 자격을 혼동 | fixed | 같은 브랜치. `approved_contracts` 카운트로 분리, `signal_eligible`은 항상 `false` + 이유 |
-| R7-M1 | Medium | BLS가 스크립트 요청(HTML·ICS 모두)을 403으로 거부해 일정 자동 갱신 불가 | open | 브라우저로 읽어 CSV에 수동 전사. 갱신 절차를 `docs/RELEASE_SCHEDULE.md`에 기록. 2027 FOMC 일정 미수록 |
+| R7-M1 | Medium | BLS가 스크립트 요청(HTML·ICS 모두)을 403으로 거부해 일정 자동 갱신 불가 | partial | 브라우저로 읽어 CSV에 수동 전사, 절차는 `docs/RELEASE_SCHEDULE.md`. 2027 FOMC 8회 추가(잠정). 자동 갱신은 미해결 |
 | R7-M2 | Medium | Polymarket `endDate`가 ET 벽시계인지 UTC인지 확정 불가. 현재는 "발표 이전이면 그대로 채택"(보수적) | open | 거래소 문서 확인 또는 실제 마감 관측으로 확정 필요 |
 
 ## 과제 08 — 가격 스냅샷 (`reviews/tasks/08-price-snapshots.md`)
