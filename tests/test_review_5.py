@@ -12,6 +12,22 @@ from forecast_macro.fed_model_comparison import run_walk_forward_logistic
 ROOT = Path(__file__).parents[1]
 
 
+def _assert_close(actual, expected, key="") -> None:
+    """Recursive comparison; floats approximate (Python 3.11 and 3.12 differ in the last digit)."""
+    if isinstance(expected, float):
+        assert actual == pytest.approx(expected, abs=1e-9), key
+    elif isinstance(expected, dict):
+        assert set(actual) == set(expected), key
+        for k, v in expected.items():
+            _assert_close(actual[k], v, f"{key}.{k}")
+    elif isinstance(expected, list):
+        assert len(actual) == len(expected), key
+        for i, (a, e) in enumerate(zip(actual, expected, strict=True)):
+            _assert_close(a, e, f"{key}[{i}]")
+    else:
+        assert actual == expected, key
+
+
 def _scheduled_inputs() -> tuple[list, list[dict[str, object]]]:
     meetings = scheduled_meetings(
         load_fomc_history(ROOT / "data" / "fomc_meetings_2019_2024.csv")
@@ -45,11 +61,7 @@ def test_walk_forward_matches_checked_in_report() -> None:
         (ROOT / "data" / "generated" / "fed_walk_forward_logistic_2019_2024.json").read_text()
     )
     assert set(checked_in) == set(report)
-    for key, value in checked_in.items():
-        if isinstance(value, float):
-            assert report[key] == pytest.approx(value, abs=1e-9), key
-        else:
-            assert report[key] == value, key
+    _assert_close(report, checked_in)
 
 
 def test_walk_forward_rejects_missing_snapshot() -> None:
@@ -89,11 +101,7 @@ def test_walk_forward_2019_2026_matches_checked_in_report_and_passes_sample_gate
     checked_in = json.loads(
         (ROOT / "data" / "generated" / "fed_walk_forward_logistic_2019_2026.json").read_text()
     )
-    for key, value in checked_in.items():
-        if isinstance(value, float):
-            assert report[key] == pytest.approx(value, abs=1e-9), key
-        else:
-            assert report[key] == value, key
+    _assert_close(report, checked_in)
     # D-013 sample floor is met for the first time; D-007 (market baseline) still is not.
     assert report["non_zlb_evaluated_meetings"] >= 30
     assert report["climatology_gate_passed"] is True

@@ -31,14 +31,26 @@ def test_2015_2026_snapshots_agree_with_the_2019_2026_fixture_on_overlap() -> No
     assert first["inputs"]["cpi_latest"]["observed_at"] == "2014-12-01"
 
 
+def _assert_close(actual, expected, key="") -> None:
+    """Recursive comparison; floats approximate (Python 3.11 and 3.12 differ in the last digit)."""
+    if isinstance(expected, float):
+        assert actual == pytest.approx(expected, abs=1e-9), key
+    elif isinstance(expected, dict):
+        assert set(actual) == set(expected), key
+        for k, v in expected.items():
+            _assert_close(actual[k], v, f"{key}.{k}")
+    elif isinstance(expected, list):
+        assert len(actual) == len(expected), key
+        for i, (a, e) in enumerate(zip(actual, expected, strict=True)):
+            _assert_close(a, e, f"{key}[{i}]")
+    else:
+        assert actual == expected, key
+
+
 def _assert_matches(report: dict, checked_in: dict, skip=()) -> None:
     for key, value in checked_in.items():
-        if key in skip:
-            continue
-        if isinstance(value, float):
-            assert report[key] == pytest.approx(value, abs=1e-9), key
-        else:
-            assert report[key] == value, key
+        if key not in skip:
+            _assert_close(report[key], value, key)
 
 
 def test_walk_forward_2015_2026_reproduces_and_shows_little_skill() -> None:
