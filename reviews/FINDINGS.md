@@ -11,7 +11,7 @@
 | R1-H3 | High | 예측시장 계약별 outcome bucket 확장 | partial | `contracts.py`에 `FedOutcome` 4구간 추가됨. 모델은 여전히 cut/hold_or_hike 이진 |
 | R1-H4 | High | CPI `forecast_mom` 산출(nowcast) 코드 부재 | open | CPI 모델은 외부 숫자에 정규분포를 씌우는 래퍼 상태 |
 | R1-M3 | Medium | CPI 불확실성 σ를 역사적 오차로 추정 | open | σ=0.12 고정 |
-| R1-M4 | Medium | YES/NO 호가·수수료 정규화 | partial | 어댑터에 bid/ask 있음. 수수료 모델 없음(R5-L2와 연결) |
+| R1-M4 | Medium | YES/NO 호가·수수료 정규화 | fixed | 어댑터 bid/ask + claude/task-19 수수료 모델(`fees.py`) |
 | R1-X1 | Medium | 실제 발표 timestamp 테이블(ALFRED real-time date와 별개) | open | 스냅샷은 D-1 날짜 vintage만 사용(R4-M4와 연결) |
 
 ## 리뷰 2 — 백테스트 기반 (`2026-09-07-backtest-claude-review-2.md`)
@@ -54,7 +54,7 @@
 | R5-M5 | Medium | 워크포워드에 입력 검증 없음, `forecast_at` 불일치 | fixed | claude/fix-review-5 |
 | R5-M6 | Medium | 워크포워드 보고서에 always-hold 없음(BSS +0.084) | fixed | claude/fix-review-5. 수정 후 BSS vs always-hold +0.119 |
 | R5-L1 | Low | 인하 0건이면 always-hold BSS 0 나눗셈 | fixed | claude/fix-review-5. `None` 반환 |
-| R5-L2 | Low | `fee_schedule_id` 자리표시자, 수수료 모델 부재 | open | |
+| R5-L2 | Low | `fee_schedule_id` 자리표시자, 수수료 모델 부재 | fixed | claude/task-19: `fees.py`. Polymarket Economics 0.05·p·(1−p)(공식 문서 확인), Kalshi `quadratic_with_maker_fees` x1(시리즈 API 확인, 상수 0.07/0.0175는 미검증) |
 | R5-L3 | Low | ruff 버전 미고정, 0.16.6에서 2건 실패 | fixed | 70e035a. `ruff==0.16.6` 고정 |
 | R5-L4 | Low | 계수 부호 비경제적(실업률 음) | open | R5-C2 수정 후에도 실업률 계수 음수(약 −0.8 표준화). 문서에 명시. 표본 확장 후 재점검 |
 | R5-X1 | Medium | `discover-markets` 워크플로가 GitHub 러너에서 탐색 단계 실패(로컬은 성공). 원인 로그 미확인 | partial | claude/fix-discovery-ci: 거래소별 오류를 `.status.json`에 기록하고 계속 진행, User-Agent 명시. 러너 IP 차단이면 self-hosted 또는 프록시 필요 |
@@ -87,7 +87,7 @@
 | ID | 등급 | 요약 | 상태 | 비고 |
 | --- | --- | --- | --- | --- |
 | R8-M1 | Medium | 실업률 9구간 mid 합계 1.14 (overround 14%) → D-010 허용 5% 초과로 스냅샷 거부. bid 합 0.995, ask 합 1.285. 꼬리 구간 스프레드(0.01/0.05)가 mid 합을 부풀림 | fixed | D-015 (2026-09-08 승인). `normalize_bucket_quotes`: 완전성 `Σbid ≤ 1 ≤ Σask`, 폭 ≤ 0.35, 확률을 `[bid, ask]` 범위와 함께 기록. 실측 첫 스냅샷 성공 |
-| R8-L1 | Low | `fee_schedule_id`가 여전히 `polymarket-current-unknown`. Polymarket은 현재 무수수료 시장이 많으나 계약별 확인 필요 | open | R5-L2와 동일 |
+| R8-L1 | Low | `fee_schedule_id`가 여전히 `polymarket-current-unknown`. Polymarket은 현재 무수수료 시장이 많으나 계약별 확인 필요 | fixed | claude/task-19: Economics 카테고리 taker 0.05 (docs.polymarket.com/…/fees, 2026-09-08). 지정학 시장만 무수수료 |
 | R8-L2 | Low | 스냅샷은 워크플로 아티팩트(14일 보관)에만 남음. D-007 baseline 축적을 위해 저장소 또는 외부 저장 필요 | fixed | claude/task-11: 워크플로가 `data/generated/market_prices/`에 스냅샷을 추가 커밋(`[skip ci]`, 봇 계정). 최신 리뷰·탐색 상태도 `*_latest.json`으로 보존 |
 
 ## 과제 09 — D-015 정규화 (`reviews/tasks/09-overround-normalization.md`)
@@ -147,3 +147,11 @@
 | R17-M1 | Medium | 실업률 baseline은 "최신치 + 과거 1개월 변화의 경험분포"(1990~, ALFRED 당일 vintage). 추세·계절·고용지표를 전혀 쓰지 않는 climatology급 모델 | open | 의도된 무조정 baseline(D-005). 시장 대비 채점이 쌓인 뒤 조건부 모델 검토 |
 | R17-M2 | Medium | 시장 계약은 "9월 실업률"인데 최신 발표는 8월치(9/4 발표). 예측 지평은 정확히 1개월이며, 발표일(10/2) 전 마지막 기록만 채점 대상이어야 함 | fixed | claude/task-18: `unemployment_scoring.py`. 발표일 vintage의 ALFRED 값(최초 발표치)을 라벨로, 다중 구간 Brier와 시장 대비 skill. 워크플로가 매일 갱신 |
 | R17-L1 | Low | 2025-10 미발표로 그 달을 걸친 변화 2건이 분포에서 빠짐. 2020년 +10.4/−2.2 같은 극단값은 빈도대로 포함 | open | 꼬리 구간 확률에 ~0.5% 기여. 기록만 |
+
+## 과제 19 — 수수료 모델 (D-003 net edge)
+
+| ID | 등급 | 요약 | 상태 | 비고 |
+| --- | --- | --- | --- | --- |
+| R19-M1 | Medium | Kalshi 수수료 상수(taker 0.07, maker 0.0175)는 공식 PDF(`kalshi-fee-schedule.pdf`)를 이 저장소에서 다시 읽지 못해 `verified=false` | open | 사용자가 PDF를 열어 두 숫자를 확인하면 `verified=true`로 전환. 그전까지 Kalshi net edge는 참고용 |
+| R19-M2 | Medium | Kalshi 사다리에서 파생된 배타 구간은 계약 두 개(인접 rung)로 만들어지므로 수수료가 두 번 든다. 현재 기록은 rung별 수수료만 | open | 구간 net edge는 두 leg 수수료 합으로 계산해야 함 |
+| R19-L1 | Low | 실업률 비교 기록에 `net_edge_after_fees`(모델 확률 − ask − 수수료) 추가. 9개 구간 모두 YES 직접 계약 | fixed | 같은 브랜치 |
