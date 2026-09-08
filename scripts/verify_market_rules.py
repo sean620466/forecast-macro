@@ -13,6 +13,7 @@ from forecast_macro.market_rules import (
     validate_official_rules,
     verified_rule_metadata,
 )
+from forecast_macro.release_schedule import load_release_schedule, verify_close_time
 
 MODEL_SERIES = {
     "cpi": "headline_cpi_mom_sa",
@@ -30,6 +31,7 @@ def main() -> None:
 
     rows = json.loads(args.input.read_text(encoding="utf-8"))
     client = PolymarketPublicClient()
+    schedule = load_release_schedule()
     metadata = {}
     evidence = {}
     for row in rows:
@@ -62,6 +64,24 @@ def main() -> None:
             )
             if verified is not None:
                 metadata[market_id] = verified
+            # Close time comes from the official calendar, never from the venue alone.
+            close = verify_close_time(
+                topic=topic,
+                rule_text=f"{document.question} {document.description}",
+                venue_close_raw=row.get("venue_close_raw"),
+                schedule=schedule,
+            )
+            row["close_time_verified"] = close.verified
+            row["outcome_at"] = close.outcome_at.isoformat() if close.outcome_at else None
+            row["closes_at"] = close.closes_at.isoformat() if close.closes_at else None
+            evidence[market_id]["close_time"] = {
+                "verified": close.verified,
+                "outcome_at": row["outcome_at"],
+                "closes_at": row["closes_at"],
+                "venue_close_raw": row.get("venue_close_raw"),
+                "venue_close_interpretation": close.venue_close_interpretation,
+                "blockers": list(close.blockers),
+            }
         except Exception as error:  # noqa: BLE001 - fail closed on any venue/parse failure
             evidence[market_id] = {"blockers": [f"rule fetch failed: {type(error).__name__}"]}
 
@@ -69,7 +89,11 @@ def main() -> None:
     counts = Counter(review.status.value for review in reviews)
     result = {
         "summary": dict(sorted(counts.items())),
-        "signal_eligible": counts.get("approved", 0) > 0,
+        "approved_contracts": counts.get("approved", 0),
+        # Contract approval only unlocks price collection. D-007/D-012: signals stay off
+        # until out-of-sample skill against market prices is demonstrated.
+        "signal_eligible": False,
+        "signal_eligible_reason": "no market-baseline Brier skill established (D-007)",
         "rule_evidence": evidence,
         "reviews": [review.to_dict() for review in reviews],
     }
