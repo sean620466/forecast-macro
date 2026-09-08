@@ -149,3 +149,33 @@ def test_schedule_rejects_non_eastern_rows(tmp_path: Path) -> None:
     )
     with pytest.raises(ValueError, match="America/New_York"):
         load_release_schedule(bad)
+
+
+def test_year_end_target_range_contract_uses_the_stated_instant() -> None:
+    from forecast_macro.release_schedule import parse_in_effect_statement
+
+    text = (
+        "If the upper bound of the target range for the federal funds rate in effect at 11:59 PM ET "
+        "on December 31, 2036, as published on the Federal Reserve's official website, is above 6.00%, "
+        "then the market resolves to Yes."
+    )
+    assert parse_in_effect_statement(text) == datetime(2036, 12, 31, 23, 59, tzinfo=ET)
+    result = verify_close_time(
+        topic="fed_rate", rule_text=text, venue_close_raw="2037-01-01T04:59:00Z", schedule=SCHEDULE
+    )
+    assert result.verified is True
+    assert result.outcome_at == datetime(2036, 12, 31, 23, 59, tzinfo=ET)
+    assert result.venue_close_interpretation == "utc"  # 04:59Z == 23:59 ET
+
+
+def test_effr_contract_is_a_different_series() -> None:
+    from forecast_macro.market_rules import identify_contract_series, parse_kalshi_rules
+
+    document = parse_kalshi_rules(
+        {
+            "ticker": "KXEFFR-26OCT01-T4.00",
+            "title": "Will the first published Effective Federal Funds Rate (EFFR) value for September 30, 2026 be above 4.00%?",
+            "rules_primary": "If the first published Effective Federal Funds Rate (EFFR) value for September 30, 2026 is above 4.00%, then the market resolves to Yes.",
+        }
+    )
+    assert identify_contract_series(document, topic="fed_rate") == "effective_federal_funds_rate"

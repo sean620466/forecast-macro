@@ -88,6 +88,9 @@ def identify_contract_series(document: MarketRuleDocument, *, topic: str) -> str
             return "unemployment_rate_sa"
         return None
     if topic == "fed_rate":
+        if "effective federal funds rate" in text or "effr" in text:
+            # A market rate published by the New York Fed, not the FOMC's target range.
+            return "effective_federal_funds_rate"
         if "target range" in text or "federal funds" in text or "fed funds" in text:
             return "federal_funds_target_range"
         return None

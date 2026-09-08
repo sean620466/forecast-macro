@@ -39,6 +39,13 @@ _RELEASE_STATEMENT = re.compile(
     rf"\s*(?P<zone>ET|EST|EDT|Eastern)\b",
     re.IGNORECASE,
 )
+# "in effect at 11:59 PM ET on December 31, 2036" (Kalshi year-end target-range contracts):
+# a calendar instant, not a data release, so it needs no schedule row.
+_IN_EFFECT_STATEMENT = re.compile(
+    rf"\bin effect at\s+(?P<hour>\d{{1,2}}):(?P<minute>\d{{2}})\s*(?P<ampm>a\.?m\.?|p\.?m\.?)\s*(?:ET|EST|EDT|Eastern)"
+    rf"\s+on\s+(?P<month>{_MONTH_ALTERNATION})\.?\s+(?P<day>\d{{1,2}}),?\s+(?P<year>\d{{4}})",
+    re.IGNORECASE,
+)
 # "following the Fed's Apr 28, 2027 meeting" / "September 16, 2026 FOMC meeting"
 _MEETING_STATEMENT = re.compile(
     rf"\b(?P<month>{_MONTH_ALTERNATION})\.?\s+(?P<day>\d{{1,2}}),?\s+(?P<year>\d{{4}})\s+(?:fomc\s+)?meeting\b",
@@ -124,6 +131,23 @@ def parse_release_statement(text: str) -> datetime | None:
     )
 
 
+def parse_in_effect_statement(text: str) -> datetime | None:
+    match = _IN_EFFECT_STATEMENT.search(text)
+    if not match:
+        return None
+    hour = int(match.group("hour")) % 12
+    if match.group("ampm").lower().startswith("p"):
+        hour += 12
+    return datetime(
+        int(match.group("year")),
+        _month_number(match.group("month")),
+        int(match.group("day")),
+        hour,
+        int(match.group("minute")),
+        tzinfo=EASTERN,
+    )
+
+
 def parse_meeting_statement(text: str) -> date | None:
     match = _MEETING_STATEMENT.search(text)
     if not match:
@@ -160,27 +184,35 @@ def verify_close_time(
     if series is None:
         return CloseTimeVerification(False, None, None, "", ("no official calendar for topic",))
 
-    if series == "fomc":
-        meeting_date = parse_meeting_statement(rule_text)
-        stated = (
-            datetime.combine(meeting_date, time(14, 0), tzinfo=EASTERN) if meeting_date else None
-        )
+    in_effect = parse_in_effect_statement(rule_text) if series == "fomc" else None
+    if in_effect is not None:
+        # The outcome is whatever target range is in effect at a stated instant; that
+        # instant is the outcome time and needs no calendar row.
+        outcome_at = in_effect
     else:
-        stated = parse_release_statement(rule_text)
-    if stated is None:
-        return CloseTimeVerification(
-            False, None, None, "", ("contract text does not state the official release time",)
-        )
-    official = find_release(schedule, series=series, release_at=stated)
-    if official is None:
-        return CloseTimeVerification(
-            False,
-            None,
-            None,
-            "",
-            (f"stated release {stated.isoformat()} is not on the official {series} calendar",),
-        )
-    outcome_at = official.release_at
+        if series == "fomc":
+            meeting_date = parse_meeting_statement(rule_text)
+            stated = (
+                datetime.combine(meeting_date, time(14, 0), tzinfo=EASTERN)
+                if meeting_date
+                else None
+            )
+        else:
+            stated = parse_release_statement(rule_text)
+        if stated is None:
+            return CloseTimeVerification(
+                False, None, None, "", ("contract text does not state the official release time",)
+            )
+        official = find_release(schedule, series=series, release_at=stated)
+        if official is None:
+            return CloseTimeVerification(
+                False,
+                None,
+                None,
+                "",
+                (f"stated release {stated.isoformat()} is not on the official {series} calendar",),
+            )
+        outcome_at = official.release_at
 
     if not venue_close_raw:
         return CloseTimeVerification(

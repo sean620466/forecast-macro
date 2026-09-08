@@ -103,7 +103,7 @@
 | --- | --- | --- | --- | --- |
 | R12-M1 | Medium | KXFED 2026-12, 2027-01/03/04 이벤트는 승인됐으나 꼬리 rung 스프레드가 0.10을 넘어 가격 거부 | partial | claude/task-20: rung별 스프레드 거부를 없애고 `wide_rungs` 기록 + D-015 폭 게이트(Σask−Σbid ≤ 0.35)·단조성으로 판정. 단조성은 mid가 아니라 호가 범위(높은 rung의 bid > 낮은 rung의 ask)로 판정하도록 수정. 2026-09-08 실측에서는 12월·2027년 1/3/4월 모두 폭(Σask−Σbid > 0.35)으로 거부. 폭 상한 완화나 활성 구간만의 부분 가격은 결정 사항으로 남김 |
 | R12-M2 | Medium | Kalshi 규칙의 출처는 URL이 아닌 문구("Federal Reserve's official website")로 기재. 정확 문구 3개만 매핑, 기원 `rules_text_reference`가 아닌 `field`로 기록됨 | fixed | claude/task-21: `resolution_source_kind=text_reference` → 기원 `rules_text_reference` |
-| R12-L1 | Low | KXFEDFUNDSYEAR(연말 금리), KXEFFR(실효금리) 이벤트는 구조는 통과했으나 발표 일정이 없어 `close_time` 미검증 | open | 연말 계약은 12월 FOMC로 매핑 가능, EFFR은 NY Fed 일별 게시라 별도 규칙 필요 |
+| R12-L1 | Low | KXFEDFUNDSYEAR(연말 금리), KXEFFR(실효금리) 이벤트는 구조는 통과했으나 발표 일정이 없어 `close_time` 미검증 | fixed | claude/task-24: 연말 계약은 규칙의 "in effect at 11:59 PM ET on December 31, YYYY"를 결과 시각으로 사용(일정 불필요). EFFR은 `effective_federal_funds_rate` 시리즈로 식별돼 모델 시리즈 불일치로 차단(의도) |
 | R12-L2 | Low | 봇이 커밋하던 `macro_market_review_latest.json`이 38,960줄 | fixed | 같은 브랜치: 요약과 승인 행만 커밋 |
 
 ## 과제 13 — 실시간 모델 vs 시장 기록 (`reviews/2026-09-08-task-13-response.md`)
