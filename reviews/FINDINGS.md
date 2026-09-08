@@ -88,7 +88,7 @@
 | --- | --- | --- | --- | --- |
 | R8-M1 | Medium | 실업률 9구간 mid 합계 1.14 (overround 14%) → D-010 허용 5% 초과로 스냅샷 거부. bid 합 0.995, ask 합 1.285. 꼬리 구간 스프레드(0.01/0.05)가 mid 합을 부풀림 | fixed | D-015 (2026-09-08 승인). `normalize_bucket_quotes`: 완전성 `Σbid ≤ 1 ≤ Σask`, 폭 ≤ 0.35, 확률을 `[bid, ask]` 범위와 함께 기록. 실측 첫 스냅샷 성공 |
 | R8-L1 | Low | `fee_schedule_id`가 여전히 `polymarket-current-unknown`. Polymarket은 현재 무수수료 시장이 많으나 계약별 확인 필요 | open | R5-L2와 동일 |
-| R8-L2 | Low | 스냅샷은 워크플로 아티팩트(14일 보관)에만 남음. D-007 baseline 축적을 위해 저장소 또는 외부 저장 필요 | open | 결정 필요: `data/generated/market_prices/`에 커밋 vs 별도 저장 |
+| R8-L2 | Low | 스냅샷은 워크플로 아티팩트(14일 보관)에만 남음. D-007 baseline 축적을 위해 저장소 또는 외부 저장 필요 | fixed | claude/task-11: 워크플로가 `data/generated/market_prices/`에 스냅샷을 추가 커밋(`[skip ci]`, 봇 계정). 최신 리뷰·탐색 상태도 `*_latest.json`으로 보존 |
 
 ## 과제 09 — D-015 정규화 (`reviews/tasks/09-overround-normalization.md`)
 

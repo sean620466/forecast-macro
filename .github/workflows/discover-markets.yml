@@ -18,7 +18,11 @@ on:
       - "scripts/snapshot_market_prices.py"
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: discover-markets
+  cancel-in-progress: false
 
 jobs:
   discover:
@@ -48,3 +52,21 @@ jobs:
           name: macro-market-review
           path: artifacts/
           retention-days: 14
+      - name: Persist price snapshots in the repository (R8-L2)
+        # Each run appends its snapshot files; nothing is rewritten, so history is auditable.
+        # [skip ci] keeps the data commit from re-triggering the test workflow.
+        run: |
+          mkdir -p data/generated/market_prices
+          cp artifacts/prices/*.json data/generated/market_prices/ 2>/dev/null || true
+          cp artifacts/macro_market_review.json data/generated/macro_market_review_latest.json
+          cp artifacts/macro_market_candidates.status.json data/generated/macro_market_discovery_status_latest.json 2>/dev/null || true
+          git config user.name "forecast-macro-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/generated/market_prices data/generated/macro_market_review_latest.json data/generated/macro_market_discovery_status_latest.json
+          if git diff --cached --quiet; then
+            echo "no new snapshot data"
+            exit 0
+          fi
+          git commit -m "Record market price snapshot $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          git pull --rebase origin main
+          git push origin HEAD:main
