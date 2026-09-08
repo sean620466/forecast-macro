@@ -81,3 +81,11 @@
 | R7-H1 | High | `verify_market_rules.py`/`review_macro_markets.py`가 `signal_eligible = approved > 0`으로 기록. 계약 승인과 D-007 신호 자격을 혼동 | fixed | 같은 브랜치. `approved_contracts` 카운트로 분리, `signal_eligible`은 항상 `false` + 이유 |
 | R7-M1 | Medium | BLS가 스크립트 요청(HTML·ICS 모두)을 403으로 거부해 일정 자동 갱신 불가 | open | 브라우저로 읽어 CSV에 수동 전사. 갱신 절차를 `docs/RELEASE_SCHEDULE.md`에 기록. 2027 FOMC 일정 미수록 |
 | R7-M2 | Medium | Polymarket `endDate`가 ET 벽시계인지 UTC인지 확정 불가. 현재는 "발표 이전이면 그대로 채택"(보수적) | open | 거래소 문서 확인 또는 실제 마감 관측으로 확정 필요 |
+
+## 과제 08 — 가격 스냅샷 (`reviews/tasks/08-price-snapshots.md`)
+
+| ID | 등급 | 요약 | 상태 | 비고 |
+| --- | --- | --- | --- | --- |
+| R8-M1 | Medium | 실업률 9구간 mid 합계 1.14 (overround 14%) → D-010 허용 5% 초과로 스냅샷 거부. bid 합 0.995, ask 합 1.285. 꼬리 구간 스프레드(0.01/0.05)가 mid 합을 부풀림 | open | fail-closed 정상 동작. D-010 재검토 제안: bid합·ask합을 확률 구간 하한·상한으로 기록하고 mid 정규화는 스프레드 가중으로 |
+| R8-L1 | Low | `fee_schedule_id`가 여전히 `polymarket-current-unknown`. Polymarket은 현재 무수수료 시장이 많으나 계약별 확인 필요 | open | R5-L2와 동일 |
+| R8-L2 | Low | 스냅샷은 워크플로 아티팩트(14일 보관)에만 남음. D-007 baseline 축적을 위해 저장소 또는 외부 저장 필요 | open | 결정 필요: `data/generated/market_prices/`에 커밋 vs 별도 저장 |
