@@ -2,9 +2,9 @@
 <title>Forecast Macro 콘솔</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-:root{--cut:#1B8A8F;--hold:#8A94A0;--hike:#7A4DAA;--bg:#F7F8FA;--panel:#FFFFFF;--ink:#16202B;--ink2:#4A5866;--muted:#7C8794;--line:#DCE1E7;--accent:#2C4FA3;--model:#2C4FA3;--market:#C2731B;--good:#1E7F4F;--warn:#B7791F;--crit:#B3261E;--chip:#EEF1F5;--rng:#8A5A16}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--cut:#4FC3C7;--hold:#9AA5B1;--hike:#B892E6;--bg:#0F141A;--panel:#171E27;--ink:#E8EDF2;--ink2:#B7C0CA;--muted:#8391A0;--line:#2A3441;--accent:#7C9BEA;--model:#7C9BEA;--market:#E3A25A;--good:#5CC58C;--warn:#E0B25A;--crit:#EF7B72;--chip:#212B37;--rng:#F0C58C}}
-:root[data-theme="dark"]{--cut:#4FC3C7;--hold:#9AA5B1;--hike:#B892E6;--bg:#0F141A;--panel:#171E27;--ink:#E8EDF2;--ink2:#B7C0CA;--muted:#8391A0;--line:#2A3441;--accent:#7C9BEA;--model:#7C9BEA;--market:#E3A25A;--good:#5CC58C;--warn:#E0B25A;--crit:#EF7B72;--chip:#212B37;--rng:#F0C58C}
+:root{--cut:#1B8A8F;--hold:#8A94A0;--hike:#7A4DAA;--bg:#F7F8FA;--panel:#FFFFFF;--ink:#16202B;--ink2:#4A5866;--muted:#7C8794;--line:#DCE1E7;--accent:#2C4FA3;--model:#2C4FA3;--market:#C2731B;--good:#1E7F4F;--warn:#B7791F;--crit:#B3261E;--chip:#EEF1F5;--rng:#8A5A16;--kalshi:#6E8B3D}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--cut:#4FC3C7;--hold:#9AA5B1;--hike:#B892E6;--bg:#0F141A;--panel:#171E27;--ink:#E8EDF2;--ink2:#B7C0CA;--muted:#8391A0;--line:#2A3441;--accent:#7C9BEA;--model:#7C9BEA;--market:#E3A25A;--good:#5CC58C;--warn:#E0B25A;--crit:#EF7B72;--chip:#212B37;--rng:#F0C58C;--kalshi:#A3C46A}}
+:root[data-theme="dark"]{--cut:#4FC3C7;--hold:#9AA5B1;--hike:#B892E6;--bg:#0F141A;--panel:#171E27;--ink:#E8EDF2;--ink2:#B7C0CA;--muted:#8391A0;--line:#2A3441;--accent:#7C9BEA;--model:#7C9BEA;--market:#E3A25A;--good:#5CC58C;--warn:#E0B25A;--crit:#EF7B72;--chip:#212B37;--rng:#F0C58C;--kalshi:#A3C46A}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.55}
 .wrap{max-width:1080px;margin:0 auto;padding:28px 20px 60px}
@@ -23,7 +23,7 @@ h2{font-size:16px;margin:0 0 4px} .sub{color:var(--ink2);font-size:13px;margin:0
 .row{display:grid;grid-template-columns:120px 1fr;gap:10px;align-items:center;padding:7px 0;border-top:1px solid var(--line)} .row:first-of-type{border-top:0}
 .lbl{font-size:13px;color:var(--ink2)} .bars{display:flex;flex-direction:column;gap:4px}
 .bar{position:relative;height:18px;border-radius:3px;background:var(--chip)}
-.bar::before{content:"";position:absolute;left:0;top:0;bottom:0;width:calc(var(--v) * 1%);border-radius:3px;background:var(--model)} .bar.market::before{background:var(--market)}
+.bar::before{content:"";position:absolute;left:0;top:0;bottom:0;width:calc(var(--v) * 1%);border-radius:3px;background:var(--model)} .bar.market::before{background:var(--market)} .bar.kalshi::before{background:var(--kalshi)}
 .bar span{position:absolute;left:calc(var(--v) * 1% + 8px);top:0;line-height:18px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
 .bar .rng{position:absolute;top:7px;height:4px;left:calc(var(--lo) * 1%);width:calc((var(--hi) - var(--lo)) * 1%);background:var(--rng);border-radius:2px;opacity:.9}
 .note{font-size:12.5px;color:var(--ink2);margin:12px 0 0;padding-top:10px;border-top:1px dashed var(--line)}
@@ -43,61 +43,61 @@ svg.chart{width:100%;height:auto;display:block} svg.chart text{font-family:"IBM 
 section{margin-bottom:22px} .verdict{background:var(--panel);border-left:4px solid var(--accent);border-radius:6px;padding:14px 16px;margin-bottom:22px} .verdict b{font-size:15px} .verdict p{margin:6px 0 0;color:var(--ink2);font-size:13.5px}
 </style></head><body>
 <div class="wrap">
-<header><h1>Forecast Macro 콘솔</h1><div class="meta">main 6a388d3 · 데이터 기준 2026-09-08 17:34 UTC · 자동 생성 (scripts/build_dashboard.py)</div></header>
+<header><h1>Forecast Macro 콘솔</h1><div class="meta">main b6a7b36 · 데이터 기준 2026-09-08 18:42 UTC · 자동 생성 (scripts/build_dashboard.py)</div></header>
 <div class="verdict"><b>현재 판정: 신호 없음 (설계대로)</b><p>모델과 시장 확률은 매일 기록되지만, 시장보다 낫다는 증거는 아직 0건입니다. 첫 채점은 다음 CPI 발표(9월 11일)·FOMC·고용보고서 이후입니다. 이 화면의 모든 확률은 연구 기록이며 투자 신호가 아닙니다.</p></div>
 <div class="tiles">
 <div class="tile"><div class="k">다음 FOMC</div><div class="v">9월 16일</div><div class="d">현재 상단 3.75% · KXFED-26SEP</div></div>
 <div class="tile"><div class="k">다음 고용보고서</div><div class="v">10월 2일</div><div class="d">최신 실업률 4.1% (2026-08)</div></div>
 <div class="tile"><div class="k">다음 CPI 발표</div><div class="v">9월 11일</div><div class="d">최신 Core CPI YoY 2.5% (2026-07)</div></div>
 <div class="tile"><div class="k">시장 대비 채점</div><div class="v">0 / 30</div><div class="d">D-013 표본 기준까지 남은 회의 수</div></div>
-<div class="tile"><div class="k">검토 장부</div><div class="v">62 해결</div><div class="d">18 미해결 · 4 부분 · 결정 18건</div></div>
+<div class="tile"><div class="k">검토 장부</div><div class="v">63 해결</div><div class="d">19 미해결 · 4 부분 · 결정 19건</div></div>
 </div>
 <div class="grid">
-<div class="panel"><h2>2026-09-16 FOMC: 상단 금리는 어디로</h2><p class="sub">Kalshi 관측 2026-09-08 17:03 UTC · 모델 vintage 2026-09-08</p>
+<div class="panel"><h2>2026-09-16 FOMC: 상단 금리는 어디로</h2><p class="sub">Kalshi 관측 2026-09-08 18:34 UTC · 모델 vintage 2026-09-08</p>
 <div class="legend"><span><i style="background:var(--model)"></i>로지스틱 모델 (2015–2026 학습, 92회의)</span><span><i style="background:var(--market)"></i>시장 (Kalshi) · 짙은 선은 호가 범위</span></div>
 <div class="row"><div class="lbl">인하 (3.75% 미만)</div><div class="bars"><div class="bar model" style="--v:11.93"><span>모델 11.9%</span></div><div class="bar market" style="--v:0.50;--lo:0.00;--hi:4.00"><i class="rng"></i><span>시장 0.5%</span></div></div></div>
 <div class="row"><div class="lbl">동결 (3.75%)</div><div class="bars"><div class="bar model" style="--v:69.47"><span>모델 69.5%</span></div><div class="bar market" style="--v:46.00;--lo:45.00;--hi:47.00"><i class="rng"></i><span>시장 46.0%</span></div></div></div>
 <div class="row"><div class="lbl">인상 (4.00% 이상)</div><div class="bars"><div class="bar model" style="--v:18.60"><span>모델 18.6%</span></div><div class="bar market" style="--v:53.50;--lo:51.00;--hi:61.00"><i class="rng"></i><span>시장 53.5%</span></div></div></div>
 <p class="note">모델 입력: CPI 전년비 3.36%, 실업률 4.1%, 3개월 변화 -0.2. 휴리스틱: 인하 15.7% / 동결 28.3% / 인상 56.0% (인상 성분은 백테스트에서 빈도 기준보다 나쁨). 회의 당일 발표: 없음.</p></div>
-<div class="panel"><h2>2026-09 실업률 (2026-10-02 발표)</h2><p class="sub">Polymarket 관측 2026-09-08 17:03 UTC · 최신치 4.1%</p>
+<div class="panel"><h2>2026-09 실업률 (2026-10-02 발표)</h2><p class="sub">Polymarket 관측 2026-09-08 18:34 UTC · 최신치 4.1%</p>
 <div class="legend"><span><i style="background:var(--model)"></i>경험분포 baseline</span><span><i style="background:var(--market)"></i>시장 (Polymarket) · 호가 범위</span></div>
-<div class="row"><div class="lbl">≤3.8%</div><div class="bars"><div class="bar model" style="--v:5.72"><span>모델 5.7%</span></div><div class="bar market" style="--v:3.22;--lo:3.00;--hi:7.00"><i class="rng"></i><span>시장 3.2%</span></div></div></div>
-<div class="row"><div class="lbl">3.9%</div><div class="bars"><div class="bar model" style="--v:9.84"><span>모델 9.8%</span></div><div class="bar market" style="--v:2.28;--lo:2.00;--hi:7.00"><i class="rng"></i><span>시장 2.3%</span></div></div></div>
-<div class="row"><div class="lbl">4.0%</div><div class="bars"><div class="bar model" style="--v:26.32"><span>모델 26.3%</span></div><div class="bar market" style="--v:17.22;--lo:17.00;--hi:21.00"><i class="rng"></i><span>시장 17.2%</span></div></div></div>
-<div class="row"><div class="lbl">4.1%</div><div class="bars"><div class="bar model" style="--v:26.77"><span>모델 26.8%</span></div><div class="bar market" style="--v:34.17;--lo:34.00;--hi:37.00"><i class="rng"></i><span>시장 34.2%</span></div></div></div>
-<div class="row"><div class="lbl">4.2%</div><div class="bars"><div class="bar model" style="--v:18.54"><span>모델 18.5%</span></div><div class="bar market" style="--v:28.17;--lo:28.00;--hi:31.00"><i class="rng"></i><span>시장 28.2%</span></div></div></div>
-<div class="row"><div class="lbl">4.3%</div><div class="bars"><div class="bar model" style="--v:8.01"><span>모델 8.0%</span></div><div class="bar market" style="--v:9.17;--lo:9.00;--hi:12.00"><i class="rng"></i><span>시장 9.2%</span></div></div></div>
-<div class="row"><div class="lbl">4.4%</div><div class="bars"><div class="bar model" style="--v:2.29"><span>모델 2.3%</span></div><div class="bar market" style="--v:3.22;--lo:3.00;--hi:7.00"><i class="rng"></i><span>시장 3.2%</span></div></div></div>
-<div class="row"><div class="lbl">4.5%</div><div class="bars"><div class="bar model" style="--v:1.37"><span>모델 1.4%</span></div><div class="bar market" style="--v:1.26;--lo:1.00;--hi:5.70"><i class="rng"></i><span>시장 1.3%</span></div></div></div>
-<div class="row"><div class="lbl">≥4.6%</div><div class="bars"><div class="bar model" style="--v:1.14"><span>모델 1.1%</span></div><div class="bar market" style="--v:1.30;--lo:1.10;--hi:4.70"><i class="rng"></i><span>시장 1.3%</span></div></div></div>
+<div class="row"><div class="lbl">≤3.8%</div><div class="bars"><div class="bar model" style="--v:5.72"><span>모델 5.7%</span></div><div class="bar market" style="--v:3.34;--lo:3.00;--hi:7.00"><i class="rng"></i><span>시장 3.3%</span></div></div></div>
+<div class="row"><div class="lbl">3.9%</div><div class="bars"><div class="bar model" style="--v:9.84"><span>모델 9.8%</span></div><div class="bar market" style="--v:2.42;--lo:2.00;--hi:7.00"><i class="rng"></i><span>시장 2.4%</span></div></div></div>
+<div class="row"><div class="lbl">4.0%</div><div class="bars"><div class="bar model" style="--v:26.32"><span>모델 26.3%</span></div><div class="bar market" style="--v:17.34;--lo:17.00;--hi:21.00"><i class="rng"></i><span>시장 17.3%</span></div></div></div>
+<div class="row"><div class="lbl">4.1%</div><div class="bars"><div class="bar model" style="--v:26.77"><span>모델 26.8%</span></div><div class="bar market" style="--v:34.25;--lo:34.00;--hi:37.00"><i class="rng"></i><span>시장 34.3%</span></div></div></div>
+<div class="row"><div class="lbl">4.2%</div><div class="bars"><div class="bar model" style="--v:18.54"><span>모델 18.5%</span></div><div class="bar market" style="--v:27.25;--lo:27.00;--hi:30.00"><i class="rng"></i><span>시장 27.3%</span></div></div></div>
+<div class="row"><div class="lbl">4.3%</div><div class="bars"><div class="bar model" style="--v:8.01"><span>모델 8.0%</span></div><div class="bar market" style="--v:9.25;--lo:9.00;--hi:12.00"><i class="rng"></i><span>시장 9.3%</span></div></div></div>
+<div class="row"><div class="lbl">4.4%</div><div class="bars"><div class="bar model" style="--v:2.29"><span>모델 2.3%</span></div><div class="bar market" style="--v:3.34;--lo:3.00;--hi:7.00"><i class="rng"></i><span>시장 3.3%</span></div></div></div>
+<div class="row"><div class="lbl">4.5%</div><div class="bars"><div class="bar model" style="--v:1.37"><span>모델 1.4%</span></div><div class="bar market" style="--v:1.40;--lo:1.00;--hi:5.70"><i class="rng"></i><span>시장 1.4%</span></div></div></div>
+<div class="row"><div class="lbl">≥4.6%</div><div class="bars"><div class="bar model" style="--v:1.14"><span>모델 1.1%</span></div><div class="bar market" style="--v:1.40;--lo:1.10;--hi:4.70"><i class="rng"></i><span>시장 1.4%</span></div></div></div>
 <p class="note">모델은 "최신치 + 1990년 이후 1개월 변화의 경험분포". 수수료 차감 후 가장 큰 순 edge:  rate be 4.0%? +4.5%p.</p></div>
-<div class="panel"><h2>2026-08 Core CPI YoY (2026-09-11 발표)</h2><p class="sub">Polymarket 관측 2026-09-08 17:03 UTC · 최신치 2.5% · 시장 최빈 2.4%, 모델 최빈 2.5%</p><div class="legend"><span><i style="background:var(--model)"></i>경험분포 baseline (CPILFENS)</span><span><i style="background:var(--market)"></i>시장 (Polymarket) · 호가 범위</span></div><div class="row"><div class="lbl">≤2.0%</div><div class="bars"><div class="bar model" style="--v:0.69"><span>모델 0.7%</span></div><div class="bar market" style="--v:0.86;--lo:0.70;--hi:2.80"><i class="rng"></i><span>시장 0.9%</span></div></div></div>
-<div class="row"><div class="lbl">2.1%</div><div class="bars"><div class="bar model" style="--v:0.46"><span>모델 0.5%</span></div><div class="bar market" style="--v:0.33;--lo:0.20;--hi:1.90"><i class="rng"></i><span>시장 0.3%</span></div></div></div>
-<div class="row"><div class="lbl">2.2%</div><div class="bars"><div class="bar model" style="--v:2.75"><span>모델 2.8%</span></div><div class="bar market" style="--v:9.41;--lo:9.30;--hi:10.80"><i class="rng"></i><span>시장 9.4%</span></div></div></div>
-<div class="row"><div class="lbl">2.3%</div><div class="bars"><div class="bar model" style="--v:11.24"><span>모델 11.2%</span></div><div class="bar market" style="--v:26.08;--lo:26.00;--hi:27.00"><i class="rng"></i><span>시장 26.1%</span></div></div></div>
-<div class="row"><div class="lbl">2.4%</div><div class="bars"><div class="bar model" style="--v:22.71"><span>모델 22.7%</span></div><div class="bar market" style="--v:47.15;--lo:47.00;--hi:49.00"><i class="rng"></i><span>시장 47.2%</span></div></div></div>
-<div class="row"><div class="lbl">2.5%</div><div class="bars"><div class="bar model" style="--v:29.13"><span>모델 29.1%</span></div><div class="bar market" style="--v:12.23;--lo:12.00;--hi:15.00"><i class="rng"></i><span>시장 12.2%</span></div></div></div>
-<div class="row"><div class="lbl">2.6%</div><div class="bars"><div class="bar model" style="--v:22.94"><span>모델 22.9%</span></div><div class="bar market" style="--v:1.59;--lo:1.50;--hi:2.70"><i class="rng"></i><span>시장 1.6%</span></div></div></div>
-<div class="row"><div class="lbl">2.7%</div><div class="bars"><div class="bar model" style="--v:5.50"><span>모델 5.5%</span></div><div class="bar market" style="--v:1.18;--lo:1.00;--hi:3.40"><i class="rng"></i><span>시장 1.2%</span></div></div></div>
-<div class="row"><div class="lbl">2.8%</div><div class="bars"><div class="bar model" style="--v:1.83"><span>모델 1.8%</span></div><div class="bar market" style="--v:0.64;--lo:0.50;--hi:2.30"><i class="rng"></i><span>시장 0.6%</span></div></div></div>
-<div class="row"><div class="lbl">≥2.9%</div><div class="bars"><div class="bar model" style="--v:2.75"><span>모델 2.8%</span></div><div class="bar market" style="--v:0.53;--lo:0.50;--hi:0.90"><i class="rng"></i><span>시장 0.5%</span></div></div></div><p class="note">모델은 "최신 YoY + 1990년 이후 YoY 1개월 변화의 경험분포". 기저효과(12개월 전 지수)를 명시적으로 넣지 않은 무조정 baseline (R35-M1). 채점은 발표 당일 첫 공표치 기준.</p></div>
+<div class="panel"><h2>2026-08 Core CPI YoY (2026-09-11 발표)</h2><p class="sub">Polymarket 관측 2026-09-08 18:34 UTC · 최신치 2.5% · 시장 최빈 2.4%, 모델 최빈 2.5%</p><div class="legend"><span><i style="background:var(--model)"></i>경험분포 baseline (CPILFENS)</span><span><i style="background:var(--market)"></i>시장 (Polymarket) · 호가 범위</span></div><div class="row"><div class="lbl">≤2.0%</div><div class="bars"><div class="bar model" style="--v:0.69"><span>모델 0.7%</span></div><div class="bar market" style="--v:0.71;--lo:0.70;--hi:2.90"><i class="rng"></i><span>시장 0.7%</span></div></div></div>
+<div class="row"><div class="lbl">2.1%</div><div class="bars"><div class="bar model" style="--v:0.46"><span>모델 0.5%</span></div><div class="bar market" style="--v:0.21;--lo:0.20;--hi:1.90"><i class="rng"></i><span>시장 0.2%</span></div></div></div>
+<div class="row"><div class="lbl">2.2%</div><div class="bars"><div class="bar model" style="--v:2.75"><span>모델 2.8%</span></div><div class="bar market" style="--v:9.51;--lo:9.50;--hi:10.90"><i class="rng"></i><span>시장 9.5%</span></div></div></div>
+<div class="row"><div class="lbl">2.3%</div><div class="bars"><div class="bar model" style="--v:11.24"><span>모델 11.2%</span></div><div class="bar market" style="--v:27.02;--lo:27.00;--hi:30.00"><i class="rng"></i><span>시장 27.0%</span></div></div></div>
+<div class="row"><div class="lbl">2.4%</div><div class="bars"><div class="bar model" style="--v:22.71"><span>모델 22.7%</span></div><div class="bar market" style="--v:47.01;--lo:47.00;--hi:49.00"><i class="rng"></i><span>시장 47.0%</span></div></div></div>
+<div class="row"><div class="lbl">2.5%</div><div class="bars"><div class="bar model" style="--v:29.13"><span>모델 29.1%</span></div><div class="bar market" style="--v:12.02;--lo:12.00;--hi:15.00"><i class="rng"></i><span>시장 12.0%</span></div></div></div>
+<div class="row"><div class="lbl">2.6%</div><div class="bars"><div class="bar model" style="--v:22.94"><span>모델 22.9%</span></div><div class="bar market" style="--v:1.51;--lo:1.50;--hi:2.70"><i class="rng"></i><span>시장 1.5%</span></div></div></div>
+<div class="row"><div class="lbl">2.7%</div><div class="bars"><div class="bar model" style="--v:5.50"><span>모델 5.5%</span></div><div class="bar market" style="--v:1.01;--lo:1.00;--hi:3.40"><i class="rng"></i><span>시장 1.0%</span></div></div></div>
+<div class="row"><div class="lbl">2.8%</div><div class="bars"><div class="bar model" style="--v:1.83"><span>모델 1.8%</span></div><div class="bar market" style="--v:0.51;--lo:0.50;--hi:2.30"><i class="rng"></i><span>시장 0.5%</span></div></div></div>
+<div class="row"><div class="lbl">≥2.9%</div><div class="bars"><div class="bar model" style="--v:2.75"><span>모델 2.8%</span></div><div class="bar market" style="--v:0.50;--lo:0.50;--hi:0.90"><i class="rng"></i><span>시장 0.5%</span></div></div></div><p class="note">모델은 "최신 YoY + 1990년 이후 YoY 1개월 변화의 경험분포". 기저효과(12개월 전 지수)를 명시적으로 넣지 않은 무조정 baseline (R35-M1). 채점은 발표 당일 첫 공표치 기준.</p></div>
 </div>
 <section><h2>왜 아직 신호가 아닌가</h2><p class="sub">각 게이트는 코드에서 강제됩니다. 하나라도 빨간색이면 화면에 신호가 나가지 않습니다.</p>
 <div class="gates">
 <div class="gate"><span class="pill ok">통과</span><div><b>계약 규칙·출처·일정 검증</b><small>BLS·연준 공식 호스트, 시리즈 정체성, 공식 발표 일정(D-014)</small></div></div>
-<div class="gate"><span class="pill ok">통과</span><div><b>가격 정규화 (D-015 / D-018)</b><small>실업률 Σbid 0.981 · 다음 FOMC 사다리 폭 0.16</small></div></div>
+<div class="gate"><span class="pill ok">통과</span><div><b>가격 정규화 (D-015 / D-018)</b><small>실업률 Σbid 0.971 · 다음 FOMC 사다리 폭 0.16</small></div></div>
 <div class="gate"><span class="pill ok">통과</span><div><b>연구 표본 (D-013)</b><small>비-ZLB 백테스트 36건 ≥ 30. BSS vs climatology +0.17, 비-ZLB +0.03</small></div></div>
 <div class="gate"><span class="pill no">미충족</span><div><b>시장 대비 표본외 skill (D-007)</b><small>채점된 회의 0건. 같은 날 발표·저유동성 회의는 따로 집계(D-017, D-018)</small></div></div>
 <div class="gate"><span class="pill wait">대기</span><div><b>사용자 결정 (D-012)</b><small>skill이 양수여도 신호 표시는 별도 결정으로만 켜짐</small></div></div>
 </div></section>
-<section class="panel"><h2>Kalshi FOMC 사다리 (만기별)</h2><p class="sub">폭 = Σask − Σbid. 상한은 만기까지 개월 수에 따라 0.35~0.60 (D-018). 폭 초과 이벤트는 표에 없음.</p>
-<div class="tablewrap"><table><tr><th>이벤트</th><th>상태</th><th class="n">폭 / 상한</th><th>상위 구간</th></tr><tr><td>KXFED-26DEC</td><td>정상</td><td class="n">0.30 / 0.40</td><td>4.00: 42% · 4.25: 30%</td></tr>
-<tr><td>KXFED-26OCT</td><td>정상</td><td class="n">0.22 / 0.35</td><td>4.00: 55% · 3.75: 33%</td></tr>
-<tr><td>KXFED-26SEP</td><td>정상</td><td class="n">0.16 / 0.35</td><td>4.00: 52% · 3.75: 46%</td></tr></table></div></section>
+<section class="panel"><h2>Kalshi 사다리 (만기별)</h2><p class="sub">유동성은 rung 스프레드로 판정 (D-019): 평균 ≤ 0.05, 최대 ≤ 0.12, 결과까지 2개월 초과 시 개월당 +0.01. 한도를 넘은 이벤트는 표에 없음.</p>
+<div class="tablewrap"><table><tr><th>이벤트</th><th>주제</th><th>상태</th><th class="n">rung 스프레드 평균 / 최대</th><th>상위 구간</th></tr><tr><td>KXFED-26DEC</td><td>fed_rate</td><td>정상</td><td class="n">폭 0.30 (D-018 기록)</td><td>4.00: 42% · 4.25: 30%</td></tr>
+<tr><td>KXFED-26OCT</td><td>fed_rate</td><td>정상</td><td class="n">폭 0.21 (D-018 기록)</td><td>4.00: 55% · 3.75: 33%</td></tr>
+<tr><td>KXFED-26SEP</td><td>fed_rate</td><td>정상</td><td class="n">폭 0.16 (D-018 기록)</td><td>4.00: 52% · 3.75: 46%</td></tr></table></div></section>
 <section class="panel"><h2>시장이 보는 금리 경로</h2><p class="sub">Kalshi 사다리를 회의별로 이어 본 것. 막대는 회의 후 상단 금리의 확률분포(<span style="color:var(--cut)">■</span> 현재보다 낮음 · <span style="color:var(--hold)">■</span> 현재 3.75% · <span style="color:var(--hike)">■</span> 높음), 오른쪽은 기대 상단 금리. 모델 없이 시장만 본 값.</p><div class="path"><div><b>2026-12-09</b><br><small style="color:var(--muted)">KXFED-26DEC</small></div><div><div class="dist"><i class="c" style="width:1.49%" title="le_2.75: 1.5%"></i><i class="c" style="width:1.99%" title="3.25: 2.0%"></i><i class="c" style="width:3.98%" title="3.50: 4.0%"></i><i class="h" style="width:13.93%" title="3.75: 13.9%"></i><i class="k" style="width:41.79%" title="4.00: 41.8%"></i><i class="k" style="width:30.35%" title="4.25: 30.3%"></i><i class="k" style="width:5.47%" title="4.50: 5.5%"></i><i class="k" style="width:0.50%" title="5.25: 0.5%"></i><i class="k" style="width:0.50%" title="gt_5.25: 0.5%"></i></div><small style="color:var(--ink2)">인하 7% · 동결 14% · 인상 79%</small></div><div class="n">4.03%</div></div>
 <div class="path"><div><b>2026-10-28</b><br><small style="color:var(--muted)">KXFED-26OCT</small></div><div><div class="dist"><i class="c" style="width:0.50%" title="le_2.75: 0.5%"></i><i class="c" style="width:1.00%" title="3.25: 1.0%"></i><i class="c" style="width:1.99%" title="3.50: 2.0%"></i><i class="h" style="width:33.33%" title="3.75: 33.3%"></i><i class="k" style="width:55.22%" title="4.00: 55.2%"></i><i class="k" style="width:6.97%" title="4.25: 7.0%"></i><i class="k" style="width:1.00%" title="gt_5.25: 1.0%"></i></div><small style="color:var(--ink2)">인하 3% · 동결 33% · 인상 63%</small></div><div class="n">3.93%</div></div>
 <div class="path"><div><b>2026-09-16</b><br><small style="color:var(--muted)">KXFED-26SEP</small></div><div><div class="dist"><i class="c" style="width:0.50%" title="le_2.75: 0.5%"></i><i class="h" style="width:46.00%" title="3.75: 46.0%"></i><i class="k" style="width:52.50%" title="4.00: 52.5%"></i><i class="k" style="width:0.50%" title="4.25: 0.5%"></i><i class="k" style="width:0.50%" title="gt_5.25: 0.5%"></i></div><small style="color:var(--ink2)">인하 1% · 동결 46% · 인상 54%</small></div><div class="n">3.89%</div></div></section>
-<section class="panel"><h2>2026-09-16 FOMC 예측 추이</h2><p class="sub">기록 17건 (첫 기록 2026-09-08). 실선 = 인상 확률, 점선 = 동결 확률. <span style="color:var(--market)">■</span> 시장 · <span style="color:var(--model)">■</span> 모델. 회의일까지 매일 한 점씩 늘어납니다.</p><svg class="chart" viewBox="0 0 560 170" role="img">
+<section class="panel"><h2>2026-09-16 FOMC 예측 추이</h2><p class="sub">기록 18건 (첫 기록 2026-09-08). 실선 = 인상 확률, 점선 = 동결 확률. <span style="color:var(--market)">■</span> 시장 · <span style="color:var(--model)">■</span> 모델. 회의일까지 매일 한 점씩 늘어납니다.</p><svg class="chart" viewBox="0 0 560 170" role="img">
 <line class="grid" x1="42" x2="550" y1="146.0" y2="146.0"/>
 <text x="36" y="149.0" text-anchor="end">0%</text>
 <line class="grid" x1="42" x2="550" y1="112.0" y2="112.0"/>
@@ -109,14 +109,14 @@ section{margin-bottom:22px} .verdict{background:var(--panel);border-left:4px sol
 <line class="grid" x1="42" x2="550" y1="10.0" y2="10.0"/>
 <text x="36" y="13.0" text-anchor="end">100%</text>
 <text x="42.0" y="162" text-anchor="middle">2026-09-08 03:20</text>
-<text x="550.0" y="162" text-anchor="middle">2026-09-08 17:34</text>
-<path d="M42.0,74.6 L73.8,74.6 L105.5,74.6 L137.2,74.6 L169.0,74.6 L200.8,74.6 L232.5,74.6 L264.2,74.6 L296.0,74.6 L327.8,73.2 L359.5,73.2 L391.2,73.2 L423.0,73.2 L454.8,73.2 L486.5,73.2 L518.2,73.2 L550.0,73.2" fill="none" stroke="var(--market)" stroke-width="2"/>
+<text x="550.0" y="162" text-anchor="middle">2026-09-08 18:42</text>
+<path d="M42.0,74.6 L71.9,74.6 L101.8,74.6 L131.6,74.6 L161.5,74.6 L191.4,74.6 L221.3,74.6 L251.2,74.6 L281.1,74.6 L310.9,73.2 L340.8,73.2 L370.7,73.2 L400.6,73.2 L430.5,73.2 L460.4,73.2 L490.2,73.2 L520.1,73.2 L550.0,73.2" fill="none" stroke="var(--market)" stroke-width="2"/>
 <circle cx="550.0" cy="73.2" r="3.5" fill="var(--market)"><title>시장 인상: 54%</title></circle>
-<path d="M42.0,136.4 L73.8,136.4 L105.5,136.4 L137.2,136.4 L169.0,136.4 L200.8,136.4 L232.5,136.4 L264.2,136.4 L296.0,136.4 L327.8,136.4 L359.5,136.4 L391.2,136.4 L423.0,136.4 L454.8,136.4 L486.5,136.4 L518.2,120.7 L550.0,120.7" fill="none" stroke="var(--model)" stroke-width="2"/>
+<path d="M42.0,136.4 L71.9,136.4 L101.8,136.4 L131.6,136.4 L161.5,136.4 L191.4,136.4 L221.3,136.4 L251.2,136.4 L281.1,136.4 L310.9,136.4 L340.8,136.4 L370.7,136.4 L400.6,136.4 L430.5,136.4 L460.4,136.4 L490.2,120.7 L520.1,120.7 L550.0,120.7" fill="none" stroke="var(--model)" stroke-width="2"/>
 <circle cx="550.0" cy="120.7" r="3.5" fill="var(--model)"><title>모델 인상: 19%</title></circle>
-<path d="M42.0,82.1 L73.8,82.1 L105.5,82.1 L137.2,82.1 L169.0,82.1 L200.8,82.1 L232.5,82.1 L264.2,82.1 L296.0,82.1 L327.8,83.4 L359.5,83.4 L391.2,83.4 L423.0,83.4 L454.8,83.4 L486.5,83.4 L518.2,83.4 L550.0,83.4" fill="none" stroke="var(--market)" stroke-width="2" stroke-dasharray="5 4"/>
+<path d="M42.0,82.1 L71.9,82.1 L101.8,82.1 L131.6,82.1 L161.5,82.1 L191.4,82.1 L221.3,82.1 L251.2,82.1 L281.1,82.1 L310.9,83.4 L340.8,83.4 L370.7,83.4 L400.6,83.4 L430.5,83.4 L460.4,83.4 L490.2,83.4 L520.1,83.4 L550.0,83.4" fill="none" stroke="var(--market)" stroke-width="2" stroke-dasharray="5 4"/>
 <circle cx="550.0" cy="83.4" r="3.5" fill="var(--market)"><title>시장 동결: 46%</title></circle>
-<path d="M42.0,40.6 L73.8,40.6 L105.5,40.6 L137.2,40.6 L169.0,40.6 L200.8,40.6 L232.5,40.6 L264.2,40.6 L296.0,40.6 L327.8,40.6 L359.5,40.6 L391.2,40.6 L423.0,40.6 L454.8,40.6 L486.5,40.6 L518.2,51.5 L550.0,51.5" fill="none" stroke="var(--model)" stroke-width="2" stroke-dasharray="5 4"/>
+<path d="M42.0,40.6 L71.9,40.6 L101.8,40.6 L131.6,40.6 L161.5,40.6 L191.4,40.6 L221.3,40.6 L251.2,40.6 L281.1,40.6 L310.9,40.6 L340.8,40.6 L370.7,40.6 L400.6,40.6 L430.5,40.6 L460.4,40.6 L490.2,51.5 L520.1,51.5 L550.0,51.5" fill="none" stroke="var(--model)" stroke-width="2" stroke-dasharray="5 4"/>
 <circle cx="550.0" cy="51.5" r="3.5" fill="var(--model)"><title>모델 동결: 69%</title></circle>
 </svg></section>
 <section class="panel"><h2>다가오는 일정</h2><p class="sub">공식 발표 일정(BLS·연준). 각 날짜에 어떤 채점이 일어나는지.</p><div class="tablewrap"><table><tr><th class="n">날짜</th><th>시각</th><th>발표</th><th>대상</th><th>우리 시스템</th></tr><tr><td class="n">2026-09-11</td><td>08:30 ET</td><td>CPI (소비자물가)</td><td>2026-08</td><td>Core CPI YoY 비교 채점</td></tr>
@@ -278,11 +278,11 @@ section{margin-bottom:22px} .verdict{background:var(--panel);border-left:4px sol
 <li><span class="sev low">Low</span><code>R9-L2</code> 점추정의 스프레드 비례 배분은 결정으로 고정했으나, 대안(bid 기준, 유동성 가중)과의 비교는 시장 데이터가 쌓인 뒤 가능</li>
 <li><span class="sev medium">Medium</span><code>R13-M1</code> 실시간 비교의 모델 확률은 2019–2024 전체로 학습한 로지스틱 + 휴리스틱. D-013(비-ZLB 30건) 미충족 상태의 모델이므로 기록 전용</li>
 <li><span class="sev medium">Medium</span><code>R13-M2</code> 실시간 특징의 vintage는 &quot;오늘&quot;이며 발표 시각(08:30 ET)과 워크플로 실행 시각(13:40 UTC = 09:40 ET) 사이 관계는 ALFRED `r</li></ul></section>
-<section class="panel"><h2>최근 결정</h2><ul class="items"><li><code>D-013</code> 비-ZLB 유효 표본 기준</li>
-<li><code>D-014</code> 결과 확정 시각은 공식 발표 일정 기준</li>
+<section class="panel"><h2>최근 결정</h2><ul class="items"><li><code>D-014</code> 결과 확정 시각은 공식 발표 일정 기준</li>
 <li><code>D-015</code> 얇은 구간 시장의 확률 정규화</li>
 <li><code>D-016</code> Fed 모델 결과공간은 인하 / 동결 / 인상 3원</li>
 <li><code>D-017</code> 예측 cutoff와 시장 관측시각 정렬</li>
+<li><code>D-019</code> 사다리 유동성 게이트를 rung 기준으로</li>
 <li><code>D-018</code> 먼 만기 사다리의 폭 상한</li></ul></section>
 </div>
 </div></body></html>
