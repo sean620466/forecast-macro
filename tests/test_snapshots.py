@@ -68,5 +68,27 @@ def test_snapshot_rejects_missing_months():
         RateDecision.HOLD,
         "https://www.federalreserve.gov/test",
     )
-    with pytest.raises(ValueError, match="gap"):
+    with pytest.raises(ValueError, match="missing the 2023-01 observation"):
         build_historical_snapshot(client, meeting)
+
+
+def test_unpublished_middle_month_is_tolerated_and_recorded():
+    # BLS never published October 2025 CPI or unemployment after the 2025 shutdown.
+    months = [(2025, m) for m in range(7, 13)] + [(2026, m) for m in range(1, 8)]
+    cpi = [
+        observation("CPIAUCNS", y, m, 320 + index)
+        for index, (y, m) in enumerate(months)
+        if (y, m) != (2025, 10)
+    ]
+    unemployment = [
+        observation("UNRATE", 2026, m, v) for m, v in [(4, 4.3), (5, 4.3), (6, 4.2), (7, 4.1)]
+    ]
+    policy = [observation("DFEDTARU", 2026, 9, 3.75)]
+    client = FakeAlfredClient({"CPIAUCNS": cpi, "UNRATE": unemployment, "DFEDTARU": policy})
+    from forecast_macro.snapshots import build_feature_snapshot
+
+    snapshot = build_feature_snapshot(client, meeting_date=date(2026, 9, 16), vintage_date=date(2026, 9, 7))
+    assert snapshot.cpi_yoy_nsa == pytest.approx((332 / 320 - 1) * 100)  # Jul 2026 vs Jul 2025
+    assert snapshot.unemployment_change_3m == pytest.approx(-0.2)
+    assert snapshot.data_gaps == {"CPIAUCNS": ["2025-10"]}
+    assert "data_gaps" in snapshot.to_dict()

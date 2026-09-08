@@ -7,6 +7,10 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/build-snapshots.yml"
+      - "scripts/build_fomc_snapshots.py"
+      - "src/forecast_macro/snapshots.py"
+      - "src/forecast_macro/data/alfred.py"
+      - "data/fomc_meetings_2019_2026.csv"
 
 permissions:
   contents: write

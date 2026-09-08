@@ -10,6 +10,8 @@ on:
       - ".github/workflows/compare-fed-market.yml"
       - "scripts/compare_fed_market.py"
       - "src/forecast_macro/live_comparison.py"
+      - "src/forecast_macro/snapshots.py"
+      - "src/forecast_macro/data/alfred.py"
 
 permissions:
   contents: write
