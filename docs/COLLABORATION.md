@@ -8,7 +8,7 @@ ChatGPT의 참여가 중단되어 **Claude가 구현과 검증을 모두 맡는�
 - 검증: `claude/review-N-<topic>` 브랜치에 보고서·재계산 스크립트·실패 테스트만 올린다. 코드는 건드리지 않는다.
 - 구현: 별도 `claude/fix-<topic>` 브랜치에서 코드를 고치고, 응답 파일 `reviews/YYYY-MM-DD-review-N-response.md`와
   `reviews/FINDINGS.md` 상태를 갱신한다.
-- 사용자는 GitHub에서 PR을 병합한다. Claude는 `main`에 직접 push하지 않는다.
+- 병합: 로컬 테스트·ruff 통과와 CI 초록을 확인한 뒤 Claude가 `main`에 fast-forward push한다 (2026-09-08 사용자 결정). 사용자는 `DECISIONS.md` 항목만 승인한다.
 - 새 과제는 사용자가 한 줄로 지시하거나, Claude가 `reviews/tasks/NN-<topic>.md`에 제안하고 사용자가 승인한다.
 
 아래는 두 AI가 있을 때의 원래 규칙이며, 파일 규약과 발견 ID 형식은 그대로 유지한다.

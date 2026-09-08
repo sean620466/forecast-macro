@@ -21,7 +21,7 @@
 - 기존 모델 파일을 즉시 덮어쓰지 않는다.
 - 먼저 `reviews/YYYY-MM-DD-<topic>-claude.md`에 독립 검토 결과를 작성한다.
 - 코드 수정이 필요하면 새 브랜치 `claude/<topic>`에서 작업하고 Pull Request를 만든다.
-- `main`에 직접 push하지 않는다.
+- `main`에는 테스트와 `ruff check .`가 통과하고 CI가 초록일 때만 push한다 (2026-09-08 사용자 결정: Claude 단독 운영 중에는 Claude가 직접 병합한다).
 - `DECISIONS.md`의 Accepted 결정을 임의로 변경하지 않는다.
 - API 키, 토큰, 개인 데이터는 절대 커밋하지 않는다.
 
