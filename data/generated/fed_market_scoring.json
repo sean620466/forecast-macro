@@ -10,5 +10,10 @@
   "sample_gate_passed": false,
   "signal_eligible": false,
   "signal_eligible_reason": "sample gate not met (D-013)",
-  "records": []
+  "records": [],
+  "three_way_meetings": 0,
+  "heuristic_three_way_brier": null,
+  "logistic_three_way_brier": null,
+  "market_three_way_brier": null,
+  "logistic_three_way_skill_vs_market": null
 }
