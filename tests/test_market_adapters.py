@@ -1,5 +1,6 @@
 from datetime import UTC, datetime
 
+import httpx
 import pytest
 
 from forecast_macro.data.kalshi import KalshiPublicClient, parse_kalshi_orderbook
@@ -70,8 +71,11 @@ def test_kalshi_discovery_follows_all_cursors(monkeypatch) -> None:
     calls = []
 
     class Response:
+        status_code = 200
+
         def __init__(self, payload):
             self.payload = payload
+            self.headers = {}
 
         def raise_for_status(self):
             return None
@@ -102,3 +106,21 @@ def test_kalshi_discovery_follows_all_cursors(monkeypatch) -> None:
     candidates = KalshiPublicClient().discover_open_macro_markets()
     assert len(candidates) == 1
     assert calls[1]["cursor"] == "next-page"
+
+
+def test_kalshi_discovery_retries_on_429(monkeypatch):
+    from forecast_macro.data import kalshi as kalshi_module
+
+    attempts = []
+
+    def fake_get(url, params=None, timeout=None, headers=None):
+        attempts.append(url)
+        request = httpx.Request("GET", url)
+        if len(attempts) == 1:
+            return httpx.Response(429, request=request, headers={"Retry-After": "0"}, json={})
+        return httpx.Response(200, request=request, json={"markets": [], "cursor": ""})
+
+    monkeypatch.setattr("forecast_macro.data.kalshi.httpx.get", fake_get)
+    monkeypatch.setattr(kalshi_module.time, "sleep", lambda seconds: None)
+    assert kalshi_module.KalshiPublicClient().discover_open_macro_markets() == []
+    assert len(attempts) == 2

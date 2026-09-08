@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import time
 from datetime import UTC, datetime
 from typing import Any
 
@@ -49,15 +50,25 @@ def parse_kalshi_orderbook(
     )
 
 
+def _get_with_retry(url: str, *, params: dict[str, Any] | None, timeout: float, max_retries: int = 4) -> httpx.Response:
+    """GET that backs off on 429; discovery pages through ~1,800 markets in one run."""
+    for attempt in range(max_retries + 1):
+        response = httpx.get(url, params=params, headers=REQUEST_HEADERS, timeout=timeout)
+        if response.status_code != 429 or attempt == max_retries:
+            return response
+        retry_after = response.headers.get("Retry-After")
+        delay = float(retry_after) if retry_after else min(2**attempt, 16)
+        time.sleep(delay)
+    raise AssertionError("retry loop must return")
+
+
 class KalshiPublicClient:
     def __init__(self, *, timeout: float = 15.0) -> None:
         self.timeout = timeout
 
     def orderbook(self, ticker: str) -> OutcomeQuote:
-        response = httpx.get(
-            f"{KALSHI_API_URL}/markets/{ticker}/orderbook",
-            headers=REQUEST_HEADERS,
-            timeout=self.timeout,
+        response = _get_with_retry(
+            f"{KALSHI_API_URL}/markets/{ticker}/orderbook", params=None, timeout=self.timeout
         )
         response.raise_for_status()
         return parse_kalshi_orderbook(
@@ -65,9 +76,7 @@ class KalshiPublicClient:
         )
 
     def market(self, ticker: str) -> dict[str, Any]:
-        response = httpx.get(
-            f"{KALSHI_API_URL}/markets/{ticker}", headers=REQUEST_HEADERS, timeout=self.timeout
-        )
+        response = _get_with_retry(f"{KALSHI_API_URL}/markets/{ticker}", params=None, timeout=self.timeout)
         response.raise_for_status()
         payload = response.json()
         return dict(payload.get("market") or payload)
@@ -80,12 +89,7 @@ class KalshiPublicClient:
             params = {"status": "open", "limit": 1000, "mve_filter": "exclude"}
             if cursor:
                 params["cursor"] = cursor
-            response = httpx.get(
-                f"{KALSHI_API_URL}/markets",
-                params=params,
-                headers=REQUEST_HEADERS,
-                timeout=self.timeout,
-            )
+            response = _get_with_retry(f"{KALSHI_API_URL}/markets", params=params, timeout=self.timeout)
             response.raise_for_status()
             payload = response.json()
             candidates.extend(kalshi_candidates(payload))
@@ -129,10 +133,9 @@ def parse_kalshi_market_quote(
 class KalshiEventClient(KalshiPublicClient):
     def event_markets(self, event_ticker: str) -> tuple[list[dict[str, Any]], datetime]:
         """All markets of one event with their top-of-book quotes, plus the fetch time."""
-        response = httpx.get(
+        response = _get_with_retry(
             f"{KALSHI_API_URL}/markets",
             params={"event_ticker": event_ticker, "limit": 200},
-            headers=REQUEST_HEADERS,
             timeout=self.timeout,
         )
         response.raise_for_status()
