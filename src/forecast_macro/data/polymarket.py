@@ -7,6 +7,7 @@ import httpx
 
 from forecast_macro.contracts import OutcomeQuote
 from forecast_macro.market_discovery import MarketCandidate, polymarket_candidates
+from forecast_macro.market_rules import MarketRuleDocument, parse_polymarket_rules
 
 POLYMARKET_CLOB_URL = "https://clob.polymarket.com"
 POLYMARKET_GAMMA_URL = "https://gamma-api.polymarket.com"
@@ -61,3 +62,11 @@ class PolymarketPublicClient:
         )
         response.raise_for_status()
         return polymarket_candidates(response.json())
+
+    def market_rules(self, market_id: str) -> MarketRuleDocument:
+        response = httpx.get(
+            f"{POLYMARKET_GAMMA_URL}/markets/{market_id}",
+            timeout=self.timeout,
+        )
+        response.raise_for_status()
+        return parse_polymarket_rules(response.json())
