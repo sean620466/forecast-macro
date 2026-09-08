@@ -1,6 +1,6 @@
 # STATUS (자동 생성, scripts/build_dashboard.py)
 
-기준: main 99c4f6a, 데이터 2026-09-08 18:46 UTC. 대시보드: docs/dashboard/index.html
+기준: main d7efe5d, 데이터 2026-09-08 18:47 UTC. 대시보드: docs/dashboard/index.html
 
 ## 한 문장
 모델과 예측시장 확률을 매일 같은 기준으로 기록하고 결과로 채점하는 장치는 완성됐고, "시장보다 나은가"의 답은 아직 없다 (채점 0건).
