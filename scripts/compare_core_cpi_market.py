@@ -9,7 +9,8 @@ from pathlib import Path
 import httpx
 
 from forecast_macro.data.alfred import AlfredClient
-from forecast_macro.models.core_cpi import CPI_MEASURES, core_cpi_yoy_history
+from forecast_macro.models.core_cpi import BASE_EFFECT_MEASURES, CPI_MEASURES, core_cpi_yoy_history
+from forecast_macro.models.cpi_base_effect import base_effect_change_distribution
 from forecast_macro.models.unemployment import MonthlyRate
 from forecast_macro.release_schedule import load_release_schedule
 from forecast_macro.snapshots import latest_safe_vintage
@@ -76,6 +77,10 @@ def main() -> None:
         )
     levels = [MonthlyRate(month=row.observed_at, value=row.value) for row in observations]
     history = core_cpi_yoy_history(levels)
+    change_distribution = None
+    if args.measure in BASE_EFFECT_MEASURES:
+        # Base effect explicit: known L[t]/L[t-11] times a seasonal-mean-plus-residual MoM draw.
+        change_distribution = base_effect_change_distribution(levels, latest_yoy=history[-1].value)
 
     output_dir.mkdir(parents=True, exist_ok=True)
     stamp = as_of.strftime("%Y%m%dT%H%M%SZ")
@@ -89,6 +94,7 @@ def main() -> None:
             source_file=source,
             model_version=model_version,
             topic="cpi",
+            change_distribution=change_distribution,
         )
         suffix = "" if venue == "polymarket" else f"_{venue}"
         output = output_dir / f"{prefix}_{stamp}{suffix}.json"

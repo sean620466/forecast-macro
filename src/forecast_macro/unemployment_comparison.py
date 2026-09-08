@@ -177,12 +177,15 @@ def build_unemployment_comparison(
     source_file: str,
     model_version: str = MODEL_VERSION,
     topic: str = "unemployment",
+    change_distribution: Mapping[float, float] | None = None,
 ) -> UnemploymentComparisonRecord:
+    """`change_distribution` replaces the empirical one-month-change draw (keyed by change from
+    the latest rate, in tenths); the base-effect CPI model supplies it (task 41)."""
     if as_of.tzinfo is None:
         raise ValueError("as_of must be timezone-aware")
     rows = sorted(history, key=lambda r: r.month)
     latest = rows[-1]
-    distribution = monthly_change_distribution(rows)
+    distribution = dict(change_distribution) if change_distribution is not None else monthly_change_distribution(rows)
     buckets = buckets_from_record(record)
     keys = list(record["probabilities"].keys())
     if is_ladder_keys(keys):

@@ -90,3 +90,61 @@ def test_backtest_scores_both_baselines_on_the_same_grid() -> None:
     assert report.base_effect_brier < report.empirical_change_brier
     assert report.base_effect_skill_vs_empirical_change > 0
     assert report.same_month_brier is not None
+
+
+def test_change_distribution_override_reaches_the_comparison_builder() -> None:
+    from datetime import UTC, datetime
+
+    from forecast_macro.models.core_cpi import (
+        BASE_EFFECT_MEASURES,
+        CPI_MEASURES,
+        core_cpi_yoy_history,
+    )
+    from forecast_macro.models.cpi_base_effect import base_effect_change_distribution
+    from forecast_macro.release_schedule import ScheduledRelease
+    from forecast_macro.unemployment_comparison import build_unemployment_comparison
+
+    assert BASE_EFFECT_MEASURES == {"headline"} and "base-effect" in CPI_MEASURES["headline"][1]
+    levels = _levels(noise=_hash_noise)
+    history = core_cpi_yoy_history(levels)
+    latest = history[-1].value
+    changes = base_effect_change_distribution(levels, latest_yoy=latest)
+    assert sum(changes.values()) == pytest.approx(1.0)
+    keys = ["le_1.90", "2.00", "2.10", "2.20", "2.30", "gt_2.30"]
+    record = {
+        "venue": "kalshi",
+        "venue_event_id": "KXCPIYOY-TEST",
+        "topic": "cpi",
+        "probabilities": dict.fromkeys(keys, 1 / 6),
+        "probability_bounds": {k: [0.1, 0.2] for k in keys},
+        "contracts": {},
+        "observed_at": "2020-01-05T00:00:00+00:00",
+    }
+    release = ScheduledRelease(series="cpi", reference_period="2020-01", release_at=datetime(2020, 2, 12, 13, 30, tzinfo=UTC), source_url="https://www.bls.gov/schedule", fetched_at="2020-01-05")
+    rec = build_unemployment_comparison(
+        as_of=datetime(2020, 1, 5, tzinfo=UTC),
+        release=release,
+        history=history,
+        history_vintage="2020-01-05",
+        record=record,
+        source_file="x.json",
+        model_version="test",
+        topic="cpi",
+        change_distribution=changes,
+    )
+    assert rec.change_distribution == {f"{c:+.1f}": p for c, p in changes.items()}
+    assert sum(rec.model.values()) == pytest.approx(1.0)
+
+
+def test_checked_in_backtest_is_internally_consistent() -> None:
+    import json
+    from pathlib import Path
+
+    path = Path(__file__).resolve().parents[1] / "data" / "generated" / "cpi_baseline_backtest.json"
+    payload = json.loads(path.read_text())
+    for report in payload["measures"].values():
+        assert report["months"] == len(report["records"]) >= 300
+        assert report["base_effect_wins"] + report["empirical_change_wins"] <= report["months"]
+        assert report["signal_eligible"] is False
+    assert payload["measures"]["headline"]["base_effect_skill_vs_empirical_change"] > 0
+    assert payload["measures"]["core"]["base_effect_skill_vs_empirical_change"] < 0

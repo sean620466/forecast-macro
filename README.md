@@ -16,7 +16,8 @@
 | Fed 모델(cut/hold/hike) vs 시장 | 평일 09:40 ET | `data/generated/fed_market_comparisons/`, `fed_market_scoring.json` |
 | 실업률 baseline vs 시장 | 평일 09:40 ET | `data/generated/unemployment_market_comparisons/`, `unemployment_market_scoring.json` |
 | Core CPI YoY baseline vs 시장 | 평일 09:40 ET | `data/generated/core_cpi_market_comparisons/`, `core_cpi_market_scoring.json` (Polymarket + Kalshi, 장소별 파일) |
-| 헤드라인 CPI YoY baseline vs 시장 (Kalshi) | 평일 09:40 ET | `data/generated/headline_cpi_market_comparisons/`, `headline_cpi_market_scoring.json` |
+| 헤드라인 CPI YoY baseline vs 시장 (Kalshi) | 평일 09:40 ET | `data/generated/headline_cpi_market_comparisons/`, `headline_cpi_market_scoring.json` (기저효과 모델) |
+| CPI baseline 연구 백테스트 | 변경 시 | `data/generated/cpi_baseline_backtest.json` (경험분포 vs 기저효과, 2000년 이후 317개월; `docs/CPI_BASELINES.md`) |
 | 시점별 특징 스냅샷(ALFRED) | 수동/변경 시 | `data/generated/fomc_feature_snapshots_2015_2026.json` (94회의; 2019–2026 파일은 회귀 테스트 고정값) |
 | 알림 | 워크플로 완료 시 / 채점 직후 | GitHub 이슈: `workflow-failure`(실패 시 열고 재성공 시 자동 닫힘), `scoring`(결과가 확정되어 채점된 회의·발표마다 1건) |
 

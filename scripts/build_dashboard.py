@@ -417,7 +417,7 @@ def render(d: dict) -> tuple[str, str]:
             f'<p class="sub">Polymarket 관측 {esc(cpi["market_observed_at"][:16].replace("T", " "))} UTC · 최신치 {cpi["latest_rate"]}% · 시장 최빈 {esc(bucket_label(cpi["bucket_titles"][cpi_mode_market]))}, 모델 최빈 {esc(bucket_label(cpi["bucket_titles"][cpi_mode_model]))}</p>'
             f'<div class="legend"><span><i style="background:var(--model)"></i>경험분포 baseline (CPILFENS)</span><span><i style="background:var(--market)"></i>시장 (Polymarket) · 호가 범위</span>{cpi_kalshi_legend}</div>'
             f"{bar_rows(cpi_rows, cpi_kalshi_bars)}"
-            '<p class="note">모델은 "최신 YoY + 1990년 이후 YoY 1개월 변화의 경험분포". 기저효과(12개월 전 지수)를 명시적으로 넣지 않은 무조정 baseline (R35-M1). 채점은 발표 당일 첫 공표치 기준.</p></div>'
+            '<p class="note">모델은 "최신 YoY + 1990년 이후 YoY 1개월 변화의 경험분포". 기저효과를 명시한 baseline과의 연구 백테스트(2000–2026, 317개월): Core는 경험분포가 낫고(Brier 0.803 vs 0.841), 헤드라인은 기저효과가 낫다(0.813 vs 0.889). 그래서 헤드라인(Kalshi)만 기저효과 모델을 쓴다. 채점은 발표 당일 첫 공표치 기준.</p></div>'
         )
         cpi_table = status_table(cpi_rows, cpi_kalshi_bars)
         cpi_status = f"""

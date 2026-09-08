@@ -129,6 +129,21 @@ def base_effect_yoy_distribution(
     return target, {yoy: count / total for yoy, count in sorted(counts.items())}
 
 
+def base_effect_change_distribution(
+    history: Sequence[MonthlyRate], *, latest_yoy: float, start: date | None = None, method: str = "pooled"
+) -> dict[float, float]:
+    """The base-effect YoY distribution expressed as changes from `latest_yoy` (tenths).
+
+    Lets the bucket comparison builder, which adds `latest + change`, use this model without
+    knowing about index levels.
+    """
+    _target, distribution = base_effect_yoy_distribution(history, start=start, method=method)
+    out: Counter[float] = Counter()
+    for yoy, probability in distribution.items():
+        out[_tenth(yoy - latest_yoy)] += probability
+    return {change: out[change] for change in sorted(out)}
+
+
 def base_effect_bucket_probabilities(
     history: Sequence[MonthlyRate],
     buckets: Sequence[RateBucket],
