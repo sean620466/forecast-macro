@@ -9,6 +9,8 @@ on:
     paths:
       - ".github/workflows/compare-fed-market.yml"
       - "scripts/compare_fed_market.py"
+      - "scripts/score_fed_comparisons.py"
+      - "src/forecast_macro/comparison_scoring.py"
       - "src/forecast_macro/live_comparison.py"
       - "src/forecast_macro/snapshots.py"
       - "src/forecast_macro/data/alfred.py"
@@ -34,11 +36,13 @@ jobs:
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: python scripts/compare_fed_market.py
+      - name: Score past comparisons against realized decisions (D-007)
+        run: python scripts/score_fed_comparisons.py
       - name: Persist comparison in the repository
         run: |
           git config user.name "forecast-macro-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/generated/fed_market_comparisons
+          git add data/generated/fed_market_comparisons data/generated/fed_market_scoring.json
           if git diff --cached --quiet; then
             echo "no new comparison"
             exit 0
