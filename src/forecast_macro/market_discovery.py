@@ -27,6 +27,8 @@ class MarketCandidate:
     match_basis: str
     requires_review: bool = True
     close_time_verified: bool = False
+    # Venue-reported close, kept verbatim for reconciliation against the official calendar.
+    venue_close_raw: str | None = None
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -96,6 +98,7 @@ def kalshi_candidates(payload: dict[str, Any]) -> list[MarketCandidate]:
                 outcome_token_ids=("yes", "no"),
                 match_basis=basis,
                 close_time_verified=True,
+                venue_close_raw=str(market.get("close_time") or "") or None,
             )
         )
     return candidates
@@ -141,6 +144,8 @@ def polymarket_candidates(payload: dict[str, Any]) -> list[MarketCandidate]:
                 outcome_labels=tuple(str(value) for value in labels),
                 outcome_token_ids=tuple(str(value) for value in tokens),
                 match_basis=basis,
+                venue_close_raw=str(market.get("endDate") or market.get("end_date_iso") or "")
+                or None,
             )
         )
     return candidates

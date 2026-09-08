@@ -11,7 +11,10 @@ def test_polymarket_rules_are_hashed_and_verified_against_bls() -> None:
         {
             "id": "3539692",
             "question": "Will Core CPI YoY be 2.0% or less in August?",
-            "description": "Resolves using the CPI release from the Bureau of Labor Statistics.",
+            "description": (
+                "Resolves using the 12-month change in the Core CPI, before seasonal "
+                "adjustment, from the Bureau of Labor Statistics CPI release."
+            ),
             "resolutionSource": "https://www.bls.gov/cpi/",
             "updatedAt": "2026-09-07T12:00:00Z",
         }
@@ -29,7 +32,10 @@ def test_event_rules_are_used_as_fallback() -> None:
             "question": "Will unemployment be 3.8% or less?",
             "events": [
                 {
-                    "description": "Resolves from the BLS unemployment release.",
+                    "description": (
+                        "Resolves from the seasonally adjusted unemployment rate in the "
+                        "BLS Employment Situation release."
+                    ),
                     "resolutionSource": "https://www.bls.gov/news.release/empsit.nr0.htm",
                     "updatedAt": "2026-09-08T00:00:00Z",
                 }

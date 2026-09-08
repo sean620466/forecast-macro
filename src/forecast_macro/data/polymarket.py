@@ -47,7 +47,15 @@ def _clob_timestamp(value: object) -> datetime:
     return datetime.fromtimestamp(raw, tz=UTC)
 
 
-def parse_polymarket_orderbooks(payload: list[dict[str, Any]]) -> dict[str, OutcomeQuote]:
+def parse_polymarket_orderbooks(
+    payload: list[dict[str, Any]], *, observed_at: datetime | None = None
+) -> dict[str, OutcomeQuote]:
+    """Parse a /books response.
+
+    observed_at defaults to each book's own CLOB timestamp, which is the time that book last
+    changed. For a same-instant event snapshot pass the fetch time instead: a quiet bucket's
+    book may not have changed for minutes without being stale (task 08).
+    """
     quotes: dict[str, OutcomeQuote] = {}
     for book in payload:
         token_id = str(book.get("asset_id") or "")
@@ -56,9 +64,13 @@ def parse_polymarket_orderbooks(payload: list[dict[str, Any]]) -> dict[str, Outc
         quotes[token_id] = parse_polymarket_orderbook(
             book,
             token_id=token_id,
-            observed_at=_clob_timestamp(book["timestamp"]),
+            observed_at=observed_at or _clob_timestamp(book["timestamp"]),
         )
     return quotes
+
+
+def book_updated_at(payload: list[dict[str, Any]]) -> dict[str, datetime]:
+    return {str(book.get("asset_id") or ""): _clob_timestamp(book["timestamp"]) for book in payload}
 
 
 class PolymarketPublicClient:
@@ -78,6 +90,11 @@ class PolymarketPublicClient:
         )
 
     def orderbooks(self, token_ids: list[str]) -> dict[str, OutcomeQuote]:
+        payload, observed_at = self.raw_orderbooks(token_ids)
+        return parse_polymarket_orderbooks(payload, observed_at=observed_at)
+
+    def raw_orderbooks(self, token_ids: list[str]) -> tuple[list[dict[str, Any]], datetime]:
+        """Return the /books payload and the single fetch time it was observed at."""
         if not token_ids:
             raise ValueError("at least one token id is required")
         response = httpx.post(
@@ -87,7 +104,7 @@ class PolymarketPublicClient:
             timeout=self.timeout,
         )
         response.raise_for_status()
-        return parse_polymarket_orderbooks(response.json())
+        return response.json(), datetime.now(UTC)
 
     def search_macro_markets(self, query: str) -> list[MarketCandidate]:
         response = httpx.get(
@@ -106,4 +123,4 @@ class PolymarketPublicClient:
             timeout=self.timeout,
         )
         response.raise_for_status()
-        return parse_polymarket_rules(response.json())
+        return parse_polymarket_rules(response.json(), fetched_at=datetime.now(UTC))

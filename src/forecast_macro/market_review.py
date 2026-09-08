@@ -7,6 +7,8 @@ from dataclasses import asdict, dataclass
 from enum import StrEnum
 from typing import Any
 
+from forecast_macro.official_sources import is_official_source
+
 
 class ReviewStatus(StrEnum):
     REJECTED = "rejected"
@@ -19,6 +21,9 @@ class ContractRuleMetadata:
     resolution_source: str
     rules_text_hash: str
     rules_version: str
+    series_id: str = ""
+    resolution_source_origin: str = ""  # "field" | "description"
+    fetched_at: str = ""
 
 
 @dataclass(frozen=True)
@@ -37,8 +42,18 @@ class CandidateReview:
 
 _NUMBER = r"(\d+(?:\.\d+)?)"
 _EXACT = re.compile(rf"\bbe\s+{_NUMBER}%", re.IGNORECASE)
-_LOWER = re.compile(rf"(?:{_NUMBER}%\s+or less|[≤<]\s*{_NUMBER}%)", re.IGNORECASE)
-_UPPER = re.compile(rf"(?:{_NUMBER}%\s+or more|[≥>]\s*{_NUMBER}%)", re.IGNORECASE)
+# Inclusive tails ("or less", "≤") are the only forms that line up with 0.1-point buckets.
+_LOWER = re.compile(rf"(?:{_NUMBER}%\s+or (?:less|lower|below)|≤\s*{_NUMBER}%)", re.IGNORECASE)
+_UPPER = re.compile(rf"(?:{_NUMBER}%\s+or (?:more|higher|above)|≥\s*{_NUMBER}%)", re.IGNORECASE)
+# Strict tails ("<", ">", "below", "above") exclude the boundary value; they are reported,
+# never silently treated as inclusive (R6-M2).
+_LOWER_STRICT = re.compile(rf"(?:<\s*{_NUMBER}%|\bbelow\s+{_NUMBER}%|\bunder\s+{_NUMBER}%)", re.IGNORECASE)
+_UPPER_STRICT = re.compile(rf"(?:>\s*{_NUMBER}%|\babove\s+{_NUMBER}%|\bover\s+{_NUMBER}%)", re.IGNORECASE)
+_SUBJECT_NOISE = re.compile(
+    rf"({_NUMBER}%\s+or (?:less|lower|below|more|higher|above)|[≤≥<>]\s*{_NUMBER}%|"
+    rf"\b(?:below|under|above|over)\s+{_NUMBER}%|{_NUMBER}%)",
+    re.IGNORECASE,
+)
 
 
 def _extract_value(match: re.Match[str]) -> float:
@@ -47,20 +62,38 @@ def _extract_value(match: re.Match[str]) -> float:
 
 
 def _bucket(title: str) -> tuple[str, float] | None:
-    for kind, pattern in (("lower", _LOWER), ("upper", _UPPER), ("exact", _EXACT)):
+    patterns = (
+        ("lower", _LOWER),
+        ("upper", _UPPER),
+        ("lower_strict", _LOWER_STRICT),
+        ("upper_strict", _UPPER_STRICT),
+        ("exact", _EXACT),
+    )
+    for kind, pattern in patterns:
         match = pattern.search(title)
         if match:
             return kind, _extract_value(match)
     return None
 
 
+def _subject(title: str) -> str:
+    """The title with its bucket removed; every market in one event must share it."""
+    stripped = _SUBJECT_NOISE.sub(" ", title)
+    return " ".join(stripped.lower().replace("?", "").split())
+
+
 def _validate_group(rows: Sequence[Mapping[str, Any]]) -> tuple[str, ...]:
     blockers: list[str] = []
-    buckets = [_bucket(str(row.get("title", ""))) for row in rows]
+    titles = [str(row.get("title", "")) for row in rows]
+    buckets = [_bucket(title) for title in titles]
     if any(bucket is None for bucket in buckets):
         return ("unrecognized bucket title",)
 
     parsed = [bucket for bucket in buckets if bucket is not None]
+    if any(kind.endswith("_strict") for kind, _ in parsed):
+        blockers.append("strict inequality tail cannot be reconciled with 0.1-point buckets")
+    if len({_subject(title) for title in titles}) != 1:
+        blockers.append("bucket set mixes reference periods or series")
     lower = sorted(value for kind, value in parsed if kind == "lower")
     upper = sorted(value for kind, value in parsed if kind == "upper")
     exact = sorted(value for kind, value in parsed if kind == "exact")
@@ -104,10 +137,15 @@ def review_market_candidates(
             if not row.get("close_time_verified", False):
                 blockers.append("contract close time requires rule-based timezone verification")
             rules = metadata.get(market_id)
+            topic = str(row.get("topic", ""))
             if rules is None or not all(
                 (rules.resolution_source.strip(), rules.rules_text_hash.strip(), rules.rules_version.strip())
             ):
                 blockers.append("verified resolution source and versioned rules required")
+            elif not is_official_source(rules.resolution_source, topic=topic):
+                # Metadata is only trusted when its source passes the shared official-host test,
+                # so a caller cannot approve a contract with an arbitrary string (R6-H2).
+                blockers.append("resolution source is not the required official agency")
             else:
                 checks.append("resolution source and versioned rules verified")
 

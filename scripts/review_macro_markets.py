@@ -19,7 +19,11 @@ def main() -> None:
     counts = Counter(review.status.value for review in reviews)
     result = {
         "summary": dict(sorted(counts.items())),
-        "signal_eligible": counts.get("approved", 0) > 0,
+        "approved_contracts": counts.get("approved", 0),
+        # Contract approval only unlocks price collection. D-007/D-012: signals stay off
+        # until out-of-sample skill against market prices is demonstrated.
+        "signal_eligible": False,
+        "signal_eligible_reason": "no market-baseline Brier skill established (D-007)",
         "reviews": [review.to_dict() for review in reviews],
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

@@ -43,7 +43,7 @@ def test_complete_rules_allow_approval() -> None:
     rows = _complete_cpi_group()
     rules = {
         str(row["venue_market_id"]): ContractRuleMetadata(
-            resolution_source="BLS CPI release",
+            resolution_source="https://www.bls.gov/cpi/",
             rules_text_hash="sha256:abc",
             rules_version="2026-09-07",
         )
