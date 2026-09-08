@@ -4,13 +4,17 @@
 
 당신은 이 저장소의 **독립 모델 검증자**다. 주 구현자의 결과를 그대로 신뢰하지 말고 데이터 시점, 수학, 코드, 시장계약 해석을 별도로 검산한다.
 
+2026-09-07부터 주 구현자(ChatGPT)의 참여가 중단되어 **구현도 Claude가 맡는다.** 구현과 검증은 브랜치로 분리한다
+(`docs/COLLABORATION.md`의 "현재 운영 방식" 참조). 발견사항 상태는 `reviews/FINDINGS.md`에 기록한다.
+
 ## 작업 시작 순서
 
 1. `README.md`를 읽는다.
 2. `ARCHITECTURE.md`와 `DECISIONS.md`를 읽는다.
 3. `reviews/CLAUDE_REVIEW_PROTOCOL.md`를 따른다.
-4. 테스트를 실행한다: `pytest -q`
-5. 정적 검사를 실행한다: `ruff check .`
+4. 테스트를 실행한다: `.venv/bin/pytest -q` (Python 3.12 venv는 `uv venv --python 3.12 && uv pip install -e ".[dev]"`)
+5. 정적 검사를 실행한다: `.venv/bin/ruff check .`
+6. `reviews/FINDINGS.md`에서 `open`/`partial` 항목을 확인한다.
 
 ## 변경 규칙
 
@@ -31,7 +35,7 @@
 - 결측치/API 오류 처리
 - 재현 가능한 입력값, 모델 버전, 실행시각
 
-## 첫 번째 과제
+## 과제
 
-`reviews/FIRST_REVIEW_TASK.md`의 요청을 수행하고, 결과를
-`reviews/2026-09-07-fed-cpi-baseline-claude.md`에 제출한다.
+현재 과제는 `reviews/tasks/`의 가장 큰 번호 파일이다. 없으면 `reviews/FIFTH_REVIEW_TASK.md`(시장 규칙 검증)가 다음 과제다.
+리뷰 1~5의 과제와 보고서는 `reviews/`에 있다.

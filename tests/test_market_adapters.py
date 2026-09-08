@@ -2,8 +2,7 @@ from datetime import UTC, datetime
 
 import pytest
 
-from forecast_macro.data.kalshi import parse_kalshi_orderbook
-from forecast_macro.data.kalshi import KalshiPublicClient
+from forecast_macro.data.kalshi import KalshiPublicClient, parse_kalshi_orderbook
 from forecast_macro.data.polymarket import (
     parse_polymarket_orderbook,
     parse_polymarket_orderbooks,

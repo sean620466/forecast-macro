@@ -50,7 +50,7 @@ def main() -> None:
             )
             if verified is not None:
                 metadata[market_id] = verified
-        except Exception as error:  # Fail closed when a public venue is temporarily unavailable.
+        except Exception as error:  # noqa: BLE001 - fail closed on any venue/parse failure
             evidence[market_id] = {"blockers": [f"rule fetch failed: {type(error).__name__}"]}
 
     reviews = review_market_candidates(rows, rule_metadata=metadata)
