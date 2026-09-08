@@ -43,7 +43,7 @@ def parse_kalshi_orderbook(
         ask_size=ask_size,
         observed_at=observed_at,
         tick_size=0.01,
-        fee_schedule_id="kalshi-current-unknown",
+        fee_schedule_id="kalshi-quadratic_with_maker_fees-x1",
         venue="kalshi",
         venue_contract_id=ticker,
     )
@@ -99,7 +99,12 @@ class KalshiPublicClient:
         return candidates
 
 
-def parse_kalshi_market_quote(market: dict[str, Any], *, observed_at: datetime) -> OutcomeQuote:
+def parse_kalshi_market_quote(
+    market: dict[str, Any],
+    *,
+    observed_at: datetime,
+    fee_schedule_id: str = "kalshi-quadratic_with_maker_fees-x1",
+) -> OutcomeQuote:
     """Top-of-book YES quote from a /markets row (dollar fields preferred, cents fallback)."""
 
     def price(dollar_key: str, cent_key: str) -> float:
@@ -115,7 +120,7 @@ def parse_kalshi_market_quote(market: dict[str, Any], *, observed_at: datetime) 
         ask_size=float(market.get("yes_ask_size_fp") or 0),
         observed_at=observed_at,
         tick_size=0.01,
-        fee_schedule_id="kalshi-current-unknown",
+        fee_schedule_id=fee_schedule_id,
         venue="kalshi",
         venue_contract_id=str(market.get("ticker") or "") or None,
     )

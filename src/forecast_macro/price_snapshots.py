@@ -7,6 +7,7 @@ from datetime import datetime
 from typing import Any
 
 from forecast_macro.contracts import OutcomeQuote, normalize_threshold_ladder
+from forecast_macro.fees import fee_summary
 from forecast_macro.market_discovery import MacroTopic, MarketCandidate
 from forecast_macro.market_pricing import build_event_price_snapshot
 from forecast_macro.market_review import CandidateReview, ReviewStatus, is_threshold_ladder
@@ -26,7 +27,7 @@ class EventPriceRecord:
     probability_bounds: dict[str, list[float]]  # venue_market_id -> [bid, ask] (D-015)
     completeness: dict[str, float]  # bid_sum, ask_sum, mid_sum
     source_mid_prices: dict[str, float]
-    quotes: dict[str, dict[str, float | str]]
+    quotes: dict[str, dict[str, object]]
     rules_text_hashes: dict[str, str]
     book_updated_at: dict[str, str]
     rejected_reason: str | None
@@ -105,7 +106,7 @@ def price_event(
     venue = members[0].venue
     event_id = members[0].venue_event_id or ""
     yes_tokens = {m.venue_market_id: m.outcome_token_ids[0] for m in members if m.outcome_token_ids}
-    quote_rows: dict[str, dict[str, float | str]] = {}
+    quote_rows: dict[str, dict[str, object]] = {}
     for market_id, token in yes_tokens.items():
         quote = quotes.get(token)
         if quote is None:
@@ -118,6 +119,7 @@ def price_event(
             "bid_size": quote.bid_size,
             "ask_size": quote.ask_size,
             "tick_size": quote.tick_size,
+            "fees": fee_summary(quote.fee_schedule_id, quote.ask),
         }
     updated = {
         market_id: (book_updated_at or {}).get(token).isoformat()  # type: ignore[union-attr]
@@ -185,7 +187,7 @@ def price_ladder_event(
     """Price a cumulative threshold ladder (Kalshi "greater than F") as exclusive buckets."""
     venue = members[0].venue
     event_id = members[0].venue_event_id or ""
-    quote_rows: dict[str, dict[str, float | str]] = {}
+    quote_rows: dict[str, dict[str, object]] = {}
     ladder: dict[float, tuple[float, float]] = {}
     problems: list[str] = []
     for member in sorted(members, key=lambda m: m.strike or 0.0):
@@ -203,6 +205,7 @@ def price_ladder_event(
             "mid": quote.mid,
             "bid_size": quote.bid_size,
             "ask_size": quote.ask_size,
+            "fees": fee_summary(quote.fee_schedule_id, quote.ask),
         }
         if quote.ask - quote.bid > max_spread:
             problems.append(f"{member.venue_market_id}: spread exceeds limit")

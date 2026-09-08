@@ -34,7 +34,7 @@ def parse_polymarket_orderbook(
         ask_size=ask_size,
         observed_at=observed_at,
         tick_size=float(payload.get("tick_size", 0.001)),
-        fee_schedule_id="polymarket-current-unknown",
+        fee_schedule_id="polymarket-economics",
         venue="polymarket",
         venue_contract_id=str(payload.get("market", "")) or None,
     )

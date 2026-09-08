@@ -7,6 +7,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from forecast_macro.fees import schedule_for
 from forecast_macro.market_review import _bucket
 from forecast_macro.models.unemployment import (
     MODEL_VERSION,
@@ -35,6 +36,9 @@ class UnemploymentComparisonRecord:
     market: dict[str, float]
     market_bounds: dict[str, list[float]]
     edge: dict[str, float]
+    # D-003 net of fees: model probability minus the break-even probability at the market ask.
+    net_edge_after_fees: dict[str, float] | None
+    fee_schedule_id: str | None
     market_observed_at: str
     market_source_file: str
     bucket_titles: dict[str, str]
@@ -106,6 +110,15 @@ def build_unemployment_comparison(
     bounds = {key: [float(lo), float(hi)] for key, (lo, hi) in record.get("probability_bounds", {}).items()}
     if set(market) != set(model):
         raise ValueError("market and model bucket sets differ")
+    quotes = record.get("quotes") or {}
+    fee_ids = {str((quotes.get(k) or {}).get("fees", {}).get("fee_schedule_id", "")) for k in model}
+    fee_id = next(iter(fee_ids)) if len(fee_ids) == 1 and next(iter(fee_ids)) else None
+    schedule = schedule_for(fee_id) if fee_id else None
+    net_edge = (
+        {k: schedule.net_edge(model[k], float(quotes[k]["ask"])) for k in model if k in quotes}
+        if schedule is not None and all(k in quotes for k in model)
+        else None
+    )
     return UnemploymentComparisonRecord(
         as_of=as_of.astimezone(UTC).isoformat(),
         release_at=release.release_at.isoformat(),
@@ -122,6 +135,8 @@ def build_unemployment_comparison(
         market=market,
         market_bounds=bounds,
         edge={key: model[key] - market[key] for key in model},
+        net_edge_after_fees=net_edge,
+        fee_schedule_id=fee_id,
         market_observed_at=str(record.get("observed_at", "")),
         market_source_file=source_file,
         bucket_titles={str(k): str(v) for k, v in record.get("contracts", {}).items()},
