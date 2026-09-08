@@ -3,6 +3,7 @@ from datetime import UTC, datetime
 import pytest
 
 from forecast_macro.data.kalshi import parse_kalshi_orderbook
+from forecast_macro.data.kalshi import KalshiPublicClient
 from forecast_macro.data.polymarket import (
     parse_polymarket_orderbook,
     parse_polymarket_orderbooks,
@@ -64,3 +65,41 @@ def test_polymarket_batch_books_use_exchange_timestamps() -> None:
         ]
     )
     assert quotes["yes-token"].observed_at == datetime(2026, 9, 8, tzinfo=UTC)
+
+
+def test_kalshi_discovery_follows_all_cursors(monkeypatch) -> None:
+    calls = []
+
+    class Response:
+        def __init__(self, payload):
+            self.payload = payload
+
+        def raise_for_status(self):
+            return None
+
+        def json(self):
+            return self.payload
+
+    def fake_get(url, *, params, timeout):
+        calls.append(params.copy())
+        if "cursor" not in params:
+            return Response({"markets": [], "cursor": "next-page"})
+        return Response(
+            {
+                "markets": [
+                    {
+                        "ticker": "KXFED-TEST",
+                        "event_ticker": "KXFED",
+                        "title": "Will the Fed cut interest rates?",
+                        "status": "open",
+                        "close_time": "2026-10-28T18:00:00+00:00",
+                    }
+                ],
+                "cursor": "",
+            }
+        )
+
+    monkeypatch.setattr("forecast_macro.data.kalshi.httpx.get", fake_get)
+    candidates = KalshiPublicClient().discover_open_macro_markets()
+    assert len(candidates) == 1
+    assert calls[1]["cursor"] == "next-page"
