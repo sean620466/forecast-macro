@@ -155,3 +155,10 @@
 | R19-M1 | Medium | Kalshi 수수료 상수(taker 0.07, maker 0.0175)는 공식 PDF(`kalshi-fee-schedule.pdf`)를 이 저장소에서 다시 읽지 못해 `verified=false` | fixed | 사용자가 2026-09-08 PDF(2026-07-07 시행)를 확인. 상수는 맞았고, 반올림은 센트가 아니라 **센티센트(0.0001달러) 올림**이어서 수정. `verified=true` |
 | R19-M2 | Medium | Kalshi 사다리에서 파생된 배타 구간은 계약 두 개(인접 rung)로 만들어지므로 수수료가 두 번 든다. 현재 기록은 rung별 수수료만 | fixed | claude/task-20: `bucket_fees`에 두 leg 수수료 합 기록(9월 4.00% 구간 0.03). Kalshi 상수 미검증(R19-M1)은 그대로 |
 | R19-L1 | Low | 실업률 비교 기록에 `net_edge_after_fees`(모델 확률 − ask − 수수료) 추가. 9개 구간 모두 YES 직접 계약 | fixed | 같은 브랜치 |
+
+## 과제 23~25 — 재현성 메타데이터·연말 계약·FRED 시계
+
+| ID | 등급 | 요약 | 상태 | 비고 |
+| --- | --- | --- | --- | --- |
+| R23-L1 | Low | 스냅샷 `inputs[*].realtime_start`는 요청한 vintage 날짜와 같게 나온다(ALFRED가 단일 `vintage_dates`로 조회하면 그 vintage 기준 real-time 시작을 돌려줌). 즉 "그 시점에 보였던 값"의 증거이지 **최초 발표일**이 아님 | open | 최초 발표일이 필요하면 `realtime_start=1776-07-04`로 전체 vintage 이력을 받아야 함. 리뷰 1의 released_at 정밀도 항목(R1-X1)과 동일 뿌리 |
+| R25-L1 | Low | 실시간 워크플로가 push로 미국 심야에 실행되면 FRED 시계(Chicago) 기준 "내일" vintage를 요청해 500 | fixed | `latest_safe_vintage`(Chicago 날짜) + 500 시 하루 후퇴. 정기 실행(13:40 UTC)은 영향 없음 |
