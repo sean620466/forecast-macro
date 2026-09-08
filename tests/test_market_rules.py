@@ -1,4 +1,5 @@
 from forecast_macro.market_rules import (
+    identify_contract_series,
     parse_polymarket_rules,
     validate_official_rules,
     verified_rule_metadata,
@@ -52,3 +53,26 @@ def test_nonofficial_source_cannot_unlock_contract() -> None:
         document, topic="cpi"
     )
     assert verified_rule_metadata(document, topic="cpi") is None
+
+
+def test_core_yoy_contract_cannot_unlock_headline_mom_model() -> None:
+    document = parse_polymarket_rules(
+        {
+            "id": "core-yoy",
+            "question": "Will Core CPI YoY be 2.5%?",
+            "description": (
+                "Resolves to the 12-month Core CPI before seasonal adjustment "
+                "reported by the Bureau of Labor Statistics."
+            ),
+            "resolutionSource": "https://www.bls.gov/cpi/",
+            "updatedAt": "2026-09-08T00:00:00Z",
+        }
+    )
+    assert identify_contract_series(document, topic="cpi") == "core_cpi_yoy_nsa"
+    blockers = validate_official_rules(
+        document, topic="cpi", expected_series="headline_cpi_mom_sa"
+    )
+    assert any("does not match model series" in blocker for blocker in blockers)
+    assert verified_rule_metadata(
+        document, topic="cpi", expected_series="headline_cpi_mom_sa"
+    ) is None
