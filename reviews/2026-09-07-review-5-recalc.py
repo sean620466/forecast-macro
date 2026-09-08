@@ -1,13 +1,21 @@
 # Independent recomputation (Python 3.9 compatible, no repo imports)
-import csv, json, math
+import csv
+import json
+import math
+import os
 from statistics import fmean, pstdev
 
-ROOT = "/Users/lnbcapital/Predict market app"
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def load_csv(p):
     with open(p, newline="") as f:
         return list(csv.DictReader(f))
+
+
+def load_json(p):
+    with open(p) as f:
+        return json.load(f)
 meetings = load_csv(f"{ROOT}/data/fomc_meetings_2019_2024.csv")
-snaps = {s["meeting_date"]: s for s in json.load(open(f"{ROOT}/data/generated/fomc_feature_snapshots_2019_2024.json"))}
+snaps = {s["meeting_date"]: s for s in load_json(f"{ROOT}/data/generated/fomc_feature_snapshots_2019_2024.json")}
 
 def sig(x):
     return 1/(1+math.exp(-x)) if x>=0 else math.exp(x)/(1+math.exp(x))
@@ -67,11 +75,11 @@ def run_wf(rows, warmup=8):
 
 sched=[r for r in meetings if r["event_type"]=="scheduled"]
 for name, rows, fn in (("all", meetings, "fed_baseline_backtest_all_2019_2024"), ("scheduled", sched, "fed_baseline_backtest_scheduled_2019_2024")):
-    ps,cl,ys=run_baseline(rows); ref=json.load(open(f"{ROOT}/data/generated/{fn}.json"))
+    ps,cl,ys=run_baseline(rows); ref=load_json(f"{ROOT}/data/generated/{fn}.json")
     mism=sum(abs(p-q["probability_cut"])>1e-9 for p,q in zip(ps,ref["predictions"]))
     print(f"[baseline {name}] n={len(ps)} brier={brier(ps,ys):.6f} (json {ref['model_brier']:.6f}) clim={brier(cl,ys):.6f} (json {ref['sequential_climatology_brier']:.6f}) ah={brier([0]*len(ys),ys):.6f} ece={ece(ps,ys):.6f} (json {ref['calibration_ece']:.6f}) mismatched_preds={mism}")
 
-ps,cl,ys,ib,zlb,coefs=run_wf(sched); ref=json.load(open(f"{ROOT}/data/generated/fed_walk_forward_logistic_2019_2024.json"))
+ps,cl,ys,ib,zlb,coefs=run_wf(sched); ref=load_json(f"{ROOT}/data/generated/fed_walk_forward_logistic_2019_2024.json")
 print(f"\n[walk-forward] n={len(ps)} brier={brier(ps,ys):.6f} (json {ref['model_brier']:.6f}) clim={brier(cl,ys):.6f} (json {ref['sequential_climatology_brier']:.6f}) ece={ece(ps,ys):.6f} (json {ref['calibration_ece']:.6f})")
 ah=brier([0]*len(ys),ys)
 print(f"  always-hold brier={ah:.6f}  BSS vs always-hold={1-brier(ps,ys)/ah:+.4f}  BSS vs clim={1-brier(ps,ys)/brier(cl,ys):+.4f}")
