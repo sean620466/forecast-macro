@@ -100,6 +100,8 @@ def review_market_candidates(
                 checks.append("YES/NO token mapping complete")
 
             market_id = str(row.get("venue_market_id", ""))
+            if not row.get("close_time_verified", False):
+                blockers.append("contract close time requires rule-based timezone verification")
             rules = metadata.get(market_id)
             if rules is None or not all(
                 (rules.resolution_source.strip(), rules.rules_text_hash.strip(), rules.rules_version.strip())
