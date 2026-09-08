@@ -137,7 +137,7 @@ def test_models_and_comparison_record_keep_signals_off() -> None:
     assert record.event_ticker == "KXFED-26SEP"
     assert record.logistic_edge == pytest.approx(logistic - 0.475)
     assert record.signal_eligible is False
-    assert record.model_version == "fed-live-0.2-three-way-uncalibrated"
+    assert record.model_version == "fed-live-0.3-three-way-2015-uncalibrated"
     assert record.to_dict()["market"]["source_file"] == "x.json"
 
 

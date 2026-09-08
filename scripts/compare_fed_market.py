@@ -24,11 +24,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description="Record today's model cut probability next to the market's (no signals)"
     )
-    parser.add_argument("--meetings", type=Path, default=Path("data/fomc_meetings_2019_2026.csv"))
+    parser.add_argument("--meetings", type=Path, default=Path("data/fomc_meetings_2015_2026.csv"))
     parser.add_argument(
         "--training-snapshots",
         type=Path,
-        default=Path("data/generated/fomc_feature_snapshots_2019_2026.json"),
+        default=Path("data/generated/fomc_feature_snapshots_2015_2026.json"),
     )
     parser.add_argument("--price-snapshots", type=Path, default=Path("data/generated/market_prices"))
     parser.add_argument("--output-dir", type=Path, default=Path("data/generated/fed_market_comparisons"))

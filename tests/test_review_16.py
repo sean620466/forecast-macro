@@ -86,5 +86,5 @@ def test_live_comparison_records_three_way_edges() -> None:
         training_size=len(training), market=market, heuristic_three_way=heuristic, logistic_three_way=logistic,
     )
     assert comparison.logistic_three_way_edge["hike"] == pytest.approx(logistic["hike"] - 0.525)
-    assert comparison.model_version == "fed-live-0.2-three-way-uncalibrated"
+    assert comparison.model_version == "fed-live-0.3-three-way-2015-uncalibrated"
     assert comparison.signal_eligible is False

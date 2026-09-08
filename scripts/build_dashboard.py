@@ -90,6 +90,12 @@ def collect() -> dict:
         "un": load(un_files[-1]) if un_files else None,
         "cpi": load(cpi_files[-1]) if cpi_files else None,
         "wf": load(ROOT / "data/generated/fed_walk_forward_logistic_2019_2026.json"),
+        "wf15": load(ROOT / "data/generated/fed_walk_forward_logistic_2015_2026.json"),
+        "bw15": {
+            k: v
+            for k, v in load(ROOT / "data/generated/fed_baseline_backtest_window_2015_2026.json").items()
+            if k != "predictions"
+        },
         "bw": {
             k: v
             for k, v in load(ROOT / "data/generated/fed_baseline_backtest_window_2019_2026.json").items()
@@ -318,6 +324,7 @@ def calendar_section(today: str) -> str:
 
 def render(d: dict) -> tuple[str, str]:
     fed, un, wf, bw, prices = d["fed"], d["un"], d["wf"], d["bw"], d["prices"]
+    wf15, bw15 = d["wf15"], d["bw15"]
     by = d["by_status"]
     m = fed["market"]
     lm = fed["logistic_three_way"]
@@ -389,7 +396,7 @@ def render(d: dict) -> tuple[str, str]:
 </div>
 <div class="grid">
 <div class="panel"><h2>{esc(fed["meeting_date"])} FOMC: 상단 금리는 어디로</h2><p class="sub">Kalshi 관측 {esc(m["observed_at"][:16].replace("T", " "))} UTC · 모델 vintage {esc(fed["features"]["vintage_date"])}</p>
-<div class="legend"><span><i style="background:var(--model)"></i>로지스틱 모델 (2019–2026 학습)</span><span><i style="background:var(--market)"></i>시장 (Kalshi) · 짙은 선은 호가 범위</span></div>
+<div class="legend"><span><i style="background:var(--model)"></i>로지스틱 모델 (2015–2026 학습, {fed.get("logistic_training_meetings", "")}회의)</span><span><i style="background:var(--market)"></i>시장 (Kalshi) · 짙은 선은 호가 범위</span></div>
 {bar_rows(fed_rows)}
 <p class="note">모델 입력: CPI 전년비 {fed["features"]["cpi_yoy_nsa"]:.2f}%, 실업률 {fed["features"]["unemployment_rate"]}%, 3개월 변화 {fed["features"]["unemployment_change_3m"]:+.1f}. 휴리스틱: 인하 {pct(hm["cut"])} / 동결 {pct(hm["hold"])} / 인상 {pct(hm["hike"])} (인상 성분은 백테스트에서 빈도 기준보다 나쁨). 회의 당일 발표: {"있음" if fed.get("same_day_release") else "없음"}.</p></div>
 <div class="panel"><h2>{esc(un["reference_period"])} 실업률 ({esc(un["release_at"][:10])} 발표)</h2><p class="sub">Polymarket 관측 {esc(un["market_observed_at"][:16].replace("T", " "))} UTC · 최신치 {un["latest_rate"]}%</p>
@@ -413,11 +420,13 @@ def render(d: dict) -> tuple[str, str]:
 {calendar_section(fed["as_of"][:10])}
 {backtest_timeline_section(d["bw_predictions"])}
 {macro_section(d["snapshots"])}
-<section class="panel"><h2>백테스트 (2019–2026, 62회의)</h2><p class="sub">낮을수록 좋음.</p>
+<section class="panel"><h2>백테스트: 표본을 2015년까지 늘리면 skill이 사라진다</h2><p class="sub">낮을수록 좋음. 같은 모델을 두 표본에서 워크포워드로 평가. 2019–2026의 climatology 대비 skill(+0.17)은 2015–2026(94회의, 인상 사이클 2개)에서 +0.02로 줄고, 비-ZLB 부분표본에서는 0에 가깝다.</p>
 <div class="tablewrap"><table>
-<tr><th>모델</th><th class="n">표본외</th><th class="n">Brier(인하)</th><th class="n">climatology</th><th class="n">always-hold</th><th class="n">3원 Brier</th><th class="n">3원 climatology</th></tr>
-<tr><td>로지스틱 워크포워드</td><td class="n">{wf["evaluated_meetings"]}</td><td class="n">{wf["model_brier"]:.4f}</td><td class="n">{wf["sequential_climatology_brier"]:.4f}</td><td class="n">{wf["always_hold_brier"]:.4f}</td><td class="n">{wf["three_way_brier"]:.3f}</td><td class="n">{wf["three_way_climatology_brier"]:.3f}</td></tr>
-<tr><td>휴리스틱 (window)</td><td class="n">{bw["evaluated_meetings"]}</td><td class="n">{bw["model_brier"]:.4f}</td><td class="n">{bw["sequential_climatology_brier"]:.4f}</td><td class="n">{bw["always_hold_brier"]:.4f}</td><td class="n">{bw["three_way_brier"]:.3f}</td><td class="n">{bw["three_way_climatology_brier"]:.3f}</td></tr>
+<tr><th>모델</th><th>표본</th><th class="n">표본외</th><th class="n">Brier(인하)</th><th class="n">climatology</th><th class="n">BSS</th><th class="n">비-ZLB BSS</th><th class="n">3원 Brier</th><th class="n">3원 climatology</th></tr>
+<tr><td>로지스틱 워크포워드</td><td>2015–2026</td><td class="n">{wf15["evaluated_meetings"]}</td><td class="n">{wf15["model_brier"]:.4f}</td><td class="n">{wf15["sequential_climatology_brier"]:.4f}</td><td class="n">{wf15["brier_skill_vs_climatology"]:+.3f}</td><td class="n">{wf15["non_zlb_brier_skill_vs_climatology"]:+.3f}</td><td class="n">{wf15["three_way_brier"]:.3f}</td><td class="n">{wf15["three_way_climatology_brier"]:.3f}</td></tr>
+<tr><td>휴리스틱 (window)</td><td>2015–2026</td><td class="n">{bw15["evaluated_meetings"]}</td><td class="n">{bw15["model_brier"]:.4f}</td><td class="n">{bw15["sequential_climatology_brier"]:.4f}</td><td class="n">{bw15["brier_skill_vs_climatology"]:+.3f}</td><td class="n">—</td><td class="n">{bw15["three_way_brier"]:.3f}</td><td class="n">{bw15["three_way_climatology_brier"]:.3f}</td></tr>
+<tr><td>로지스틱 워크포워드</td><td>2019–2026</td><td class="n">{wf["evaluated_meetings"]}</td><td class="n">{wf["model_brier"]:.4f}</td><td class="n">{wf["sequential_climatology_brier"]:.4f}</td><td class="n">{wf["brier_skill_vs_climatology"]:+.3f}</td><td class="n">{wf["non_zlb_brier_skill_vs_climatology"]:+.3f}</td><td class="n">{wf["three_way_brier"]:.3f}</td><td class="n">{wf["three_way_climatology_brier"]:.3f}</td></tr>
+<tr><td>휴리스틱 (window)</td><td>2019–2026</td><td class="n">{bw["evaluated_meetings"]}</td><td class="n">{bw["model_brier"]:.4f}</td><td class="n">{bw["sequential_climatology_brier"]:.4f}</td><td class="n">{bw["brier_skill_vs_climatology"]:+.3f}</td><td class="n">—</td><td class="n">{bw["three_way_brier"]:.3f}</td><td class="n">{bw["three_way_climatology_brier"]:.3f}</td></tr>
 </table></div></section>
 <div class="grid">
 <section class="panel"><h2>미해결 항목 (상위 12)</h2><ul class="items">{open_html}</ul></section>
@@ -449,13 +458,15 @@ def render(d: dict) -> tuple[str, str]:
 ## 게이트
 - 규칙·출처·일정 검증: 통과 (D-014)
 - 가격 정규화: 통과 (D-015, D-018)
-- 연구 표본 D-013: 통과 (비-ZLB {wf["non_zlb_evaluated_meetings"]}건)
+- 연구 표본 D-013: 통과 (비-ZLB {wf15["non_zlb_evaluated_meetings"]}건, 2015–2026)
 - 시장 대비 표본외 skill D-007: 미충족 (채점 {scored}건)
 - 신호 표시 결정 D-012: 대기
 
-## 백테스트 2019–2026
-- 로지스틱 워크포워드: Brier {wf["model_brier"]:.4f} vs climatology {wf["sequential_climatology_brier"]:.4f} (BSS {wf["brier_skill_vs_climatology"]:+.3f}), 비-ZLB BSS {wf["non_zlb_brier_skill_vs_climatology"]:+.3f}, 3원 Brier {wf["three_way_brier"]:.3f} vs {wf["three_way_climatology_brier"]:.3f}
-- 휴리스틱(window): Brier {bw["model_brier"]:.4f} vs climatology {bw["sequential_climatology_brier"]:.4f}, 3원 {bw["three_way_brier"]:.3f} vs {bw["three_way_climatology_brier"]:.3f}
+## 백테스트
+- 로지스틱 워크포워드 2015–2026 (94회의, 실시간 학습 표본): Brier {wf15["model_brier"]:.4f} vs climatology {wf15["sequential_climatology_brier"]:.4f} (BSS {wf15["brier_skill_vs_climatology"]:+.3f}), 비-ZLB {wf15["non_zlb_evaluated_meetings"]}건 BSS {wf15["non_zlb_brier_skill_vs_climatology"]:+.3f}, 3원 Brier {wf15["three_way_brier"]:.3f} vs {wf15["three_way_climatology_brier"]:.3f}
+- 휴리스틱(window) 2015–2026: Brier {bw15["model_brier"]:.4f} vs climatology {bw15["sequential_climatology_brier"]:.4f} (BSS {bw15["brier_skill_vs_climatology"]:+.3f}, climatology 게이트 실패)
+- 로지스틱 워크포워드 2019–2026: Brier {wf["model_brier"]:.4f} vs climatology {wf["sequential_climatology_brier"]:.4f} (BSS {wf["brier_skill_vs_climatology"]:+.3f}), 비-ZLB BSS {wf["non_zlb_brier_skill_vs_climatology"]:+.3f}, 3원 Brier {wf["three_way_brier"]:.3f} vs {wf["three_way_climatology_brier"]:.3f}
+- 휴리스틱(window) 2019–2026: Brier {bw["model_brier"]:.4f} vs climatology {bw["sequential_climatology_brier"]:.4f}, 3원 {bw["three_way_brier"]:.3f} vs {bw["three_way_climatology_brier"]:.3f}
 
 ## 장부
 해결 {by.get("fixed", 0)} · 미해결 {by.get("open", 0)} · 부분 {by.get("partial", 0)} · 결정 {len(d["decisions"])}건 (`reviews/FINDINGS.md`, `DECISIONS.md`)

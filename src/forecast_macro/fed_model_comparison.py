@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import math
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from datetime import UTC, datetime, time
 
 from forecast_macro.datasets import HistoricalFomcRow
@@ -48,6 +48,9 @@ class WalkForwardReport:
     hold_brier: float = 0.0
     hike_brier: float = 0.0
     actual_hikes: int = 0
+    # Per-meeting record (task 39) so sub-period comparisons between training ranges can be
+    # made from the checked-in report instead of re-running the fit.
+    predictions: list[dict[str, object]] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -133,6 +136,7 @@ def run_walk_forward_logistic(
     hold_errors: list[float] = []
     hike_errors: list[float] = []
     actual_hikes = 0
+    predictions: list[dict[str, object]] = []
     for index in range(warmup, len(meetings)):
         training = meetings[:index]
         training_snapshots = [by_date[row.meeting_at.date().isoformat()] for row in training]
@@ -183,6 +187,22 @@ def run_walk_forward_logistic(
             ForecastRecord(forecast_at, meeting.meeting_at, intercept_only, outcome)
         )
         zlb_flags.append(policy_rate <= ZLB_UPPER_BOUND)
+        predictions.append(
+            {
+                "meeting_date": meeting.meeting_at.date().isoformat(),
+                "training_meetings": len(training),
+                "policy_rate_upper": policy_rate,
+                "zlb": policy_rate <= ZLB_UPPER_BOUND,
+                "outcome": meeting.decision.value,
+                "cut": probability,
+                "hold": hold_probability,
+                "hike": hike_probability,
+                "climatology_cut": baseline,
+                "climatology_hold": baseline_hold,
+                "climatology_hike": baseline_hike,
+                "intercept_only_cut": intercept_only,
+            }
+        )
 
     model_brier = brier_score(model_records)
     baseline_brier = brier_score(baseline_records)
@@ -232,4 +252,5 @@ def run_walk_forward_logistic(
         hold_brier=sum(hold_errors) / len(model_records),
         hike_brier=sum(hike_errors) / len(model_records),
         actual_hikes=actual_hikes,
+        predictions=predictions,
     )

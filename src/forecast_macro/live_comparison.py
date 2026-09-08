@@ -23,7 +23,8 @@ from forecast_macro.models.logistic import fit_logistic
 from forecast_macro.release_schedule import ScheduledRelease
 from forecast_macro.snapshots import HistoricalFeatureSnapshot
 
-MODEL_VERSION = "fed-live-0.2-three-way-uncalibrated"
+# 0.3 (task 39): trained on the 2015–2026 history (94 meetings, two hiking cycles) instead of 2019–2026.
+MODEL_VERSION = "fed-live-0.3-three-way-2015-uncalibrated"
 _MONTH_CODES = ("JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC")
 
 

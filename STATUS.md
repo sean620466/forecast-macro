@@ -1,6 +1,6 @@
 # STATUS (자동 생성, scripts/build_dashboard.py)
 
-기준: main 259e8f1, 데이터 2026-09-08 17:11 UTC. 대시보드: docs/dashboard/index.html
+기준: main f25f59f, 데이터 2026-09-08 17:11 UTC. 대시보드: docs/dashboard/index.html
 
 ## 한 문장
 모델과 예측시장 확률을 매일 같은 기준으로 기록하고 결과로 채점하는 장치는 완성됐고, "시장보다 나은가"의 답은 아직 없다 (채점 0건).
@@ -44,13 +44,15 @@
 ## 게이트
 - 규칙·출처·일정 검증: 통과 (D-014)
 - 가격 정규화: 통과 (D-015, D-018)
-- 연구 표본 D-013: 통과 (비-ZLB 36건)
+- 연구 표본 D-013: 통과 (비-ZLB 68건, 2015–2026)
 - 시장 대비 표본외 skill D-007: 미충족 (채점 0건)
 - 신호 표시 결정 D-012: 대기
 
-## 백테스트 2019–2026
-- 로지스틱 워크포워드: Brier 0.0981 vs climatology 0.1184 (BSS +0.172), 비-ZLB BSS +0.026, 3원 Brier 0.353 vs 0.525
-- 휴리스틱(window): Brier 0.0835 vs climatology 0.1203, 3원 0.688 vs 0.532
+## 백테스트
+- 로지스틱 워크포워드 2015–2026 (94회의, 실시간 학습 표본): Brier 0.0954 vs climatology 0.0973 (BSS +0.020), 비-ZLB 68건 BSS +0.007, 3원 Brier 0.467 vs 0.505
+- 휴리스틱(window) 2015–2026: Brier 0.1101 vs climatology 0.0984 (BSS -0.120, climatology 게이트 실패)
+- 로지스틱 워크포워드 2019–2026: Brier 0.0981 vs climatology 0.1184 (BSS +0.172), 비-ZLB BSS +0.026, 3원 Brier 0.353 vs 0.525
+- 휴리스틱(window) 2019–2026: Brier 0.0835 vs climatology 0.1203, 3원 0.688 vs 0.532
 
 ## 장부
-해결 62 · 미해결 17 · 부분 4 · 결정 18건 (`reviews/FINDINGS.md`, `DECISIONS.md`)
+해결 62 · 미해결 18 · 부분 4 · 결정 18건 (`reviews/FINDINGS.md`, `DECISIONS.md`)

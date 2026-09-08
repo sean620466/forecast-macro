@@ -84,6 +84,16 @@ unemployment were never published (2025 shutdown); the affected snapshots record
 `data_gaps` and the 12-month and 3-month changes use their endpoints. The 2019–2024 files are
 untouched and their regression tests still pass.
 
+## 2015–2026 rerun (task 39)
+
+Files: `fed_baseline_backtest_{all,scheduled,window}_2015_2026.json` (91 window meetings,
+83 evaluated after warmup, 68 non-ZLB). The heuristic's cut Brier is 0.1101 against a
+sequential climatology of 0.0984 (BSS −0.120) and always-hold 0.1084 (BSS −0.016); ECE
+0.121; three-way 0.659 vs 0.509. It fails the climatology gate. On 2019–2026 alone it had
+looked good (BSS +0.31) because the sample began with the 2019–2020 cuts it is built to
+catch. Seven of the 83 meetings had a same-day 08:30 ET release (D-017); excluding them
+changes nothing material (0.1138 vs 0.1069).
+
 ## Three-way view of the heuristic (D-016)
 
 The heuristic's hike score is the cut score with its economic terms sign-flipped. On 2019–2026

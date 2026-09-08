@@ -89,6 +89,53 @@ Compared with the 2019–2024 run, skill fell (BSS vs climatology +0.29 → +0.1
 period has three cuts followed by a long hold with inflation re-accelerating to 3–4% YoY,
 which the four-feature model reads as mixed. It also cannot express a hike at all.
 
+## 2015–2026 result (94 meetings, task 39)
+
+Rerun on `data/generated/fomc_feature_snapshots_2015_2026.json`, built by the same workflow
+from ALFRED vintages of the day before each meeting (the 62 overlapping meetings have
+identical features to the 2019–2026 file). The extension adds the 2015–2018 tightening cycle:
+nine hikes, no cuts, ZLB until December 2015.
+
+| Metric | All 84 | Non-ZLB 68 |
+| --- | ---: | ---: |
+| Actual cuts / hikes | 9 / 19 | 9 / 19 |
+| Model Brier | 0.095410 | 0.117789 |
+| Sequential climatology Brier | 0.097330 | 0.118646 |
+| Always-hold Brier | 0.107143 | 0.132353 |
+| Intercept-only + ZLB mask Brier | 0.100096 | — |
+| BSS vs climatology | +0.020 | +0.007 |
+| BSS vs always-hold | +0.110 | — |
+| BSS vs intercept-only | +0.047 | — |
+| ECE (5 bins) | 0.081 | — |
+| Three-way Brier (model / climatology) | 0.467 / 0.505 | — |
+
+The skill reported on 2019–2026 does not survive the longer sample. Two effects, separable
+with the per-meeting `predictions` now stored in each report:
+
+1. **Climatology is a different baseline.** With 2015–2018 in the record the sequential
+   base rate of a cut is lower and better matched to 2020–2026, so the same predictions
+   earn less credit against it.
+2. **More history makes the model itself worse on the same meetings.** On the 52 meetings
+   both runs evaluate (2020-01 to 2026-07) the 2015-trained model's cut Brier is 0.1032 and
+   its three-way Brier 0.4206, against 0.0981 and 0.3529 for the 2019-trained model. The
+   2015–2018 rows tie low unemployment and rising inflation to hikes, which is the correct
+   lesson for the hike model but flattens the cut model's response during 2019–2020.
+
+By year (three-way Brier, model vs climatology, 2015-trained): the model wins clearly only
+in 2020 (0.09 vs 0.15), 2022 (0.38 vs 1.03: climatology could not see the hiking cycle)
+and 2026 (0.14 vs 0.18); it loses in 2016, 2021 and 2024. This is one model with two
+effective regimes in 94 observations, not a stable edge.
+
+The heuristic (`fed_baseline_backtest_window_2015_2026.json`) is worse than climatology on
+this sample: Brier 0.1101 vs 0.0984, BSS −0.120, and it fails the climatology gate.
+
+Consequences: the live comparison (`scripts/compare_fed_market.py`, model version
+`fed-live-0.3-three-way-2015-uncalibrated`) trains on the 94-meeting file because a training
+set chosen after seeing which period scores better would be tuning on results. The research
+gate D-013 is met on numbers (68 non-ZLB, model < climatology), but the margin is one
+meeting's worth of Brier. `signal_eligible` stays false; D-007 still needs the market
+baseline that started accumulating on 2026-09-08.
+
 ## Three-way outcome space (D-016)
 
 Since task 16 the report also carries `three_way_brier` (sum of squared errors over

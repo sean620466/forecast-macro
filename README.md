@@ -16,7 +16,7 @@
 | Fed 모델(cut/hold/hike) vs 시장 | 평일 09:40 ET | `data/generated/fed_market_comparisons/`, `fed_market_scoring.json` |
 | 실업률 baseline vs 시장 | 평일 09:40 ET | `data/generated/unemployment_market_comparisons/`, `unemployment_market_scoring.json` |
 | Core CPI YoY baseline vs 시장 | 평일 09:40 ET | `data/generated/core_cpi_market_comparisons/`, `core_cpi_market_scoring.json` |
-| 시점별 특징 스냅샷(ALFRED) | 수동/변경 시 | `data/generated/fomc_feature_snapshots_2019_2026.json` |
+| 시점별 특징 스냅샷(ALFRED) | 수동/변경 시 | `data/generated/fomc_feature_snapshots_2015_2026.json` (94회의; 2019–2026 파일은 회귀 테스트 고정값) |
 | 알림 | 워크플로 완료 시 / 채점 직후 | GitHub 이슈: `workflow-failure`(실패 시 열고 재성공 시 자동 닫힘), `scoring`(결과가 확정되어 채점된 회의·발표마다 1건) |
 
 모든 산출물은 GitHub Actions의 봇 계정이 저장소에 커밋합니다. `signal_eligible`은 코드 전체에서 `false`이며, 결정(D-0xx) 없이는 바뀌지 않습니다.
@@ -39,11 +39,11 @@ uv venv --python 3.12 && uv pip install -e ".[dev]"
 백테스트 재현:
 
 ```bash
-python scripts/run_fed_backtest.py --meetings data/fomc_meetings_2019_2026.csv \
-  --snapshots data/generated/fomc_feature_snapshots_2019_2026.json --event-scope window \
+python scripts/run_fed_backtest.py --meetings data/fomc_meetings_2015_2026.csv \
+  --snapshots data/generated/fomc_feature_snapshots_2015_2026.json --event-scope window \
   --output /tmp/window.json
-python scripts/run_fed_model_comparison.py --meetings data/fomc_meetings_2019_2026.csv \
-  --snapshots data/generated/fomc_feature_snapshots_2019_2026.json --output /tmp/wf.json
+python scripts/run_fed_model_comparison.py --meetings data/fomc_meetings_2015_2026.csv \
+  --snapshots data/generated/fomc_feature_snapshots_2015_2026.json --output /tmp/wf.json
 ```
 
 실시간 스크립트(`scripts/compare_*.py`, `scripts/build_fomc_snapshots.py`)는 `FRED_API_KEY` 환경변수가 필요하며 저장소에는 GitHub secret으로만 존재합니다.
@@ -59,10 +59,10 @@ python scripts/run_fed_model_comparison.py --meetings data/fomc_meetings_2019_20
 - `src/forecast_macro/models/` — `fed.py`(휴리스틱 3원), `logistic.py`, `unemployment.py`, `cpi.py`
 - `src/forecast_macro/market_*.py`, `official_sources.py`, `release_schedule.py` — 시장 게이트
 - `src/forecast_macro/live_comparison.py`, `unemployment_comparison.py`, `*_scoring.py` — D-007 루프
-- `tests/` — 191개, 체크인된 JSON 재현 회귀 테스트 포함
+- `tests/` — 196개, 체크인된 JSON 재현 회귀 테스트 포함
 
 ## 현재 판정
 
-- Fed 워크포워드 로지스틱: 2019–2026 비-ZLB 36건, climatology 대비 BSS +0.17이나 비-ZLB 부분표본에서는 +0.03. 인상 사이클 1개.
-- 시장 baseline 대비 채점: 첫 회의 2026-09-16, 첫 실업률 발표 2026-10-02. 30건까지 수년.
+- Fed 워크포워드 로지스틱: 표본을 2015–2026(94회의, 인상 사이클 2개)으로 늘리면 climatology 대비 BSS가 +0.17(2019–2026)에서 +0.02로 줄고 비-ZLB 68건에서는 +0.01. 같은 2020–2026 회의에서 2015년부터 학습한 모델이 2019년부터 학습한 모델보다 나쁘다. 휴리스틱은 2015–2026에서 climatology보다 못하다(BSS −0.12).
+- 시장 baseline 대비 채점: 첫 Core CPI 발표 2026-09-11, 첫 회의 2026-09-16, 첫 실업률 발표 2026-10-02. 30건까지 수년.
 - 결론: 아직 아무 신호도 자격이 없다. 그것이 이 저장소가 지금까지 확인한 사실이다.

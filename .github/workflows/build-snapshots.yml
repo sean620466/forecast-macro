@@ -59,6 +59,6 @@ jobs:
             echo "snapshots unchanged"
             exit 0
           fi
-          git commit -m "Record point-in-time FOMC feature snapshots 2019-2026 [skip ci]"
+          git commit -m "Record point-in-time FOMC feature snapshots 2015-2026 [skip ci]"
           git pull --rebase origin main
           git push origin HEAD:main

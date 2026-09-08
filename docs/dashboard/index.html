@@ -43,18 +43,18 @@ svg.chart{width:100%;height:auto;display:block} svg.chart text{font-family:"IBM 
 section{margin-bottom:22px} .verdict{background:var(--panel);border-left:4px solid var(--accent);border-radius:6px;padding:14px 16px;margin-bottom:22px} .verdict b{font-size:15px} .verdict p{margin:6px 0 0;color:var(--ink2);font-size:13.5px}
 </style></head><body>
 <div class="wrap">
-<header><h1>Forecast Macro 콘솔</h1><div class="meta">main 259e8f1 · 데이터 기준 2026-09-08 17:11 UTC · 자동 생성 (scripts/build_dashboard.py)</div></header>
+<header><h1>Forecast Macro 콘솔</h1><div class="meta">main f25f59f · 데이터 기준 2026-09-08 17:11 UTC · 자동 생성 (scripts/build_dashboard.py)</div></header>
 <div class="verdict"><b>현재 판정: 신호 없음 (설계대로)</b><p>모델과 시장 확률은 매일 기록되지만, 시장보다 낫다는 증거는 아직 0건입니다. 첫 채점은 다음 CPI 발표(9월 11일)·FOMC·고용보고서 이후입니다. 이 화면의 모든 확률은 연구 기록이며 투자 신호가 아닙니다.</p></div>
 <div class="tiles">
 <div class="tile"><div class="k">다음 FOMC</div><div class="v">9월 16일</div><div class="d">현재 상단 3.75% · KXFED-26SEP</div></div>
 <div class="tile"><div class="k">다음 고용보고서</div><div class="v">10월 2일</div><div class="d">최신 실업률 4.1% (2026-08)</div></div>
 <div class="tile"><div class="k">다음 CPI 발표</div><div class="v">9월 11일</div><div class="d">최신 Core CPI YoY 2.5% (2026-07)</div></div>
 <div class="tile"><div class="k">시장 대비 채점</div><div class="v">0 / 30</div><div class="d">D-013 표본 기준까지 남은 회의 수</div></div>
-<div class="tile"><div class="k">검토 장부</div><div class="v">62 해결</div><div class="d">17 미해결 · 4 부분 · 결정 18건</div></div>
+<div class="tile"><div class="k">검토 장부</div><div class="v">62 해결</div><div class="d">18 미해결 · 4 부분 · 결정 18건</div></div>
 </div>
 <div class="grid">
 <div class="panel"><h2>2026-09-16 FOMC: 상단 금리는 어디로</h2><p class="sub">Kalshi 관측 2026-09-08 17:03 UTC · 모델 vintage 2026-09-08</p>
-<div class="legend"><span><i style="background:var(--model)"></i>로지스틱 모델 (2019–2026 학습)</span><span><i style="background:var(--market)"></i>시장 (Kalshi) · 짙은 선은 호가 범위</span></div>
+<div class="legend"><span><i style="background:var(--model)"></i>로지스틱 모델 (2015–2026 학습, 60회의)</span><span><i style="background:var(--market)"></i>시장 (Kalshi) · 짙은 선은 호가 범위</span></div>
 <div class="row"><div class="lbl">인하 (3.75% 미만)</div><div class="bars"><div class="bar model" style="--v:15.42"><span>모델 15.4%</span></div><div class="bar market" style="--v:0.50;--lo:0.00;--hi:4.00"><i class="rng"></i><span>시장 0.5%</span></div></div></div>
 <div class="row"><div class="lbl">동결 (3.75%)</div><div class="bars"><div class="bar model" style="--v:77.53"><span>모델 77.5%</span></div><div class="bar market" style="--v:46.00;--lo:45.00;--hi:47.00"><i class="rng"></i><span>시장 46.0%</span></div></div></div>
 <div class="row"><div class="lbl">인상 (4.00% 이상)</div><div class="bars"><div class="bar model" style="--v:7.05"><span>모델 7.1%</span></div><div class="bar market" style="--v:53.50;--lo:51.00;--hi:61.00"><i class="rng"></i><span>시장 53.5%</span></div></div></div>
@@ -251,11 +251,13 @@ section{margin-bottom:22px} .verdict{background:var(--panel);border-left:4px sol
 <path d="M42.0,71.8 L46.1,71.8 L50.1,71.8 L54.2,71.8 L58.3,71.8 L62.3,76.2 L66.4,80.7 L70.5,85.1 L74.5,85.1 L78.6,85.1 L82.7,93.9 L86.7,111.6 L90.8,111.6 L94.9,111.6 L98.9,111.6 L103.0,111.6 L107.0,111.6 L111.1,111.6 L115.2,111.6 L119.2,111.6 L123.3,111.6 L127.4,111.6 L131.4,111.6 L135.5,111.6 L139.6,111.6 L143.6,111.6 L147.7,111.6 L151.8,107.2 L155.8,98.3 L159.9,85.1 L164.0,71.8 L168.0,58.6 L172.1,45.3 L176.2,36.5 L180.2,32.1 L184.3,27.7 L188.4,23.2 L192.4,23.2 L196.5,18.8 L200.6,18.8 L204.6,18.8 L208.7,18.8 L212.8,18.8 L216.8,18.8 L220.9,18.8 L225.0,18.8 L229.0,18.8 L233.1,27.7 L237.1,32.1 L241.2,36.5 L245.3,36.5 L249.3,36.5 L253.4,36.5 L257.5,36.5 L261.5,36.5 L265.6,40.9 L269.7,45.3 L273.7,49.8 L277.8,49.8 L281.9,49.8 L285.9,49.8 L290.0,49.8" fill="none" stroke="var(--accent)" stroke-width="2"/>
 <circle cx="290.0" cy="49.8" r="3.5" fill="var(--accent)"><title>정책금리 상단 (%): 4</title></circle>
 </svg></div></div></section>
-<section class="panel"><h2>백테스트 (2019–2026, 62회의)</h2><p class="sub">낮을수록 좋음.</p>
+<section class="panel"><h2>백테스트: 표본을 2015년까지 늘리면 skill이 사라진다</h2><p class="sub">낮을수록 좋음. 같은 모델을 두 표본에서 워크포워드로 평가. 2019–2026의 climatology 대비 skill(+0.17)은 2015–2026(94회의, 인상 사이클 2개)에서 +0.02로 줄고, 비-ZLB 부분표본에서는 0에 가깝다.</p>
 <div class="tablewrap"><table>
-<tr><th>모델</th><th class="n">표본외</th><th class="n">Brier(인하)</th><th class="n">climatology</th><th class="n">always-hold</th><th class="n">3원 Brier</th><th class="n">3원 climatology</th></tr>
-<tr><td>로지스틱 워크포워드</td><td class="n">52</td><td class="n">0.0981</td><td class="n">0.1184</td><td class="n">0.1154</td><td class="n">0.353</td><td class="n">0.525</td></tr>
-<tr><td>휴리스틱 (window)</td><td class="n">51</td><td class="n">0.0835</td><td class="n">0.1203</td><td class="n">0.1176</td><td class="n">0.688</td><td class="n">0.532</td></tr>
+<tr><th>모델</th><th>표본</th><th class="n">표본외</th><th class="n">Brier(인하)</th><th class="n">climatology</th><th class="n">BSS</th><th class="n">비-ZLB BSS</th><th class="n">3원 Brier</th><th class="n">3원 climatology</th></tr>
+<tr><td>로지스틱 워크포워드</td><td>2015–2026</td><td class="n">84</td><td class="n">0.0954</td><td class="n">0.0973</td><td class="n">+0.020</td><td class="n">+0.007</td><td class="n">0.467</td><td class="n">0.505</td></tr>
+<tr><td>휴리스틱 (window)</td><td>2015–2026</td><td class="n">83</td><td class="n">0.1101</td><td class="n">0.0984</td><td class="n">-0.120</td><td class="n">—</td><td class="n">0.659</td><td class="n">0.509</td></tr>
+<tr><td>로지스틱 워크포워드</td><td>2019–2026</td><td class="n">52</td><td class="n">0.0981</td><td class="n">0.1184</td><td class="n">+0.172</td><td class="n">+0.026</td><td class="n">0.353</td><td class="n">0.525</td></tr>
+<tr><td>휴리스틱 (window)</td><td>2019–2026</td><td class="n">51</td><td class="n">0.0835</td><td class="n">0.1203</td><td class="n">+0.306</td><td class="n">—</td><td class="n">0.688</td><td class="n">0.532</td></tr>
 </table></div></section>
 <div class="grid">
 <section class="panel"><h2>미해결 항목 (상위 12)</h2><ul class="items"><li><span class="sev high">High</span><code>R1-H3</code> 예측시장 계약별 outcome bucket 확장</li>
