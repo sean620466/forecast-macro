@@ -134,3 +134,28 @@ def test_kalshi_market_quote_reads_dollar_fields() -> None:
     quote = parse_kalshi_market_quote(_market(3.75, 0.52, 0.53), observed_at=NOW)
     assert (quote.bid, quote.ask, quote.bid_size) == (0.52, 0.53, 100.0)
     assert quote.venue_contract_id == "KXFED-26SEP-T3.75"
+
+
+def test_wide_tail_rungs_do_not_veto_but_width_and_fees_are_recorded() -> None:
+    from forecast_macro.market_review import CandidateReview, ReviewStatus
+    from forecast_macro.price_snapshots import candidate_from_row, price_ladder_event
+
+    quotes_by_floor = dict(LIVE_LADDER)
+    quotes_by_floor[2.75] = (0.89, 1.00)  # far-dated style: wide but harmless tail rung
+    markets = [_market(f, b, a) for f, (b, a) in quotes_by_floor.items()]
+    members = [candidate_from_row(c.to_dict()) for c in kalshi_candidates({"markets": markets})]
+    reviews = {
+        m.venue_market_id: CandidateReview("kalshi", "KXFED-26SEP", m.venue_market_id, "fed_rate", ReviewStatus.APPROVED, (), ())
+        for m in members
+    }
+    quotes = {str(m["ticker"]): parse_kalshi_market_quote(m, observed_at=NOW) for m in markets}
+    record = price_ladder_event(
+        members, reviews, quotes, {m.venue_market_id: "sha256:x" for m in members}, as_of=NOW, outcome_at=None
+    )
+    assert record.rejected_reason is None
+    assert record.completeness["wide_rung_count"] == 1.0
+    assert record.book_updated_at == {"wide_rungs": ["KXFED-26SEP-T2.75"]}
+    # Bucket "4.00" is built from the 3.75 and 4.00 rungs: two taker fees (Kalshi rounds up to a cent).
+    assert record.bucket_fees["4.00"] == pytest.approx(0.02 + 0.01)
+    assert record.bucket_fees["gt_5.25"] == pytest.approx(0.01)
+    assert sum(record.probabilities.values()) == pytest.approx(1.0)

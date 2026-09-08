@@ -101,7 +101,7 @@
 
 | ID | 등급 | 요약 | 상태 | 비고 |
 | --- | --- | --- | --- | --- |
-| R12-M1 | Medium | KXFED 2026-12, 2027-01/03/04 이벤트는 승인됐으나 꼬리 rung 스프레드가 0.10을 넘어 가격 거부 | open | fail-closed 정상. 먼 만기 사다리는 활성 구간만으로 부분 가격을 낼지 결정 필요 |
+| R12-M1 | Medium | KXFED 2026-12, 2027-01/03/04 이벤트는 승인됐으나 꼬리 rung 스프레드가 0.10을 넘어 가격 거부 | partial | claude/task-20: rung별 스프레드 거부를 없애고 `wide_rungs` 기록 + D-015 폭 게이트(Σask−Σbid ≤ 0.35)·단조성으로 판정. 단조성은 mid가 아니라 호가 범위(높은 rung의 bid > 낮은 rung의 ask)로 판정하도록 수정. 2026-09-08 실측에서는 12월·2027년 1/3/4월 모두 폭(Σask−Σbid > 0.35)으로 거부. 폭 상한 완화나 활성 구간만의 부분 가격은 결정 사항으로 남김 |
 | R12-M2 | Medium | Kalshi 규칙의 출처는 URL이 아닌 문구("Federal Reserve's official website")로 기재. 정확 문구 3개만 매핑, 기원 `rules_text_reference`가 아닌 `field`로 기록됨 | open | 기원 라벨을 `rules_text_reference`로 구분해야 감사 시 URL 출처와 구별 가능 |
 | R12-L1 | Low | KXFEDFUNDSYEAR(연말 금리), KXEFFR(실효금리) 이벤트는 구조는 통과했으나 발표 일정이 없어 `close_time` 미검증 | open | 연말 계약은 12월 FOMC로 매핑 가능, EFFR은 NY Fed 일별 게시라 별도 규칙 필요 |
 | R12-L2 | Low | 봇이 커밋하던 `macro_market_review_latest.json`이 38,960줄 | fixed | 같은 브랜치: 요약과 승인 행만 커밋 |
@@ -153,5 +153,5 @@
 | ID | 등급 | 요약 | 상태 | 비고 |
 | --- | --- | --- | --- | --- |
 | R19-M1 | Medium | Kalshi 수수료 상수(taker 0.07, maker 0.0175)는 공식 PDF(`kalshi-fee-schedule.pdf`)를 이 저장소에서 다시 읽지 못해 `verified=false` | open | 사용자가 PDF를 열어 두 숫자를 확인하면 `verified=true`로 전환. 그전까지 Kalshi net edge는 참고용 |
-| R19-M2 | Medium | Kalshi 사다리에서 파생된 배타 구간은 계약 두 개(인접 rung)로 만들어지므로 수수료가 두 번 든다. 현재 기록은 rung별 수수료만 | open | 구간 net edge는 두 leg 수수료 합으로 계산해야 함 |
+| R19-M2 | Medium | Kalshi 사다리에서 파생된 배타 구간은 계약 두 개(인접 rung)로 만들어지므로 수수료가 두 번 든다. 현재 기록은 rung별 수수료만 | fixed | claude/task-20: `bucket_fees`에 두 leg 수수료 합 기록(9월 4.00% 구간 0.03). Kalshi 상수 미검증(R19-M1)은 그대로 |
 | R19-L1 | Low | 실업률 비교 기록에 `net_edge_after_fees`(모델 확률 − ask − 수수료) 추가. 9개 구간 모두 YES 직접 계약 | fixed | 같은 브랜치 |

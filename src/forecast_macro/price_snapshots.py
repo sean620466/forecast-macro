@@ -4,10 +4,11 @@ from collections import defaultdict
 from collections.abc import Mapping, Sequence
 from dataclasses import asdict, dataclass
 from datetime import datetime
+from itertools import pairwise
 from typing import Any
 
 from forecast_macro.contracts import OutcomeQuote, normalize_threshold_ladder
-from forecast_macro.fees import fee_summary
+from forecast_macro.fees import fee_summary, schedule_for
 from forecast_macro.market_discovery import MacroTopic, MarketCandidate
 from forecast_macro.market_pricing import build_event_price_snapshot
 from forecast_macro.market_review import CandidateReview, ReviewStatus, is_threshold_ladder
@@ -33,6 +34,8 @@ class EventPriceRecord:
     rejected_reason: str | None
     # D-012: prices are recorded for a future market baseline; nothing here is a signal.
     signal_eligible: bool = False
+    # Two-leg taker fees per derived bucket (ladders only), in probability units (R19-M2).
+    bucket_fees: dict[str, float] | None = None
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -181,15 +184,23 @@ def price_ladder_event(
     *,
     as_of: datetime,
     outcome_at: datetime | None,
-    max_spread: float = 0.10,
+    wide_spread: float = 0.10,
     max_age_seconds: float = 120.0,
 ) -> EventPriceRecord:
-    """Price a cumulative threshold ladder (Kalshi "greater than F") as exclusive buckets."""
+    """Price a cumulative threshold ladder (Kalshi "greater than F") as exclusive buckets.
+
+    A single wide rung does not veto the event: far-dated ladders quote their tail rungs at
+    0.89/1.00 while the active rungs are tight. Wide rungs are listed in the record and the
+    D-015 width gate on the whole ladder (sum of asks minus sum of bids) decides (task 20).
+    """
     venue = members[0].venue
     event_id = members[0].venue_event_id or ""
     quote_rows: dict[str, dict[str, object]] = {}
     ladder: dict[float, tuple[float, float]] = {}
     problems: list[str] = []
+    wide_rungs: list[str] = []
+    fee_ids: set[str] = set()
+    asks_by_floor: dict[float, float] = {}
     for member in sorted(members, key=lambda m: m.strike or 0.0):
         review = reviews.get(member.venue_market_id)
         if review is None or review.status is not ReviewStatus.APPROVED:
@@ -207,8 +218,10 @@ def price_ladder_event(
             "ask_size": quote.ask_size,
             "fees": fee_summary(quote.fee_schedule_id, quote.ask),
         }
-        if quote.ask - quote.bid > max_spread:
-            problems.append(f"{member.venue_market_id}: spread exceeds limit")
+        if quote.ask - quote.bid > wide_spread:
+            wide_rungs.append(member.venue_market_id)
+        fee_ids.add(quote.fee_schedule_id)
+        asks_by_floor[float(member.strike or 0.0)] = quote.ask
         if quote.observed_at > as_of or (as_of - quote.observed_at).total_seconds() > max_age_seconds:
             problems.append(f"{member.venue_market_id}: quote is stale or from the future")
         if not rules_text_hashes.get(member.venue_market_id):
@@ -225,7 +238,7 @@ def price_ladder_event(
         "rules_text_hashes": {
             m.venue_market_id: rules_text_hashes.get(m.venue_market_id, "") for m in members
         },
-        "book_updated_at": {},
+        "book_updated_at": {"wide_rungs": wide_rungs} if wide_rungs else {},
     }
     if problems:
         return EventPriceRecord(
@@ -247,6 +260,25 @@ def price_ladder_event(
             source_mid_prices={},
             rejected_reason=str(error),
         )
+    # Two-leg fees (R19-M2): an exclusive bucket between floors F_k and F_k+1 is built from
+    # the two adjacent rung contracts, so both taker fees apply. Tail buckets use one rung.
+    schedule = schedule_for(next(iter(fee_ids))) if len(fee_ids) == 1 else None
+    floors = sorted(ladder)
+    bucket_fees: dict[str, float] = {}
+    if schedule is not None:
+        first, last = floors[0], floors[-1]
+        bucket_fees[f"le_{first:.2f}"] = schedule.taker_fee(asks_by_floor[first])
+        for lower, upper in pairwise(floors):
+            bucket_fees[f"{upper:.2f}"] = schedule.taker_fee(asks_by_floor[lower]) + schedule.taker_fee(
+                asks_by_floor[upper]
+            )
+        bucket_fees[f"gt_{last:.2f}"] = schedule.taker_fee(asks_by_floor[last])
+    completeness: dict[str, float] = {
+        "bid_sum": normalized.bid_sum,
+        "ask_sum": normalized.ask_sum,
+        "mid_sum": normalized.mid_sum,
+        "wide_rung_count": float(len(wide_rungs)),
+    }
     return EventPriceRecord(
         **base,
         probabilities=normalized.probabilities,
@@ -254,11 +286,8 @@ def price_ladder_event(
             key: [normalized.lower_bounds[key], normalized.upper_bounds[key]]
             for key in normalized.probabilities
         },
-        completeness={
-            "bid_sum": normalized.bid_sum,
-            "ask_sum": normalized.ask_sum,
-            "mid_sum": normalized.mid_sum,
-        },
+        completeness=completeness,
         source_mid_prices={f"{floor:.2f}": (b + a) / 2 for floor, (b, a) in ladder.items()},
         rejected_reason=None,
+        bucket_fees=bucket_fees,
     )

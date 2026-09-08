@@ -199,8 +199,11 @@ def normalize_threshold_ladder(
         if not (math.isfinite(bid) and math.isfinite(ask)) or not 0 <= bid <= ask <= 1:
             raise ValueError(f"quote for rung {floor} must satisfy 0 <= bid <= ask <= 1")
     mids = {floor: (ladder[floor][0] + ladder[floor][1]) / 2.0 for floor in floors}
+    # Monotonicity is judged on bounds, not mids: P(> F_high) cannot exceed P(> F_low), so a
+    # higher rung's bid above a lower rung's ask is a real inconsistency. Mid inversions inside
+    # overlapping bid-ask ranges are only spread noise (wide tails on far-dated ladders).
     for lower, upper in pairwise(floors):
-        if mids[upper] > mids[lower] + monotonic_tolerance:
+        if ladder[upper][0] > ladder[lower][1] + monotonic_tolerance:
             raise ValueError("ladder is not monotone: a higher threshold trades above a lower one")
 
     def label(floor: float) -> str:
