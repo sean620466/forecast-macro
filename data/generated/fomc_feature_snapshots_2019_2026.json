@@ -18,45 +18,49 @@
         "observed_at": "2018-12-01",
         "value": 251.233,
         "realtime_start": "2019-01-29",
-        "fetched_at": "2026-09-08T04:22:14.175235+00:00",
-        "first_published_on": "2019-01-11"
+        "fetched_at": "2026-09-08T04:29:31.966118+00:00",
+        "first_published_on": "2019-01-11",
+        "next_release_on": "2019-02-13"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2017-12-01",
         "value": 246.524,
         "realtime_start": "2019-01-29",
-        "fetched_at": "2026-09-08T04:22:14.175235+00:00"
+        "fetched_at": "2026-09-08T04:29:31.966118+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2018-12-01",
         "value": 3.9,
         "realtime_start": "2019-01-29",
-        "fetched_at": "2026-09-08T04:22:15.294654+00:00",
-        "first_published_on": "2019-01-04"
+        "fetched_at": "2026-09-08T04:29:32.810219+00:00",
+        "first_published_on": "2019-01-04",
+        "next_release_on": "2019-02-01"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2018-09-01",
         "value": 3.7,
         "realtime_start": "2019-01-29",
-        "fetched_at": "2026-09-08T04:22:15.294654+00:00"
+        "fetched_at": "2026-09-08T04:29:32.810219+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2019-01-28",
         "value": 2.5,
         "realtime_start": "2019-01-29",
-        "fetched_at": "2026-09-08T04:22:16.149527+00:00",
+        "fetched_at": "2026-09-08T04:29:33.608159+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:22:18.891351+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:29:37.874864+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2019-03-20",
@@ -77,45 +81,49 @@
         "observed_at": "2019-02-01",
         "value": 252.776,
         "realtime_start": "2019-03-19",
-        "fetched_at": "2026-09-08T04:22:19.822051+00:00",
-        "first_published_on": "2019-03-12"
+        "fetched_at": "2026-09-08T04:29:39.127620+00:00",
+        "first_published_on": "2019-03-12",
+        "next_release_on": "2019-04-10"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2018-02-01",
         "value": 248.991,
         "realtime_start": "2019-03-19",
-        "fetched_at": "2026-09-08T04:22:19.822051+00:00"
+        "fetched_at": "2026-09-08T04:29:39.127620+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2019-02-01",
         "value": 3.8,
         "realtime_start": "2019-03-19",
-        "fetched_at": "2026-09-08T04:22:20.646815+00:00",
-        "first_published_on": "2019-03-08"
+        "fetched_at": "2026-09-08T04:29:39.944789+00:00",
+        "first_published_on": "2019-03-08",
+        "next_release_on": "2019-04-05"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2018-11-01",
         "value": 3.7,
         "realtime_start": "2019-03-19",
-        "fetched_at": "2026-09-08T04:22:20.646815+00:00"
+        "fetched_at": "2026-09-08T04:29:39.944789+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2019-03-18",
         "value": 2.5,
         "realtime_start": "2019-03-19",
-        "fetched_at": "2026-09-08T04:22:21.502790+00:00",
+        "fetched_at": "2026-09-08T04:29:40.770822+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:22:24.160221+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:29:45.438220+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2019-05-01",
@@ -136,45 +144,49 @@
         "observed_at": "2019-03-01",
         "value": 254.202,
         "realtime_start": "2019-04-30",
-        "fetched_at": "2026-09-08T04:22:25.023937+00:00",
-        "first_published_on": "2019-04-10"
+        "fetched_at": "2026-09-08T04:29:46.457983+00:00",
+        "first_published_on": "2019-04-10",
+        "next_release_on": "2019-05-10"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2018-03-01",
         "value": 249.554,
         "realtime_start": "2019-04-30",
-        "fetched_at": "2026-09-08T04:22:25.023937+00:00"
+        "fetched_at": "2026-09-08T04:29:46.457983+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2019-03-01",
         "value": 3.8,
         "realtime_start": "2019-04-30",
-        "fetched_at": "2026-09-08T04:22:25.892263+00:00",
-        "first_published_on": "2019-04-05"
+        "fetched_at": "2026-09-08T04:29:47.428649+00:00",
+        "first_published_on": "2019-04-05",
+        "next_release_on": "2019-05-03"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2018-12-01",
         "value": 3.9,
         "realtime_start": "2019-04-30",
-        "fetched_at": "2026-09-08T04:22:25.892263+00:00"
+        "fetched_at": "2026-09-08T04:29:47.428649+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2019-04-29",
         "value": 2.5,
         "realtime_start": "2019-04-30",
-        "fetched_at": "2026-09-08T04:22:26.749937+00:00",
+        "fetched_at": "2026-09-08T04:29:48.198347+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:22:29.302340+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:29:52.299676+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2019-06-19",
@@ -195,45 +207,49 @@
         "observed_at": "2019-05-01",
         "value": 256.092,
         "realtime_start": "2019-06-18",
-        "fetched_at": "2026-09-08T04:22:30.363963+00:00",
-        "first_published_on": "2019-06-12"
+        "fetched_at": "2026-09-08T04:29:53.061660+00:00",
+        "first_published_on": "2019-06-12",
+        "next_release_on": "2019-07-11"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2018-05-01",
         "value": 251.588,
         "realtime_start": "2019-06-18",
-        "fetched_at": "2026-09-08T04:22:30.363963+00:00"
+        "fetched_at": "2026-09-08T04:29:53.061660+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2019-05-01",
         "value": 3.6,
         "realtime_start": "2019-06-18",
-        "fetched_at": "2026-09-08T04:22:31.218195+00:00",
-        "first_published_on": "2019-06-07"
+        "fetched_at": "2026-09-08T04:29:53.909499+00:00",
+        "first_published_on": "2019-06-07",
+        "next_release_on": "2019-07-05"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2019-02-01",
         "value": 3.8,
         "realtime_start": "2019-06-18",
-        "fetched_at": "2026-09-08T04:22:31.218195+00:00"
+        "fetched_at": "2026-09-08T04:29:53.909499+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2019-06-17",
         "value": 2.5,
         "realtime_start": "2019-06-18",
-        "fetched_at": "2026-09-08T04:22:32.141294+00:00",
+        "fetched_at": "2026-09-08T04:29:54.705079+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:22:34.754965+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:29:58.969932+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2019-07-31",
@@ -254,45 +270,49 @@
         "observed_at": "2019-06-01",
         "value": 256.143,
         "realtime_start": "2019-07-30",
-        "fetched_at": "2026-09-08T04:22:35.708868+00:00",
-        "first_published_on": "2019-07-11"
+        "fetched_at": "2026-09-08T04:29:59.823708+00:00",
+        "first_published_on": "2019-07-11",
+        "next_release_on": "2019-08-13"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2018-06-01",
         "value": 251.989,
         "realtime_start": "2019-07-30",
-        "fetched_at": "2026-09-08T04:22:35.708868+00:00"
+        "fetched_at": "2026-09-08T04:29:59.823708+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2019-06-01",
         "value": 3.7,
         "realtime_start": "2019-07-30",
-        "fetched_at": "2026-09-08T04:22:36.545094+00:00",
-        "first_published_on": "2019-07-05"
+        "fetched_at": "2026-09-08T04:30:01.996308+00:00",
+        "first_published_on": "2019-07-05",
+        "next_release_on": "2019-08-02"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2019-03-01",
         "value": 3.8,
         "realtime_start": "2019-07-30",
-        "fetched_at": "2026-09-08T04:22:36.545094+00:00"
+        "fetched_at": "2026-09-08T04:30:01.996308+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2019-07-29",
         "value": 2.5,
         "realtime_start": "2019-07-30",
-        "fetched_at": "2026-09-08T04:22:37.355955+00:00",
+        "fetched_at": "2026-09-08T04:30:03.167149+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:22:39.932216+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:30:14.465179+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2019-09-18",
@@ -313,45 +333,49 @@
         "observed_at": "2019-08-01",
         "value": 256.558,
         "realtime_start": "2019-09-17",
-        "fetched_at": "2026-09-08T04:22:40.790449+00:00",
-        "first_published_on": "2019-09-12"
+        "fetched_at": "2026-09-08T04:30:16.778267+00:00",
+        "first_published_on": "2019-09-12",
+        "next_release_on": "2019-10-10"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2018-08-01",
         "value": 252.146,
         "realtime_start": "2019-09-17",
-        "fetched_at": "2026-09-08T04:22:40.790449+00:00"
+        "fetched_at": "2026-09-08T04:30:16.778267+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2019-08-01",
         "value": 3.7,
         "realtime_start": "2019-09-17",
-        "fetched_at": "2026-09-08T04:22:41.741217+00:00",
-        "first_published_on": "2019-09-06"
+        "fetched_at": "2026-09-08T04:30:21.495488+00:00",
+        "first_published_on": "2019-09-06",
+        "next_release_on": "2019-10-04"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2019-05-01",
         "value": 3.6,
         "realtime_start": "2019-09-17",
-        "fetched_at": "2026-09-08T04:22:41.741217+00:00"
+        "fetched_at": "2026-09-08T04:30:21.495488+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2019-09-16",
         "value": 2.25,
         "realtime_start": "2019-09-17",
-        "fetched_at": "2026-09-08T04:22:42.600372+00:00",
+        "fetched_at": "2026-09-08T04:30:27.235226+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:22:45.362864+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:30:44.214758+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2019-10-30",
@@ -372,45 +396,49 @@
         "observed_at": "2019-09-01",
         "value": 256.759,
         "realtime_start": "2019-10-29",
-        "fetched_at": "2026-09-08T04:22:46.295763+00:00",
-        "first_published_on": "2019-10-10"
+        "fetched_at": "2026-09-08T04:30:46.161431+00:00",
+        "first_published_on": "2019-10-10",
+        "next_release_on": "2019-11-13"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2018-09-01",
         "value": 252.439,
         "realtime_start": "2019-10-29",
-        "fetched_at": "2026-09-08T04:22:46.295763+00:00"
+        "fetched_at": "2026-09-08T04:30:46.161431+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2019-09-01",
         "value": 3.5,
         "realtime_start": "2019-10-29",
-        "fetched_at": "2026-09-08T04:22:47.167233+00:00",
-        "first_published_on": "2019-10-04"
+        "fetched_at": "2026-09-08T04:30:49.342888+00:00",
+        "first_published_on": "2019-10-04",
+        "next_release_on": "2019-11-01"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2019-06-01",
         "value": 3.7,
         "realtime_start": "2019-10-29",
-        "fetched_at": "2026-09-08T04:22:47.167233+00:00"
+        "fetched_at": "2026-09-08T04:30:49.342888+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2019-10-28",
         "value": 2.0,
         "realtime_start": "2019-10-29",
-        "fetched_at": "2026-09-08T04:22:47.994108+00:00",
+        "fetched_at": "2026-09-08T04:30:50.841784+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:22:50.552509+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:30:55.846844+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2019-12-11",
@@ -431,45 +459,51 @@
         "observed_at": "2019-10-01",
         "value": 257.346,
         "realtime_start": "2019-12-10",
-        "fetched_at": "2026-09-08T04:22:51.383168+00:00",
-        "first_published_on": "2019-11-13"
+        "fetched_at": "2026-09-08T04:30:56.668021+00:00",
+        "first_published_on": "2019-11-13",
+        "next_release_on": "2019-12-11"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2018-10-01",
         "value": 252.885,
         "realtime_start": "2019-12-10",
-        "fetched_at": "2026-09-08T04:22:51.383168+00:00"
+        "fetched_at": "2026-09-08T04:30:56.668021+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2019-11-01",
         "value": 3.5,
         "realtime_start": "2019-12-10",
-        "fetched_at": "2026-09-08T04:22:52.224398+00:00",
-        "first_published_on": "2019-12-06"
+        "fetched_at": "2026-09-08T04:30:57.589149+00:00",
+        "first_published_on": "2019-12-06",
+        "next_release_on": "2020-01-10"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2019-08-01",
         "value": 3.7,
         "realtime_start": "2019-12-10",
-        "fetched_at": "2026-09-08T04:22:52.224398+00:00"
+        "fetched_at": "2026-09-08T04:30:57.589149+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2019-12-09",
         "value": 1.75,
         "realtime_start": "2019-12-10",
-        "fetched_at": "2026-09-08T04:22:53.047308+00:00",
+        "fetched_at": "2026-09-08T04:30:58.389895+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:22:55.579463+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:31:03.466222+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": true,
+    "same_day_release_series": [
+      "CPIAUCNS"
+    ]
   },
   {
     "meeting_date": "2020-01-29",
@@ -490,45 +524,49 @@
         "observed_at": "2019-12-01",
         "value": 256.974,
         "realtime_start": "2020-01-28",
-        "fetched_at": "2026-09-08T04:22:56.410572+00:00",
-        "first_published_on": "2020-01-14"
+        "fetched_at": "2026-09-08T04:31:04.293211+00:00",
+        "first_published_on": "2020-01-14",
+        "next_release_on": "2020-02-13"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2018-12-01",
         "value": 251.233,
         "realtime_start": "2020-01-28",
-        "fetched_at": "2026-09-08T04:22:56.410572+00:00"
+        "fetched_at": "2026-09-08T04:31:04.293211+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2019-12-01",
         "value": 3.5,
         "realtime_start": "2020-01-28",
-        "fetched_at": "2026-09-08T04:22:57.381365+00:00",
-        "first_published_on": "2020-01-10"
+        "fetched_at": "2026-09-08T04:31:05.353916+00:00",
+        "first_published_on": "2020-01-10",
+        "next_release_on": "2020-02-07"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2019-09-01",
         "value": 3.5,
         "realtime_start": "2020-01-28",
-        "fetched_at": "2026-09-08T04:22:57.381365+00:00"
+        "fetched_at": "2026-09-08T04:31:05.353916+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2020-01-27",
         "value": 1.75,
         "realtime_start": "2020-01-28",
-        "fetched_at": "2026-09-08T04:22:58.245637+00:00",
+        "fetched_at": "2026-09-08T04:31:06.257512+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:23:02.451658+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:31:11.952986+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2020-03-03",
@@ -549,45 +587,49 @@
         "observed_at": "2020-01-01",
         "value": 257.971,
         "realtime_start": "2020-03-02",
-        "fetched_at": "2026-09-08T04:23:03.278927+00:00",
-        "first_published_on": "2020-02-13"
+        "fetched_at": "2026-09-08T04:31:12.722704+00:00",
+        "first_published_on": "2020-02-13",
+        "next_release_on": "2020-03-11"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2019-01-01",
         "value": 251.712,
         "realtime_start": "2020-03-02",
-        "fetched_at": "2026-09-08T04:23:03.278927+00:00"
+        "fetched_at": "2026-09-08T04:31:12.722704+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2020-01-01",
         "value": 3.6,
         "realtime_start": "2020-03-02",
-        "fetched_at": "2026-09-08T04:23:04.110559+00:00",
-        "first_published_on": "2020-02-07"
+        "fetched_at": "2026-09-08T04:31:13.490560+00:00",
+        "first_published_on": "2020-02-07",
+        "next_release_on": "2020-03-06"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2019-10-01",
         "value": 3.6,
         "realtime_start": "2020-03-02",
-        "fetched_at": "2026-09-08T04:23:04.110559+00:00"
+        "fetched_at": "2026-09-08T04:31:13.490560+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2020-03-01",
         "value": 1.75,
         "realtime_start": "2020-03-02",
-        "fetched_at": "2026-09-08T04:23:04.960104+00:00",
+        "fetched_at": "2026-09-08T04:31:14.399256+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:23:08.124966+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:31:19.315879+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2020-03-15",
@@ -608,45 +650,49 @@
         "observed_at": "2020-02-01",
         "value": 258.678,
         "realtime_start": "2020-03-14",
-        "fetched_at": "2026-09-08T04:23:08.980771+00:00",
-        "first_published_on": "2020-03-11"
+        "fetched_at": "2026-09-08T04:31:20.418568+00:00",
+        "first_published_on": "2020-03-11",
+        "next_release_on": "2020-04-10"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2019-02-01",
         "value": 252.776,
         "realtime_start": "2020-03-14",
-        "fetched_at": "2026-09-08T04:23:08.980771+00:00"
+        "fetched_at": "2026-09-08T04:31:20.418568+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2020-02-01",
         "value": 3.5,
         "realtime_start": "2020-03-14",
-        "fetched_at": "2026-09-08T04:23:09.833145+00:00",
-        "first_published_on": "2020-03-06"
+        "fetched_at": "2026-09-08T04:31:21.200440+00:00",
+        "first_published_on": "2020-03-06",
+        "next_release_on": "2020-04-03"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2019-11-01",
         "value": 3.5,
         "realtime_start": "2020-03-14",
-        "fetched_at": "2026-09-08T04:23:09.833145+00:00"
+        "fetched_at": "2026-09-08T04:31:21.200440+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2020-03-12",
         "value": 1.25,
         "realtime_start": "2020-03-14",
-        "fetched_at": "2026-09-08T04:23:10.659501+00:00",
+        "fetched_at": "2026-09-08T04:31:21.978489+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:23:13.575203+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:31:26.353437+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2020-04-29",
@@ -667,45 +713,49 @@
         "observed_at": "2020-03-01",
         "value": 258.115,
         "realtime_start": "2020-04-28",
-        "fetched_at": "2026-09-08T04:23:14.564100+00:00",
-        "first_published_on": "2020-04-10"
+        "fetched_at": "2026-09-08T04:31:27.123035+00:00",
+        "first_published_on": "2020-04-10",
+        "next_release_on": "2020-05-12"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2019-03-01",
         "value": 254.202,
         "realtime_start": "2020-04-28",
-        "fetched_at": "2026-09-08T04:23:14.564100+00:00"
+        "fetched_at": "2026-09-08T04:31:27.123035+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2020-03-01",
         "value": 4.4,
         "realtime_start": "2020-04-28",
-        "fetched_at": "2026-09-08T04:23:15.420834+00:00",
-        "first_published_on": "2020-04-03"
+        "fetched_at": "2026-09-08T04:31:28.218858+00:00",
+        "first_published_on": "2020-04-03",
+        "next_release_on": "2020-05-08"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2019-12-01",
         "value": 3.5,
         "realtime_start": "2020-04-28",
-        "fetched_at": "2026-09-08T04:23:15.420834+00:00"
+        "fetched_at": "2026-09-08T04:31:28.218858+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2020-04-27",
         "value": 0.25,
         "realtime_start": "2020-04-28",
-        "fetched_at": "2026-09-08T04:23:16.282421+00:00",
+        "fetched_at": "2026-09-08T04:31:28.985692+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:23:20.163319+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:31:34.062548+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2020-06-10",
@@ -726,45 +776,51 @@
         "observed_at": "2020-04-01",
         "value": 256.389,
         "realtime_start": "2020-06-09",
-        "fetched_at": "2026-09-08T04:23:21.001367+00:00",
-        "first_published_on": "2020-05-12"
+        "fetched_at": "2026-09-08T04:31:34.854286+00:00",
+        "first_published_on": "2020-05-12",
+        "next_release_on": "2020-06-10"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2019-04-01",
         "value": 255.548,
         "realtime_start": "2020-06-09",
-        "fetched_at": "2026-09-08T04:23:21.001367+00:00"
+        "fetched_at": "2026-09-08T04:31:34.854286+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2020-05-01",
         "value": 13.3,
         "realtime_start": "2020-06-09",
-        "fetched_at": "2026-09-08T04:23:21.830258+00:00",
-        "first_published_on": "2020-06-05"
+        "fetched_at": "2026-09-08T04:31:35.691246+00:00",
+        "first_published_on": "2020-06-05",
+        "next_release_on": "2020-07-02"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2020-02-01",
         "value": 3.5,
         "realtime_start": "2020-06-09",
-        "fetched_at": "2026-09-08T04:23:21.830258+00:00"
+        "fetched_at": "2026-09-08T04:31:35.691246+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2020-06-08",
         "value": 0.25,
         "realtime_start": "2020-06-09",
-        "fetched_at": "2026-09-08T04:23:22.733204+00:00",
+        "fetched_at": "2026-09-08T04:31:36.815989+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:23:25.434629+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:31:41.613074+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": true,
+    "same_day_release_series": [
+      "CPIAUCNS"
+    ]
   },
   {
     "meeting_date": "2020-07-29",
@@ -785,45 +841,49 @@
         "observed_at": "2020-06-01",
         "value": 257.797,
         "realtime_start": "2020-07-28",
-        "fetched_at": "2026-09-08T04:23:26.279762+00:00",
-        "first_published_on": "2020-07-14"
+        "fetched_at": "2026-09-08T04:31:42.416469+00:00",
+        "first_published_on": "2020-07-14",
+        "next_release_on": "2020-08-12"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2019-06-01",
         "value": 256.143,
         "realtime_start": "2020-07-28",
-        "fetched_at": "2026-09-08T04:23:26.279762+00:00"
+        "fetched_at": "2026-09-08T04:31:42.416469+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2020-06-01",
         "value": 11.1,
         "realtime_start": "2020-07-28",
-        "fetched_at": "2026-09-08T04:23:27.094835+00:00",
-        "first_published_on": "2020-07-02"
+        "fetched_at": "2026-09-08T04:31:43.187488+00:00",
+        "first_published_on": "2020-07-02",
+        "next_release_on": "2020-08-07"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2020-03-01",
         "value": 4.4,
         "realtime_start": "2020-07-28",
-        "fetched_at": "2026-09-08T04:23:27.094835+00:00"
+        "fetched_at": "2026-09-08T04:31:43.187488+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2020-07-27",
         "value": 0.25,
         "realtime_start": "2020-07-28",
-        "fetched_at": "2026-09-08T04:23:27.947256+00:00",
+        "fetched_at": "2026-09-08T04:31:43.988879+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:23:30.695931+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:31:47.948223+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2020-09-16",
@@ -844,45 +904,49 @@
         "observed_at": "2020-08-01",
         "value": 259.918,
         "realtime_start": "2020-09-15",
-        "fetched_at": "2026-09-08T04:23:31.529102+00:00",
-        "first_published_on": "2020-09-11"
+        "fetched_at": "2026-09-08T04:31:48.802239+00:00",
+        "first_published_on": "2020-09-11",
+        "next_release_on": "2020-10-13"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2019-08-01",
         "value": 256.558,
         "realtime_start": "2020-09-15",
-        "fetched_at": "2026-09-08T04:23:31.529102+00:00"
+        "fetched_at": "2026-09-08T04:31:48.802239+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2020-08-01",
         "value": 8.4,
         "realtime_start": "2020-09-15",
-        "fetched_at": "2026-09-08T04:23:32.398442+00:00",
-        "first_published_on": "2020-09-04"
+        "fetched_at": "2026-09-08T04:31:49.578973+00:00",
+        "first_published_on": "2020-09-04",
+        "next_release_on": "2020-10-02"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2020-05-01",
         "value": 13.3,
         "realtime_start": "2020-09-15",
-        "fetched_at": "2026-09-08T04:23:32.398442+00:00"
+        "fetched_at": "2026-09-08T04:31:49.578973+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2020-09-14",
         "value": 0.25,
         "realtime_start": "2020-09-15",
-        "fetched_at": "2026-09-08T04:23:33.329756+00:00",
+        "fetched_at": "2026-09-08T04:31:50.403793+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:23:36.231415+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:31:54.510131+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2020-11-05",
@@ -903,45 +967,49 @@
         "observed_at": "2020-09-01",
         "value": 260.28,
         "realtime_start": "2020-11-04",
-        "fetched_at": "2026-09-08T04:23:37.096211+00:00",
-        "first_published_on": "2020-10-13"
+        "fetched_at": "2026-09-08T04:31:55.390080+00:00",
+        "first_published_on": "2020-10-13",
+        "next_release_on": "2020-11-12"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2019-09-01",
         "value": 256.759,
         "realtime_start": "2020-11-04",
-        "fetched_at": "2026-09-08T04:23:37.096211+00:00"
+        "fetched_at": "2026-09-08T04:31:55.390080+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2020-09-01",
         "value": 7.9,
         "realtime_start": "2020-11-04",
-        "fetched_at": "2026-09-08T04:23:37.926714+00:00",
-        "first_published_on": "2020-10-02"
+        "fetched_at": "2026-09-08T04:31:56.199081+00:00",
+        "first_published_on": "2020-10-02",
+        "next_release_on": "2020-11-06"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2020-06-01",
         "value": 11.1,
         "realtime_start": "2020-11-04",
-        "fetched_at": "2026-09-08T04:23:37.926714+00:00"
+        "fetched_at": "2026-09-08T04:31:56.199081+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2020-11-03",
         "value": 0.25,
         "realtime_start": "2020-11-04",
-        "fetched_at": "2026-09-08T04:23:38.803646+00:00",
+        "fetched_at": "2026-09-08T04:31:57.449672+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:23:41.967672+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:32:02.879839+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2020-12-16",
@@ -962,45 +1030,49 @@
         "observed_at": "2020-11-01",
         "value": 260.229,
         "realtime_start": "2020-12-15",
-        "fetched_at": "2026-09-08T04:23:42.829493+00:00",
-        "first_published_on": "2020-12-10"
+        "fetched_at": "2026-09-08T04:32:03.943022+00:00",
+        "first_published_on": "2020-12-10",
+        "next_release_on": "2021-01-13"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2019-11-01",
         "value": 257.208,
         "realtime_start": "2020-12-15",
-        "fetched_at": "2026-09-08T04:23:42.829493+00:00"
+        "fetched_at": "2026-09-08T04:32:03.943022+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2020-11-01",
         "value": 6.7,
         "realtime_start": "2020-12-15",
-        "fetched_at": "2026-09-08T04:23:43.699974+00:00",
-        "first_published_on": "2020-12-04"
+        "fetched_at": "2026-09-08T04:32:04.888847+00:00",
+        "first_published_on": "2020-12-04",
+        "next_release_on": "2021-01-08"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2020-08-01",
         "value": 8.4,
         "realtime_start": "2020-12-15",
-        "fetched_at": "2026-09-08T04:23:43.699974+00:00"
+        "fetched_at": "2026-09-08T04:32:04.888847+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2020-12-14",
         "value": 0.25,
         "realtime_start": "2020-12-15",
-        "fetched_at": "2026-09-08T04:23:44.749042+00:00",
+        "fetched_at": "2026-09-08T04:32:05.672111+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:23:47.319672+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:32:10.297469+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2021-01-27",
@@ -1021,45 +1093,49 @@
         "observed_at": "2020-12-01",
         "value": 260.474,
         "realtime_start": "2021-01-26",
-        "fetched_at": "2026-09-08T04:23:48.183245+00:00",
-        "first_published_on": "2021-01-13"
+        "fetched_at": "2026-09-08T04:32:11.436921+00:00",
+        "first_published_on": "2021-01-13",
+        "next_release_on": "2021-02-10"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2019-12-01",
         "value": 256.974,
         "realtime_start": "2021-01-26",
-        "fetched_at": "2026-09-08T04:23:48.183245+00:00"
+        "fetched_at": "2026-09-08T04:32:11.436921+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2020-12-01",
         "value": 6.7,
         "realtime_start": "2021-01-26",
-        "fetched_at": "2026-09-08T04:23:49.121686+00:00",
-        "first_published_on": "2021-01-08"
+        "fetched_at": "2026-09-08T04:32:12.245316+00:00",
+        "first_published_on": "2021-01-08",
+        "next_release_on": "2021-02-05"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2020-09-01",
         "value": 7.8,
         "realtime_start": "2021-01-26",
-        "fetched_at": "2026-09-08T04:23:49.121686+00:00"
+        "fetched_at": "2026-09-08T04:32:12.245316+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2021-01-25",
         "value": 0.25,
         "realtime_start": "2021-01-26",
-        "fetched_at": "2026-09-08T04:23:50.160477+00:00",
+        "fetched_at": "2026-09-08T04:32:13.036602+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:23:53.603155+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:32:17.588817+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2021-03-17",
@@ -1080,45 +1156,49 @@
         "observed_at": "2021-02-01",
         "value": 263.014,
         "realtime_start": "2021-03-16",
-        "fetched_at": "2026-09-08T04:23:54.540020+00:00",
-        "first_published_on": "2021-03-10"
+        "fetched_at": "2026-09-08T04:32:18.367010+00:00",
+        "first_published_on": "2021-03-10",
+        "next_release_on": "2021-04-13"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2020-02-01",
         "value": 258.678,
         "realtime_start": "2021-03-16",
-        "fetched_at": "2026-09-08T04:23:54.540020+00:00"
+        "fetched_at": "2026-09-08T04:32:18.367010+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2021-02-01",
         "value": 6.2,
         "realtime_start": "2021-03-16",
-        "fetched_at": "2026-09-08T04:23:55.391372+00:00",
-        "first_published_on": "2021-03-05"
+        "fetched_at": "2026-09-08T04:32:19.150566+00:00",
+        "first_published_on": "2021-03-05",
+        "next_release_on": "2021-04-02"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2020-11-01",
         "value": 6.7,
         "realtime_start": "2021-03-16",
-        "fetched_at": "2026-09-08T04:23:55.391372+00:00"
+        "fetched_at": "2026-09-08T04:32:19.150566+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2021-03-15",
         "value": 0.25,
         "realtime_start": "2021-03-16",
-        "fetched_at": "2026-09-08T04:23:56.640840+00:00",
+        "fetched_at": "2026-09-08T04:32:19.985224+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:23:59.278389+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:32:24.113949+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2021-04-28",
@@ -1139,45 +1219,49 @@
         "observed_at": "2021-03-01",
         "value": 264.877,
         "realtime_start": "2021-04-27",
-        "fetched_at": "2026-09-08T04:24:00.532426+00:00",
-        "first_published_on": "2021-04-13"
+        "fetched_at": "2026-09-08T04:32:24.910108+00:00",
+        "first_published_on": "2021-04-13",
+        "next_release_on": "2021-05-12"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2020-03-01",
         "value": 258.115,
         "realtime_start": "2021-04-27",
-        "fetched_at": "2026-09-08T04:24:00.532426+00:00"
+        "fetched_at": "2026-09-08T04:32:24.910108+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2021-03-01",
         "value": 6.0,
         "realtime_start": "2021-04-27",
-        "fetched_at": "2026-09-08T04:24:01.814181+00:00",
-        "first_published_on": "2021-04-02"
+        "fetched_at": "2026-09-08T04:32:25.663227+00:00",
+        "first_published_on": "2021-04-02",
+        "next_release_on": "2021-05-07"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2020-12-01",
         "value": 6.7,
         "realtime_start": "2021-04-27",
-        "fetched_at": "2026-09-08T04:24:01.814181+00:00"
+        "fetched_at": "2026-09-08T04:32:25.663227+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2021-04-26",
         "value": 0.25,
         "realtime_start": "2021-04-27",
-        "fetched_at": "2026-09-08T04:24:02.717160+00:00",
+        "fetched_at": "2026-09-08T04:32:26.443222+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:24:05.440097+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:32:30.815862+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2021-06-16",
@@ -1198,45 +1282,49 @@
         "observed_at": "2021-05-01",
         "value": 269.195,
         "realtime_start": "2021-06-15",
-        "fetched_at": "2026-09-08T04:24:06.303894+00:00",
-        "first_published_on": "2021-06-10"
+        "fetched_at": "2026-09-08T04:32:32.013146+00:00",
+        "first_published_on": "2021-06-10",
+        "next_release_on": "2021-07-13"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2020-05-01",
         "value": 256.394,
         "realtime_start": "2021-06-15",
-        "fetched_at": "2026-09-08T04:24:06.303894+00:00"
+        "fetched_at": "2026-09-08T04:32:32.013146+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2021-05-01",
         "value": 5.8,
         "realtime_start": "2021-06-15",
-        "fetched_at": "2026-09-08T04:24:07.417649+00:00",
-        "first_published_on": "2021-06-04"
+        "fetched_at": "2026-09-08T04:32:33.071688+00:00",
+        "first_published_on": "2021-06-04",
+        "next_release_on": "2021-07-02"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2021-02-01",
         "value": 6.2,
         "realtime_start": "2021-06-15",
-        "fetched_at": "2026-09-08T04:24:07.417649+00:00"
+        "fetched_at": "2026-09-08T04:32:33.071688+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2021-06-14",
         "value": 0.25,
         "realtime_start": "2021-06-15",
-        "fetched_at": "2026-09-08T04:24:08.310878+00:00",
+        "fetched_at": "2026-09-08T04:32:34.075387+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:24:10.979487+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:32:38.204666+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2021-07-28",
@@ -1257,45 +1345,49 @@
         "observed_at": "2021-06-01",
         "value": 271.696,
         "realtime_start": "2021-07-27",
-        "fetched_at": "2026-09-08T04:24:11.861465+00:00",
-        "first_published_on": "2021-07-13"
+        "fetched_at": "2026-09-08T04:32:39.398752+00:00",
+        "first_published_on": "2021-07-13",
+        "next_release_on": "2021-08-11"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2020-06-01",
         "value": 257.797,
         "realtime_start": "2021-07-27",
-        "fetched_at": "2026-09-08T04:24:11.861465+00:00"
+        "fetched_at": "2026-09-08T04:32:39.398752+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2021-06-01",
         "value": 5.9,
         "realtime_start": "2021-07-27",
-        "fetched_at": "2026-09-08T04:24:12.690396+00:00",
-        "first_published_on": "2021-07-02"
+        "fetched_at": "2026-09-08T04:32:40.371050+00:00",
+        "first_published_on": "2021-07-02",
+        "next_release_on": "2021-08-06"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2021-03-01",
         "value": 6.0,
         "realtime_start": "2021-07-27",
-        "fetched_at": "2026-09-08T04:24:12.690396+00:00"
+        "fetched_at": "2026-09-08T04:32:40.371050+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2021-07-26",
         "value": 0.25,
         "realtime_start": "2021-07-27",
-        "fetched_at": "2026-09-08T04:24:13.688124+00:00",
+        "fetched_at": "2026-09-08T04:32:41.319205+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:24:17.240336+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:32:45.378370+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2021-09-22",
@@ -1316,45 +1408,49 @@
         "observed_at": "2021-08-01",
         "value": 273.567,
         "realtime_start": "2021-09-21",
-        "fetched_at": "2026-09-08T04:24:18.908349+00:00",
-        "first_published_on": "2021-09-14"
+        "fetched_at": "2026-09-08T04:32:46.301191+00:00",
+        "first_published_on": "2021-09-14",
+        "next_release_on": "2021-10-13"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2020-08-01",
         "value": 259.918,
         "realtime_start": "2021-09-21",
-        "fetched_at": "2026-09-08T04:24:18.908349+00:00"
+        "fetched_at": "2026-09-08T04:32:46.301191+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2021-08-01",
         "value": 5.2,
         "realtime_start": "2021-09-21",
-        "fetched_at": "2026-09-08T04:24:20.732137+00:00",
-        "first_published_on": "2021-09-03"
+        "fetched_at": "2026-09-08T04:32:47.152788+00:00",
+        "first_published_on": "2021-09-03",
+        "next_release_on": "2021-10-08"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2021-05-01",
         "value": 5.8,
         "realtime_start": "2021-09-21",
-        "fetched_at": "2026-09-08T04:24:20.732137+00:00"
+        "fetched_at": "2026-09-08T04:32:47.152788+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2021-09-20",
         "value": 0.25,
         "realtime_start": "2021-09-21",
-        "fetched_at": "2026-09-08T04:24:21.628935+00:00",
+        "fetched_at": "2026-09-08T04:32:47.967833+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:24:24.232392+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:32:52.195349+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2021-11-03",
@@ -1375,45 +1471,49 @@
         "observed_at": "2021-09-01",
         "value": 274.31,
         "realtime_start": "2021-11-02",
-        "fetched_at": "2026-09-08T04:24:25.299926+00:00",
-        "first_published_on": "2021-10-13"
+        "fetched_at": "2026-09-08T04:32:53.009539+00:00",
+        "first_published_on": "2021-10-13",
+        "next_release_on": "2021-11-10"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2020-09-01",
         "value": 260.28,
         "realtime_start": "2021-11-02",
-        "fetched_at": "2026-09-08T04:24:25.299926+00:00"
+        "fetched_at": "2026-09-08T04:32:53.009539+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2021-09-01",
         "value": 4.8,
         "realtime_start": "2021-11-02",
-        "fetched_at": "2026-09-08T04:24:26.142962+00:00",
-        "first_published_on": "2021-10-08"
+        "fetched_at": "2026-09-08T04:32:53.788389+00:00",
+        "first_published_on": "2021-10-08",
+        "next_release_on": "2021-11-05"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2021-06-01",
         "value": 5.9,
         "realtime_start": "2021-11-02",
-        "fetched_at": "2026-09-08T04:24:26.142962+00:00"
+        "fetched_at": "2026-09-08T04:32:53.788389+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2021-11-01",
         "value": 0.25,
         "realtime_start": "2021-11-02",
-        "fetched_at": "2026-09-08T04:24:26.987288+00:00",
+        "fetched_at": "2026-09-08T04:32:54.603087+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:24:29.752457+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:32:58.917624+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2021-12-15",
@@ -1434,45 +1534,49 @@
         "observed_at": "2021-11-01",
         "value": 277.948,
         "realtime_start": "2021-12-14",
-        "fetched_at": "2026-09-08T04:24:30.811965+00:00",
-        "first_published_on": "2021-12-10"
+        "fetched_at": "2026-09-08T04:32:59.696393+00:00",
+        "first_published_on": "2021-12-10",
+        "next_release_on": "2022-01-12"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2020-11-01",
         "value": 260.229,
         "realtime_start": "2021-12-14",
-        "fetched_at": "2026-09-08T04:24:30.811965+00:00"
+        "fetched_at": "2026-09-08T04:32:59.696393+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2021-11-01",
         "value": 4.2,
         "realtime_start": "2021-12-14",
-        "fetched_at": "2026-09-08T04:24:31.703317+00:00",
-        "first_published_on": "2021-12-03"
+        "fetched_at": "2026-09-08T04:33:01.647850+00:00",
+        "first_published_on": "2021-12-03",
+        "next_release_on": "2022-01-07"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2021-08-01",
         "value": 5.2,
         "realtime_start": "2021-12-14",
-        "fetched_at": "2026-09-08T04:24:31.703317+00:00"
+        "fetched_at": "2026-09-08T04:33:01.647850+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2021-12-13",
         "value": 0.25,
         "realtime_start": "2021-12-14",
-        "fetched_at": "2026-09-08T04:24:32.760278+00:00",
+        "fetched_at": "2026-09-08T04:33:02.433847+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:24:35.386935+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:33:06.366108+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2022-01-26",
@@ -1493,45 +1597,49 @@
         "observed_at": "2021-12-01",
         "value": 278.802,
         "realtime_start": "2022-01-25",
-        "fetched_at": "2026-09-08T04:24:36.215805+00:00",
-        "first_published_on": "2022-01-12"
+        "fetched_at": "2026-09-08T04:33:07.125184+00:00",
+        "first_published_on": "2022-01-12",
+        "next_release_on": "2022-02-10"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2020-12-01",
         "value": 260.474,
         "realtime_start": "2022-01-25",
-        "fetched_at": "2026-09-08T04:24:36.215805+00:00"
+        "fetched_at": "2026-09-08T04:33:07.125184+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2021-12-01",
         "value": 3.9,
         "realtime_start": "2022-01-25",
-        "fetched_at": "2026-09-08T04:24:37.801654+00:00",
-        "first_published_on": "2022-01-07"
+        "fetched_at": "2026-09-08T04:33:07.905081+00:00",
+        "first_published_on": "2022-01-07",
+        "next_release_on": "2022-02-04"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2021-09-01",
         "value": 4.7,
         "realtime_start": "2022-01-25",
-        "fetched_at": "2026-09-08T04:24:37.801654+00:00"
+        "fetched_at": "2026-09-08T04:33:07.905081+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2022-01-24",
         "value": 0.25,
         "realtime_start": "2022-01-25",
-        "fetched_at": "2026-09-08T04:24:38.738151+00:00",
+        "fetched_at": "2026-09-08T04:33:08.734193+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:24:41.345012+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:33:13.335998+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2022-03-16",
@@ -1552,45 +1660,49 @@
         "observed_at": "2022-02-01",
         "value": 283.716,
         "realtime_start": "2022-03-15",
-        "fetched_at": "2026-09-08T04:24:42.274221+00:00",
-        "first_published_on": "2022-03-10"
+        "fetched_at": "2026-09-08T04:33:14.125312+00:00",
+        "first_published_on": "2022-03-10",
+        "next_release_on": "2022-04-12"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2021-02-01",
         "value": 263.014,
         "realtime_start": "2022-03-15",
-        "fetched_at": "2026-09-08T04:24:42.274221+00:00"
+        "fetched_at": "2026-09-08T04:33:14.125312+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2022-02-01",
         "value": 3.8,
         "realtime_start": "2022-03-15",
-        "fetched_at": "2026-09-08T04:24:43.127396+00:00",
-        "first_published_on": "2022-03-04"
+        "fetched_at": "2026-09-08T04:33:14.907004+00:00",
+        "first_published_on": "2022-03-04",
+        "next_release_on": "2022-04-01"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2021-11-01",
         "value": 4.2,
         "realtime_start": "2022-03-15",
-        "fetched_at": "2026-09-08T04:24:43.127396+00:00"
+        "fetched_at": "2026-09-08T04:33:14.907004+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2022-03-14",
         "value": 0.25,
         "realtime_start": "2022-03-15",
-        "fetched_at": "2026-09-08T04:24:43.957019+00:00",
+        "fetched_at": "2026-09-08T04:33:15.678587+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:24:47.014762+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:33:19.631257+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2022-05-04",
@@ -1611,45 +1723,49 @@
         "observed_at": "2022-03-01",
         "value": 287.504,
         "realtime_start": "2022-05-03",
-        "fetched_at": "2026-09-08T04:24:47.845341+00:00",
-        "first_published_on": "2022-04-12"
+        "fetched_at": "2026-09-08T04:33:20.439041+00:00",
+        "first_published_on": "2022-04-12",
+        "next_release_on": "2022-05-11"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2021-03-01",
         "value": 264.877,
         "realtime_start": "2022-05-03",
-        "fetched_at": "2026-09-08T04:24:47.845341+00:00"
+        "fetched_at": "2026-09-08T04:33:20.439041+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2022-03-01",
         "value": 3.6,
         "realtime_start": "2022-05-03",
-        "fetched_at": "2026-09-08T04:24:48.716763+00:00",
-        "first_published_on": "2022-04-01"
+        "fetched_at": "2026-09-08T04:33:21.216665+00:00",
+        "first_published_on": "2022-04-01",
+        "next_release_on": "2022-05-06"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2021-12-01",
         "value": 3.9,
         "realtime_start": "2022-05-03",
-        "fetched_at": "2026-09-08T04:24:48.716763+00:00"
+        "fetched_at": "2026-09-08T04:33:21.216665+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2022-05-02",
         "value": 0.5,
         "realtime_start": "2022-05-03",
-        "fetched_at": "2026-09-08T04:24:49.547218+00:00",
+        "fetched_at": "2026-09-08T04:33:22.038681+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:24:52.332638+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:33:26.253862+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2022-06-15",
@@ -1670,45 +1786,49 @@
         "observed_at": "2022-05-01",
         "value": 292.296,
         "realtime_start": "2022-06-14",
-        "fetched_at": "2026-09-08T04:24:53.184188+00:00",
-        "first_published_on": "2022-06-10"
+        "fetched_at": "2026-09-08T04:33:27.374453+00:00",
+        "first_published_on": "2022-06-10",
+        "next_release_on": "2022-07-13"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2021-05-01",
         "value": 269.195,
         "realtime_start": "2022-06-14",
-        "fetched_at": "2026-09-08T04:24:53.184188+00:00"
+        "fetched_at": "2026-09-08T04:33:27.374453+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2022-05-01",
         "value": 3.6,
         "realtime_start": "2022-06-14",
-        "fetched_at": "2026-09-08T04:24:54.086213+00:00",
-        "first_published_on": "2022-06-03"
+        "fetched_at": "2026-09-08T04:33:28.168602+00:00",
+        "first_published_on": "2022-06-03",
+        "next_release_on": "2022-07-08"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2022-02-01",
         "value": 3.8,
         "realtime_start": "2022-06-14",
-        "fetched_at": "2026-09-08T04:24:54.086213+00:00"
+        "fetched_at": "2026-09-08T04:33:28.168602+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2022-06-14",
         "value": 1.0,
         "realtime_start": "2022-06-14",
-        "fetched_at": "2026-09-08T04:24:54.984505+00:00",
+        "fetched_at": "2026-09-08T04:33:28.980346+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:24:57.622223+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:33:33.060069+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2022-07-27",
@@ -1729,45 +1849,49 @@
         "observed_at": "2022-06-01",
         "value": 296.311,
         "realtime_start": "2022-07-26",
-        "fetched_at": "2026-09-08T04:24:58.467886+00:00",
-        "first_published_on": "2022-07-13"
+        "fetched_at": "2026-09-08T04:33:34.062696+00:00",
+        "first_published_on": "2022-07-13",
+        "next_release_on": "2022-08-10"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2021-06-01",
         "value": 271.696,
         "realtime_start": "2022-07-26",
-        "fetched_at": "2026-09-08T04:24:58.467886+00:00"
+        "fetched_at": "2026-09-08T04:33:34.062696+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2022-06-01",
         "value": 3.6,
         "realtime_start": "2022-07-26",
-        "fetched_at": "2026-09-08T04:24:59.395006+00:00",
-        "first_published_on": "2022-07-08"
+        "fetched_at": "2026-09-08T04:33:34.909858+00:00",
+        "first_published_on": "2022-07-08",
+        "next_release_on": "2022-08-05"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2022-03-01",
         "value": 3.6,
         "realtime_start": "2022-07-26",
-        "fetched_at": "2026-09-08T04:24:59.395006+00:00"
+        "fetched_at": "2026-09-08T04:33:34.909858+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2022-07-26",
         "value": 1.75,
         "realtime_start": "2022-07-26",
-        "fetched_at": "2026-09-08T04:25:01.534938+00:00",
+        "fetched_at": "2026-09-08T04:33:35.748173+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:25:04.290677+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:33:40.265642+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2022-09-21",
@@ -1788,45 +1912,49 @@
         "observed_at": "2022-08-01",
         "value": 296.171,
         "realtime_start": "2022-09-20",
-        "fetched_at": "2026-09-08T04:25:05.303668+00:00",
-        "first_published_on": "2022-09-13"
+        "fetched_at": "2026-09-08T04:33:41.114566+00:00",
+        "first_published_on": "2022-09-13",
+        "next_release_on": "2022-10-13"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2021-08-01",
         "value": 273.567,
         "realtime_start": "2022-09-20",
-        "fetched_at": "2026-09-08T04:25:05.303668+00:00"
+        "fetched_at": "2026-09-08T04:33:41.114566+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2022-08-01",
         "value": 3.7,
         "realtime_start": "2022-09-20",
-        "fetched_at": "2026-09-08T04:25:06.153267+00:00",
-        "first_published_on": "2022-09-02"
+        "fetched_at": "2026-09-08T04:33:42.025469+00:00",
+        "first_published_on": "2022-09-02",
+        "next_release_on": "2022-10-07"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2022-05-01",
         "value": 3.6,
         "realtime_start": "2022-09-20",
-        "fetched_at": "2026-09-08T04:25:06.153267+00:00"
+        "fetched_at": "2026-09-08T04:33:42.025469+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2022-09-20",
         "value": 2.5,
         "realtime_start": "2022-09-20",
-        "fetched_at": "2026-09-08T04:25:07.193287+00:00",
+        "fetched_at": "2026-09-08T04:33:42.808603+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:25:09.768220+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:33:47.037630+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2022-11-02",
@@ -1847,45 +1975,49 @@
         "observed_at": "2022-09-01",
         "value": 296.808,
         "realtime_start": "2022-11-01",
-        "fetched_at": "2026-09-08T04:25:10.617933+00:00",
-        "first_published_on": "2022-10-13"
+        "fetched_at": "2026-09-08T04:33:48.057834+00:00",
+        "first_published_on": "2022-10-13",
+        "next_release_on": "2022-11-10"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2021-09-01",
         "value": 274.31,
         "realtime_start": "2022-11-01",
-        "fetched_at": "2026-09-08T04:25:10.617933+00:00"
+        "fetched_at": "2026-09-08T04:33:48.057834+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2022-09-01",
         "value": 3.5,
         "realtime_start": "2022-11-01",
-        "fetched_at": "2026-09-08T04:25:11.450829+00:00",
-        "first_published_on": "2022-10-07"
+        "fetched_at": "2026-09-08T04:33:48.956889+00:00",
+        "first_published_on": "2022-10-07",
+        "next_release_on": "2022-11-04"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2022-06-01",
         "value": 3.6,
         "realtime_start": "2022-11-01",
-        "fetched_at": "2026-09-08T04:25:11.450829+00:00"
+        "fetched_at": "2026-09-08T04:33:48.956889+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2022-11-01",
         "value": 3.25,
         "realtime_start": "2022-11-01",
-        "fetched_at": "2026-09-08T04:25:12.290343+00:00",
+        "fetched_at": "2026-09-08T04:33:49.906501+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:25:15.272072+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:33:55.086104+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2022-12-14",
@@ -1906,45 +2038,49 @@
         "observed_at": "2022-11-01",
         "value": 297.711,
         "realtime_start": "2022-12-13",
-        "fetched_at": "2026-09-08T04:25:16.085274+00:00",
-        "first_published_on": "2022-12-13"
+        "fetched_at": "2026-09-08T04:33:55.889741+00:00",
+        "first_published_on": "2022-12-13",
+        "next_release_on": "2023-01-12"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2021-11-01",
         "value": 277.948,
         "realtime_start": "2022-12-13",
-        "fetched_at": "2026-09-08T04:25:16.085274+00:00"
+        "fetched_at": "2026-09-08T04:33:55.889741+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2022-11-01",
         "value": 3.7,
         "realtime_start": "2022-12-13",
-        "fetched_at": "2026-09-08T04:25:16.923279+00:00",
-        "first_published_on": "2022-12-02"
+        "fetched_at": "2026-09-08T04:33:56.701074+00:00",
+        "first_published_on": "2022-12-02",
+        "next_release_on": "2023-01-06"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2022-08-01",
         "value": 3.7,
         "realtime_start": "2022-12-13",
-        "fetched_at": "2026-09-08T04:25:16.923279+00:00"
+        "fetched_at": "2026-09-08T04:33:56.701074+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2022-12-13",
         "value": 4.0,
         "realtime_start": "2022-12-13",
-        "fetched_at": "2026-09-08T04:25:17.774046+00:00",
+        "fetched_at": "2026-09-08T04:33:57.726097+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:25:21.461249+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:34:03.102098+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2023-02-01",
@@ -1965,45 +2101,49 @@
         "observed_at": "2022-12-01",
         "value": 296.797,
         "realtime_start": "2023-01-31",
-        "fetched_at": "2026-09-08T04:25:22.374145+00:00",
-        "first_published_on": "2023-01-12"
+        "fetched_at": "2026-09-08T04:34:03.930205+00:00",
+        "first_published_on": "2023-01-12",
+        "next_release_on": "2023-02-14"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2021-12-01",
         "value": 278.802,
         "realtime_start": "2023-01-31",
-        "fetched_at": "2026-09-08T04:25:22.374145+00:00"
+        "fetched_at": "2026-09-08T04:34:03.930205+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2022-12-01",
         "value": 3.5,
         "realtime_start": "2023-01-31",
-        "fetched_at": "2026-09-08T04:25:24.523195+00:00",
-        "first_published_on": "2023-01-06"
+        "fetched_at": "2026-09-08T04:34:04.790591+00:00",
+        "first_published_on": "2023-01-06",
+        "next_release_on": "2023-02-03"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2022-09-01",
         "value": 3.5,
         "realtime_start": "2023-01-31",
-        "fetched_at": "2026-09-08T04:25:24.523195+00:00"
+        "fetched_at": "2026-09-08T04:34:04.790591+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2023-01-31",
         "value": 4.5,
         "realtime_start": "2023-01-31",
-        "fetched_at": "2026-09-08T04:25:26.363849+00:00",
+        "fetched_at": "2026-09-08T04:34:05.616891+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:25:29.056346+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:34:09.729169+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2023-03-22",
@@ -2024,45 +2164,49 @@
         "observed_at": "2023-02-01",
         "value": 300.84,
         "realtime_start": "2023-03-21",
-        "fetched_at": "2026-09-08T04:25:30.516911+00:00",
-        "first_published_on": "2023-03-14"
+        "fetched_at": "2026-09-08T04:34:10.498338+00:00",
+        "first_published_on": "2023-03-14",
+        "next_release_on": "2023-04-12"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2022-02-01",
         "value": 283.716,
         "realtime_start": "2023-03-21",
-        "fetched_at": "2026-09-08T04:25:30.516911+00:00"
+        "fetched_at": "2026-09-08T04:34:10.498338+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2023-02-01",
         "value": 3.6,
         "realtime_start": "2023-03-21",
-        "fetched_at": "2026-09-08T04:25:31.333328+00:00",
-        "first_published_on": "2023-03-10"
+        "fetched_at": "2026-09-08T04:34:11.376597+00:00",
+        "first_published_on": "2023-03-10",
+        "next_release_on": "2023-04-07"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2022-11-01",
         "value": 3.6,
         "realtime_start": "2023-03-21",
-        "fetched_at": "2026-09-08T04:25:31.333328+00:00"
+        "fetched_at": "2026-09-08T04:34:11.376597+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2023-03-21",
         "value": 4.75,
         "realtime_start": "2023-03-21",
-        "fetched_at": "2026-09-08T04:25:32.184523+00:00",
+        "fetched_at": "2026-09-08T04:34:12.167563+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:25:34.773122+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:34:16.810680+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2023-05-03",
@@ -2083,45 +2227,49 @@
         "observed_at": "2023-03-01",
         "value": 301.836,
         "realtime_start": "2023-05-02",
-        "fetched_at": "2026-09-08T04:25:35.646742+00:00",
-        "first_published_on": "2023-04-12"
+        "fetched_at": "2026-09-08T04:34:17.614707+00:00",
+        "first_published_on": "2023-04-12",
+        "next_release_on": "2023-05-10"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2022-03-01",
         "value": 287.504,
         "realtime_start": "2023-05-02",
-        "fetched_at": "2026-09-08T04:25:35.646742+00:00"
+        "fetched_at": "2026-09-08T04:34:17.614707+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2023-03-01",
         "value": 3.5,
         "realtime_start": "2023-05-02",
-        "fetched_at": "2026-09-08T04:25:36.473541+00:00",
-        "first_published_on": "2023-04-07"
+        "fetched_at": "2026-09-08T04:34:18.387145+00:00",
+        "first_published_on": "2023-04-07",
+        "next_release_on": "2023-05-05"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2022-12-01",
         "value": 3.5,
         "realtime_start": "2023-05-02",
-        "fetched_at": "2026-09-08T04:25:36.473541+00:00"
+        "fetched_at": "2026-09-08T04:34:18.387145+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2023-05-02",
         "value": 5.0,
         "realtime_start": "2023-05-02",
-        "fetched_at": "2026-09-08T04:25:37.331694+00:00",
+        "fetched_at": "2026-09-08T04:34:19.249082+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:25:40.361779+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:34:23.619981+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2023-06-14",
@@ -2142,45 +2290,49 @@
         "observed_at": "2023-05-01",
         "value": 304.127,
         "realtime_start": "2023-06-13",
-        "fetched_at": "2026-09-08T04:25:41.228814+00:00",
-        "first_published_on": "2023-06-13"
+        "fetched_at": "2026-09-08T04:34:24.472079+00:00",
+        "first_published_on": "2023-06-13",
+        "next_release_on": "2023-07-12"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2022-05-01",
         "value": 292.296,
         "realtime_start": "2023-06-13",
-        "fetched_at": "2026-09-08T04:25:41.228814+00:00"
+        "fetched_at": "2026-09-08T04:34:24.472079+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2023-05-01",
         "value": 3.7,
         "realtime_start": "2023-06-13",
-        "fetched_at": "2026-09-08T04:25:42.080436+00:00",
-        "first_published_on": "2023-06-02"
+        "fetched_at": "2026-09-08T04:34:25.473595+00:00",
+        "first_published_on": "2023-06-02",
+        "next_release_on": "2023-07-07"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2023-02-01",
         "value": 3.6,
         "realtime_start": "2023-06-13",
-        "fetched_at": "2026-09-08T04:25:42.080436+00:00"
+        "fetched_at": "2026-09-08T04:34:25.473595+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2023-06-13",
         "value": 5.25,
         "realtime_start": "2023-06-13",
-        "fetched_at": "2026-09-08T04:25:42.909984+00:00",
+        "fetched_at": "2026-09-08T04:34:26.455344+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:25:45.866725+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:34:30.584852+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2023-07-26",
@@ -2201,45 +2353,49 @@
         "observed_at": "2023-06-01",
         "value": 305.109,
         "realtime_start": "2023-07-25",
-        "fetched_at": "2026-09-08T04:25:46.731116+00:00",
-        "first_published_on": "2023-07-12"
+        "fetched_at": "2026-09-08T04:34:31.391678+00:00",
+        "first_published_on": "2023-07-12",
+        "next_release_on": "2023-08-10"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2022-06-01",
         "value": 296.311,
         "realtime_start": "2023-07-25",
-        "fetched_at": "2026-09-08T04:25:46.731116+00:00"
+        "fetched_at": "2026-09-08T04:34:31.391678+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2023-06-01",
         "value": 3.6,
         "realtime_start": "2023-07-25",
-        "fetched_at": "2026-09-08T04:25:47.607370+00:00",
-        "first_published_on": "2023-07-07"
+        "fetched_at": "2026-09-08T04:34:32.303705+00:00",
+        "first_published_on": "2023-07-07",
+        "next_release_on": "2023-08-04"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2023-03-01",
         "value": 3.5,
         "realtime_start": "2023-07-25",
-        "fetched_at": "2026-09-08T04:25:47.607370+00:00"
+        "fetched_at": "2026-09-08T04:34:32.303705+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2023-07-25",
         "value": 5.25,
         "realtime_start": "2023-07-25",
-        "fetched_at": "2026-09-08T04:25:48.486434+00:00",
+        "fetched_at": "2026-09-08T04:34:33.254692+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:25:51.298237+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:34:38.187538+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2023-09-20",
@@ -2260,45 +2416,49 @@
         "observed_at": "2023-08-01",
         "value": 307.026,
         "realtime_start": "2023-09-19",
-        "fetched_at": "2026-09-08T04:25:52.123666+00:00",
-        "first_published_on": "2023-09-13"
+        "fetched_at": "2026-09-08T04:34:39.038687+00:00",
+        "first_published_on": "2023-09-13",
+        "next_release_on": "2023-10-12"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2022-08-01",
         "value": 296.171,
         "realtime_start": "2023-09-19",
-        "fetched_at": "2026-09-08T04:25:52.123666+00:00"
+        "fetched_at": "2026-09-08T04:34:39.038687+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2023-08-01",
         "value": 3.8,
         "realtime_start": "2023-09-19",
-        "fetched_at": "2026-09-08T04:25:52.993198+00:00",
-        "first_published_on": "2023-09-01"
+        "fetched_at": "2026-09-08T04:34:39.880916+00:00",
+        "first_published_on": "2023-09-01",
+        "next_release_on": "2023-10-06"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2023-05-01",
         "value": 3.7,
         "realtime_start": "2023-09-19",
-        "fetched_at": "2026-09-08T04:25:52.993198+00:00"
+        "fetched_at": "2026-09-08T04:34:39.880916+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2023-09-19",
         "value": 5.5,
         "realtime_start": "2023-09-19",
-        "fetched_at": "2026-09-08T04:25:53.883818+00:00",
+        "fetched_at": "2026-09-08T04:34:40.676688+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:25:56.528924+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:34:45.027451+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2023-11-01",
@@ -2319,45 +2479,49 @@
         "observed_at": "2023-09-01",
         "value": 307.789,
         "realtime_start": "2023-10-31",
-        "fetched_at": "2026-09-08T04:25:57.467313+00:00",
-        "first_published_on": "2023-10-12"
+        "fetched_at": "2026-09-08T04:34:45.908612+00:00",
+        "first_published_on": "2023-10-12",
+        "next_release_on": "2023-11-14"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2022-09-01",
         "value": 296.808,
         "realtime_start": "2023-10-31",
-        "fetched_at": "2026-09-08T04:25:57.467313+00:00"
+        "fetched_at": "2026-09-08T04:34:45.908612+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2023-09-01",
         "value": 3.8,
         "realtime_start": "2023-10-31",
-        "fetched_at": "2026-09-08T04:25:58.279847+00:00",
-        "first_published_on": "2023-10-06"
+        "fetched_at": "2026-09-08T04:34:46.963977+00:00",
+        "first_published_on": "2023-10-06",
+        "next_release_on": "2023-11-03"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2023-06-01",
         "value": 3.6,
         "realtime_start": "2023-10-31",
-        "fetched_at": "2026-09-08T04:25:58.279847+00:00"
+        "fetched_at": "2026-09-08T04:34:46.963977+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2023-10-31",
         "value": 5.5,
         "realtime_start": "2023-10-31",
-        "fetched_at": "2026-09-08T04:25:59.110317+00:00",
+        "fetched_at": "2026-09-08T04:34:48.247069+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:26:02.524423+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:34:52.355466+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2023-12-13",
@@ -2378,45 +2542,49 @@
         "observed_at": "2023-11-01",
         "value": 307.051,
         "realtime_start": "2023-12-12",
-        "fetched_at": "2026-09-08T04:26:03.343944+00:00",
-        "first_published_on": "2023-12-12"
+        "fetched_at": "2026-09-08T04:34:53.152135+00:00",
+        "first_published_on": "2023-12-12",
+        "next_release_on": "2024-01-11"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2022-11-01",
         "value": 297.711,
         "realtime_start": "2023-12-12",
-        "fetched_at": "2026-09-08T04:26:03.343944+00:00"
+        "fetched_at": "2026-09-08T04:34:53.152135+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2023-11-01",
         "value": 3.7,
         "realtime_start": "2023-12-12",
-        "fetched_at": "2026-09-08T04:26:04.166497+00:00",
-        "first_published_on": "2023-12-08"
+        "fetched_at": "2026-09-08T04:34:53.993632+00:00",
+        "first_published_on": "2023-12-08",
+        "next_release_on": "2024-01-05"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2023-08-01",
         "value": 3.8,
         "realtime_start": "2023-12-12",
-        "fetched_at": "2026-09-08T04:26:04.166497+00:00"
+        "fetched_at": "2026-09-08T04:34:53.993632+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2023-12-12",
         "value": 5.5,
         "realtime_start": "2023-12-12",
-        "fetched_at": "2026-09-08T04:26:05.036866+00:00",
+        "fetched_at": "2026-09-08T04:34:55.088438+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:26:07.592514+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:34:59.502227+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2024-01-31",
@@ -2437,45 +2605,49 @@
         "observed_at": "2023-12-01",
         "value": 306.746,
         "realtime_start": "2024-01-30",
-        "fetched_at": "2026-09-08T04:26:08.490245+00:00",
-        "first_published_on": "2024-01-11"
+        "fetched_at": "2026-09-08T04:35:01.512273+00:00",
+        "first_published_on": "2024-01-11",
+        "next_release_on": "2024-02-13"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2022-12-01",
         "value": 296.797,
         "realtime_start": "2024-01-30",
-        "fetched_at": "2026-09-08T04:26:08.490245+00:00"
+        "fetched_at": "2026-09-08T04:35:01.512273+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2023-12-01",
         "value": 3.7,
         "realtime_start": "2024-01-30",
-        "fetched_at": "2026-09-08T04:26:09.333199+00:00",
-        "first_published_on": "2024-01-05"
+        "fetched_at": "2026-09-08T04:35:02.272742+00:00",
+        "first_published_on": "2024-01-05",
+        "next_release_on": "2024-02-02"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2023-09-01",
         "value": 3.8,
         "realtime_start": "2024-01-30",
-        "fetched_at": "2026-09-08T04:26:09.333199+00:00"
+        "fetched_at": "2026-09-08T04:35:02.272742+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2024-01-30",
         "value": 5.5,
         "realtime_start": "2024-01-30",
-        "fetched_at": "2026-09-08T04:26:10.354527+00:00",
+        "fetched_at": "2026-09-08T04:35:03.780938+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:26:12.969472+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:35:09.268674+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2024-03-20",
@@ -2496,45 +2668,49 @@
         "observed_at": "2024-02-01",
         "value": 310.326,
         "realtime_start": "2024-03-19",
-        "fetched_at": "2026-09-08T04:26:13.786291+00:00",
-        "first_published_on": "2024-03-12"
+        "fetched_at": "2026-09-08T04:35:10.031374+00:00",
+        "first_published_on": "2024-03-12",
+        "next_release_on": "2024-04-10"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2023-02-01",
         "value": 300.84,
         "realtime_start": "2024-03-19",
-        "fetched_at": "2026-09-08T04:26:13.786291+00:00"
+        "fetched_at": "2026-09-08T04:35:10.031374+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2024-02-01",
         "value": 3.9,
         "realtime_start": "2024-03-19",
-        "fetched_at": "2026-09-08T04:26:14.807350+00:00",
-        "first_published_on": "2024-03-08"
+        "fetched_at": "2026-09-08T04:35:11.512912+00:00",
+        "first_published_on": "2024-03-08",
+        "next_release_on": "2024-04-05"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2023-11-01",
         "value": 3.7,
         "realtime_start": "2024-03-19",
-        "fetched_at": "2026-09-08T04:26:14.807350+00:00"
+        "fetched_at": "2026-09-08T04:35:11.512912+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2024-03-19",
         "value": 5.5,
         "realtime_start": "2024-03-19",
-        "fetched_at": "2026-09-08T04:26:15.669982+00:00",
+        "fetched_at": "2026-09-08T04:35:12.456342+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:26:18.272012+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:35:17.592201+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2024-05-01",
@@ -2555,45 +2731,49 @@
         "observed_at": "2024-03-01",
         "value": 312.332,
         "realtime_start": "2024-04-30",
-        "fetched_at": "2026-09-08T04:26:19.088918+00:00",
-        "first_published_on": "2024-04-10"
+        "fetched_at": "2026-09-08T04:35:18.453989+00:00",
+        "first_published_on": "2024-04-10",
+        "next_release_on": "2024-05-15"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2023-03-01",
         "value": 301.836,
         "realtime_start": "2024-04-30",
-        "fetched_at": "2026-09-08T04:26:19.088918+00:00"
+        "fetched_at": "2026-09-08T04:35:18.453989+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2024-03-01",
         "value": 3.8,
         "realtime_start": "2024-04-30",
-        "fetched_at": "2026-09-08T04:26:19.972306+00:00",
-        "first_published_on": "2024-04-05"
+        "fetched_at": "2026-09-08T04:35:19.329007+00:00",
+        "first_published_on": "2024-04-05",
+        "next_release_on": "2024-05-03"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2023-12-01",
         "value": 3.7,
         "realtime_start": "2024-04-30",
-        "fetched_at": "2026-09-08T04:26:19.972306+00:00"
+        "fetched_at": "2026-09-08T04:35:19.329007+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2024-04-30",
         "value": 5.5,
         "realtime_start": "2024-04-30",
-        "fetched_at": "2026-09-08T04:26:20.916457+00:00",
+        "fetched_at": "2026-09-08T04:35:20.973924+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:26:23.546302+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:35:25.363261+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2024-06-12",
@@ -2614,45 +2794,51 @@
         "observed_at": "2024-04-01",
         "value": 313.548,
         "realtime_start": "2024-06-11",
-        "fetched_at": "2026-09-08T04:26:24.444152+00:00",
-        "first_published_on": "2024-05-15"
+        "fetched_at": "2026-09-08T04:35:26.177079+00:00",
+        "first_published_on": "2024-05-15",
+        "next_release_on": "2024-06-12"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2023-04-01",
         "value": 303.363,
         "realtime_start": "2024-06-11",
-        "fetched_at": "2026-09-08T04:26:24.444152+00:00"
+        "fetched_at": "2026-09-08T04:35:26.177079+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2024-05-01",
         "value": 4.0,
         "realtime_start": "2024-06-11",
-        "fetched_at": "2026-09-08T04:26:25.618706+00:00",
-        "first_published_on": "2024-06-07"
+        "fetched_at": "2026-09-08T04:35:27.028120+00:00",
+        "first_published_on": "2024-06-07",
+        "next_release_on": "2024-07-05"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2024-02-01",
         "value": 3.9,
         "realtime_start": "2024-06-11",
-        "fetched_at": "2026-09-08T04:26:25.618706+00:00"
+        "fetched_at": "2026-09-08T04:35:27.028120+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2024-06-11",
         "value": 5.5,
         "realtime_start": "2024-06-11",
-        "fetched_at": "2026-09-08T04:26:26.523623+00:00",
+        "fetched_at": "2026-09-08T04:35:27.837043+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:26:29.038732+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:35:37.142134+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": true,
+    "same_day_release_series": [
+      "CPIAUCNS"
+    ]
   },
   {
     "meeting_date": "2024-07-31",
@@ -2673,45 +2859,49 @@
         "observed_at": "2024-06-01",
         "value": 314.175,
         "realtime_start": "2024-07-30",
-        "fetched_at": "2026-09-08T04:26:29.873752+00:00",
-        "first_published_on": "2024-07-11"
+        "fetched_at": "2026-09-08T04:35:38.002106+00:00",
+        "first_published_on": "2024-07-11",
+        "next_release_on": "2024-08-14"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2023-06-01",
         "value": 305.109,
         "realtime_start": "2024-07-30",
-        "fetched_at": "2026-09-08T04:26:29.873752+00:00"
+        "fetched_at": "2026-09-08T04:35:38.002106+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2024-06-01",
         "value": 4.1,
         "realtime_start": "2024-07-30",
-        "fetched_at": "2026-09-08T04:26:30.726784+00:00",
-        "first_published_on": "2024-07-05"
+        "fetched_at": "2026-09-08T04:35:38.873008+00:00",
+        "first_published_on": "2024-07-05",
+        "next_release_on": "2024-08-02"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2024-03-01",
         "value": 3.8,
         "realtime_start": "2024-07-30",
-        "fetched_at": "2026-09-08T04:26:30.726784+00:00"
+        "fetched_at": "2026-09-08T04:35:38.873008+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2024-07-30",
         "value": 5.5,
         "realtime_start": "2024-07-30",
-        "fetched_at": "2026-09-08T04:26:31.931566+00:00",
+        "fetched_at": "2026-09-08T04:35:39.665798+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:26:34.499988+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:35:44.774955+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2024-09-18",
@@ -2732,45 +2922,49 @@
         "observed_at": "2024-08-01",
         "value": 314.796,
         "realtime_start": "2024-09-17",
-        "fetched_at": "2026-09-08T04:26:35.479443+00:00",
-        "first_published_on": "2024-09-11"
+        "fetched_at": "2026-09-08T04:35:45.832176+00:00",
+        "first_published_on": "2024-09-11",
+        "next_release_on": "2024-10-10"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2023-08-01",
         "value": 307.026,
         "realtime_start": "2024-09-17",
-        "fetched_at": "2026-09-08T04:26:35.479443+00:00"
+        "fetched_at": "2026-09-08T04:35:45.832176+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2024-08-01",
         "value": 4.2,
         "realtime_start": "2024-09-17",
-        "fetched_at": "2026-09-08T04:26:36.296896+00:00",
-        "first_published_on": "2024-09-06"
+        "fetched_at": "2026-09-08T04:35:47.038180+00:00",
+        "first_published_on": "2024-09-06",
+        "next_release_on": "2024-10-04"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2024-05-01",
         "value": 4.0,
         "realtime_start": "2024-09-17",
-        "fetched_at": "2026-09-08T04:26:36.296896+00:00"
+        "fetched_at": "2026-09-08T04:35:47.038180+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2024-09-17",
         "value": 5.5,
         "realtime_start": "2024-09-17",
-        "fetched_at": "2026-09-08T04:26:37.170731+00:00",
+        "fetched_at": "2026-09-08T04:35:47.919619+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:26:39.953824+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:35:52.099261+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2024-11-07",
@@ -2791,45 +2985,49 @@
         "observed_at": "2024-09-01",
         "value": 315.301,
         "realtime_start": "2024-11-06",
-        "fetched_at": "2026-09-08T04:26:40.788856+00:00",
-        "first_published_on": "2024-10-10"
+        "fetched_at": "2026-09-08T04:35:52.879004+00:00",
+        "first_published_on": "2024-10-10",
+        "next_release_on": "2024-11-13"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2023-09-01",
         "value": 307.789,
         "realtime_start": "2024-11-06",
-        "fetched_at": "2026-09-08T04:26:40.788856+00:00"
+        "fetched_at": "2026-09-08T04:35:52.879004+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2024-10-01",
         "value": 4.1,
         "realtime_start": "2024-11-06",
-        "fetched_at": "2026-09-08T04:26:41.653282+00:00",
-        "first_published_on": "2024-11-01"
+        "fetched_at": "2026-09-08T04:35:53.722641+00:00",
+        "first_published_on": "2024-11-01",
+        "next_release_on": "2024-12-06"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2024-07-01",
         "value": 4.3,
         "realtime_start": "2024-11-06",
-        "fetched_at": "2026-09-08T04:26:41.653282+00:00"
+        "fetched_at": "2026-09-08T04:35:53.722641+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2024-11-06",
         "value": 5.0,
         "realtime_start": "2024-11-06",
-        "fetched_at": "2026-09-08T04:26:42.524373+00:00",
+        "fetched_at": "2026-09-08T04:35:54.509169+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:26:45.661147+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:35:58.943118+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2024-12-18",
@@ -2850,45 +3048,49 @@
         "observed_at": "2024-11-01",
         "value": 315.493,
         "realtime_start": "2024-12-17",
-        "fetched_at": "2026-09-08T04:26:46.533198+00:00",
-        "first_published_on": "2024-12-11"
+        "fetched_at": "2026-09-08T04:35:59.718043+00:00",
+        "first_published_on": "2024-12-11",
+        "next_release_on": "2025-01-15"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2023-11-01",
         "value": 307.051,
         "realtime_start": "2024-12-17",
-        "fetched_at": "2026-09-08T04:26:46.533198+00:00"
+        "fetched_at": "2026-09-08T04:35:59.718043+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2024-11-01",
         "value": 4.2,
         "realtime_start": "2024-12-17",
-        "fetched_at": "2026-09-08T04:26:47.361264+00:00",
-        "first_published_on": "2024-12-06"
+        "fetched_at": "2026-09-08T04:36:01.770913+00:00",
+        "first_published_on": "2024-12-06",
+        "next_release_on": "2025-01-10"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2024-08-01",
         "value": 4.2,
         "realtime_start": "2024-12-17",
-        "fetched_at": "2026-09-08T04:26:47.361264+00:00"
+        "fetched_at": "2026-09-08T04:36:01.770913+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2024-12-17",
         "value": 4.75,
         "realtime_start": "2024-12-17",
-        "fetched_at": "2026-09-08T04:26:48.373182+00:00",
+        "fetched_at": "2026-09-08T04:36:02.572341+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:26:50.869529+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:36:06.623192+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2025-01-29",
@@ -2909,45 +3111,49 @@
         "observed_at": "2024-12-01",
         "value": 315.605,
         "realtime_start": "2025-01-28",
-        "fetched_at": "2026-09-08T04:26:51.725417+00:00",
-        "first_published_on": "2025-01-15"
+        "fetched_at": "2026-09-08T04:36:07.549459+00:00",
+        "first_published_on": "2025-01-15",
+        "next_release_on": "2025-02-12"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2023-12-01",
         "value": 306.746,
         "realtime_start": "2025-01-28",
-        "fetched_at": "2026-09-08T04:26:51.725417+00:00"
+        "fetched_at": "2026-09-08T04:36:07.549459+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2024-12-01",
         "value": 4.1,
         "realtime_start": "2025-01-28",
-        "fetched_at": "2026-09-08T04:26:52.579329+00:00",
-        "first_published_on": "2025-01-10"
+        "fetched_at": "2026-09-08T04:36:08.303282+00:00",
+        "first_published_on": "2025-01-10",
+        "next_release_on": "2025-02-07"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2024-09-01",
         "value": 4.1,
         "realtime_start": "2025-01-28",
-        "fetched_at": "2026-09-08T04:26:52.579329+00:00"
+        "fetched_at": "2026-09-08T04:36:08.303282+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2025-01-28",
         "value": 4.5,
         "realtime_start": "2025-01-28",
-        "fetched_at": "2026-09-08T04:26:53.439803+00:00",
+        "fetched_at": "2026-09-08T04:36:09.161757+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:26:56.244579+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:36:13.413587+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2025-03-19",
@@ -2968,45 +3174,49 @@
         "observed_at": "2025-02-01",
         "value": 319.082,
         "realtime_start": "2025-03-18",
-        "fetched_at": "2026-09-08T04:26:57.078569+00:00",
-        "first_published_on": "2025-03-12"
+        "fetched_at": "2026-09-08T04:36:14.451485+00:00",
+        "first_published_on": "2025-03-12",
+        "next_release_on": "2025-04-10"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2024-02-01",
         "value": 310.326,
         "realtime_start": "2025-03-18",
-        "fetched_at": "2026-09-08T04:26:57.078569+00:00"
+        "fetched_at": "2026-09-08T04:36:14.451485+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2025-02-01",
         "value": 4.1,
         "realtime_start": "2025-03-18",
-        "fetched_at": "2026-09-08T04:26:57.945001+00:00",
-        "first_published_on": "2025-03-07"
+        "fetched_at": "2026-09-08T04:36:15.453026+00:00",
+        "first_published_on": "2025-03-07",
+        "next_release_on": "2025-04-04"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2024-11-01",
         "value": 4.2,
         "realtime_start": "2025-03-18",
-        "fetched_at": "2026-09-08T04:26:57.945001+00:00"
+        "fetched_at": "2026-09-08T04:36:15.453026+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2025-03-18",
         "value": 4.5,
         "realtime_start": "2025-03-18",
-        "fetched_at": "2026-09-08T04:26:58.769007+00:00",
+        "fetched_at": "2026-09-08T04:36:16.720663+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:27:02.513904+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:36:21.867099+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2025-05-07",
@@ -3027,45 +3237,49 @@
         "observed_at": "2025-03-01",
         "value": 319.799,
         "realtime_start": "2025-05-06",
-        "fetched_at": "2026-09-08T04:27:03.378169+00:00",
-        "first_published_on": "2025-04-10"
+        "fetched_at": "2026-09-08T04:36:22.689124+00:00",
+        "first_published_on": "2025-04-10",
+        "next_release_on": "2025-05-13"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2024-03-01",
         "value": 312.332,
         "realtime_start": "2025-05-06",
-        "fetched_at": "2026-09-08T04:27:03.378169+00:00"
+        "fetched_at": "2026-09-08T04:36:22.689124+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2025-04-01",
         "value": 4.2,
         "realtime_start": "2025-05-06",
-        "fetched_at": "2026-09-08T04:27:04.237697+00:00",
-        "first_published_on": "2025-05-02"
+        "fetched_at": "2026-09-08T04:36:23.492040+00:00",
+        "first_published_on": "2025-05-02",
+        "next_release_on": "2025-06-06"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2025-01-01",
         "value": 4.0,
         "realtime_start": "2025-05-06",
-        "fetched_at": "2026-09-08T04:27:04.237697+00:00"
+        "fetched_at": "2026-09-08T04:36:23.492040+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2025-05-06",
         "value": 4.5,
         "realtime_start": "2025-05-06",
-        "fetched_at": "2026-09-08T04:27:05.295674+00:00",
+        "fetched_at": "2026-09-08T04:36:24.294192+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:27:08.073799+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:36:28.787500+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2025-06-18",
@@ -3086,45 +3300,49 @@
         "observed_at": "2025-05-01",
         "value": 321.465,
         "realtime_start": "2025-06-17",
-        "fetched_at": "2026-09-08T04:27:08.919469+00:00",
-        "first_published_on": "2025-06-11"
+        "fetched_at": "2026-09-08T04:36:29.595288+00:00",
+        "first_published_on": "2025-06-11",
+        "next_release_on": "2025-07-15"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2024-05-01",
         "value": 314.069,
         "realtime_start": "2025-06-17",
-        "fetched_at": "2026-09-08T04:27:08.919469+00:00"
+        "fetched_at": "2026-09-08T04:36:29.595288+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2025-05-01",
         "value": 4.2,
         "realtime_start": "2025-06-17",
-        "fetched_at": "2026-09-08T04:27:09.740200+00:00",
-        "first_published_on": "2025-06-06"
+        "fetched_at": "2026-09-08T04:36:30.462041+00:00",
+        "first_published_on": "2025-06-06",
+        "next_release_on": "2025-07-03"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2025-02-01",
         "value": 4.1,
         "realtime_start": "2025-06-17",
-        "fetched_at": "2026-09-08T04:27:09.740200+00:00"
+        "fetched_at": "2026-09-08T04:36:30.462041+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2025-06-17",
         "value": 4.5,
         "realtime_start": "2025-06-17",
-        "fetched_at": "2026-09-08T04:27:10.564958+00:00",
+        "fetched_at": "2026-09-08T04:36:31.281602+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:27:13.330524+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:36:35.942830+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2025-07-30",
@@ -3145,45 +3363,49 @@
         "observed_at": "2025-06-01",
         "value": 322.561,
         "realtime_start": "2025-07-29",
-        "fetched_at": "2026-09-08T04:27:14.267551+00:00",
-        "first_published_on": "2025-07-15"
+        "fetched_at": "2026-09-08T04:36:38.015294+00:00",
+        "first_published_on": "2025-07-15",
+        "next_release_on": "2025-08-12"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2024-06-01",
         "value": 314.175,
         "realtime_start": "2025-07-29",
-        "fetched_at": "2026-09-08T04:27:14.267551+00:00"
+        "fetched_at": "2026-09-08T04:36:38.015294+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2025-06-01",
         "value": 4.1,
         "realtime_start": "2025-07-29",
-        "fetched_at": "2026-09-08T04:27:15.258162+00:00",
-        "first_published_on": "2025-07-03"
+        "fetched_at": "2026-09-08T04:36:38.793520+00:00",
+        "first_published_on": "2025-07-03",
+        "next_release_on": "2025-08-01"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2025-03-01",
         "value": 4.2,
         "realtime_start": "2025-07-29",
-        "fetched_at": "2026-09-08T04:27:15.258162+00:00"
+        "fetched_at": "2026-09-08T04:36:38.793520+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2025-07-29",
         "value": 4.5,
         "realtime_start": "2025-07-29",
-        "fetched_at": "2026-09-08T04:27:16.092708+00:00",
+        "fetched_at": "2026-09-08T04:36:39.803315+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:27:18.814835+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:36:44.466545+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2025-09-17",
@@ -3204,45 +3426,49 @@
         "observed_at": "2025-08-01",
         "value": 323.976,
         "realtime_start": "2025-09-16",
-        "fetched_at": "2026-09-08T04:27:19.689972+00:00",
-        "first_published_on": "2025-09-11"
+        "fetched_at": "2026-09-08T04:36:45.440848+00:00",
+        "first_published_on": "2025-09-11",
+        "next_release_on": "2025-10-24"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2024-08-01",
         "value": 314.796,
         "realtime_start": "2025-09-16",
-        "fetched_at": "2026-09-08T04:27:19.689972+00:00"
+        "fetched_at": "2026-09-08T04:36:45.440848+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2025-08-01",
         "value": 4.3,
         "realtime_start": "2025-09-16",
-        "fetched_at": "2026-09-08T04:27:20.632781+00:00",
-        "first_published_on": "2025-09-05"
+        "fetched_at": "2026-09-08T04:36:46.487227+00:00",
+        "first_published_on": "2025-09-05",
+        "next_release_on": "2025-11-20"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2025-05-01",
         "value": 4.2,
         "realtime_start": "2025-09-16",
-        "fetched_at": "2026-09-08T04:27:20.632781+00:00"
+        "fetched_at": "2026-09-08T04:36:46.487227+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2025-09-16",
         "value": 4.5,
         "realtime_start": "2025-09-16",
-        "fetched_at": "2026-09-08T04:27:21.498802+00:00",
+        "fetched_at": "2026-09-08T04:36:47.367054+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:27:24.013486+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:36:51.929151+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2025-10-29",
@@ -3263,45 +3489,49 @@
         "observed_at": "2025-09-01",
         "value": 324.8,
         "realtime_start": "2025-10-28",
-        "fetched_at": "2026-09-08T04:27:24.823133+00:00",
-        "first_published_on": "2025-10-24"
+        "fetched_at": "2026-09-08T04:36:52.787447+00:00",
+        "first_published_on": "2025-10-24",
+        "next_release_on": null
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2024-09-01",
         "value": 315.301,
         "realtime_start": "2025-10-28",
-        "fetched_at": "2026-09-08T04:27:24.823133+00:00"
+        "fetched_at": "2026-09-08T04:36:52.787447+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2025-08-01",
         "value": 4.3,
         "realtime_start": "2025-10-28",
-        "fetched_at": "2026-09-08T04:27:25.682365+00:00",
-        "first_published_on": "2025-09-05"
+        "fetched_at": "2026-09-08T04:36:53.588094+00:00",
+        "first_published_on": "2025-09-05",
+        "next_release_on": "2025-11-20"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2025-05-01",
         "value": 4.2,
         "realtime_start": "2025-10-28",
-        "fetched_at": "2026-09-08T04:27:25.682365+00:00"
+        "fetched_at": "2026-09-08T04:36:53.588094+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2025-10-28",
         "value": 4.25,
         "realtime_start": "2025-10-28",
-        "fetched_at": "2026-09-08T04:27:26.564709+00:00",
+        "fetched_at": "2026-09-08T04:36:54.379507+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:27:29.103116+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:36:59.052334+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2025-12-10",
@@ -3322,45 +3552,49 @@
         "observed_at": "2025-09-01",
         "value": 324.8,
         "realtime_start": "2025-12-09",
-        "fetched_at": "2026-09-08T04:27:30.484662+00:00",
-        "first_published_on": "2025-10-24"
+        "fetched_at": "2026-09-08T04:36:59.825630+00:00",
+        "first_published_on": "2025-10-24",
+        "next_release_on": null
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2024-09-01",
         "value": 315.301,
         "realtime_start": "2025-12-09",
-        "fetched_at": "2026-09-08T04:27:30.484662+00:00"
+        "fetched_at": "2026-09-08T04:36:59.825630+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2025-09-01",
         "value": 4.4,
         "realtime_start": "2025-12-09",
-        "fetched_at": "2026-09-08T04:27:31.313495+00:00",
-        "first_published_on": "2025-11-20"
+        "fetched_at": "2026-09-08T04:37:01.639129+00:00",
+        "first_published_on": "2025-11-20",
+        "next_release_on": null
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2025-06-01",
         "value": 4.1,
         "realtime_start": "2025-12-09",
-        "fetched_at": "2026-09-08T04:27:31.313495+00:00"
+        "fetched_at": "2026-09-08T04:37:01.639129+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2025-12-09",
         "value": 4.0,
         "realtime_start": "2025-12-09",
-        "fetched_at": "2026-09-08T04:27:32.125311+00:00",
+        "fetched_at": "2026-09-08T04:37:02.417524+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:27:34.996963+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:37:06.509505+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2026-01-28",
@@ -3388,45 +3622,49 @@
         "observed_at": "2025-12-01",
         "value": 324.054,
         "realtime_start": "2026-01-27",
-        "fetched_at": "2026-09-08T04:27:35.836455+00:00",
-        "first_published_on": "2026-01-13"
+        "fetched_at": "2026-09-08T04:37:07.402913+00:00",
+        "first_published_on": "2026-01-13",
+        "next_release_on": "2026-02-13"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2024-12-01",
         "value": 315.605,
         "realtime_start": "2026-01-27",
-        "fetched_at": "2026-09-08T04:27:35.836455+00:00"
+        "fetched_at": "2026-09-08T04:37:07.402913+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2025-12-01",
         "value": 4.4,
         "realtime_start": "2026-01-27",
-        "fetched_at": "2026-09-08T04:27:36.945274+00:00",
-        "first_published_on": "2026-01-09"
+        "fetched_at": "2026-09-08T04:37:08.245646+00:00",
+        "first_published_on": "2026-01-09",
+        "next_release_on": "2026-02-11"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2025-09-01",
         "value": 4.4,
         "realtime_start": "2026-01-27",
-        "fetched_at": "2026-09-08T04:27:36.945274+00:00"
+        "fetched_at": "2026-09-08T04:37:08.245646+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2026-01-27",
         "value": 3.75,
         "realtime_start": "2026-01-27",
-        "fetched_at": "2026-09-08T04:27:37.791330+00:00",
+        "fetched_at": "2026-09-08T04:37:09.211665+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:27:40.384665+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:37:13.464874+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2026-03-18",
@@ -3451,45 +3689,49 @@
         "observed_at": "2026-02-01",
         "value": 326.785,
         "realtime_start": "2026-03-17",
-        "fetched_at": "2026-09-08T04:27:41.226721+00:00",
-        "first_published_on": "2026-03-11"
+        "fetched_at": "2026-09-08T04:37:14.234643+00:00",
+        "first_published_on": "2026-03-11",
+        "next_release_on": "2026-04-10"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2025-02-01",
         "value": 319.082,
         "realtime_start": "2026-03-17",
-        "fetched_at": "2026-09-08T04:27:41.226721+00:00"
+        "fetched_at": "2026-09-08T04:37:14.234643+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2026-02-01",
         "value": 4.4,
         "realtime_start": "2026-03-17",
-        "fetched_at": "2026-09-08T04:27:42.963497+00:00",
-        "first_published_on": "2026-03-06"
+        "fetched_at": "2026-09-08T04:37:14.991938+00:00",
+        "first_published_on": "2026-03-06",
+        "next_release_on": "2026-04-03"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2025-11-01",
         "value": 4.5,
         "realtime_start": "2026-03-17",
-        "fetched_at": "2026-09-08T04:27:42.963497+00:00"
+        "fetched_at": "2026-09-08T04:37:14.991938+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2026-03-17",
         "value": 3.75,
         "realtime_start": "2026-03-17",
-        "fetched_at": "2026-09-08T04:27:43.818456+00:00",
+        "fetched_at": "2026-09-08T04:37:15.783856+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:27:47.689649+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:37:20.063216+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2026-04-29",
@@ -3514,45 +3756,49 @@
         "observed_at": "2026-03-01",
         "value": 330.213,
         "realtime_start": "2026-04-28",
-        "fetched_at": "2026-09-08T04:27:48.510002+00:00",
-        "first_published_on": "2026-04-10"
+        "fetched_at": "2026-09-08T04:37:20.870785+00:00",
+        "first_published_on": "2026-04-10",
+        "next_release_on": "2026-05-12"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2025-03-01",
         "value": 319.799,
         "realtime_start": "2026-04-28",
-        "fetched_at": "2026-09-08T04:27:48.510002+00:00"
+        "fetched_at": "2026-09-08T04:37:20.870785+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2026-03-01",
         "value": 4.3,
         "realtime_start": "2026-04-28",
-        "fetched_at": "2026-09-08T04:27:49.419560+00:00",
-        "first_published_on": "2026-04-03"
+        "fetched_at": "2026-09-08T04:37:21.673379+00:00",
+        "first_published_on": "2026-04-03",
+        "next_release_on": "2026-05-08"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2025-12-01",
         "value": 4.4,
         "realtime_start": "2026-04-28",
-        "fetched_at": "2026-09-08T04:27:49.419560+00:00"
+        "fetched_at": "2026-09-08T04:37:21.673379+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2026-04-28",
         "value": 3.75,
         "realtime_start": "2026-04-28",
-        "fetched_at": "2026-09-08T04:27:50.488477+00:00",
+        "fetched_at": "2026-09-08T04:37:22.471031+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:27:53.664800+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:37:27.056194+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2026-06-17",
@@ -3577,45 +3823,49 @@
         "observed_at": "2026-05-01",
         "value": 335.123,
         "realtime_start": "2026-06-16",
-        "fetched_at": "2026-09-08T04:27:54.559533+00:00",
-        "first_published_on": "2026-06-10"
+        "fetched_at": "2026-09-08T04:37:28.085832+00:00",
+        "first_published_on": "2026-06-10",
+        "next_release_on": "2026-07-14"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2025-05-01",
         "value": 321.465,
         "realtime_start": "2026-06-16",
-        "fetched_at": "2026-09-08T04:27:54.559533+00:00"
+        "fetched_at": "2026-09-08T04:37:28.085832+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2026-05-01",
         "value": 4.3,
         "realtime_start": "2026-06-16",
-        "fetched_at": "2026-09-08T04:27:55.414799+00:00",
-        "first_published_on": "2026-06-05"
+        "fetched_at": "2026-09-08T04:37:29.942536+00:00",
+        "first_published_on": "2026-06-05",
+        "next_release_on": "2026-07-02"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2026-02-01",
         "value": 4.4,
         "realtime_start": "2026-06-16",
-        "fetched_at": "2026-09-08T04:27:55.414799+00:00"
+        "fetched_at": "2026-09-08T04:37:29.942536+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2026-06-16",
         "value": 3.75,
         "realtime_start": "2026-06-16",
-        "fetched_at": "2026-09-08T04:27:56.225866+00:00",
+        "fetched_at": "2026-09-08T04:37:31.077870+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:27:59.424852+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:37:35.034709+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   },
   {
     "meeting_date": "2026-07-29",
@@ -3640,44 +3890,48 @@
         "observed_at": "2026-06-01",
         "value": 333.952,
         "realtime_start": "2026-07-28",
-        "fetched_at": "2026-09-08T04:28:01.922391+00:00",
-        "first_published_on": "2026-07-14"
+        "fetched_at": "2026-09-08T04:37:35.868802+00:00",
+        "first_published_on": "2026-07-14",
+        "next_release_on": "2026-08-12"
       },
       "cpi_base_12m": {
         "series_id": "CPIAUCNS",
         "observed_at": "2025-06-01",
         "value": 322.561,
         "realtime_start": "2026-07-28",
-        "fetched_at": "2026-09-08T04:28:01.922391+00:00"
+        "fetched_at": "2026-09-08T04:37:35.868802+00:00"
       },
       "unemployment_latest": {
         "series_id": "UNRATE",
         "observed_at": "2026-06-01",
         "value": 4.2,
         "realtime_start": "2026-07-28",
-        "fetched_at": "2026-09-08T04:28:02.972407+00:00",
-        "first_published_on": "2026-07-02"
+        "fetched_at": "2026-09-08T04:37:36.646223+00:00",
+        "first_published_on": "2026-07-02",
+        "next_release_on": "2026-08-07"
       },
       "unemployment_base_3m": {
         "series_id": "UNRATE",
         "observed_at": "2026-03-01",
         "value": 4.3,
         "realtime_start": "2026-07-28",
-        "fetched_at": "2026-09-08T04:28:02.972407+00:00"
+        "fetched_at": "2026-09-08T04:37:36.646223+00:00"
       },
       "policy_rate_upper": {
         "series_id": "DFEDTARU",
         "observed_at": "2026-07-28",
         "value": 3.75,
         "realtime_start": "2026-07-28",
-        "fetched_at": "2026-09-08T04:28:04.256528+00:00",
+        "fetched_at": "2026-09-08T04:37:37.439988+00:00",
         "first_published_on": null
       }
     },
     "provenance": {
-      "builder_version": "fomc-feature-snapshot-0.2",
-      "built_at": "2026-09-08T04:28:07.312286+00:00",
-      "build_commit": "6eac8be1cab6e28e4190bbf0877bc62abde00828"
-    }
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-08T04:37:41.724798+00:00",
+      "build_commit": "0fbbbdcd2fae3ed273e2b4bcf80c9b2531bb60ec"
+    },
+    "same_day_release": false,
+    "same_day_release_series": []
   }
 ]
