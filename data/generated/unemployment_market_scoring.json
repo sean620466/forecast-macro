@@ -7,5 +7,6 @@
   "sample_gate_passed": false,
   "signal_eligible": false,
   "signal_eligible_reason": "sample gate not met (D-013 analogue: 30 scored releases)",
-  "records": []
+  "records": [],
+  "stale_input_records": 0
 }
