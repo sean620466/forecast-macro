@@ -5,11 +5,13 @@ import json
 from collections import Counter
 from pathlib import Path
 
+from forecast_macro.data.kalshi import KalshiPublicClient
 from forecast_macro.data.polymarket import PolymarketPublicClient
-from forecast_macro.market_review import review_market_candidates
+from forecast_macro.market_review import ReviewStatus, review_market_candidates
 from forecast_macro.market_rules import (
     effective_resolution_source,
     identify_contract_series,
+    parse_kalshi_rules,
     validate_official_rules,
     verified_rule_metadata,
 )
@@ -34,16 +36,30 @@ def main() -> None:
 
     rows = json.loads(args.input.read_text(encoding="utf-8"))
     client = PolymarketPublicClient()
+    kalshi = KalshiPublicClient()
     schedule = load_release_schedule()
     metadata = {}
     evidence = {}
+    # Structural pre-pass: rules are only fetched for contracts whose event group is
+    # complete. Kalshi discovery returns ~1,500 rows, most of them structurally rejected,
+    # and a rule fetch cannot rescue a rejected group anyway.
+    structural = {
+        review.venue_market_id: review.status for review in review_market_candidates(rows)
+    }
     for row in rows:
         market_id = str(row["venue_market_id"])
-        if row.get("venue") != "polymarket":
+        venue = row.get("venue")
+        if venue not in ("polymarket", "kalshi"):
             evidence[market_id] = {"blockers": ["venue rule adapter is not implemented"]}
             continue
+        if structural.get(market_id) is ReviewStatus.REJECTED:
+            evidence[market_id] = {"blockers": ["structurally rejected; rules not fetched"]}
+            continue
         try:
-            document = client.market_rules(market_id)
+            if venue == "kalshi":
+                document = parse_kalshi_rules(kalshi.market(market_id))
+            else:
+                document = client.market_rules(market_id)
             topic = str(row["topic"])
             expected_series = MODEL_SERIES[topic]
             blockers = validate_official_rules(

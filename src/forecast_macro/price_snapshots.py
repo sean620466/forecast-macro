@@ -6,10 +6,10 @@ from dataclasses import asdict, dataclass
 from datetime import datetime
 from typing import Any
 
-from forecast_macro.contracts import OutcomeQuote
+from forecast_macro.contracts import OutcomeQuote, normalize_threshold_ladder
 from forecast_macro.market_discovery import MacroTopic, MarketCandidate
 from forecast_macro.market_pricing import build_event_price_snapshot
-from forecast_macro.market_review import CandidateReview, ReviewStatus
+from forecast_macro.market_review import CandidateReview, ReviewStatus, is_threshold_ladder
 
 
 @dataclass(frozen=True)
@@ -52,6 +52,8 @@ def candidate_from_row(row: Mapping[str, Any]) -> MarketCandidate:
         requires_review=bool(row.get("requires_review", True)),
         close_time_verified=bool(row.get("close_time_verified", False)),
         venue_close_raw=row.get("venue_close_raw"),
+        strike=float(row["strike"]) if row.get("strike") is not None else None,
+        strike_type=row.get("strike_type"),
     )
 
 
@@ -161,5 +163,99 @@ def price_event(
             "mid_sum": snapshot.mid_sum,
         },
         source_mid_prices=snapshot.source_mid_prices,
+        rejected_reason=None,
+    )
+
+
+def is_ladder_event(members: Sequence[MarketCandidate]) -> bool:
+    return is_threshold_ladder([asdict(m) for m in members])
+
+
+def price_ladder_event(
+    members: Sequence[MarketCandidate],
+    reviews: Mapping[str, CandidateReview],
+    quotes: Mapping[str, OutcomeQuote],  # keyed by venue_market_id (ticker)
+    rules_text_hashes: Mapping[str, str],
+    *,
+    as_of: datetime,
+    outcome_at: datetime | None,
+    max_spread: float = 0.10,
+    max_age_seconds: float = 120.0,
+) -> EventPriceRecord:
+    """Price a cumulative threshold ladder (Kalshi "greater than F") as exclusive buckets."""
+    venue = members[0].venue
+    event_id = members[0].venue_event_id or ""
+    quote_rows: dict[str, dict[str, float | str]] = {}
+    ladder: dict[float, tuple[float, float]] = {}
+    problems: list[str] = []
+    for member in sorted(members, key=lambda m: m.strike or 0.0):
+        review = reviews.get(member.venue_market_id)
+        if review is None or review.status is not ReviewStatus.APPROVED:
+            problems.append(f"{member.venue_market_id}: not approved")
+        quote = quotes.get(member.venue_market_id)
+        if quote is None:
+            problems.append(f"{member.venue_market_id}: missing quote")
+            continue
+        quote_rows[member.venue_market_id] = {
+            "strike": member.strike or 0.0,
+            "bid": quote.bid,
+            "ask": quote.ask,
+            "mid": quote.mid,
+            "bid_size": quote.bid_size,
+            "ask_size": quote.ask_size,
+        }
+        if quote.ask - quote.bid > max_spread:
+            problems.append(f"{member.venue_market_id}: spread exceeds limit")
+        if quote.observed_at > as_of or (as_of - quote.observed_at).total_seconds() > max_age_seconds:
+            problems.append(f"{member.venue_market_id}: quote is stale or from the future")
+        if not rules_text_hashes.get(member.venue_market_id):
+            problems.append(f"{member.venue_market_id}: missing rules hash")
+        ladder[float(member.strike or 0.0)] = (quote.bid, quote.ask)
+    base = {
+        "venue": venue,
+        "venue_event_id": event_id,
+        "topic": members[0].topic.value,
+        "observed_at": as_of.isoformat(),
+        "outcome_at": outcome_at.isoformat() if outcome_at else None,
+        "contracts": {m.venue_market_id: m.title for m in members},
+        "quotes": quote_rows,
+        "rules_text_hashes": {
+            m.venue_market_id: rules_text_hashes.get(m.venue_market_id, "") for m in members
+        },
+        "book_updated_at": {},
+    }
+    if problems:
+        return EventPriceRecord(
+            **base,
+            probabilities={},
+            probability_bounds={},
+            completeness={},
+            source_mid_prices={},
+            rejected_reason="; ".join(problems),
+        )
+    try:
+        normalized = normalize_threshold_ladder(ladder)
+    except ValueError as error:
+        return EventPriceRecord(
+            **base,
+            probabilities={},
+            probability_bounds={},
+            completeness={},
+            source_mid_prices={},
+            rejected_reason=str(error),
+        )
+    return EventPriceRecord(
+        **base,
+        probabilities=normalized.probabilities,
+        probability_bounds={
+            key: [normalized.lower_bounds[key], normalized.upper_bounds[key]]
+            for key in normalized.probabilities
+        },
+        completeness={
+            "bid_sum": normalized.bid_sum,
+            "ask_sum": normalized.ask_sum,
+            "mid_sum": normalized.mid_sum,
+        },
+        source_mid_prices={f"{floor:.2f}": (b + a) / 2 for floor, (b, a) in ladder.items()},
         rejected_reason=None,
     )

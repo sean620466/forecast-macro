@@ -58,7 +58,18 @@ jobs:
         run: |
           mkdir -p data/generated/market_prices
           cp artifacts/prices/*.json data/generated/market_prices/ 2>/dev/null || true
-          cp artifacts/macro_market_review.json data/generated/macro_market_review_latest.json
+          # The full review (~1,500 Kalshi rows) stays in the artifact; only its summary is kept.
+          python - <<'PY'
+          import json
+          review = json.load(open("artifacts/macro_market_review.json"))
+          summary = {
+              "summary": review["summary"],
+              "approved_contracts": review.get("approved_contracts", 0),
+              "signal_eligible": review.get("signal_eligible", False),
+              "approved": [r for r in review["reviews"] if r["status"] == "approved"],
+          }
+          json.dump(summary, open("data/generated/macro_market_review_latest.json", "w"), indent=2)
+          PY
           cp artifacts/macro_market_candidates.status.json data/generated/macro_market_discovery_status_latest.json 2>/dev/null || true
           git config user.name "forecast-macro-bot"
           git config user.email "actions@users.noreply.github.com"

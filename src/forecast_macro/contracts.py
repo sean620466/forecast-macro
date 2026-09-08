@@ -4,6 +4,7 @@ import math
 from dataclasses import dataclass
 from datetime import date, datetime, time
 from enum import StrEnum
+from itertools import pairwise
 from typing import Literal
 from zoneinfo import ZoneInfo
 
@@ -168,4 +169,75 @@ def normalize_bucket_quotes(
         bid_sum=bid_sum,
         ask_sum=ask_sum,
         mid_sum=mid_sum,
+    )
+
+
+def normalize_threshold_ladder(
+    ladder: dict[float, tuple[float, float]],
+    *,
+    step: float = 0.25,
+    monotonic_tolerance: float = 0.02,
+    max_width: float = 0.35,
+) -> BucketProbabilities:
+    """Turn a cumulative "greater than F" ladder into exclusive buckets with bounds.
+
+    Kalshi rate markets quote YES = P(upper bound > F) for a grid of floors F. With floors
+    F1 < F2 < ... < Fn on a fixed step, the exclusive outcomes are "<= F1", "== F1+step",
+    ..., "== Fn", "> Fn" and their probabilities telescope: P(<= F1) = 1 - Y1,
+    P(== Fk+step) = Yk - Yk+1, P(> Fn) = Yn. Bounds come from the bid/ask of the two rungs
+    that form each difference. Mid-based estimates sum to exactly 1 by construction.
+    """
+    if len(ladder) < 2:
+        raise ValueError("a threshold ladder needs at least two rungs")
+    if step <= 0 or monotonic_tolerance < 0 or max_width <= 0:
+        raise ValueError("step, tolerance and width must be positive")
+    floors = sorted(ladder)
+    for lower, upper in pairwise(floors):
+        if abs((upper - lower) - step) > 1e-9:
+            raise ValueError("ladder rungs must be contiguous on the fixed step")
+    for floor, (bid, ask) in ladder.items():
+        if not (math.isfinite(bid) and math.isfinite(ask)) or not 0 <= bid <= ask <= 1:
+            raise ValueError(f"quote for rung {floor} must satisfy 0 <= bid <= ask <= 1")
+    mids = {floor: (ladder[floor][0] + ladder[floor][1]) / 2.0 for floor in floors}
+    for lower, upper in pairwise(floors):
+        if mids[upper] > mids[lower] + monotonic_tolerance:
+            raise ValueError("ladder is not monotone: a higher threshold trades above a lower one")
+
+    def label(floor: float) -> str:
+        return f"{floor:.2f}"
+
+    probabilities: dict[str, float] = {}
+    lower_bounds: dict[str, float] = {}
+    upper_bounds: dict[str, float] = {}
+    first, last = floors[0], floors[-1]
+    bid1, ask1 = ladder[first]
+    probabilities[f"le_{label(first)}"] = 1.0 - mids[first]
+    lower_bounds[f"le_{label(first)}"] = 1.0 - ask1
+    upper_bounds[f"le_{label(first)}"] = 1.0 - bid1
+    for lower, upper in pairwise(floors):
+        key = label(upper)  # outcome "upper bound == F_lower + step == upper"
+        bid_lo, ask_lo = ladder[lower]
+        bid_hi, ask_hi = ladder[upper]
+        probabilities[key] = max(0.0, mids[lower] - mids[upper])
+        lower_bounds[key] = max(0.0, bid_lo - ask_hi)
+        upper_bounds[key] = min(1.0, max(0.0, ask_lo - bid_hi))
+    bidn, askn = ladder[last]
+    probabilities[f"gt_{label(last)}"] = mids[last]
+    lower_bounds[f"gt_{label(last)}"] = bidn
+    upper_bounds[f"gt_{label(last)}"] = askn
+
+    total = sum(probabilities.values())
+    if abs(total - 1.0) > 1e-9:  # only possible after max(0, ...) clipping of a violation
+        probabilities = {key: value / total for key, value in probabilities.items()}
+    bid_sum = sum(lower_bounds.values())
+    ask_sum = sum(upper_bounds.values())
+    if ask_sum - bid_sum > max_width:
+        raise ValueError("ladder quotes are too wide to price the event")
+    return BucketProbabilities(
+        probabilities=probabilities,
+        lower_bounds=lower_bounds,
+        upper_bounds=upper_bounds,
+        bid_sum=bid_sum,
+        ask_sum=ask_sum,
+        mid_sum=total,
     )

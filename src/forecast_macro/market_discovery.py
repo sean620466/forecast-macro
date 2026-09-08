@@ -29,6 +29,9 @@ class MarketCandidate:
     close_time_verified: bool = False
     # Venue-reported close, kept verbatim for reconciliation against the official calendar.
     venue_close_raw: str | None = None
+    # Threshold contracts (Kalshi "greater than F"): the floor and its comparison type.
+    strike: float | None = None
+    strike_type: str | None = None
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -99,6 +102,8 @@ def kalshi_candidates(payload: dict[str, Any]) -> list[MarketCandidate]:
                 match_basis=basis,
                 close_time_verified=True,
                 venue_close_raw=str(market.get("close_time") or "") or None,
+                strike=float(market["floor_strike"]) if market.get("floor_strike") is not None else None,
+                strike_type=str(market.get("strike_type") or "") or None,
             )
         )
     return candidates

@@ -64,6 +64,14 @@ class KalshiPublicClient:
             response.json(), ticker=ticker, observed_at=datetime.now(UTC)
         )
 
+    def market(self, ticker: str) -> dict[str, Any]:
+        response = httpx.get(
+            f"{KALSHI_API_URL}/markets/{ticker}", headers=REQUEST_HEADERS, timeout=self.timeout
+        )
+        response.raise_for_status()
+        payload = response.json()
+        return dict(payload.get("market") or payload)
+
     def discover_open_macro_markets(self) -> list[MarketCandidate]:
         candidates: list[MarketCandidate] = []
         cursor: str | None = None
@@ -89,3 +97,38 @@ class KalshiPublicClient:
             seen_cursors.add(next_cursor)
             cursor = next_cursor
         return candidates
+
+
+def parse_kalshi_market_quote(market: dict[str, Any], *, observed_at: datetime) -> OutcomeQuote:
+    """Top-of-book YES quote from a /markets row (dollar fields preferred, cents fallback)."""
+
+    def price(dollar_key: str, cent_key: str) -> float:
+        if market.get(dollar_key) is not None:
+            return float(market[dollar_key])
+        return float(market.get(cent_key) or 0) / 100.0
+
+    return OutcomeQuote(
+        outcome_id="yes",
+        bid=price("yes_bid_dollars", "yes_bid"),
+        ask=price("yes_ask_dollars", "yes_ask"),
+        bid_size=float(market.get("yes_bid_size_fp") or 0),
+        ask_size=float(market.get("yes_ask_size_fp") or 0),
+        observed_at=observed_at,
+        tick_size=0.01,
+        fee_schedule_id="kalshi-current-unknown",
+        venue="kalshi",
+        venue_contract_id=str(market.get("ticker") or "") or None,
+    )
+
+
+class KalshiEventClient(KalshiPublicClient):
+    def event_markets(self, event_ticker: str) -> tuple[list[dict[str, Any]], datetime]:
+        """All markets of one event with their top-of-book quotes, plus the fetch time."""
+        response = httpx.get(
+            f"{KALSHI_API_URL}/markets",
+            params={"event_ticker": event_ticker, "limit": 200},
+            headers=REQUEST_HEADERS,
+            timeout=self.timeout,
+        )
+        response.raise_for_status()
+        return list(response.json().get("markets", [])), datetime.now(UTC)

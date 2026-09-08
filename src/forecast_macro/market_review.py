@@ -5,6 +5,7 @@ from collections import defaultdict
 from collections.abc import Mapping, Sequence
 from dataclasses import asdict, dataclass
 from enum import StrEnum
+from itertools import pairwise
 from typing import Any
 
 from forecast_macro.official_sources import is_official_source
@@ -82,7 +83,31 @@ def _subject(title: str) -> str:
     return " ".join(stripped.lower().replace("?", "").split())
 
 
+LADDER_STEP = 0.25
+
+
+def is_threshold_ladder(rows: Sequence[Mapping[str, Any]]) -> bool:
+    return len(rows) >= 2 and all(
+        row.get("strike") is not None and row.get("strike_type") == "greater" for row in rows
+    )
+
+
+def _validate_ladder(rows: Sequence[Mapping[str, Any]]) -> tuple[str, ...]:
+    """A cumulative ladder is complete when its floors form one contiguous fixed-step grid."""
+    blockers: list[str] = []
+    floors = sorted(float(row["strike"]) for row in rows)
+    if len(set(floors)) != len(floors):
+        blockers.append("duplicate ladder rung")
+    if any(abs((b - a) - LADDER_STEP) > 1e-9 for a, b in pairwise(floors)):
+        blockers.append(f"ladder rungs are not contiguous in {LADDER_STEP} steps")
+    if len({_subject(str(row.get("title", ""))) for row in rows}) != 1:
+        blockers.append("ladder mixes reference meetings or series")
+    return tuple(blockers)
+
+
 def _validate_group(rows: Sequence[Mapping[str, Any]]) -> tuple[str, ...]:
+    if is_threshold_ladder(rows):
+        return _validate_ladder(rows)
     blockers: list[str] = []
     titles = [str(row.get("title", "")) for row in rows]
     buckets = [_bucket(title) for title in titles]

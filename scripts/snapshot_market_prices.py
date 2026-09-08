@@ -7,12 +7,19 @@ from pathlib import Path
 
 import httpx
 
+from forecast_macro.data.kalshi import KalshiEventClient, parse_kalshi_market_quote
 from forecast_macro.data.polymarket import (
     PolymarketPublicClient,
     book_updated_at,
     parse_polymarket_orderbooks,
 )
-from forecast_macro.price_snapshots import approved_events, price_event, review_from_row
+from forecast_macro.price_snapshots import (
+    approved_events,
+    is_ladder_event,
+    price_event,
+    price_ladder_event,
+    review_from_row,
+)
 
 
 def main() -> None:
@@ -40,8 +47,38 @@ def main() -> None:
 
     events = approved_events(candidates, review["reviews"])
     client = PolymarketPublicClient()
+    kalshi = KalshiEventClient()
     records = []
     for (venue, event_id), members in sorted(events.items()):
+        outcome_raw = next(
+            (outcome_by_market.get(m.venue_market_id) for m in members if outcome_by_market.get(m.venue_market_id)),
+            None,
+        )
+        outcome_at = datetime.fromisoformat(outcome_raw) if outcome_raw else None
+        if venue == "kalshi" and is_ladder_event(members):
+            try:
+                markets, observed_at = kalshi.event_markets(event_id)
+                quotes = {
+                    str(m["ticker"]): parse_kalshi_market_quote(m, observed_at=observed_at)
+                    for m in markets
+                }
+            except (httpx.HTTPError, ValueError, KeyError) as error:
+                records.append(
+                    {
+                        "venue": venue,
+                        "venue_event_id": event_id,
+                        "observed_at": datetime.now(UTC).isoformat(),
+                        "rejected_reason": f"quote fetch failed: {type(error).__name__}: {error}",
+                        "signal_eligible": False,
+                    }
+                )
+                continue
+            records.append(
+                price_ladder_event(
+                    members, reviews_by_market, quotes, rules_hashes, as_of=observed_at, outcome_at=outcome_at
+                ).to_dict()
+            )
+            continue
         if venue != "polymarket":
             records.append(
                 {
@@ -53,11 +90,6 @@ def main() -> None:
             )
             continue
         tokens = [m.outcome_token_ids[0] for m in members]
-        outcome_raw = next(
-            (outcome_by_market.get(m.venue_market_id) for m in members if outcome_by_market.get(m.venue_market_id)),
-            None,
-        )
-        outcome_at = datetime.fromisoformat(outcome_raw) if outcome_raw else None
         try:
             payload, observed_at = client.raw_orderbooks(tokens)
             quotes = parse_polymarket_orderbooks(payload, observed_at=observed_at)

@@ -45,7 +45,7 @@
 | R5-C1 | Critical | 워크포워드 로지스틱이 사실상 절편 전용. 개선분 94%가 ZLB 규칙 | fixed | ridge 수정 후 재검산(claude/fix-review-5). 절편 전용·비-ZLB 분해를 보고서와 문서에 추가. 비-ZLB BSS +0.06 |
 | R5-C2 | Critical | `ridge_strength`가 평균 경사 스케일에 적용돼 λ≈n. 기본 설정 학습 테스트 없음 | fixed | 7937715 (ChatGPT). 수정 후 Brier 0.067791 독립 재계산 일치 |
 | R5-H1 | High | 계약 시리즈 정체성(Core/headline, YoY/MoM, SA/NSA) 미검증 | fixed | 2221e32 (ChatGPT) + claude/review-6: 명시 근거 없으면 `None`, 식별 불가는 항상 blocker (R6-H1) |
-| R5-H2 | High | Kalshi 탐색 `cursor` 무시. 열린 KXFED 87건 누락 | partial | 859e5f1 (ChatGPT) 페이지네이션 추가. 누적 임계값("above X%") 계약을 구간 확률로 바꾸는 매핑은 미구현 |
+| R5-H2 | High | Kalshi 탐색 `cursor` 무시. 열린 KXFED 87건 누락 | fixed | 859e5f1 (ChatGPT) 페이지네이션 + claude/task-12: 사다리 검증(`_validate_ladder`), `normalize_threshold_ladder`, Kalshi 규칙·호가 어댑터. 2026-09-08 실측 KXFED 6개 이벤트 96건 승인, 9월·10월 가격 스냅샷 성공 |
 | R5-H3 | High | Polymarket `endDate` 시간대 불신뢰(ET를 Z로 표기) | fixed | 45a26f4 + claude/task-07: `release_schedule.py`가 공식 일정(BLS/Fed, `America/New_York`)에서 `outcome_at`을 만들고 거래소 마감이 발표 이후면 거부. `data/release_schedule.csv`에 출처·수집시각 기록 |
 | R5-M1 | Medium | `resolutionSource` 빈 값으로 CPI 시장 영구 차단 | fixed | claude/review-6: 본문에서 공식 호스트 URL 추출, `resolution_source_origin` 기록 (R6-M3). 실측 CPI 10건 출처 확보, 시리즈 불일치로만 차단 |
 | R5-M2 | Medium | `rules_version=updatedAt`은 규칙 버전이 아님 | fixed | claude/review-6: 내용 해시 기반 버전, `venue_updated_at`·`fetched_at` 분리 (R6-H3) |
@@ -96,3 +96,12 @@
 | --- | --- | --- | --- | --- |
 | R9-L1 | Low | `normalize_outcome_prices`(D-010 mid 규칙)는 코드에 남아 있으나 파이프라인에서 더는 쓰지 않음 | open | 리뷰 3 테스트가 참조. 제거 또는 "legacy" 표시 필요 |
 | R9-L2 | Low | 점추정의 스프레드 비례 배분은 결정으로 고정했으나, 대안(bid 기준, 유동성 가중)과의 비교는 시장 데이터가 쌓인 뒤 가능 | open | 스냅샷에 bid·ask·mid 합을 모두 저장하므로 사후 재계산 가능 |
+
+## 과제 12 — Kalshi 누적 임계값 사다리 (`R5-H2` 잔여)
+
+| ID | 등급 | 요약 | 상태 | 비고 |
+| --- | --- | --- | --- | --- |
+| R12-M1 | Medium | KXFED 2026-12, 2027-01/03/04 이벤트는 승인됐으나 꼬리 rung 스프레드가 0.10을 넘어 가격 거부 | open | fail-closed 정상. 먼 만기 사다리는 활성 구간만으로 부분 가격을 낼지 결정 필요 |
+| R12-M2 | Medium | Kalshi 규칙의 출처는 URL이 아닌 문구("Federal Reserve's official website")로 기재. 정확 문구 3개만 매핑, 기원 `rules_text_reference`가 아닌 `field`로 기록됨 | open | 기원 라벨을 `rules_text_reference`로 구분해야 감사 시 URL 출처와 구별 가능 |
+| R12-L1 | Low | KXFEDFUNDSYEAR(연말 금리), KXEFFR(실효금리) 이벤트는 구조는 통과했으나 발표 일정이 없어 `close_time` 미검증 | open | 연말 계약은 12월 FOMC로 매핑 가능, EFFR은 NY Fed 일별 게시라 별도 규칙 필요 |
+| R12-L2 | Low | 봇이 커밋하던 `macro_market_review_latest.json`이 38,960줄 | fixed | 같은 브랜치: 요약과 승인 행만 커밋 |

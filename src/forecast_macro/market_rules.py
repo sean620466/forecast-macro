@@ -208,3 +208,37 @@ def verified_rule_metadata(
         resolution_source_origin=origin,
         fetched_at=document.fetched_at,
     )
+
+
+# Kalshi rules name the settlement source in prose rather than as a URL. Only these exact
+# phrases are accepted, and the mapping is recorded as origin "rules_text_reference".
+KALSHI_SOURCE_PHRASES: dict[str, str] = {
+    "federal reserve's official website": "https://www.federalreserve.gov/",
+    "bureau of labor statistics": "https://www.bls.gov/",
+    "bureau of economic analysis": "https://www.bea.gov/",
+}
+
+
+def parse_kalshi_rules(
+    market: dict[str, Any], *, fetched_at: datetime | None = None
+) -> MarketRuleDocument:
+    primary = str(market.get("rules_primary") or "").strip()
+    secondary = str(market.get("rules_secondary") or "").strip()
+    description = " ".join(part for part in (primary, secondary) if part)
+    lowered = description.lower()
+    source = next(
+        (url for phrase, url in KALSHI_SOURCE_PHRASES.items() if phrase in lowered), ""
+    )
+    question = str(market.get("title") or "").strip()
+    text_hash = _rules_hash(question, description, source)
+    return MarketRuleDocument(
+        market_id=str(market.get("ticker") or ""),
+        question=question,
+        description=description,
+        resolution_source=source,
+        rules_version=text_hash.removeprefix("sha256:")[:16],
+        rules_text_hash=text_hash,
+        venue_updated_at=str(market.get("updated_time") or "").strip(),
+        fetched_at=(fetched_at or datetime.now(UTC)).isoformat(),
+        rules_source_level="market" if primary else "missing",
+    )
