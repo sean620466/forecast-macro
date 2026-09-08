@@ -155,7 +155,7 @@ def test_wide_tail_rungs_do_not_veto_but_width_and_fees_are_recorded() -> None:
     assert record.rejected_reason is None
     assert record.completeness["wide_rung_count"] == 1.0
     assert record.book_updated_at == {"wide_rungs": ["KXFED-26SEP-T2.75"]}
-    # Bucket "4.00" is built from the 3.75 and 4.00 rungs: two taker fees (Kalshi rounds up to a cent).
-    assert record.bucket_fees["4.00"] == pytest.approx(0.02 + 0.01)
-    assert record.bucket_fees["gt_5.25"] == pytest.approx(0.01)
+    # Bucket "4.00" is built from the 3.75 and 4.00 rungs: two taker fees, each rounded up to a centicent.
+    assert record.bucket_fees["4.00"] == pytest.approx(0.0175 + 0.0014)  # asks 0.53 and 0.02
+    assert record.bucket_fees["gt_5.25"] == pytest.approx(0.0007)  # ask 0.01
     assert sum(record.probabilities.values()) == pytest.approx(1.0)

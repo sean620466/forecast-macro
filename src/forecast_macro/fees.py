@@ -16,7 +16,7 @@ class FeeSchedule:
     description: str
     taker_rate: float  # fee = taker_rate * p * (1 - p) per share
     maker_rate: float
-    round_up_to_cent: bool
+    round_up_increment: float  # 0 = no rounding; Kalshi rounds up to a centicent (0.0001)
     source_url: str
     fetched_at: str
     verified: bool  # constants read from the venue's published schedule
@@ -25,8 +25,9 @@ class FeeSchedule:
         if not 0.0 <= price <= 1.0:
             raise ValueError("price must be between 0 and 1")
         fee = self.taker_rate * price * (1.0 - price)
-        if self.round_up_to_cent:
-            fee = math.ceil(fee * 100.0 - 1e-12) / 100.0
+        if self.round_up_increment > 0:
+            steps = math.ceil(fee / self.round_up_increment - 1e-9)
+            fee = steps * self.round_up_increment
         return fee
 
     def break_even_probability(self, ask: float) -> float:
@@ -47,7 +48,7 @@ FEE_SCHEDULES: dict[str, FeeSchedule] = {
         description="Polymarket taker fee, Economics category (makers pay nothing)",
         taker_rate=0.05,
         maker_rate=0.0,
-        round_up_to_cent=False,
+        round_up_increment=0.0,
         source_url="https://docs.polymarket.com/polymarket-learn/trading/fees",
         fetched_at="2026-09-08T03:40:00+00:00",
         verified=True,
@@ -56,16 +57,16 @@ FEE_SCHEDULES: dict[str, FeeSchedule] = {
         fee_schedule_id="kalshi-quadratic_with_maker_fees-x1",
         venue="kalshi",
         description=(
-            "Kalshi quadratic taker fee with maker fees, fee_multiplier 1 (series API reports "
-            "fee_type/fee_multiplier; the 0.07 / 0.0175 constants are from the general fee "
-            "schedule and have not been re-read from the PDF in this repository)"
+            "Kalshi general trading fee: round up(M x 0.07 x C x P x (1-P)), maker fee "
+            "round up(M x 0.0175 x C x P x (1-P)); M from the series API (KXFED: 1). "
+            "Rounded up to a centicent. Fee schedule last updated July 7, 2026."
         ),
         taker_rate=0.07,
         maker_rate=0.0175,
-        round_up_to_cent=True,
+        round_up_increment=0.0001,
         source_url="https://kalshi.com/docs/kalshi-fee-schedule.pdf",
-        fetched_at="2026-09-08T03:40:00+00:00",
-        verified=False,
+        fetched_at="2026-09-08T08:51:00+00:00",
+        verified=True,
     ),
 }
 
