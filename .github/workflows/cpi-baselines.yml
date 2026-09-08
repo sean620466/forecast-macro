@@ -32,6 +32,18 @@ jobs:
         run: |
           git config user.name "forecast-macro-bot"
           git config user.email "actions@users.noreply.github.com"
+          # Commit only when the scores changed; the build timestamp alone does not count.
+          python - <<'PY'
+          import json, subprocess, sys
+          new = json.load(open("data/generated/cpi_baseline_backtest.json"))
+          old = subprocess.run(["git", "show", "HEAD:data/generated/cpi_baseline_backtest.json"], capture_output=True, text=True)
+          if old.returncode == 0:
+              previous = json.loads(old.stdout)
+              if previous.get("measures") == new.get("measures") and previous.get("vintage") == new.get("vintage"):
+                  subprocess.run(["git", "checkout", "--", "data/generated/cpi_baseline_backtest.json"], check=True)
+                  print("backtest unchanged; not committing")
+                  sys.exit(0)
+          PY
           git add data/generated/cpi_baseline_backtest.json
           if git diff --cached --quiet; then
             echo "backtest unchanged"
