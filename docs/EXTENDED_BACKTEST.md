@@ -91,3 +91,12 @@ window scope it scores a three-way Brier of 0.688 against 0.532 for three-way cl
 hike Brier 0.247. The mirrored score is not a calibrated model of hikes; it is recorded so the
 weakness is visible, not tuned to the sample. The cut component and every cut metric are
 unchanged.
+
+## Same-day releases (D-017)
+
+Three meetings in 2019–2026 had a CPI release at 08:30 ET on the decision day (2019-12-11,
+2020-06-10, 2024-06-12); the prior-day vintage cannot contain that print while the market
+could. The 2019–2026 reports carry `same_day_release_meetings` and Brier scores that exclude
+them. Two of the three fall inside the evaluated window; excluding them moves the heuristic
+Brier by less than 0.002 in every scope. The flag comes from ALFRED first-release dates
+recorded in the snapshots, so the 2019–2024 fixture (built before task 27) reports `null`.
