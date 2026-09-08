@@ -20,6 +20,11 @@ def main() -> None:
         action="store_true",
         help="Also query each latest input's first publication date (3 extra requests per meeting)",
     )
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="Reuse snapshots already present in --output (matched by meeting date) and only build the rest",
+    )
     args = parser.parse_args()
 
     api_key = os.environ.get("FRED_API_KEY")
@@ -30,19 +35,32 @@ def main() -> None:
     client = AlfredClient(api_key, request_interval=0.6)
     meetings = load_fomc_history(args.meetings)
     build_commit = os.environ.get("GITHUB_SHA", "")
-    snapshots = [
-        build_feature_snapshot(
-            client,
-            meeting_date=meeting.meeting_at.date(),
-            vintage_date=meeting.meeting_at.date() - timedelta(days=1),
-            build_commit=build_commit,
-            first_release_dates=args.first_release_dates,
-        ).to_dict()
-        for meeting in meetings
-    ]
+    existing: dict[str, dict] = {}
+    if args.resume and args.output.exists():
+        existing = {row["meeting_date"]: row for row in json.loads(args.output.read_text(encoding="utf-8"))}
+        print(f"resuming: {len(existing)} snapshots already in {args.output}")
     args.output.parent.mkdir(parents=True, exist_ok=True)
+    snapshots: list[dict] = []
+    reused = 0
+    for meeting in meetings:
+        key = meeting.meeting_at.date().isoformat()
+        if key in existing:
+            snapshots.append(existing[key])
+            reused += 1
+            continue
+        snapshots.append(
+            build_feature_snapshot(
+                client,
+                meeting_date=meeting.meeting_at.date(),
+                vintage_date=meeting.meeting_at.date() - timedelta(days=1),
+                build_commit=build_commit,
+                first_release_dates=args.first_release_dates,
+            ).to_dict()
+        )
+        # Checkpoint after every meeting so a failed run can be resumed instead of restarted.
+        args.output.write_text(json.dumps(snapshots, indent=2) + "\n", encoding="utf-8")
     args.output.write_text(json.dumps(snapshots, indent=2) + "\n", encoding="utf-8")
-    print(f"wrote {len(snapshots)} point-in-time snapshots to {args.output}")
+    print(f"wrote {len(snapshots)} point-in-time snapshots to {args.output} ({reused} reused)")
 
 
 if __name__ == "__main__":

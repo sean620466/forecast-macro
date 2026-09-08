@@ -37,13 +37,30 @@ class AlfredClient:
         self._last_request_at: float | None = None
 
     def _get(self, params: dict[str, str | int]) -> httpx.Response:
+        """GET with pacing and retries.
+
+        Retries HTTP 429 (honouring Retry-After), HTTP 5xx and transport errors (timeouts,
+        connection resets) with exponential backoff. FRED returns sporadic 500s for
+        perfectly valid historical vintages; a 94-meeting build must not die on one of
+        them eleven minutes in. The final attempt's response (or error) is returned/raised
+        unchanged so callers keep their own 500 handling for the "vintage is tomorrow"
+        case.
+        """
         for attempt in range(self.max_retries + 1):
             if self._last_request_at is not None:
                 elapsed = time.monotonic() - self._last_request_at
                 time.sleep(max(0.0, self.request_interval - elapsed))
-            response = httpx.get(FRED_OBSERVATIONS_URL, params=params, timeout=self.timeout)
+            try:
+                response = httpx.get(FRED_OBSERVATIONS_URL, params=params, timeout=self.timeout)
+            except httpx.TransportError:
+                self._last_request_at = time.monotonic()
+                if attempt == self.max_retries:
+                    raise
+                time.sleep(min(2**attempt, 16))
+                continue
             self._last_request_at = time.monotonic()
-            if response.status_code != 429 or attempt == self.max_retries:
+            retryable = response.status_code == 429 or response.status_code >= 500
+            if not retryable or attempt == self.max_retries:
                 return response
             retry_after = response.headers.get("Retry-After")
             delay = float(retry_after) if retry_after else min(2**attempt, 16)
