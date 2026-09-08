@@ -1,11 +1,10 @@
 {
-  "discovered_at": "2026-09-08T03:41:26.901953+00:00",
-  "unique_candidates": 19,
+  "discovered_at": "2026-09-08T03:45:07.913255+00:00",
+  "unique_candidates": 1797,
   "venue_counts": {
+    "kalshi": 1778,
     "polymarket": 19
   },
-  "errors": {
-    "kalshi": "HTTP 429 from external-api.kalshi.com"
-  },
-  "complete": false
+  "errors": {},
+  "complete": true
 }
