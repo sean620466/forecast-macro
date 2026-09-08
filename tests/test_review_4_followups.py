@@ -156,3 +156,17 @@ def test_checked_in_2019_2026_backtests_reproduce(scope: str, filename: str) -> 
             assert report[key] == pytest.approx(value, abs=1e-9), key
         else:
             assert report[key] == value, key
+
+
+def test_2015_2026_history_prepends_the_tightening_cycle_without_gaps() -> None:
+    rows = load_fomc_history(ROOT / "data" / "fomc_meetings_2015_2026.csv")
+    later = load_fomc_history(ROOT / "data" / "fomc_meetings_2019_2026.csv")
+    assert rows[32:] == later
+    assert len(rows) == 94
+    assert rows[0].meeting_at.date().isoformat() == "2015-01-28" and rows[0].upper_before == 0.25
+    hikes = [r.meeting_at.date().isoformat() for r in rows[:32] if r.decision is RateDecision.HIKE]
+    assert hikes == [
+        "2015-12-16", "2016-12-14", "2017-03-15", "2017-06-14", "2017-12-13",
+        "2018-03-21", "2018-06-13", "2018-09-26", "2018-12-19",
+    ]
+    assert all(r.source.endswith(f"/monetary{r.meeting_at.strftime('%Y%m%d')}a.htm") for r in rows)
