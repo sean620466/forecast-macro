@@ -91,3 +91,32 @@ def test_direct_released_value_is_not_vintage_verified():
     cutoff = datetime(2026, 6, 1, tzinfo=UTC)
     raw = ReleasedValue("inflation_yoy", 2.4, cutoff - timedelta(days=1), "manual")
     assert not raw.vintage_verified
+
+
+def test_first_release_date_is_none_when_fred_rejects_the_history_query(monkeypatch):
+    import httpx
+
+    from forecast_macro.data.alfred import AlfredClient
+
+    calls = []
+
+    def fake_get(url, params=None, timeout=None):
+        calls.append(params)
+        request = httpx.Request("GET", url)
+        if params.get("realtime_start") == "1776-07-04" and params["series_id"] == "DFEDTARU":
+            return httpx.Response(400, request=request, json={"error_message": "Bad Request"})
+        return httpx.Response(
+            200,
+            request=request,
+            json={"observations": [
+                {"date": "2026-06-01", "value": "333.9", "realtime_start": "2026-07-14", "realtime_end": "2026-08-11"},
+                {"date": "2026-06-01", "value": "333.952", "realtime_start": "2026-08-12", "realtime_end": "9999-12-31"},
+            ]},
+        )
+
+    monkeypatch.setattr("forecast_macro.data.alfred.httpx.get", fake_get)
+    client = AlfredClient("key")
+    from datetime import date
+
+    assert client.first_release_date("CPIAUCNS", date(2026, 6, 1)) == date(2026, 7, 14)
+    assert client.first_release_date("DFEDTARU", date(2019, 1, 28)) is None

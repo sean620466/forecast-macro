@@ -107,6 +107,10 @@ class AlfredClient:
             "output_type": 1,
         }
         response = self._get(params)
+        if response.status_code == 400:
+            # FRED refuses the full real-time range for some series (observed for the daily
+            # DFEDTARU). Provenance is optional; the feature value itself is unaffected.
+            return None
         response.raise_for_status()
         starts = [
             date.fromisoformat(row["realtime_start"])
