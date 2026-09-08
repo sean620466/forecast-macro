@@ -52,7 +52,10 @@ def main() -> None:
             venue=venue,
             contract_series=contract_series if venue == "kalshi" else None,
         )
-        if found is not None and (found[0].get("contract_series") in (None, contract_series)):
+        # Legacy Polymarket records without the field are core (the only approved Polymarket CPI
+        # event); they must never be scored as headline.
+        accepted = (None, contract_series) if args.measure == "core" else (contract_series,)
+        if found is not None and found[0].get("contract_series") in accepted:
             found_by_venue[venue] = found
     if not found_by_venue:
         print(f"no priced {args.measure} CPI market settling on {release.release_at.isoformat()}; nothing recorded")
