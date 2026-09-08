@@ -1,4 +1,5 @@
 {
+  "event_scope": "scheduled",
   "total_meetings": 47,
   "evaluated_meetings": 39,
   "non_zlb_evaluated_meetings": 23,

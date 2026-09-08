@@ -6,15 +6,30 @@ The ZLB-aware evaluation improves materially, but signals remain disabled. Only 
 meetings count toward the strengthened research sample floor, and no market-price baseline
 is available yet.
 
-| Scope | OOS | Non-ZLB OOS | Model Brier | Climatology | Always hold | BSS vs climatology |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| All decisions | 41 | 25 | 0.077271 | 0.127604 | 0.121951 | +0.394449 |
-| Scheduled only | 39 | 23 | 0.049031 | 0.095612 | 0.076923 | +0.487186 |
+| Scope | OOS | Non-ZLB OOS | Cuts | Model Brier | Climatology | Always hold | BSS vs climatology | BSS vs always hold |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| All decisions | 41 | 25 | 5 | 0.077271 | 0.127604 | 0.121951 | +0.394449 | +0.366381 |
+| Scheduled only | 39 | 23 | 3 | 0.049031 | 0.095612 | 0.076923 | +0.487186 | +0.362597 |
+| Window (contract-style) | 38 | 23 | 3 | 0.050321 | 0.097596 | 0.078947 | +0.484399 | +0.362605 |
 
-The all-decisions scope explicitly includes the emergency cuts of March 3 and March 15,
-2020. The scheduled-only scope excludes them rather than silently treating them as ordinary
-meetings. Both runs use an eight-event warmup and point-in-time ALFRED snapshots from the
-prior calendar day.
+Scopes differ only in how the March 2020 emergency cuts are treated:
+
+- **All decisions** scores the two emergency decisions as their own events. Knowing that an
+  emergency meeting happened is itself hindsight, so this scope is kept for completeness, not
+  as the reference.
+- **Scheduled only** drops the emergency rows. That leaves a rate gap (1.75% after January 29
+  to 0.25% before April 29), which `run_fed_backtest.py` now refuses unless
+  `--allow-rate-gaps` is passed. The checked-in file was produced with that flag.
+- **Window** labels each scheduled meeting by the change since the previous scheduled
+  decision, the way rate contracts settle. The April 29, 2020 window (-150bp) was already
+  decided by March 15, before any prior-day forecast could be made, so it is reported in
+  `dropped_predetermined_windows` and not scored. With one full cycle in the sample, window
+  scope is therefore scheduled scope minus one row; the distinction will matter in any
+  future window that contains an intermeeting move.
+
+All runs use an eight-event warmup and point-in-time ALFRED snapshots from the prior
+calendar day. Every decision row cites its own Federal Reserve press release
+(`monetaryYYYYMMDDa.htm`), and the loader rejects generic calendar URLs.
 
 ## Interpretation
 
@@ -41,9 +56,18 @@ python scripts/run_fed_backtest.py \
 python scripts/run_fed_backtest.py \
   --meetings data/fomc_meetings_2019_2024.csv \
   --snapshots data/generated/fomc_feature_snapshots_2019_2024.json \
-  --event-scope scheduled \
+  --event-scope scheduled --allow-rate-gaps \
   --output data/generated/fed_baseline_backtest_scheduled_2019_2024.json
+
+python scripts/run_fed_backtest.py \
+  --meetings data/fomc_meetings_2019_2024.csv \
+  --snapshots data/generated/fomc_feature_snapshots_2019_2024.json \
+  --event-scope window \
+  --output data/generated/fed_baseline_backtest_window_2019_2024.json
 ```
+
+`tests/test_review_4_followups.py` recomputes the all and window files and compares them to
+the checked-in JSON.
 
 The successful snapshot build is GitHub Actions run `34155616512`; its artifact contains
 49 complete snapshots with no null fields.

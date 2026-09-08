@@ -28,15 +28,15 @@
 | --- | --- | --- | --- | --- |
 | R4-C1 | Critical | ZLB 제약 부재 | fixed | `945b36f`, D-011 |
 | R4-H1 | High | 확률 정확히 0/1 반환 | fixed | `945b36f`, `PROBABILITY_EPSILON` |
-| R4-H2 | High | `window` 스코프(정기회의 간 창 라벨) | open | 스크립트는 아직 all/scheduled만 |
+| R4-H2 | High | `window` 스코프(정기회의 간 창 라벨) | fixed | claude/task-10: `window_meetings`. 2020-04-29 창은 예측 cutoff 전에 결정돼 `dropped_predetermined_windows`로 보고·제외 |
 | R4-M1 | Medium | `signal_eligible` 의미 분리 | fixed | `945b36f`, D-012 |
 | R4-M2 | Medium | always-hold baseline | fixed | `fed_backtest`(945b36f) 및 워크포워드(claude/fix-review-5) 모두 보고 |
 | R4-M3 | Medium | 스냅샷 재현성 메타데이터(`fetched_at`, 관측월, `realtime_start`, 모델 버전) | open | `snapshots.py`에 없음 |
 | R4-M4 | Medium | forecast cutoff = 시장 관측시각 정렬 규칙 | open | 결정 미등록 |
-| R4-L1 | Low | CSV `source`를 결정별 보도자료 URL로 | open | 49행 중 8행만 `monetaryYYYYMMDDa.htm` |
-| R4-L2 | Low | scheduled 스코프 연속성 검증 | open | |
+| R4-L1 | Low | CSV `source`를 결정별 보도자료 URL로 | fixed | claude/task-10: 49행 전부 교체(HTTP 200 확인), 로더가 패턴 강제 |
+| R4-L2 | Low | scheduled 스코프 연속성 검증 | fixed | claude/task-10: `validate_continuity`, 스크립트는 `--allow-rate-gaps` 없이는 거부 |
 | R4-L3 | Low | `forecast_at` 인위적 시각 문서화 | open | R5-M5와 연결 |
-| R4-L4 | Low | 테스트 공백(ZLB, JSON 회귀, 확률 0/1 금지, 연속성) | partial | ZLB·0/1 테스트 추가됨. JSON 회귀·연속성 테스트 없음 |
+| R4-L4 | Low | 테스트 공백(ZLB, JSON 회귀, 확률 0/1 금지, 연속성) | fixed | claude/task-10: all/window JSON 회귀, 연속성, 출처 패턴 테스트 |
 
 ## 리뷰 5 — 워크포워드 모델·시장 파이프라인 (`2026-09-07-walk-forward-market-pipeline-claude-review-5.md`)
 
