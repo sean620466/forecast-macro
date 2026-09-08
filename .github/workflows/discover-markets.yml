@@ -9,9 +9,11 @@ on:
     paths:
       - ".github/workflows/discover-markets.yml"
       - "scripts/discover_macro_markets.py"
-      - "scripts/review_macro_markets.py"
+      - "scripts/verify_market_rules.py"
       - "src/forecast_macro/market_discovery.py"
       - "src/forecast_macro/market_review.py"
+      - "src/forecast_macro/market_rules.py"
+      - "src/forecast_macro/data/polymarket.py"
 
 permissions:
   contents: read
@@ -28,9 +30,9 @@ jobs:
       - run: pip install -e .
       - name: Discover review candidates
         run: python scripts/discover_macro_markets.py --output artifacts/macro_market_candidates.json
-      - name: Review contract structure and approval gates
+      - name: Fetch and verify versioned contract rules
         run: |
-          python scripts/review_macro_markets.py \
+          python scripts/verify_market_rules.py \
             --input artifacts/macro_market_candidates.json \
             --output artifacts/macro_market_review.json
       - uses: actions/upload-artifact@v4
