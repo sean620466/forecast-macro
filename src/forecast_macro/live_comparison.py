@@ -10,21 +10,21 @@ from typing import Any
 from forecast_macro.datasets import HistoricalFomcRow
 from forecast_macro.fed_model_comparison import (
     _features,
+    fit_cut_model,
     fit_hike_given_no_cut,
     hike_probability_given_no_cut,
 )
-from forecast_macro.fomc import RateDecision
 from forecast_macro.models.fed import (
     apply_cut_feasibility,
     rate_decision_probabilities,
     split_remainder,
 )
-from forecast_macro.models.logistic import fit_logistic
 from forecast_macro.release_schedule import ScheduledRelease
 from forecast_macro.snapshots import HistoricalFeatureSnapshot
 
 # 0.3 (task 39): trained on the 2015–2026 history (94 meetings, two hiking cycles) instead of 2019–2026.
-MODEL_VERSION = "fed-live-0.3-three-way-2015-uncalibrated"
+# 0.4 (task 43): the cut model is trained on non-ZLB meetings only (D-011 applied to training).
+MODEL_VERSION = "fed-live-0.4-three-way-2015-nonzlb-uncalibrated"
 _MONTH_CODES = ("JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC")
 
 
@@ -170,12 +170,8 @@ def model_three_way_probabilities(
             policy_rate=snapshot.policy_rate_upper,
         )
     }
-    by_date = {str(row["meeting_date"]): row for row in training_snapshots}
     rows = list(training)
-    cut_model = fit_logistic(
-        [_features(by_date[row.meeting_at.date().isoformat()]) for row in rows],
-        [int(row.decision is RateDecision.CUT) for row in rows],
-    )
+    cut_model = fit_cut_model(rows, [dict(item) for item in training_snapshots])
     hike_model = fit_hike_given_no_cut(rows, [dict(item) for item in training_snapshots])
     features = _features(snapshot.to_dict())
     cut = apply_cut_feasibility(cut_model.predict(features), policy_rate=snapshot.policy_rate_upper)

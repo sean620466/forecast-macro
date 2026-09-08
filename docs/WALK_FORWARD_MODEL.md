@@ -130,11 +130,31 @@ The heuristic (`fed_baseline_backtest_window_2015_2026.json`) is worse than clim
 this sample: Brier 0.1101 vs 0.0984, BSS −0.120, and it fails the climatology gate.
 
 Consequences: the live comparison (`scripts/compare_fed_market.py`, model version
-`fed-live-0.3-three-way-2015-uncalibrated`) trains on the 94-meeting file because a training
+`fed-live-0.4-three-way-2015-nonzlb-uncalibrated`) trains on the 94-meeting file because a training
 set chosen after seeing which period scores better would be tuning on results. The research
 gate D-013 is met on numbers (68 non-ZLB, model < climatology), but the margin is one
 meeting's worth of Brier. `signal_eligible` stays false; D-007 still needs the market
 baseline that started accumulating on 2026-09-08.
+
+## Cut model trained on feasible meetings only (task 43)
+
+D-011 masked cuts at the zero lower bound at prediction time but the training set still
+contained every ZLB meeting as a "no cut" row. With 2020–2021 (unemployment up to 14.7%,
+no cut possible) in the sample, the standardized unemployment coefficient came out negative
+(R5-L4). Fitting the cut model on non-ZLB meetings only, with a fallback to all rows when
+fewer than four feasible rows exist (the 2015 warm-up):
+
+| Sample | Rows | Coefficients [CPI YoY, unemployment, Δ3m, upper bound] (all rows) | (non-ZLB rows) |
+| --- | ---: | --- | --- |
+| 2019–2026 | 60 / 44 | −1.14, −0.58, +0.09, +0.43 | −1.05, **+0.52**, +0.12, −0.25 |
+| 2015–2026 | 92 / 68 | −0.84, −0.46, +0.13, +0.91 | −1.00, **−0.13**, +0.25, +0.67 |
+
+Walk-forward effect: 2015–2026 BSS vs climatology +0.020 → +0.028, non-ZLB +0.007 → +0.015,
+ECE 0.081 → 0.061, three-way 0.467 → 0.466; 2019–2026 +0.172 → +0.149 (non-ZLB −0.001);
+2019–2024 +0.291 → +0.528. The change is adopted on structural grounds (a training row where
+the outcome was impossible carries no information about the propensity), not because of these
+numbers, and the conclusion of the previous section stands: the model's edge over
+climatology on 94 meetings is small. Live model version `fed-live-0.4-three-way-2015-nonzlb-uncalibrated`.
 
 ## Three-way outcome space (D-016)
 

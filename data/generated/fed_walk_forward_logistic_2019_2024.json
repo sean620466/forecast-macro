@@ -2,26 +2,26 @@
   "evaluated_meetings": 39,
   "non_zlb_evaluated_meetings": 23,
   "actual_cuts": 3,
-  "model_brier": 0.06779073880324236,
+  "model_brier": 0.0450942166358678,
   "sequential_climatology_brier": 0.09561158834879059,
   "always_hold_brier": 0.07692307692307693,
-  "intercept_only_brier": 0.0728981511990863,
-  "brier_skill_vs_climatology": 0.29097779909332655,
-  "brier_skill_vs_always_hold": 0.1187203955578493,
-  "brier_skill_vs_intercept_only": 0.07006230352667642,
-  "non_zlb_model_brier": 0.1149321223185414,
+  "intercept_only_brier": 0.08077399536164388,
+  "brier_skill_vs_climatology": 0.5283603440268734,
+  "brier_skill_vs_always_hold": 0.4137751837337186,
+  "brier_skill_vs_intercept_only": 0.4417235840078165,
+  "non_zlb_model_brier": 0.07644671516516714,
   "non_zlb_climatology_brier": 0.12216924120687894,
   "non_zlb_always_hold_brier": 0.13043478260869565,
-  "non_zlb_brier_skill_vs_climatology": 0.05923846965769686,
-  "calibration_ece": 0.024004281961343597,
+  "non_zlb_brier_skill_vs_climatology": 0.37425562760340136,
+  "calibration_ece": 0.03797575017140002,
   "minimum_sample_required": 30,
   "climatology_gate_passed": false,
   "market_baseline_available": false,
   "signal_eligible": false,
-  "three_way_brier": 0.34351063948574134,
+  "three_way_brier": 0.3042101811570478,
   "three_way_climatology_brier": 0.5557810585578704,
-  "hold_brier": 0.16133025346192936,
-  "hike_brier": 0.11438964722056963,
+  "hold_brier": 0.1427236719922972,
+  "hike_brier": 0.11639229252888274,
   "actual_hikes": 11,
   "predictions": [
     {
@@ -268,13 +268,13 @@
       "policy_rate_upper": 0.5,
       "zlb": false,
       "outcome": "hike",
-      "cut": 0.025058075511344282,
-      "hold": 0.7094544626488282,
-      "hike": 0.2654874618398275,
+      "cut": 1e-06,
+      "hold": 0.7276882195485281,
+      "hike": 0.2723107804514718,
       "climatology_cut": 0.14814814814814814,
       "climatology_hold": 0.7804232804232805,
       "climatology_hike": 0.07142857142857142,
-      "intercept_only_cut": 0.06855770824693905
+      "intercept_only_cut": 0.3184313539664037
     },
     {
       "meeting_date": "2022-06-15",
@@ -282,13 +282,13 @@
       "policy_rate_upper": 1.0,
       "zlb": false,
       "outcome": "hike",
-      "cut": 0.03782350524019347,
-      "hold": 0.5186642031247366,
-      "hike": 0.44351229163506983,
+      "cut": 0.08240909351297537,
+      "hold": 0.4946302044370814,
+      "hike": 0.4229607020499433,
       "climatology_cut": 0.14285714285714285,
       "climatology_hold": 0.7536945812807883,
       "climatology_hike": 0.10344827586206896,
-      "intercept_only_cut": 0.0646868962052464
+      "intercept_only_cut": 0.28366580176854883
     },
     {
       "meeting_date": "2022-07-27",
@@ -296,13 +296,13 @@
       "policy_rate_upper": 1.75,
       "zlb": false,
       "outcome": "hike",
-      "cut": 0.06215052146805814,
-      "hold": 0.31094756646465205,
-      "hike": 0.6269019120672898,
+      "cut": 0.10605045523169909,
+      "hold": 0.2963923762297207,
+      "hike": 0.5975571685385802,
       "climatology_cut": 0.13793103448275862,
       "climatology_hold": 0.728735632183908,
       "climatology_hike": 0.13333333333333333,
-      "intercept_only_cut": 0.06138268422459292
+      "intercept_only_cut": 0.24727600250164464
     },
     {
       "meeting_date": "2022-09-21",
@@ -310,13 +310,13 @@
       "policy_rate_upper": 2.5,
       "zlb": false,
       "outcome": "hike",
-      "cut": 0.11449525807233947,
-      "hold": 0.2674551727489509,
-      "hike": 0.6180495691787096,
+      "cut": 0.12616069515824654,
+      "hold": 0.263931779430682,
+      "hike": 0.6099075254110714,
       "climatology_cut": 0.13333333333333333,
       "climatology_hold": 0.7053763440860216,
       "climatology_hike": 0.16129032258064516,
-      "intercept_only_cut": 0.059091589607448015
+      "intercept_only_cut": 0.2190156629476628
     },
     {
       "meeting_date": "2022-11-02",
@@ -324,13 +324,13 @@
       "policy_rate_upper": 3.25,
       "zlb": false,
       "outcome": "hike",
-      "cut": 0.16117444967914732,
-      "hold": 0.13708976096171333,
-      "hike": 0.7017357893591394,
+      "cut": 0.22360845831336387,
+      "hold": 0.1268861336207573,
+      "hike": 0.6495054080658789,
       "climatology_cut": 0.12903225806451613,
       "climatology_hold": 0.6834677419354839,
       "climatology_hike": 0.1875,
-      "intercept_only_cut": 0.058034708210249975
+      "intercept_only_cut": 0.19727812875729103
     },
     {
       "meeting_date": "2022-12-14",
@@ -338,13 +338,13 @@
       "policy_rate_upper": 4.0,
       "zlb": false,
       "outcome": "hike",
-      "cut": 0.21481641973238905,
-      "hold": 0.13299299453389624,
-      "hike": 0.6521905857337147,
+      "cut": 0.13166835500843535,
+      "hold": 0.14707646545106434,
+      "hike": 0.7212551795405003,
       "climatology_cut": 0.125,
       "climatology_hold": 0.6628787878787878,
       "climatology_hike": 0.21212121212121213,
-      "intercept_only_cut": 0.058489376748834025
+      "intercept_only_cut": 0.18225186451909464
     },
     {
       "meeting_date": "2023-02-01",
@@ -352,13 +352,13 @@
       "policy_rate_upper": 4.5,
       "zlb": false,
       "outcome": "hike",
-      "cut": 0.21140337227325587,
-      "hold": 0.1117424373293755,
-      "hike": 0.6768541903973686,
+      "cut": 0.13976486997056184,
+      "hold": 0.12189345823470832,
+      "hike": 0.7383416717947299,
       "climatology_cut": 0.12121212121212122,
       "climatology_hold": 0.64349376114082,
       "climatology_hike": 0.23529411764705882,
-      "intercept_only_cut": 0.05970670252138248
+      "intercept_only_cut": 0.16685639682838335
     },
     {
       "meeting_date": "2023-03-22",
@@ -366,13 +366,13 @@
       "policy_rate_upper": 4.75,
       "zlb": false,
       "outcome": "hike",
-      "cut": 0.16719080346997753,
-      "hold": 0.1117252163824487,
-      "hike": 0.7210839801475738,
+      "cut": 0.08691952482344045,
+      "hold": 0.12249398072060391,
+      "hike": 0.7905864944559556,
       "climatology_cut": 0.11764705882352941,
       "climatology_hold": 0.6252100840336134,
       "climatology_hike": 0.2571428571428571,
-      "intercept_only_cut": 0.06052822953548904
+      "intercept_only_cut": 0.15214788095543585
     },
     {
       "meeting_date": "2023-05-03",
@@ -380,13 +380,13 @@
       "policy_rate_upper": 5.0,
       "zlb": false,
       "outcome": "hike",
-      "cut": 0.18212657937715446,
-      "hold": 0.14535996030329745,
-      "hike": 0.6725134603195481,
+      "cut": 0.0993395704951827,
+      "hold": 0.1600736262829887,
+      "hike": 0.7405868032218286,
       "climatology_cut": 0.11428571428571428,
       "climatology_hold": 0.6079365079365079,
       "climatology_hike": 0.2777777777777778,
-      "intercept_only_cut": 0.06042034679504837
+      "intercept_only_cut": 0.1384199296048087
     },
     {
       "meeting_date": "2023-06-14",
@@ -394,13 +394,13 @@
       "policy_rate_upper": 5.25,
       "zlb": false,
       "outcome": "hold",
-      "cut": 0.17996401925707206,
-      "hold": 0.17974392280221985,
-      "hike": 0.6402920579407081,
+      "cut": 0.08131326666002557,
+      "hold": 0.20136720967692479,
+      "hike": 0.7173195236630496,
       "climatology_cut": 0.1111111111111111,
       "climatology_hold": 0.5915915915915915,
       "climatology_hike": 0.2972972972972973,
-      "intercept_only_cut": 0.060091926012923104
+      "intercept_only_cut": 0.12652923643338632
     },
     {
       "meeting_date": "2023-07-26",
@@ -408,13 +408,13 @@
       "policy_rate_upper": 5.25,
       "zlb": false,
       "outcome": "hike",
-      "cut": 0.19846043184075024,
-      "hold": 0.4953776042436762,
-      "hike": 0.30616196391557354,
+      "cut": 0.10364685342950049,
+      "hold": 0.5539754891004387,
+      "hike": 0.34237765747006077,
       "climatology_cut": 0.10810810810810811,
       "climatology_hold": 0.6024182076813656,
       "climatology_hike": 0.2894736842105263,
-      "intercept_only_cut": 0.05958636220987113
+      "intercept_only_cut": 0.11664984771054114
     },
     {
       "meeting_date": "2023-09-20",
@@ -422,13 +422,13 @@
       "policy_rate_upper": 5.5,
       "zlb": false,
       "outcome": "hold",
-      "cut": 0.12019122583294238,
-      "hold": 0.3056705085466236,
-      "hike": 0.574138265620434,
+      "cut": 0.058094136825546136,
+      "hold": 0.32724479756655966,
+      "hike": 0.6146610656078942,
       "climatology_cut": 0.10526315789473684,
       "climatology_hold": 0.5870445344129555,
       "climatology_hike": 0.3076923076923077,
-      "intercept_only_cut": 0.05926601864563118
+      "intercept_only_cut": 0.10869478533217963
     },
     {
       "meeting_date": "2023-11-01",
@@ -436,13 +436,13 @@
       "policy_rate_upper": 5.5,
       "zlb": false,
       "outcome": "hold",
-      "cut": 0.1014573590720798,
-      "hold": 0.4229332363991881,
-      "hike": 0.4756094045287321,
+      "cut": 0.047104875689085786,
+      "hold": 0.4485162979662649,
+      "hike": 0.5043788263446493,
       "climatology_cut": 0.10256410256410256,
       "climatology_hold": 0.5974358974358975,
       "climatology_hike": 0.3,
-      "intercept_only_cut": 0.05815468230958226
+      "intercept_only_cut": 0.10108485512766742
     },
     {
       "meeting_date": "2023-12-13",
@@ -450,13 +450,13 @@
       "policy_rate_upper": 5.5,
       "zlb": false,
       "outcome": "hold",
-      "cut": 0.11124637961811946,
-      "hold": 0.5798664500683637,
-      "hike": 0.3088871703135169,
+      "cut": 0.07586818237203705,
+      "hold": 0.6029489210439412,
+      "hike": 0.3211828965840218,
       "climatology_cut": 0.1,
       "climatology_hold": 0.6073170731707318,
       "climatology_hike": 0.2926829268292683,
-      "intercept_only_cut": 0.05689604637123584
+      "intercept_only_cut": 0.09401537809927844
     },
     {
       "meeting_date": "2024-01-31",
@@ -464,13 +464,13 @@
       "policy_rate_upper": 5.5,
       "zlb": false,
       "outcome": "hold",
-      "cut": 0.09146972217543713,
-      "hold": 0.6083745106558975,
-      "hike": 0.3001557671686654,
+      "cut": 0.06181401699594184,
+      "hold": 0.6282327097353286,
+      "hike": 0.3099532732687296,
       "climatology_cut": 0.0975609756097561,
       "climatology_hold": 0.6167247386759582,
       "climatology_hike": 0.2857142857142857,
-      "intercept_only_cut": 0.0558711808685234
+      "intercept_only_cut": 0.08861550863787844
     },
     {
       "meeting_date": "2024-03-20",
@@ -478,13 +478,13 @@
       "policy_rate_upper": 5.5,
       "zlb": false,
       "outcome": "hold",
-      "cut": 0.0837379722685703,
-      "hold": 0.6806564773086381,
-      "hike": 0.2356055504227917,
+      "cut": 0.03994664610213979,
+      "hold": 0.7131874006722471,
+      "hike": 0.24686595322561314,
       "climatology_cut": 0.09523809523809523,
       "climatology_hold": 0.6256921373200444,
       "climatology_hike": 0.27906976744186046,
-      "intercept_only_cut": 0.054702040058081804
+      "intercept_only_cut": 0.08355519370289763
     },
     {
       "meeting_date": "2024-05-01",
@@ -492,13 +492,13 @@
       "policy_rate_upper": 5.5,
       "zlb": false,
       "outcome": "hold",
-      "cut": 0.07083248861222473,
-      "hold": 0.6696401658482121,
-      "hike": 0.2595273455395632,
+      "cut": 0.03940840080848873,
+      "hold": 0.6922871386605671,
+      "hike": 0.26830446053094414,
       "climatology_cut": 0.09302325581395349,
       "climatology_hold": 0.6342494714587739,
       "climatology_hike": 0.2727272727272727,
-      "intercept_only_cut": 0.053531290487334925
+      "intercept_only_cut": 0.07857721020334978
     },
     {
       "meeting_date": "2024-06-12",
@@ -506,13 +506,13 @@
       "policy_rate_upper": 5.5,
       "zlb": false,
       "outcome": "hold",
-      "cut": 0.06396867710450393,
-      "hold": 0.726744785457293,
-      "hike": 0.20928653743820305,
+      "cut": 0.030853997875475814,
+      "hold": 0.7524553785358902,
+      "hike": 0.21669062358863397,
       "climatology_cut": 0.09090909090909091,
       "climatology_hold": 0.6424242424242423,
       "climatology_hike": 0.26666666666666666,
-      "intercept_only_cut": 0.052289815505072286
+      "intercept_only_cut": 0.07400066025726693
     },
     {
       "meeting_date": "2024-07-31",
@@ -520,13 +520,13 @@
       "policy_rate_upper": 5.5,
       "zlb": false,
       "outcome": "hold",
-      "cut": 0.06733057524715737,
-      "hold": 0.7837997129998985,
-      "hike": 0.14886971175294417,
+      "cut": 0.024941896222159813,
+      "hold": 0.8194224465992574,
+      "hike": 0.15563565717858274,
       "climatology_cut": 0.08888888888888889,
       "climatology_hold": 0.6502415458937199,
       "climatology_hike": 0.2608695652173913,
-      "intercept_only_cut": 0.05107302320505726
+      "intercept_only_cut": 0.06973067992481527
     },
     {
       "meeting_date": "2024-09-18",
@@ -534,13 +534,13 @@
       "policy_rate_upper": 5.5,
       "zlb": false,
       "outcome": "cut",
-      "cut": 0.07160611607111123,
-      "hold": 0.8315276005142384,
-      "hike": 0.0968662834146504,
+      "cut": 0.027223359746626704,
+      "hold": 0.8712795716436965,
+      "hike": 0.10149706860967672,
       "climatology_cut": 0.08695652173913043,
       "climatology_hold": 0.6577243293246995,
       "climatology_hike": 0.2553191489361702,
-      "intercept_only_cut": 0.049981329493740775
+      "intercept_only_cut": 0.06577353024564633
     },
     {
       "meeting_date": "2024-11-07",
@@ -548,13 +548,13 @@
       "policy_rate_upper": 5.0,
       "zlb": false,
       "outcome": "cut",
-      "cut": 0.1471239388185984,
-      "hold": 0.7812995946928616,
-      "hike": 0.07157646648854003,
+      "cut": 0.3610004359821795,
+      "hold": 0.5853723924253174,
+      "hike": 0.05362717159250313,
       "climatology_cut": 0.10638297872340426,
       "climatology_hold": 0.6436170212765957,
       "climatology_hike": 0.25,
-      "intercept_only_cut": 0.06204638149476532
+      "intercept_only_cut": 0.09401796580443994
     },
     {
       "meeting_date": "2024-12-18",
@@ -562,13 +562,13 @@
       "policy_rate_upper": 4.75,
       "zlb": false,
       "outcome": "cut",
-      "cut": 0.171489008410595,
-      "hold": 0.7475126484062934,
-      "hike": 0.08099834318311164,
+      "cut": 0.5580217343132935,
+      "hold": 0.3987688120922635,
+      "hike": 0.043209453594443,
       "climatology_cut": 0.125,
       "climatology_hold": 0.6301020408163265,
       "climatology_hike": 0.24489795918367346,
-      "intercept_only_cut": 0.07098283967012933
+      "intercept_only_cut": 0.1059807491221318
     }
   ]
 }

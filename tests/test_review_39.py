@@ -81,8 +81,8 @@ def test_more_history_is_worse_on_the_common_meetings() -> None:
         return total / len(common)
 
     assert three_way(long) > three_way(short)
-    assert three_way(long) == pytest.approx(0.4206, abs=5e-4)
-    assert three_way(short) == pytest.approx(0.3529, abs=5e-4)
+    assert three_way(long) == pytest.approx(0.4205, abs=5e-4)
+    assert three_way(short) == pytest.approx(0.3674, abs=5e-4)
 
 
 @pytest.mark.parametrize(

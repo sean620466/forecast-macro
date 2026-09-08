@@ -8,7 +8,7 @@
 
 | ID | 등급 | 요약 | 상태 | 비고 |
 | --- | --- | --- | --- | --- |
-| R1-H3 | High | 예측시장 계약별 outcome bucket 확장 | partial | `contracts.py`에 `FedOutcome` 4구간 추가됨. 모델은 여전히 cut/hold_or_hike 이진 |
+| R1-H3 | High | 예측시장 계약별 outcome bucket 확장 | fixed | D-016(과제 24·25): cut/hold/hike 3원 결과공간, 시장 사다리도 3원으로 읽음. `FedOutcome` 4구간은 미사용 |
 | R1-H4 | High | CPI `forecast_mom` 산출(nowcast) 코드 부재 | fixed | 과제 42: `models/cpi.py`(외부 nowcast에 정규분포 래퍼) 삭제. CPI는 경험분포·기저효과 baseline(과제 35·41)으로 대체 |
 | R1-M3 | Medium | CPI 불확실성 σ를 역사적 오차로 추정 | fixed | 과제 42: σ 고정 래퍼 삭제로 소멸. 현재 CPI baseline은 경험분포라 σ가 없음 |
 | R1-M4 | Medium | YES/NO 호가·수수료 정규화 | fixed | 어댑터 bid/ask + claude/task-19 수수료 모델(`fees.py`) |
@@ -56,8 +56,8 @@
 | R5-L1 | Low | 인하 0건이면 always-hold BSS 0 나눗셈 | fixed | claude/fix-review-5. `None` 반환 |
 | R5-L2 | Low | `fee_schedule_id` 자리표시자, 수수료 모델 부재 | fixed | claude/task-19: `fees.py`. Polymarket Economics 0.05·p·(1−p)(공식 문서 확인), Kalshi `quadratic_with_maker_fees` x1(시리즈 API 확인, 상수 0.07/0.0175는 미검증) |
 | R5-L3 | Low | ruff 버전 미고정, 0.16.6에서 2건 실패 | fixed | 70e035a. `ruff==0.16.6` 고정 |
-| R5-L4 | Low | 계수 부호 비경제적(실업률 음) | open | R5-C2 수정 후에도 실업률 계수 음수(약 −0.8 표준화). 문서에 명시. 표본 확장 후 재점검 |
-| R5-X1 | Medium | `discover-markets` 워크플로가 GitHub 러너에서 탐색 단계 실패(로컬은 성공). 원인 로그 미확인 | partial | claude/fix-discovery-ci: 거래소별 오류를 `.status.json`에 기록하고 계속 진행, User-Agent 명시. 러너 IP 차단이면 self-hosted 또는 프록시 필요 |
+| R5-L4 | Low | 계수 부호 비경제적(실업률 음) | fixed | 과제 43: 원인은 ZLB 회의를 '인하 없음' 행으로 학습에 넣은 것(2020–21 실업률 14.7%에 인하 불가). 실행 가능 회의(비-ZLB)만으로 학습하면 실업률 계수가 2019–2026 −0.58→+0.52, 2015–2026 −0.46→−0.13(≈0). `fit_cut_model`, 실시간 `fed-live-0.4` |
+| R5-X1 | Medium | `discover-markets` 워크플로가 GitHub 러너에서 탐색 단계 실패(로컬은 성공). 원인 로그 미확인 | fixed | 탐색 워크플로가 2026-09-08 기준 연속 성공(#20~#26). 원인은 Kalshi 429·User-Agent, 재시도 도입으로 해결 |
 | R5-X2 | Medium | Kalshi 페이지네이션 후 후보 1692건 중 브라질/ECB 등 해외 및 "Fed posts on X" 같은 비통계 계약 포함 | fixed | claude/fix-discovery-ci: 해외 지역·비통계 패턴 확장, `federal funds` 인식 추가. 1576건으로 감소. 구간 정보가 제목이 아닌 ticker에 있어 Kalshi 그룹 검증은 여전히 전부 거부됨(R5-H2 잔여) |
 
 ## 리뷰 6 — 시장 규칙 검증 게이트 (`2026-09-08-market-rules-claude-review-6.md`)
@@ -80,7 +80,7 @@
 | --- | --- | --- | --- | --- |
 | R7-H1 | High | `verify_market_rules.py`/`review_macro_markets.py`가 `signal_eligible = approved > 0`으로 기록. 계약 승인과 D-007 신호 자격을 혼동 | fixed | 같은 브랜치. `approved_contracts` 카운트로 분리, `signal_eligible`은 항상 `false` + 이유 |
 | R7-M1 | Medium | BLS가 스크립트 요청(HTML·ICS 모두)을 403으로 거부해 일정 자동 갱신 불가 | partial | 브라우저로 읽어 CSV에 수동 전사, 절차는 `docs/RELEASE_SCHEDULE.md`. 2027 FOMC 8회 추가(잠정). 자동 갱신은 미해결 |
-| R7-M2 | Medium | Polymarket `endDate`가 ET 벽시계인지 UTC인지 확정 불가. 현재는 "발표 이전이면 그대로 채택"(보수적) | open | 거래소 문서 확인 또는 실제 마감 관측으로 확정 필요 |
+| R7-M2 | Medium | Polymarket `endDate`가 ET 벽시계인지 UTC인지 확정 불가. 현재는 "발표 이전이면 그대로 채택"(보수적) | fixed | D-014(과제 22): 결과 확정 시각을 거래소 `endDate`가 아니라 공식 발표 일정에서 생성. 거래소 값은 `venue_close_raw`로 기록만 |
 
 ## 과제 08 — 가격 스냅샷 (`reviews/tasks/08-price-snapshots.md`)
 
@@ -122,7 +122,7 @@
 | R14-H2 | High | 과제 12 응답이 Kalshi 9월 사다리를 "인하 0.47"로 해석했으나 현재 상단은 3.75%(2025-12-10 이후). 실제 의미는 동결 0.47 / 인상 0.51 | fixed | 응답 문서 정정. 코드(`market_cut_probability`)는 DFEDTARU 실측값을 쓰므로 영향 없음 |
 | R14-M1 | Medium | 학습 데이터가 2024-12까지라 2025년 인하 3회와 2026년 동결 5회가 모델에 없음 | fixed | CSV 13행 + 봇 커밋 스냅샷 62건(`21852bf`). 실시간 비교와 백테스트 모두 2019–2026 사용 |
 | R14-H3 | High | 2025-10 CPI·실업률이 BLS 셧다운으로 미발표(FRED `.`). 13개월 연속성 검사가 2025-11 이후 모든 스냅샷과 실시간 비교를 거부 | fixed | claude/task-14b: 변화율은 양 끝 달만 요구, 중간 미발표 달은 `data_gaps`에 기록. 2019–2024 회귀 테스트로 기존 값 불변 확인 |
-| R14-M2 | Medium | 첫 실시간 비교(2026-09-08 02:57Z): 모델 P(cut) 휴리스틱 0.157 / 로지스틱 0.144 vs 시장 0.005. 시장은 인상 0.525를 보는데 모델에는 "인상" 결과가 없음(cut vs hold_or_hike 이진) | open | 기록 전용. 모델 결과공간을 cut/hold/hike 3원으로 확장하는 것이 다음 모델링 과제. 학습 데이터 2019–2026 스냅샷이 커밋되면 재학습 |
+| R14-M2 | Medium | 첫 실시간 비교(2026-09-08 02:57Z): 모델 P(cut) 휴리스틱 0.157 / 로지스틱 0.144 vs 시장 0.005. 시장은 인상 0.525를 보는데 모델에는 "인상" 결과가 없음(cut vs hold_or_hike 이진) | fixed | D-016으로 해소: 모델이 인상 확률을 냄(2026-09-08 로지스틱 인상 18.6% vs 시장 53.5%) |
 | R14-L1 | Low | 채점 스크립트는 회의 결정 전 마지막 기록만 사용하고 미래 회의는 제외. 아직 채점 가능한 회의 0건 | fixed | `comparison_scoring.py`, 워크플로가 매일 `fed_market_scoring.json` 갱신 |
 
 ## 과제 15 — 2019–2026 백테스트 재실행
@@ -130,7 +130,7 @@
 | ID | 등급 | 요약 | 상태 | 비고 |
 | --- | --- | --- | --- | --- |
 | R15-M1 | Medium | 워크포워드 비-ZLB 36건으로 D-013 표본 기준 첫 충족. 그러나 비-ZLB BSS vs climatology는 +0.026, 절편 전용 대비 +0.06 | open | 특징이 거의 기여하지 않음. 3원 결과공간(cut/hold/hike)과 추가 특징(시장 금리 기대, 임금 등)을 검토할 것. 실시간 채점과 혼동 금지 |
-| R15-L1 | Low | 2026-06 CPI YoY 4.25% 등 2026 인플레이션 재가속 구간에서 휴리스틱 P(cut)이 0.09까지 하락하고 모델은 인상 가능성을 표현 못 함 | open | R14-M2와 동일 근본 원인 |
+| R15-L1 | Low | 2026-06 CPI YoY 4.25% 등 2026 인플레이션 재가속 구간에서 휴리스틱 P(cut)이 0.09까지 하락하고 모델은 인상 가능성을 표현 못 함 | fixed | R14-M2와 함께 D-016으로 해소 |
 
 ## 과제 16 — D-016 3원 결과공간
 
@@ -183,3 +183,4 @@
 | R40-L1 | Low | D-019 구현 후 실측(2026-09-08 17:03 UTC 스냅샷 재계산): KXU3-26SEP(평균 0.036/최대 0.07), KXCPIYOY-26AUG(0.015/0.07), KXFED 9·10·12월은 통과. KXCPICOREYOY-26AUG는 평균 0.034로 좁지만 꼬리 rung 하나가 0.15라 최대 한도 0.12에 걸려 거부. KXU3-26OCT는 평균 0.052로 0.002 초과 | open | 꼬리 rung(mid ≤ 0.02 또는 ≥ 0.98)을 최대 스프레드 판정에서 제외할지는 별도 제안(D-020 후보). 현재는 승인된 규칙 그대로 적용 |
 | R40-L2 | Low | 실업률·CPI 비교가 Polymarket 한 곳만 기록했음. 채점 키가 기준월뿐이라 두 장소를 넣으면 한쪽이 덮어써졌음 | fixed | 장소별 비교 파일(`*_kalshi.json`)과 (기준월, 장소) 키 채점, 알림도 장소별. 헤드라인 CPI YoY(CPIAUCNS)는 Kalshi KXCPIYOY 대상으로 같은 machinery로 추가 |
 | R41-L1 | Low | R35-M1 후속: 기저효과를 명시한 CPI YoY baseline(`models/cpi_base_effect.py`: 알려진 L[t]/L[t-11] × (1+다음 달 MoM), MoM은 달력월 평균 + 전체 잔차 풀링 또는 같은 달만)과 경험분포 baseline을 2000년 이후 공표 지수로 연구 백테스트(`scripts/backtest_cpi_baselines.py`, 워크플로 `cpi-baselines.yml`) | fixed | `data/generated/cpi_baseline_backtest.json` (vintage 2026-09-08). 헤드라인 실시간 모델 `headline-cpi-yoy-base-effect-pooled-mom-0.1`, Core는 `core-cpi-yoy-empirical-change-0.1` 유지. 연도별로는 Core 2021·2011·2012, 헤드라인 2003·2008·2012·2015만 반대 |
+| R43-M1 | Medium | 인하 모델 학습에 ZLB 회의가 '인하 없음'으로 들어가 있었음. D-011은 예측에서만 ZLB를 가렸고 학습은 그대로였음. 2019–2026 60회의 중 16건, 2015–2026 92회의 중 24건이 ZLB | fixed | 과제 43: 비-ZLB 회의만으로 인하 모델 학습(4건 미만이면 전체로 폴백). 워크포워드 2015–2026: BSS +0.020→+0.028, 비-ZLB +0.007→+0.015, ECE 0.081→0.061. 2019–2026은 +0.172→+0.149로 약간 나빠짐. 구조적 근거로 채택, 결론("skill 거의 없음")은 불변 |

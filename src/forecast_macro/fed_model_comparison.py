@@ -65,6 +65,33 @@ def _features(snapshot: dict[str, object]) -> tuple[float, ...]:
     )
 
 
+MINIMUM_NON_ZLB_TRAINING_ROWS = 4
+
+
+def fit_cut_model(
+    training: list[HistoricalFomcRow], training_snapshots: list[dict[str, object]]
+) -> LogisticModel:
+    """Cut-vs-not model fitted on meetings where a cut was feasible (task 43).
+
+    At the zero lower bound a cut is impossible (D-011), so ZLB meetings say nothing about
+    the propensity to cut; keeping them as "no cut" rows taught the model that 14% unemployment
+    means no cut (R5-L4: the unemployment coefficient came out negative). They are excluded
+    from training and masked at prediction. With fewer than four feasible rows (the 2015
+    warm-up, all at the ZLB) the fit falls back to every row, which the ZLB mask then covers.
+    """
+    by_date = {str(row["meeting_date"]): row for row in training_snapshots}
+    feasible = [
+        row
+        for row in training
+        if float(by_date[row.meeting_at.date().isoformat()]["policy_rate_upper"]) > ZLB_UPPER_BOUND
+    ]
+    rows = feasible if len(feasible) >= MINIMUM_NON_ZLB_TRAINING_ROWS else list(training)
+    return fit_logistic(
+        [_features(by_date[row.meeting_at.date().isoformat()]) for row in rows],
+        [int(row.decision is RateDecision.CUT) for row in rows],
+    )
+
+
 def fit_hike_given_no_cut(
     training: list[HistoricalFomcRow], training_snapshots: list[dict[str, object]]
 ) -> LogisticModel | None:
@@ -140,10 +167,7 @@ def run_walk_forward_logistic(
     for index in range(warmup, len(meetings)):
         training = meetings[:index]
         training_snapshots = [by_date[row.meeting_at.date().isoformat()] for row in training]
-        model = fit_logistic(
-            [_features(snapshot) for snapshot in training_snapshots],
-            [int(row.decision is RateDecision.CUT) for row in training],
-        )
+        model = fit_cut_model(training, training_snapshots)
         hike_model = fit_hike_given_no_cut(training, training_snapshots)
         meeting = meetings[index]
         snapshot = by_date[meeting.meeting_at.date().isoformat()]
