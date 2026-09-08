@@ -105,7 +105,7 @@ def collect() -> dict:
         "fed_files": fed_files,
         "price_files": sorted(glob.glob(str(ROOT / "data/generated/market_prices/*.json"))),
         "bw_predictions": load(ROOT / "data/generated/fed_baseline_backtest_window_2019_2026.json")["predictions"],
-        "snapshots": load(ROOT / "data/generated/fomc_feature_snapshots_2019_2026.json"),
+        "snapshots": load(ROOT / "data/generated/fomc_feature_snapshots_2015_2026.json"),
         "findings": rows,
         "by_status": Counter(r[3] for r in rows),
         "decisions": DECISION_ROW.findall((ROOT / "DECISIONS.md").read_text(encoding="utf-8")),
@@ -299,7 +299,7 @@ def macro_section(snapshots: list[dict]) -> str:
         latest = pts[-1][1]
         panels.append(f'<div><h2 style="font-size:14px">{esc(title)} <span class="meta">최근 {latest:.2f}</span></h2>{chart}</div>')
     return (
-        '<section class="panel"><h2>모델이 보는 경제 지표 (회의 전날 vintage, 2019–2026)</h2>'
+        '<section class="panel"><h2>모델이 보는 경제 지표 (회의 전날 vintage, 2015–2026)</h2>'
         '<p class="sub">각 회의 직전에 실제로 공개돼 있던 값. 나중에 수정된 값이 아닙니다.</p>'
         f'<div class="small">{"".join(panels)}</div></section>'
     )
