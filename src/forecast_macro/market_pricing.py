@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from datetime import datetime, timedelta
-from typing import Mapping, Sequence
 
 from forecast_macro.contracts import OutcomeQuote, normalize_outcome_prices
 from forecast_macro.market_discovery import MarketCandidate
