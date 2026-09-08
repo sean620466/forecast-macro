@@ -21,6 +21,8 @@ from forecast_macro.release_schedule import ScheduledRelease
 
 @dataclass(frozen=True)
 class UnemploymentComparisonRecord:
+    """One-month-ahead bucket comparison; also used for Core CPI YoY (topic field says which)."""
+
     as_of: str
     release_at: str
     reference_period: str
@@ -44,21 +46,28 @@ class UnemploymentComparisonRecord:
     bucket_titles: dict[str, str]
     signal_eligible: bool = False
     signal_eligible_reason: str = "no out-of-sample skill against market prices (D-007)"
+    topic: str = "unemployment"
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
 
 
-def next_employment_release(
-    schedule: Sequence[ScheduledRelease], *, as_of: datetime
+def next_release(
+    schedule: Sequence[ScheduledRelease], *, as_of: datetime, series: str
 ) -> ScheduledRelease:
     upcoming = sorted(
-        (row for row in schedule if row.series == "employment_situation" and row.release_at > as_of),
+        (row for row in schedule if row.series == series and row.release_at > as_of),
         key=lambda row: row.release_at,
     )
     if not upcoming:
-        raise ValueError("no scheduled Employment Situation release after as_of")
+        raise ValueError(f"no scheduled {series} release after as_of")
     return upcoming[0]
+
+
+def next_employment_release(
+    schedule: Sequence[ScheduledRelease], *, as_of: datetime
+) -> ScheduledRelease:
+    return next_release(schedule, as_of=as_of, series="employment_situation")
 
 
 def buckets_from_record(record: Mapping[str, Any]) -> list[RateBucket]:
@@ -73,21 +82,27 @@ def buckets_from_record(record: Mapping[str, Any]) -> list[RateBucket]:
     return buckets
 
 
-def latest_unemployment_record(
-    snapshot_dir: Path, *, release_at: datetime
+def latest_bucket_record(
+    snapshot_dir: Path, *, release_at: datetime, topic: str
 ) -> tuple[Mapping[str, Any], str] | None:
-    """Newest priced Polymarket unemployment record that settles on the given release."""
+    """Newest priced Polymarket bucket record of `topic` that settles on the given release."""
     for path in sorted(snapshot_dir.glob("market_prices_*.json"), reverse=True):
         for record in json.loads(path.read_text(encoding="utf-8")):
             if (
                 record.get("venue") == "polymarket"
-                and record.get("topic") == "unemployment"
+                and record.get("topic") == topic
                 and record.get("probabilities")
                 and record.get("outcome_at")
                 and datetime.fromisoformat(str(record["outcome_at"])) == release_at
             ):
                 return record, path.name
     return None
+
+
+def latest_unemployment_record(
+    snapshot_dir: Path, *, release_at: datetime
+) -> tuple[Mapping[str, Any], str] | None:
+    return latest_bucket_record(snapshot_dir, release_at=release_at, topic="unemployment")
 
 
 def build_unemployment_comparison(
@@ -98,6 +113,8 @@ def build_unemployment_comparison(
     history_vintage: str,
     record: Mapping[str, Any],
     source_file: str,
+    model_version: str = MODEL_VERSION,
+    topic: str = "unemployment",
 ) -> UnemploymentComparisonRecord:
     if as_of.tzinfo is None:
         raise ValueError("as_of must be timezone-aware")
@@ -130,7 +147,7 @@ def build_unemployment_comparison(
         history_start=rows[0].month.isoformat(),
         history_vintage=history_vintage,
         change_distribution={f"{change:+.1f}": probability for change, probability in distribution.items()},
-        model_version=MODEL_VERSION,
+        model_version=model_version,
         model=model,
         market=market,
         market_bounds=bounds,
@@ -140,4 +157,5 @@ def build_unemployment_comparison(
         market_observed_at=str(record.get("observed_at", "")),
         market_source_file=source_file,
         bucket_titles={str(k): str(v) for k, v in record.get("contracts", {}).items()},
+        topic=topic,
     )

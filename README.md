@@ -15,6 +15,7 @@
 | 시장 탐색 → 규칙·일정 검증 → 가격 스냅샷 | 6시간 | `data/generated/market_prices/*.json` (Kalshi Fed 사다리, Polymarket 실업률 구간) |
 | Fed 모델(cut/hold/hike) vs 시장 | 평일 09:40 ET | `data/generated/fed_market_comparisons/`, `fed_market_scoring.json` |
 | 실업률 baseline vs 시장 | 평일 09:40 ET | `data/generated/unemployment_market_comparisons/`, `unemployment_market_scoring.json` |
+| Core CPI YoY baseline vs 시장 | 평일 09:40 ET | `data/generated/core_cpi_market_comparisons/`, `core_cpi_market_scoring.json` |
 | 시점별 특징 스냅샷(ALFRED) | 수동/변경 시 | `data/generated/fomc_feature_snapshots_2019_2026.json` |
 
 모든 산출물은 GitHub Actions의 봇 계정이 저장소에 커밋합니다. `signal_eligible`은 코드 전체에서 `false`이며, 결정(D-0xx) 없이는 바뀌지 않습니다.

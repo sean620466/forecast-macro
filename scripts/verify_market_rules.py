@@ -20,11 +20,13 @@ from forecast_macro.release_schedule import load_release_schedule, verify_close_
 # The statistic each *contract-facing* model settles on. These are not the Fed-model features:
 # the Fed baseline reads CPIAUCNS YoY NSA as an input, but the CPI bucket model (models/cpi.py)
 # forecasts headline MoM SA, which is what a CPI contract would be compared against (R6-L2).
-MODEL_SERIES = {
-    "cpi": "headline_cpi_mom_sa",
-    "unemployment": "unemployment_rate_sa",
-    "fed_rate": "federal_funds_target_range",
-    "gdp": "real_gdp",
+MODEL_SERIES: dict[str, tuple[str, ...]] = {
+    # Contract series the repository can actually model; a contract on any other series of
+    # the topic is blocked by the series gate. Core CPI YoY NSA: models/core_cpi.py.
+    "cpi": ("core_cpi_yoy_nsa", "headline_cpi_mom_sa"),
+    "unemployment": ("unemployment_rate_sa",),
+    "fed_rate": ("federal_funds_target_range",),
+    "gdp": ("real_gdp",),
 }
 
 
@@ -61,7 +63,9 @@ def main() -> None:
             else:
                 document = client.market_rules(market_id)
             topic = str(row["topic"])
-            expected_series = MODEL_SERIES[topic]
+            actual_series = identify_contract_series(document, topic=topic)
+            allowed = MODEL_SERIES[topic]
+            expected_series = actual_series if actual_series in allowed else allowed[0]
             blockers = validate_official_rules(
                 document, topic=topic, expected_series=expected_series
             )
