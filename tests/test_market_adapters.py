@@ -3,7 +3,10 @@ from datetime import UTC, datetime
 import pytest
 
 from forecast_macro.data.kalshi import parse_kalshi_orderbook
-from forecast_macro.data.polymarket import parse_polymarket_orderbook
+from forecast_macro.data.polymarket import (
+    parse_polymarket_orderbook,
+    parse_polymarket_orderbooks,
+)
 
 NOW = datetime(2026, 9, 7, 18, 0, tzinfo=UTC)
 
@@ -45,3 +48,19 @@ def test_adapters_reject_one_sided_books() -> None:
             ticker="KXFED-TEST",
             observed_at=NOW,
         )
+
+
+def test_polymarket_batch_books_use_exchange_timestamps() -> None:
+    quotes = parse_polymarket_orderbooks(
+        [
+            {
+                "market": "condition-id",
+                "asset_id": "yes-token",
+                "timestamp": "1788825600000",
+                "tick_size": "0.01",
+                "bids": [{"price": "0.40", "size": "8"}],
+                "asks": [{"price": "0.42", "size": "9"}],
+            }
+        ]
+    )
+    assert quotes["yes-token"].observed_at == datetime(2026, 9, 8, tzinfo=UTC)
