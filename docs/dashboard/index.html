@@ -2,9 +2,9 @@
 <title>Forecast Macro 콘솔</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-:root{--bg:#F7F8FA;--panel:#FFFFFF;--ink:#16202B;--ink2:#4A5866;--muted:#7C8794;--line:#DCE1E7;--accent:#2C4FA3;--model:#2C4FA3;--market:#C2731B;--good:#1E7F4F;--warn:#B7791F;--crit:#B3261E;--chip:#EEF1F5;--rng:#8A5A16}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0F141A;--panel:#171E27;--ink:#E8EDF2;--ink2:#B7C0CA;--muted:#8391A0;--line:#2A3441;--accent:#7C9BEA;--model:#7C9BEA;--market:#E3A25A;--good:#5CC58C;--warn:#E0B25A;--crit:#EF7B72;--chip:#212B37;--rng:#F0C58C}}
-:root[data-theme="dark"]{--bg:#0F141A;--panel:#171E27;--ink:#E8EDF2;--ink2:#B7C0CA;--muted:#8391A0;--line:#2A3441;--accent:#7C9BEA;--model:#7C9BEA;--market:#E3A25A;--good:#5CC58C;--warn:#E0B25A;--crit:#EF7B72;--chip:#212B37;--rng:#F0C58C}
+:root{--cut:#1B8A8F;--hold:#8A94A0;--hike:#7A4DAA;--bg:#F7F8FA;--panel:#FFFFFF;--ink:#16202B;--ink2:#4A5866;--muted:#7C8794;--line:#DCE1E7;--accent:#2C4FA3;--model:#2C4FA3;--market:#C2731B;--good:#1E7F4F;--warn:#B7791F;--crit:#B3261E;--chip:#EEF1F5;--rng:#8A5A16}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--cut:#4FC3C7;--hold:#9AA5B1;--hike:#B892E6;--bg:#0F141A;--panel:#171E27;--ink:#E8EDF2;--ink2:#B7C0CA;--muted:#8391A0;--line:#2A3441;--accent:#7C9BEA;--model:#7C9BEA;--market:#E3A25A;--good:#5CC58C;--warn:#E0B25A;--crit:#EF7B72;--chip:#212B37;--rng:#F0C58C}}
+:root[data-theme="dark"]{--cut:#4FC3C7;--hold:#9AA5B1;--hike:#B892E6;--bg:#0F141A;--panel:#171E27;--ink:#E8EDF2;--ink2:#B7C0CA;--muted:#8391A0;--line:#2A3441;--accent:#7C9BEA;--model:#7C9BEA;--market:#E3A25A;--good:#5CC58C;--warn:#E0B25A;--crit:#EF7B72;--chip:#212B37;--rng:#F0C58C}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.55}
 .wrap{max-width:1080px;margin:0 auto;padding:28px 20px 60px}
@@ -36,10 +36,14 @@ th{color:var(--muted);font-weight:500;font-size:11px;letter-spacing:.06em;text-t
 .tablewrap{overflow-x:auto} ul.items{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;font-size:13px} ul.items li{display:flex;gap:8px;align-items:baseline}
 ul.items code{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--muted);flex:none}
 .sev{flex:none;font-size:10px;font-weight:700;letter-spacing:.05em;padding:1px 6px;border-radius:3px;background:var(--chip);color:var(--ink2)} .sev.high{color:var(--crit)}.sev.medium{color:var(--warn)}
+.dist{display:flex;height:22px;border-radius:4px;overflow:hidden;background:var(--chip)} .dist i{display:block;height:100%} .dist i.c{background:var(--cut)} .dist i.h{background:var(--hold)} .dist i.k{background:var(--hike)}
+.path{display:grid;grid-template-columns:150px 1fr 90px;gap:10px;align-items:center;padding:7px 0;border-top:1px solid var(--line)} .path:first-of-type{border-top:0} .path .n{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;text-align:right;font-size:13px}
+svg.chart{width:100%;height:auto;display:block} svg.chart text{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;fill:var(--muted)} svg.chart .grid{stroke:var(--line);stroke-width:1} svg.chart .axis{stroke:var(--line)}
+.small{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
 section{margin-bottom:22px} .verdict{background:var(--panel);border-left:4px solid var(--accent);border-radius:6px;padding:14px 16px;margin-bottom:22px} .verdict b{font-size:15px} .verdict p{margin:6px 0 0;color:var(--ink2);font-size:13.5px}
 </style></head><body>
 <div class="wrap">
-<header><h1>Forecast Macro 콘솔</h1><div class="meta">main 060bd44 · 데이터 기준 2026-09-08 16:21 UTC · 자동 생성 (scripts/build_dashboard.py)</div></header>
+<header><h1>Forecast Macro 콘솔</h1><div class="meta">main 67fa5fa · 데이터 기준 2026-09-08 16:21 UTC · 자동 생성 (scripts/build_dashboard.py)</div></header>
 <div class="verdict"><b>현재 판정: 신호 없음 (설계대로)</b><p>모델과 시장 확률은 매일 기록되지만, 시장보다 낫다는 증거는 아직 0건입니다. 첫 채점은 다음 FOMC와 고용보고서 이후입니다. 이 화면의 모든 확률은 연구 기록이며 투자 신호가 아닙니다.</p></div>
 <div class="tiles">
 <div class="tile"><div class="k">다음 FOMC</div><div class="v">9월 16일</div><div class="d">현재 상단 3.75% · KXFED-26SEP</div></div>
@@ -79,6 +83,163 @@ section{margin-bottom:22px} .verdict{background:var(--panel);border-left:4px sol
 <div class="tablewrap"><table><tr><th>이벤트</th><th>상태</th><th class="n">폭 / 상한</th><th>상위 구간</th></tr><tr><td>KXFED-26DEC</td><td>정상</td><td class="n">0.30 / 0.40</td><td>4.00: 42% · 4.25: 30%</td></tr>
 <tr><td>KXFED-26OCT</td><td>정상</td><td class="n">0.21 / 0.35</td><td>4.00: 55% · 3.75: 33%</td></tr>
 <tr><td>KXFED-26SEP</td><td>정상</td><td class="n">0.15 / 0.35</td><td>4.00: 52% · 3.75: 46%</td></tr></table></div></section>
+<section class="panel"><h2>시장이 보는 금리 경로</h2><p class="sub">Kalshi 사다리를 회의별로 이어 본 것. 막대는 회의 후 상단 금리의 확률분포(<span style="color:var(--cut)">■</span> 현재보다 낮음 · <span style="color:var(--hold)">■</span> 현재 3.75% · <span style="color:var(--hike)">■</span> 높음), 오른쪽은 기대 상단 금리. 모델 없이 시장만 본 값.</p><div class="path"><div><b>2026-12-09</b><br><small style="color:var(--muted)">KXFED-26DEC</small></div><div><div class="dist"><i class="c" style="width:1.49%" title="le_2.75: 1.5%"></i><i class="c" style="width:1.99%" title="3.25: 2.0%"></i><i class="c" style="width:3.98%" title="3.50: 4.0%"></i><i class="h" style="width:13.93%" title="3.75: 13.9%"></i><i class="k" style="width:41.79%" title="4.00: 41.8%"></i><i class="k" style="width:30.35%" title="4.25: 30.3%"></i><i class="k" style="width:5.47%" title="4.50: 5.5%"></i><i class="k" style="width:0.50%" title="5.25: 0.5%"></i><i class="k" style="width:0.50%" title="gt_5.25: 0.5%"></i></div><small style="color:var(--ink2)">인하 7% · 동결 14% · 인상 79%</small></div><div class="n">4.03%</div></div>
+<div class="path"><div><b>2026-10-28</b><br><small style="color:var(--muted)">KXFED-26OCT</small></div><div><div class="dist"><i class="c" style="width:0.50%" title="le_2.75: 0.5%"></i><i class="c" style="width:1.00%" title="3.25: 1.0%"></i><i class="c" style="width:1.99%" title="3.50: 2.0%"></i><i class="h" style="width:33.33%" title="3.75: 33.3%"></i><i class="k" style="width:55.22%" title="4.00: 55.2%"></i><i class="k" style="width:6.97%" title="4.25: 7.0%"></i><i class="k" style="width:1.00%" title="gt_5.25: 1.0%"></i></div><small style="color:var(--ink2)">인하 3% · 동결 33% · 인상 63%</small></div><div class="n">3.93%</div></div>
+<div class="path"><div><b>2026-09-16</b><br><small style="color:var(--muted)">KXFED-26SEP</small></div><div><div class="dist"><i class="c" style="width:0.50%" title="le_2.75: 0.5%"></i><i class="h" style="width:46.00%" title="3.75: 46.0%"></i><i class="k" style="width:52.00%" title="4.00: 52.0%"></i><i class="k" style="width:1.00%" title="4.25: 1.0%"></i><i class="k" style="width:0.50%" title="gt_5.25: 0.5%"></i></div><small style="color:var(--ink2)">인하 1% · 동결 46% · 인상 54%</small></div><div class="n">3.89%</div></div></section>
+<section class="panel"><h2>2026-09-16 FOMC 예측 추이</h2><p class="sub">기록 11건 (첫 기록 2026-09-08). 실선 = 인상 확률, 점선 = 동결 확률. <span style="color:var(--market)">■</span> 시장 · <span style="color:var(--model)">■</span> 모델. 회의일까지 매일 한 점씩 늘어납니다.</p><svg class="chart" viewBox="0 0 560 170" role="img">
+<line class="grid" x1="42" x2="550" y1="146.0" y2="146.0"/>
+<text x="36" y="149.0" text-anchor="end">0%</text>
+<line class="grid" x1="42" x2="550" y1="112.0" y2="112.0"/>
+<text x="36" y="115.0" text-anchor="end">25%</text>
+<line class="grid" x1="42" x2="550" y1="78.0" y2="78.0"/>
+<text x="36" y="81.0" text-anchor="end">50%</text>
+<line class="grid" x1="42" x2="550" y1="44.0" y2="44.0"/>
+<text x="36" y="47.0" text-anchor="end">75%</text>
+<line class="grid" x1="42" x2="550" y1="10.0" y2="10.0"/>
+<text x="36" y="13.0" text-anchor="end">100%</text>
+<text x="42.0" y="162" text-anchor="middle">2026-09-08 03:20</text>
+<text x="550.0" y="162" text-anchor="middle">2026-09-08 16:21</text>
+<path d="M42.0,74.6 L92.8,74.6 L143.6,74.6 L194.4,74.6 L245.2,74.6 L296.0,74.6 L346.8,74.6 L397.6,74.6 L448.4,74.6 L499.2,73.2 L550.0,73.2" fill="none" stroke="var(--market)" stroke-width="2"/>
+<circle cx="550.0" cy="73.2" r="3.5" fill="var(--market)"><title>시장 인상: 54%</title></circle>
+<path d="M42.0,136.4 L92.8,136.4 L143.6,136.4 L194.4,136.4 L245.2,136.4 L296.0,136.4 L346.8,136.4 L397.6,136.4 L448.4,136.4 L499.2,136.4 L550.0,136.4" fill="none" stroke="var(--model)" stroke-width="2"/>
+<circle cx="550.0" cy="136.4" r="3.5" fill="var(--model)"><title>모델 인상: 7%</title></circle>
+<path d="M42.0,82.1 L92.8,82.1 L143.6,82.1 L194.4,82.1 L245.2,82.1 L296.0,82.1 L346.8,82.1 L397.6,82.1 L448.4,82.1 L499.2,83.4 L550.0,83.4" fill="none" stroke="var(--market)" stroke-width="2" stroke-dasharray="5 4"/>
+<circle cx="550.0" cy="83.4" r="3.5" fill="var(--market)"><title>시장 동결: 46%</title></circle>
+<path d="M42.0,40.6 L92.8,40.6 L143.6,40.6 L194.4,40.6 L245.2,40.6 L296.0,40.6 L346.8,40.6 L397.6,40.6 L448.4,40.6 L499.2,40.6 L550.0,40.6" fill="none" stroke="var(--model)" stroke-width="2" stroke-dasharray="5 4"/>
+<circle cx="550.0" cy="40.6" r="3.5" fill="var(--model)"><title>모델 동결: 78%</title></circle>
+</svg></section>
+<section class="panel"><h2>다가오는 일정</h2><p class="sub">공식 발표 일정(BLS·연준). 각 날짜에 어떤 채점이 일어나는지.</p><div class="tablewrap"><table><tr><th class="n">날짜</th><th>시각</th><th>발표</th><th>대상</th><th>우리 시스템</th></tr><tr><td class="n">2026-09-11</td><td>08:30 ET</td><td>CPI (소비자물가)</td><td>2026-08</td><td>모델 없음 (시장만 기록)</td></tr>
+<tr><td class="n">2026-09-16</td><td>14:00 ET</td><td>FOMC 금리 결정</td><td>2026-09-16</td><td>Fed 비교 채점</td></tr>
+<tr><td class="n">2026-10-02</td><td>08:30 ET</td><td>고용보고서 (실업률)</td><td>2026-09</td><td>실업률 비교 채점</td></tr>
+<tr><td class="n">2026-10-14</td><td>08:30 ET</td><td>CPI (소비자물가)</td><td>2026-09</td><td>모델 없음 (시장만 기록)</td></tr>
+<tr><td class="n">2026-10-28</td><td>14:00 ET</td><td>FOMC 금리 결정</td><td>2026-10-28</td><td>Fed 비교 채점</td></tr>
+<tr><td class="n">2026-11-06</td><td>08:30 ET</td><td>고용보고서 (실업률)</td><td>2026-10</td><td>실업률 비교 채점</td></tr>
+<tr><td class="n">2026-11-10</td><td>08:30 ET</td><td>CPI (소비자물가)</td><td>2026-10</td><td>모델 없음 (시장만 기록)</td></tr>
+<tr><td class="n">2026-12-04</td><td>08:30 ET</td><td>고용보고서 (실업률)</td><td>2026-11</td><td>실업률 비교 채점</td></tr></table></div></section>
+<section class="panel"><h2>모델의 과거 성적 타임라인 (휴리스틱, 2020–2026)</h2><p class="sub">점 높이 = 모델이 낸 인하 확률, 점 색 = 실제 결정(<span style="color:var(--cut)">●</span> 인하 · <span style="color:var(--hold)">●</span> 동결 · <span style="color:var(--hike)">●</span> 인상). 점선 = 과거 빈도 기준(climatology). 인하 점이 높고 나머지 점이 낮을수록 좋은 모델입니다.</p><svg class="chart" viewBox="0 0 900 200" role="img">
+<line class="grid" x1="42" x2="890" y1="174.0" y2="174.0"/>
+<text x="36" y="177.0" text-anchor="end">0%</text>
+<line class="grid" x1="42" x2="890" y1="133.0" y2="133.0"/>
+<text x="36" y="136.0" text-anchor="end">25%</text>
+<line class="grid" x1="42" x2="890" y1="92.0" y2="92.0"/>
+<text x="36" y="95.0" text-anchor="end">50%</text>
+<line class="grid" x1="42" x2="890" y1="51.0" y2="51.0"/>
+<text x="36" y="54.0" text-anchor="end">75%</text>
+<line class="grid" x1="42" x2="890" y1="10.0" y2="10.0"/>
+<text x="36" y="13.0" text-anchor="end">100%</text>
+<path d="M42.0,108.4 L59.0,114.4 L75.9,119.3 L92.9,123.5 L109.8,127.1 L126.8,130.3 L143.8,133.0 L160.7,135.4 L177.7,137.6 L194.6,139.5 L211.6,141.2 L228.6,142.8 L245.5,144.2 L262.5,145.5 L279.4,146.7 L296.4,147.8 L313.4,148.8 L330.3,149.7 L347.3,150.6 L364.2,151.4 L381.2,152.1 L398.2,152.8 L415.1,153.5 L432.1,154.1 L449.0,154.7 L466.0,155.3 L483.0,155.8 L499.9,156.3 L516.9,156.7 L533.8,157.2 L550.8,157.6 L567.8,158.0 L584.7,158.4 L601.7,158.7 L618.6,159.1 L635.6,159.4 L652.6,156.2 L669.5,153.1 L686.5,150.1 L703.4,150.6 L720.4,151.0 L737.4,151.5 L754.3,151.9 L771.3,152.3 L788.2,149.7 L805.2,147.2 L822.2,144.7 L839.1,145.2 L856.1,145.7 L873.0,146.2 L890.0,146.7" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="4 4"/>
+<circle cx="42.0" cy="135.5" r="4" fill="var(--hold)"><title>2020-01-29 실제 hold · 모델 P(인하) 0.23</title></circle>
+<text x="42.0" y="192" text-anchor="middle">2020-01</text>
+<circle cx="59.0" cy="173.2" r="4" fill="var(--hold)"><title>2020-06-10 실제 hold · 모델 P(인하) 0.01</title></circle>
+<circle cx="75.9" cy="173.2" r="4" fill="var(--hold)"><title>2020-07-29 실제 hold · 모델 P(인하) 0.01</title></circle>
+<circle cx="92.9" cy="173.2" r="4" fill="var(--hold)"><title>2020-09-16 실제 hold · 모델 P(인하) 0.01</title></circle>
+<circle cx="109.8" cy="173.2" r="4" fill="var(--hold)"><title>2020-11-05 실제 hold · 모델 P(인하) 0.01</title></circle>
+<circle cx="126.8" cy="173.2" r="4" fill="var(--hold)"><title>2020-12-16 실제 hold · 모델 P(인하) 0.01</title></circle>
+<circle cx="143.8" cy="173.2" r="4" fill="var(--hold)"><title>2021-01-27 실제 hold · 모델 P(인하) 0.01</title></circle>
+<circle cx="160.7" cy="173.2" r="4" fill="var(--hold)"><title>2021-03-17 실제 hold · 모델 P(인하) 0.01</title></circle>
+<circle cx="177.7" cy="173.2" r="4" fill="var(--hold)"><title>2021-04-28 실제 hold · 모델 P(인하) 0.01</title></circle>
+<text x="177.7" y="192" text-anchor="middle">2021-04</text>
+<circle cx="194.6" cy="173.2" r="4" fill="var(--hold)"><title>2021-06-16 실제 hold · 모델 P(인하) 0.01</title></circle>
+<circle cx="211.6" cy="173.2" r="4" fill="var(--hold)"><title>2021-07-28 실제 hold · 모델 P(인하) 0.01</title></circle>
+<circle cx="228.6" cy="173.2" r="4" fill="var(--hold)"><title>2021-09-22 실제 hold · 모델 P(인하) 0.01</title></circle>
+<circle cx="245.5" cy="173.2" r="4" fill="var(--hold)"><title>2021-11-03 실제 hold · 모델 P(인하) 0.01</title></circle>
+<circle cx="262.5" cy="173.2" r="4" fill="var(--hold)"><title>2021-12-15 실제 hold · 모델 P(인하) 0.01</title></circle>
+<circle cx="279.4" cy="173.2" r="4" fill="var(--hold)"><title>2022-01-26 실제 hold · 모델 P(인하) 0.01</title></circle>
+<circle cx="296.4" cy="173.2" r="4" fill="var(--hike)"><title>2022-03-16 실제 hike · 모델 P(인하) 0.01</title></circle>
+<circle cx="313.4" cy="173.9" r="4" fill="var(--hike)"><title>2022-05-04 실제 hike · 모델 P(인하) 0.00</title></circle>
+<text x="313.4" y="192" text-anchor="middle">2022-05</text>
+<circle cx="330.3" cy="173.9" r="4" fill="var(--hike)"><title>2022-06-15 실제 hike · 모델 P(인하) 0.00</title></circle>
+<circle cx="347.3" cy="173.9" r="4" fill="var(--hike)"><title>2022-07-27 실제 hike · 모델 P(인하) 0.00</title></circle>
+<circle cx="364.2" cy="173.7" r="4" fill="var(--hike)"><title>2022-09-21 실제 hike · 모델 P(인하) 0.00</title></circle>
+<circle cx="381.2" cy="173.7" r="4" fill="var(--hike)"><title>2022-11-02 실제 hike · 모델 P(인하) 0.00</title></circle>
+<circle cx="398.2" cy="172.8" r="4" fill="var(--hike)"><title>2022-12-14 실제 hike · 모델 P(인하) 0.01</title></circle>
+<circle cx="415.1" cy="171.7" r="4" fill="var(--hike)"><title>2023-02-01 실제 hike · 모델 P(인하) 0.01</title></circle>
+<circle cx="432.1" cy="170.3" r="4" fill="var(--hike)"><title>2023-03-22 실제 hike · 모델 P(인하) 0.02</title></circle>
+<circle cx="449.0" cy="164.6" r="4" fill="var(--hike)"><title>2023-05-03 실제 hike · 모델 P(인하) 0.06</title></circle>
+<text x="449.0" y="192" text-anchor="middle">2023-05</text>
+<circle cx="466.0" cy="148.7" r="4" fill="var(--hold)"><title>2023-06-14 실제 hold · 모델 P(인하) 0.15</title></circle>
+<circle cx="483.0" cy="122.0" r="4" fill="var(--hike)"><title>2023-07-26 실제 hike · 모델 P(인하) 0.32</title></circle>
+<circle cx="499.9" cy="137.8" r="4" fill="var(--hold)"><title>2023-09-20 실제 hold · 모델 P(인하) 0.22</title></circle>
+<circle cx="516.9" cy="135.2" r="4" fill="var(--hold)"><title>2023-11-01 실제 hold · 모델 P(인하) 0.24</title></circle>
+<circle cx="533.8" cy="131.8" r="4" fill="var(--hold)"><title>2023-12-13 실제 hold · 모델 P(인하) 0.26</title></circle>
+<circle cx="550.8" cy="137.6" r="4" fill="var(--hold)"><title>2024-01-31 실제 hold · 모델 P(인하) 0.22</title></circle>
+<circle cx="567.8" cy="117.6" r="4" fill="var(--hold)"><title>2024-03-20 실제 hold · 모델 P(인하) 0.34</title></circle>
+<circle cx="584.7" cy="132.8" r="4" fill="var(--hold)"><title>2024-05-01 실제 hold · 모델 P(인하) 0.25</title></circle>
+<text x="584.7" y="192" text-anchor="middle">2024-05</text>
+<circle cx="601.7" cy="127.1" r="4" fill="var(--hold)"><title>2024-06-12 실제 hold · 모델 P(인하) 0.29</title></circle>
+<circle cx="618.6" cy="103.9" r="4" fill="var(--hold)"><title>2024-07-31 실제 hold · 모델 P(인하) 0.43</title></circle>
+<circle cx="635.6" cy="91.2" r="4" fill="var(--cut)"><title>2024-09-18 실제 cut · 모델 P(인하) 0.50</title></circle>
+<circle cx="652.6" cy="113.6" r="4" fill="var(--cut)"><title>2024-11-07 실제 cut · 모델 P(인하) 0.37</title></circle>
+<circle cx="669.5" cy="116.1" r="4" fill="var(--cut)"><title>2024-12-18 실제 cut · 모델 P(인하) 0.35</title></circle>
+<circle cx="686.5" cy="124.1" r="4" fill="var(--hold)"><title>2025-01-29 실제 hold · 모델 P(인하) 0.30</title></circle>
+<circle cx="703.4" cy="126.2" r="4" fill="var(--hold)"><title>2025-03-19 실제 hold · 모델 P(인하) 0.29</title></circle>
+<circle cx="720.4" cy="96.3" r="4" fill="var(--hold)"><title>2025-05-07 실제 hold · 모델 P(인하) 0.47</title></circle>
+<text x="720.4" y="192" text-anchor="middle">2025-05</text>
+<circle cx="737.4" cy="99.8" r="4" fill="var(--hold)"><title>2025-06-18 실제 hold · 모델 P(인하) 0.45</title></circle>
+<circle cx="754.3" cy="121.4" r="4" fill="var(--hold)"><title>2025-07-30 실제 hold · 모델 P(인하) 0.32</title></circle>
+<circle cx="771.3" cy="118.2" r="4" fill="var(--cut)"><title>2025-09-17 실제 cut · 모델 P(인하) 0.34</title></circle>
+<circle cx="788.2" cy="123.6" r="4" fill="var(--cut)"><title>2025-10-29 실제 cut · 모델 P(인하) 0.31</title></circle>
+<circle cx="805.2" cy="115.8" r="4" fill="var(--cut)"><title>2025-12-10 실제 cut · 모델 P(인하) 0.35</title></circle>
+<circle cx="822.2" cy="120.3" r="4" fill="var(--hold)"><title>2026-01-28 실제 hold · 모델 P(인하) 0.33</title></circle>
+<circle cx="839.1" cy="116.0" r="4" fill="var(--hold)"><title>2026-03-18 실제 hold · 모델 P(인하) 0.35</title></circle>
+<circle cx="856.1" cy="141.4" r="4" fill="var(--hold)"><title>2026-04-29 실제 hold · 모델 P(인하) 0.20</title></circle>
+<text x="856.1" y="192" text-anchor="middle">2026-04</text>
+<circle cx="873.0" cy="158.9" r="4" fill="var(--hold)"><title>2026-06-17 실제 hold · 모델 P(인하) 0.09</title></circle>
+<circle cx="890.0" cy="148.2" r="4" fill="var(--hold)"><title>2026-07-29 실제 hold · 모델 P(인하) 0.16</title></circle>
+<text x="890.0" y="192" text-anchor="middle">2026-07</text>
+</svg></section>
+<section class="panel"><h2>모델이 보는 경제 지표 (회의 전날 vintage, 2019–2026)</h2><p class="sub">각 회의 직전에 실제로 공개돼 있던 값. 나중에 수정된 값이 아닙니다.</p><div class="small"><div><h2 style="font-size:14px">CPI 전년비 (%) <span class="meta">최근 3.53</span></h2><svg class="chart" viewBox="0 0 300 140" role="img">
+<line class="grid" x1="42" x2="290" y1="116.0" y2="116.0"/>
+<text x="36" y="119.0" text-anchor="end">0</text>
+<line class="grid" x1="42" x2="290" y1="89.5" y2="89.5"/>
+<text x="36" y="92.5" text-anchor="end">2</text>
+<line class="grid" x1="42" x2="290" y1="63.0" y2="63.0"/>
+<text x="36" y="66.0" text-anchor="end">5</text>
+<line class="grid" x1="42" x2="290" y1="36.5" y2="36.5"/>
+<text x="36" y="39.5" text-anchor="end">8</text>
+<line class="grid" x1="42" x2="290" y1="10.0" y2="10.0"/>
+<text x="36" y="13.0" text-anchor="end">10</text>
+<text x="42.0" y="132" text-anchor="middle">2019</text>
+<text x="111.1" y="132" text-anchor="middle">2021</text>
+<text x="176.2" y="132" text-anchor="middle">2023</text>
+<text x="241.2" y="132" text-anchor="middle">2025</text>
+<path d="M42.0,95.8 L46.1,99.9 L50.1,96.3 L54.2,97.0 L58.3,98.5 L62.3,97.5 L66.4,97.9 L70.5,97.3 L74.5,91.8 L78.6,89.6 L82.7,91.3 L86.7,99.7 L90.8,112.5 L94.9,109.2 L98.9,102.1 L103.0,101.5 L107.0,103.5 L111.1,101.6 L115.2,98.2 L119.2,88.2 L123.3,63.1 L127.4,58.9 L131.4,60.3 L135.5,58.9 L139.6,43.8 L143.6,41.4 L147.7,32.6 L151.8,25.4 L155.8,25.0 L159.9,20.0 L164.0,28.4 L168.0,29.1 L172.1,40.6 L176.2,47.6 L180.2,52.0 L184.3,63.2 L188.4,73.1 L192.4,84.5 L196.5,77.1 L200.6,76.8 L204.6,82.7 L208.7,80.5 L212.8,82.6 L216.8,79.1 L220.9,80.4 L225.0,84.5 L229.0,89.2 L233.1,90.1 L237.1,86.9 L241.2,85.4 L245.3,86.1 L249.3,90.7 L253.4,91.0 L257.5,87.7 L261.5,85.1 L265.6,84.1 L269.7,84.1 L273.7,87.6 L277.8,90.4 L281.9,81.5 L285.9,71.0 L290.0,78.6" fill="none" stroke="var(--accent)" stroke-width="2"/>
+<circle cx="290.0" cy="78.6" r="3.5" fill="var(--accent)"><title>CPI 전년비 (%): 4</title></circle>
+</svg></div><div><h2 style="font-size:14px">실업률 (%) <span class="meta">최근 4.20</span></h2><svg class="chart" viewBox="0 0 300 140" role="img">
+<line class="grid" x1="42" x2="290" y1="116.0" y2="116.0"/>
+<text x="36" y="119.0" text-anchor="end">3</text>
+<line class="grid" x1="42" x2="290" y1="89.5" y2="89.5"/>
+<text x="36" y="92.5" text-anchor="end">6</text>
+<line class="grid" x1="42" x2="290" y1="63.0" y2="63.0"/>
+<text x="36" y="66.0" text-anchor="end">9</text>
+<line class="grid" x1="42" x2="290" y1="36.5" y2="36.5"/>
+<text x="36" y="39.5" text-anchor="end">12</text>
+<line class="grid" x1="42" x2="290" y1="10.0" y2="10.0"/>
+<text x="36" y="13.0" text-anchor="end">15</text>
+<text x="42.0" y="132" text-anchor="middle">2019</text>
+<text x="111.1" y="132" text-anchor="middle">2021</text>
+<text x="176.2" y="132" text-anchor="middle">2023</text>
+<text x="241.2" y="132" text-anchor="middle">2025</text>
+<path d="M42.0,108.1 L46.1,108.9 L50.1,108.9 L54.2,110.7 L58.3,109.8 L62.3,109.8 L66.4,111.6 L70.5,111.6 L74.5,111.6 L78.6,110.7 L82.7,111.6 L86.7,103.6 L90.8,25.0 L94.9,44.5 L98.9,68.3 L103.0,72.7 L107.0,83.3 L111.1,83.3 L115.2,87.7 L119.2,89.5 L123.3,91.3 L127.4,90.4 L131.4,96.6 L135.5,100.1 L139.6,105.4 L143.6,108.1 L147.7,108.9 L151.8,110.7 L155.8,110.7 L159.9,110.7 L164.0,109.8 L168.0,111.6 L172.1,109.8 L176.2,111.6 L180.2,110.7 L184.3,111.6 L188.4,109.8 L192.4,110.7 L196.5,108.9 L200.6,108.9 L204.6,109.8 L208.7,109.8 L212.8,108.1 L216.8,108.9 L220.9,107.2 L225.0,106.3 L229.0,105.4 L233.1,106.3 L237.1,105.4 L241.2,106.3 L245.3,106.3 L249.3,105.4 L253.4,105.4 L257.5,106.3 L261.5,104.5 L265.6,104.5 L269.7,103.6 L273.7,103.6 L277.8,103.6 L281.9,104.5 L285.9,104.5 L290.0,105.4" fill="none" stroke="var(--accent)" stroke-width="2"/>
+<circle cx="290.0" cy="105.4" r="3.5" fill="var(--accent)"><title>실업률 (%): 4</title></circle>
+</svg></div><div><h2 style="font-size:14px">정책금리 상단 (%) <span class="meta">최근 3.75</span></h2><svg class="chart" viewBox="0 0 300 140" role="img">
+<line class="grid" x1="42" x2="290" y1="116.0" y2="116.0"/>
+<text x="36" y="119.0" text-anchor="end">0</text>
+<line class="grid" x1="42" x2="290" y1="89.5" y2="89.5"/>
+<text x="36" y="92.5" text-anchor="end">2</text>
+<line class="grid" x1="42" x2="290" y1="63.0" y2="63.0"/>
+<text x="36" y="66.0" text-anchor="end">3</text>
+<line class="grid" x1="42" x2="290" y1="36.5" y2="36.5"/>
+<text x="36" y="39.5" text-anchor="end">4</text>
+<line class="grid" x1="42" x2="290" y1="10.0" y2="10.0"/>
+<text x="36" y="13.0" text-anchor="end">6</text>
+<text x="42.0" y="132" text-anchor="middle">2019</text>
+<text x="111.1" y="132" text-anchor="middle">2021</text>
+<text x="176.2" y="132" text-anchor="middle">2023</text>
+<text x="241.2" y="132" text-anchor="middle">2025</text>
+<path d="M42.0,71.8 L46.1,71.8 L50.1,71.8 L54.2,71.8 L58.3,71.8 L62.3,76.2 L66.4,80.7 L70.5,85.1 L74.5,85.1 L78.6,85.1 L82.7,93.9 L86.7,111.6 L90.8,111.6 L94.9,111.6 L98.9,111.6 L103.0,111.6 L107.0,111.6 L111.1,111.6 L115.2,111.6 L119.2,111.6 L123.3,111.6 L127.4,111.6 L131.4,111.6 L135.5,111.6 L139.6,111.6 L143.6,111.6 L147.7,111.6 L151.8,107.2 L155.8,98.3 L159.9,85.1 L164.0,71.8 L168.0,58.6 L172.1,45.3 L176.2,36.5 L180.2,32.1 L184.3,27.7 L188.4,23.2 L192.4,23.2 L196.5,18.8 L200.6,18.8 L204.6,18.8 L208.7,18.8 L212.8,18.8 L216.8,18.8 L220.9,18.8 L225.0,18.8 L229.0,18.8 L233.1,27.7 L237.1,32.1 L241.2,36.5 L245.3,36.5 L249.3,36.5 L253.4,36.5 L257.5,36.5 L261.5,36.5 L265.6,40.9 L269.7,45.3 L273.7,49.8 L277.8,49.8 L281.9,49.8 L285.9,49.8 L290.0,49.8" fill="none" stroke="var(--accent)" stroke-width="2"/>
+<circle cx="290.0" cy="49.8" r="3.5" fill="var(--accent)"><title>정책금리 상단 (%): 4</title></circle>
+</svg></div></div></section>
 <section class="panel"><h2>백테스트 (2019–2026, 62회의)</h2><p class="sub">낮을수록 좋음.</p>
 <div class="tablewrap"><table>
 <tr><th>모델</th><th class="n">표본외</th><th class="n">Brier(인하)</th><th class="n">climatology</th><th class="n">always-hold</th><th class="n">3원 Brier</th><th class="n">3원 climatology</th></tr>
