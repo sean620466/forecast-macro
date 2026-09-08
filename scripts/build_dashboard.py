@@ -38,16 +38,36 @@ def pct(x: float) -> str:
     return f"{x * 100:.1f}%"
 
 
-def bar_rows(rows) -> str:
+def bar_rows(rows, kalshi: dict | None = None) -> str:
+    """rows: (label, model, market, lo, hi[, key]); `kalshi` maps the same label to (p, lo, hi)."""
     out = []
-    for label, model, market, lo, hi in rows:
+    for row in rows:
+        label, model, market, lo, hi = row[:5]
+        extra = ""
+        k = (kalshi or {}).get(label)
+        if k is not None:
+            kp, klo, khi = k
+            extra = (
+                f'<div class="bar market kalshi" style="--v:{kp * 100:.2f};--lo:{klo * 100:.2f};--hi:{khi * 100:.2f}">'
+                f'<i class="rng"></i><span>Kalshi {pct(kp)}</span></div>'
+            )
         out.append(
             f'<div class="row"><div class="lbl">{esc(label)}</div><div class="bars">'
             f'<div class="bar model" style="--v:{model * 100:.2f}"><span>모델 {pct(model)}</span></div>'
             f'<div class="bar market" style="--v:{market * 100:.2f};--lo:{lo * 100:.2f};--hi:{hi * 100:.2f}">'
-            f'<i class="rng"></i><span>시장 {pct(market)}</span></div></div></div>'
+            f'<i class="rng"></i><span>시장 {pct(market)}</span></div>{extra}</div></div>'
         )
     return "\n".join(out)
+
+
+def kalshi_bars(rec: dict | None) -> dict[str, tuple[float, float, float]]:
+    """Kalshi ladder comparison record → {bucket label: (market p, lo, hi)} on the Polymarket labels."""
+    if not rec:
+        return {}
+    out = {}
+    for label, _model, market, lo, hi in bucket_rows(rec):
+        out[label] = (market, lo, hi)
+    return out
 
 
 def bucket_label(title: str) -> str:
@@ -77,8 +97,13 @@ def bucket_rows(rec: dict) -> list:
 def collect() -> dict:
     prices = latest_priced_by_event()
     fed_files = sorted(glob.glob(str(ROOT / "data/generated/fed_market_comparisons/*.json")))
-    un_files = sorted(glob.glob(str(ROOT / "data/generated/unemployment_market_comparisons/*.json")))
-    cpi_files = sorted(glob.glob(str(ROOT / "data/generated/core_cpi_market_comparisons/*.json")))
+    un_all = sorted(glob.glob(str(ROOT / "data/generated/unemployment_market_comparisons/*.json")))
+    cpi_all = sorted(glob.glob(str(ROOT / "data/generated/core_cpi_market_comparisons/*.json")))
+    hcpi_all = sorted(glob.glob(str(ROOT / "data/generated/headline_cpi_market_comparisons/*.json")))
+    un_files = [f for f in un_all if not f.endswith("_kalshi.json")]
+    cpi_files = [f for f in cpi_all if not f.endswith("_kalshi.json")]
+    un_kalshi = [f for f in un_all if f.endswith("_kalshi.json")]
+    cpi_kalshi = [f for f in cpi_all if f.endswith("_kalshi.json")]
     rows = FINDING_ROW.findall((ROOT / "reviews/FINDINGS.md").read_text(encoding="utf-8"))
     commit = subprocess.run(
         ["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True, cwd=ROOT, check=False
@@ -89,6 +114,9 @@ def collect() -> dict:
         "fed": load(fed_files[-1]) if fed_files else None,
         "un": load(un_files[-1]) if un_files else None,
         "cpi": load(cpi_files[-1]) if cpi_files else None,
+        "un_kalshi": load(un_kalshi[-1]) if un_kalshi else None,
+        "cpi_kalshi": load(cpi_kalshi[-1]) if cpi_kalshi else None,
+        "hcpi_kalshi": load(hcpi_all[-1]) if hcpi_all else None,
         "wf": load(ROOT / "data/generated/fed_walk_forward_logistic_2019_2026.json"),
         "wf15": load(ROOT / "data/generated/fed_walk_forward_logistic_2015_2026.json"),
         "bw15": {
@@ -114,9 +142,9 @@ def collect() -> dict:
 
 
 CSS = """
-:root{--cut:#1B8A8F;--hold:#8A94A0;--hike:#7A4DAA;--bg:#F7F8FA;--panel:#FFFFFF;--ink:#16202B;--ink2:#4A5866;--muted:#7C8794;--line:#DCE1E7;--accent:#2C4FA3;--model:#2C4FA3;--market:#C2731B;--good:#1E7F4F;--warn:#B7791F;--crit:#B3261E;--chip:#EEF1F5;--rng:#8A5A16}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--cut:#4FC3C7;--hold:#9AA5B1;--hike:#B892E6;--bg:#0F141A;--panel:#171E27;--ink:#E8EDF2;--ink2:#B7C0CA;--muted:#8391A0;--line:#2A3441;--accent:#7C9BEA;--model:#7C9BEA;--market:#E3A25A;--good:#5CC58C;--warn:#E0B25A;--crit:#EF7B72;--chip:#212B37;--rng:#F0C58C}}
-:root[data-theme="dark"]{--cut:#4FC3C7;--hold:#9AA5B1;--hike:#B892E6;--bg:#0F141A;--panel:#171E27;--ink:#E8EDF2;--ink2:#B7C0CA;--muted:#8391A0;--line:#2A3441;--accent:#7C9BEA;--model:#7C9BEA;--market:#E3A25A;--good:#5CC58C;--warn:#E0B25A;--crit:#EF7B72;--chip:#212B37;--rng:#F0C58C}
+:root{--cut:#1B8A8F;--hold:#8A94A0;--hike:#7A4DAA;--bg:#F7F8FA;--panel:#FFFFFF;--ink:#16202B;--ink2:#4A5866;--muted:#7C8794;--line:#DCE1E7;--accent:#2C4FA3;--model:#2C4FA3;--market:#C2731B;--good:#1E7F4F;--warn:#B7791F;--crit:#B3261E;--chip:#EEF1F5;--rng:#8A5A16;--kalshi:#6E8B3D}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--cut:#4FC3C7;--hold:#9AA5B1;--hike:#B892E6;--bg:#0F141A;--panel:#171E27;--ink:#E8EDF2;--ink2:#B7C0CA;--muted:#8391A0;--line:#2A3441;--accent:#7C9BEA;--model:#7C9BEA;--market:#E3A25A;--good:#5CC58C;--warn:#E0B25A;--crit:#EF7B72;--chip:#212B37;--rng:#F0C58C;--kalshi:#A3C46A}}
+:root[data-theme="dark"]{--cut:#4FC3C7;--hold:#9AA5B1;--hike:#B892E6;--bg:#0F141A;--panel:#171E27;--ink:#E8EDF2;--ink2:#B7C0CA;--muted:#8391A0;--line:#2A3441;--accent:#7C9BEA;--model:#7C9BEA;--market:#E3A25A;--good:#5CC58C;--warn:#E0B25A;--crit:#EF7B72;--chip:#212B37;--rng:#F0C58C;--kalshi:#A3C46A}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.55}
 .wrap{max-width:1080px;margin:0 auto;padding:28px 20px 60px}
@@ -135,7 +163,7 @@ h2{font-size:16px;margin:0 0 4px} .sub{color:var(--ink2);font-size:13px;margin:0
 .row{display:grid;grid-template-columns:120px 1fr;gap:10px;align-items:center;padding:7px 0;border-top:1px solid var(--line)} .row:first-of-type{border-top:0}
 .lbl{font-size:13px;color:var(--ink2)} .bars{display:flex;flex-direction:column;gap:4px}
 .bar{position:relative;height:18px;border-radius:3px;background:var(--chip)}
-.bar::before{content:"";position:absolute;left:0;top:0;bottom:0;width:calc(var(--v) * 1%);border-radius:3px;background:var(--model)} .bar.market::before{background:var(--market)}
+.bar::before{content:"";position:absolute;left:0;top:0;bottom:0;width:calc(var(--v) * 1%);border-radius:3px;background:var(--model)} .bar.market::before{background:var(--market)} .bar.kalshi::before{background:var(--kalshi)}
 .bar span{position:absolute;left:calc(var(--v) * 1% + 8px);top:0;line-height:18px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
 .bar .rng{position:absolute;top:7px;height:4px;left:calc(var(--lo) * 1%);width:calc((var(--hi) - var(--lo)) * 1%);background:var(--rng);border-radius:2px;opacity:.9}
 .note{font-size:12.5px;color:var(--ink2);margin:12px 0 0;padding-top:10px;border-top:1px dashed var(--line)}
@@ -336,24 +364,46 @@ def render(d: dict) -> tuple[str, str]:
         (f"인상 ({current + 0.25:.2f}% 이상)", lm["hike"], m["hike_probability"], m["hike_lower_bound"], m["hike_upper_bound"]),
     ]
     un_rows = bucket_rows(un)
+    un_kalshi_bars = kalshi_bars(d.get("un_kalshi"))
+    un_kalshi_legend = (
+        f'<span><i style="background:var(--kalshi)"></i>시장 (Kalshi {esc(d["un_kalshi"]["venue_event_id"])} 사다리, D-019)</span>'
+        if d.get("un_kalshi") else ""
+    )
+    cpi_kalshi_bars = kalshi_bars(d.get("cpi_kalshi"))
+    cpi_kalshi_legend = (
+        f'<span><i style="background:var(--kalshi)"></i>시장 (Kalshi {esc(d["cpi_kalshi"]["venue_event_id"])} 사다리, D-019)</span>'
+        if d.get("cpi_kalshi") else ""
+    )
     t = un["bucket_titles"]
     net = un.get("net_edge_after_fees") or {}
     best_net = max(net.items(), key=lambda kv: kv[1]) if net else None
     cpi = d["cpi"]
     cpi_rows = bucket_rows(cpi) if cpi else []
     ladder_rows = []
-    for ev in sorted(e for e in prices if e.startswith("KXFED-")):
+    for ev in sorted(e for e in prices if prices[e].get("venue") == "kalshi"):
         r = prices[ev]
         c = r["completeness"]
         top = sorted(r["probabilities"].items(), key=lambda kv: -kv[1])[:2]
-        width = c.get("width", c["ask_sum"] - c["bid_sum"])
-        ladder_rows.append((ev, "저유동성" if c.get("low_liquidity") else "정상", f"{width:.2f} / {c.get('width_limit', 0.35):.2f}", " · ".join(f"{k}: {v * 100:.0f}%" for k, v in top)))
-    ladder_html = "\n".join(f'<tr><td>{esc(a)}</td><td>{esc(b)}</td><td class="n">{esc(c)}</td><td>{esc(x)}</td></tr>' for a, b, c, x in ladder_rows) or '<tr><td colspan="4">가격이 매겨진 사다리 없음</td></tr>'
+        if "mean_rung_spread" in c:
+            spread = f"{c['mean_rung_spread']:.3f} / {c['max_rung_spread']:.2f} (한도 {c['mean_rung_limit']:.2f} / {c['max_rung_limit']:.2f})"
+        else:
+            spread = f"폭 {c.get('width', c['ask_sum'] - c['bid_sum']):.2f} (D-018 기록)"
+        ladder_rows.append((ev, r.get("topic", ""), "저유동성" if c.get("low_liquidity") else "정상", spread, " · ".join(f"{k}: {v * 100:.0f}%" for k, v in top)))
+    ladder_html = "\n".join(f'<tr><td>{esc(a)}</td><td>{esc(t)}</td><td>{esc(b)}</td><td class="n">{esc(c)}</td><td>{esc(x)}</td></tr>' for a, t, b, c, x in ladder_rows) or '<tr><td colspan="5">가격이 매겨진 사다리 없음</td></tr>'
     open_items = [r for r in d["findings"] if r[3] in ("open", "partial")]
     open_html = "\n".join(f'<li><span class="sev {sev.lower()}">{sev}</span><code>{i}</code> {esc(summ[:90])}</li>' for i, sev, summ, _ in open_items[:12])
     dec_html = "\n".join(f'<li><code>{a}</code> {esc(b)}</li>' for a, b in d["decisions"][-6:])
     scoring = d["fed_scoring"] or {}
     scored = scoring.get("scored_meetings", 0)
+    def status_table(rows, kalshi):
+        head = "| 구간 | 모델 | 시장 (Polymarket) |" + (" Kalshi |" if kalshi else "")
+        sep = "| --- | ---: | ---: |" + (" ---: |" if kalshi else "")
+        body = "\n".join(
+            f"| {lab} | {pct(mo)} | {pct(ma)} |" + (f" {pct(kalshi[lab][0]) if lab in kalshi else '–'} |" if kalshi else "")
+            for lab, mo, ma, _, _ in rows
+        )
+        return f"{head}\n{sep}\n{body}"
+
     cpi_tile = cpi_panel = cpi_status = ""
     if cpi:
         cpi_mode_model = max(cpi["model"], key=cpi["model"].get)
@@ -365,15 +415,13 @@ def render(d: dict) -> tuple[str, str]:
         cpi_panel = (
             f'<div class="panel"><h2>{esc(cpi["reference_period"])} Core CPI YoY ({esc(cpi["release_at"][:10])} 발표)</h2>'
             f'<p class="sub">Polymarket 관측 {esc(cpi["market_observed_at"][:16].replace("T", " "))} UTC · 최신치 {cpi["latest_rate"]}% · 시장 최빈 {esc(bucket_label(cpi["bucket_titles"][cpi_mode_market]))}, 모델 최빈 {esc(bucket_label(cpi["bucket_titles"][cpi_mode_model]))}</p>'
-            '<div class="legend"><span><i style="background:var(--model)"></i>경험분포 baseline (CPILFENS)</span><span><i style="background:var(--market)"></i>시장 (Polymarket) · 호가 범위</span></div>'
-            f"{bar_rows(cpi_rows)}"
+            f'<div class="legend"><span><i style="background:var(--model)"></i>경험분포 baseline (CPILFENS)</span><span><i style="background:var(--market)"></i>시장 (Polymarket) · 호가 범위</span>{cpi_kalshi_legend}</div>'
+            f"{bar_rows(cpi_rows, cpi_kalshi_bars)}"
             '<p class="note">모델은 "최신 YoY + 1990년 이후 YoY 1개월 변화의 경험분포". 기저효과(12개월 전 지수)를 명시적으로 넣지 않은 무조정 baseline (R35-M1). 채점은 발표 당일 첫 공표치 기준.</p></div>'
         )
-        cpi_table = "\n".join(f"| {lab} | {pct(mo)} | {pct(ma)} |" for lab, mo, ma, _, _ in cpi_rows)
+        cpi_table = status_table(cpi_rows, cpi_kalshi_bars)
         cpi_status = f"""
 ## {cpi["reference_period"]} Core CPI YoY ({cpi["release_at"][:10]} 발표, 최신치 {cpi["latest_rate"]}%)
-| 구간 | 모델 | 시장 |
-| --- | ---: | ---: |
 {cpi_table}
 """
     stamp = fed["as_of"][:16].replace("T", " ")
@@ -400,8 +448,8 @@ def render(d: dict) -> tuple[str, str]:
 {bar_rows(fed_rows)}
 <p class="note">모델 입력: CPI 전년비 {fed["features"]["cpi_yoy_nsa"]:.2f}%, 실업률 {fed["features"]["unemployment_rate"]}%, 3개월 변화 {fed["features"]["unemployment_change_3m"]:+.1f}. 휴리스틱: 인하 {pct(hm["cut"])} / 동결 {pct(hm["hold"])} / 인상 {pct(hm["hike"])} (인상 성분은 백테스트에서 빈도 기준보다 나쁨). 회의 당일 발표: {"있음" if fed.get("same_day_release") else "없음"}.</p></div>
 <div class="panel"><h2>{esc(un["reference_period"])} 실업률 ({esc(un["release_at"][:10])} 발표)</h2><p class="sub">Polymarket 관측 {esc(un["market_observed_at"][:16].replace("T", " "))} UTC · 최신치 {un["latest_rate"]}%</p>
-<div class="legend"><span><i style="background:var(--model)"></i>경험분포 baseline</span><span><i style="background:var(--market)"></i>시장 (Polymarket) · 호가 범위</span></div>
-{bar_rows(un_rows)}
+<div class="legend"><span><i style="background:var(--model)"></i>경험분포 baseline</span><span><i style="background:var(--market)"></i>시장 (Polymarket) · 호가 범위</span>{un_kalshi_legend}</div>
+{bar_rows(un_rows, un_kalshi_bars)}
 <p class="note">모델은 "최신치 + 1990년 이후 1개월 변화의 경험분포". 수수료 차감 후 가장 큰 순 edge: {esc(t[best_net[0]][-14:]) if best_net else "—"} {("%+.1f%%p" % (best_net[1] * 100)) if best_net else ""}.</p></div>
 {cpi_panel}
 </div>
@@ -413,8 +461,8 @@ def render(d: dict) -> tuple[str, str]:
 <div class="gate"><span class="pill no">미충족</span><div><b>시장 대비 표본외 skill (D-007)</b><small>채점된 회의 {scored}건. 같은 날 발표·저유동성 회의는 따로 집계(D-017, D-018)</small></div></div>
 <div class="gate"><span class="pill wait">대기</span><div><b>사용자 결정 (D-012)</b><small>skill이 양수여도 신호 표시는 별도 결정으로만 켜짐</small></div></div>
 </div></section>
-<section class="panel"><h2>Kalshi FOMC 사다리 (만기별)</h2><p class="sub">폭 = Σask − Σbid. 상한은 만기까지 개월 수에 따라 0.35~0.60 (D-018). 폭 초과 이벤트는 표에 없음.</p>
-<div class="tablewrap"><table><tr><th>이벤트</th><th>상태</th><th class="n">폭 / 상한</th><th>상위 구간</th></tr>{ladder_html}</table></div></section>
+<section class="panel"><h2>Kalshi 사다리 (만기별)</h2><p class="sub">유동성은 rung 스프레드로 판정 (D-019): 평균 ≤ 0.05, 최대 ≤ 0.12, 결과까지 2개월 초과 시 개월당 +0.01. 한도를 넘은 이벤트는 표에 없음.</p>
+<div class="tablewrap"><table><tr><th>이벤트</th><th>주제</th><th>상태</th><th class="n">rung 스프레드 평균 / 최대</th><th>상위 구간</th></tr>{ladder_html}</table></div></section>
 {rate_path_section(prices, current)}
 {trajectory_section(d["fed_files"], d["price_files"], fed["event_ticker"], fed["meeting_date"])}
 {calendar_section(fed["as_of"][:10])}
@@ -433,7 +481,15 @@ def render(d: dict) -> tuple[str, str]:
 <section class="panel"><h2>최근 결정</h2><ul class="items">{dec_html}</ul></section>
 </div>
 </div></body></html>"""
-    un_table = "\n".join(f"| {lab} | {pct(mo)} | {pct(ma)} |" for lab, mo, ma, _, _ in un_rows)
+    un_table = status_table(un_rows, un_kalshi_bars)
+    hcpi = d.get("hcpi_kalshi")
+    hcpi_status = ""
+    if hcpi:
+        hrows = bucket_rows(hcpi)
+        hcpi_status = (
+            f"\n## {hcpi['reference_period']} 헤드라인 CPI YoY (Kalshi {hcpi['venue_event_id']}, {hcpi['release_at'][:10]} 발표, 최신치 {hcpi['latest_rate']}%)\n"
+            + status_table(hrows, {}).replace("시장 (Polymarket)", "시장 (Kalshi)") + "\n"
+        )
     status = f"""# STATUS (자동 생성, scripts/build_dashboard.py)
 
 기준: main {d["commit"]}, 데이터 {stamp} UTC. 대시보드: docs/dashboard/index.html
@@ -451,10 +507,8 @@ def render(d: dict) -> tuple[str, str]:
 모델 입력(vintage {fed["features"]["vintage_date"]}): CPI YoY {fed["features"]["cpi_yoy_nsa"]:.2f}%, 실업률 {fed["features"]["unemployment_rate"]}%, 3개월 변화 {fed["features"]["unemployment_change_3m"]:+.1f}. `signal_eligible=false`.
 
 ## {un["reference_period"]} 실업률 ({un["release_at"][:10]} 발표, 최신치 {un["latest_rate"]}%)
-| 구간 | 모델 | 시장 |
-| --- | ---: | ---: |
 {un_table}
-{cpi_status}
+{cpi_status}{hcpi_status}
 ## 게이트
 - 규칙·출처·일정 검증: 통과 (D-014)
 - 가격 정규화: 통과 (D-015, D-018)

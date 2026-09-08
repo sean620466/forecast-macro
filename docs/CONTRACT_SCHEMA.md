@@ -35,6 +35,11 @@
 
 ## 누적 임계값 사다리 (Kalshi, 과제 12)
 
+유동성 게이트(D-019, 과제 40): 폭이 아니라 rung 스프레드로 판정한다. 평균 rung 스프레드 ≤ 0.05, 최대 ≤ 0.12,
+결과까지 2개월을 넘으면 개월당 +0.01(상한 0.10 / 0.20). 기록의 `completeness`에 `mean_rung_spread`, `max_rung_spread`,
+`mean_rung_limit`, `max_rung_limit`, `width`(정보용), `low_liquidity`(평균 > 0.05)가 남는다. 0.1 간격 사다리(실업률·CPI)의
+배타 구간 키는 `le_4.00`(≤4.0), `4.10`(=4.1), …, `gt_5.20`(≥5.3)이고 `unemployment_comparison.ladder_buckets`가 해석한다.
+
 Kalshi 금리 계약은 "상단이 F%를 초과하는가"의 YES 시장이 0.25%p 간격으로 나열된다. 이는 상호배타 구간이 아니라 누적분포다.
 `normalize_threshold_ladder`가 연속성(0.25 간격, 빈 rung 없음)과 단조성(높은 F의 YES가 낮은 F보다 높지 않음, 허용 0.02)을
 검사한 뒤 인접 rung 차이로 배타 구간 확률과 `[bid, ask]` 범위를 만든다. 구간 라벨은 `le_2.75`, `3.00`, …, `5.25`, `gt_5.25`

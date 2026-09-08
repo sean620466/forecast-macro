@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from forecast_macro.fees import schedule_for
-from forecast_macro.market_review import _bucket
+from forecast_macro.market_review import _bucket, ladder_step_for
 from forecast_macro.models.unemployment import (
     MODEL_VERSION,
     MonthlyRate,
@@ -47,6 +47,7 @@ class UnemploymentComparisonRecord:
     signal_eligible: bool = False
     signal_eligible_reason: str = "no out-of-sample skill against market prices (D-007)"
     topic: str = "unemployment"
+    contract_series: str | None = None
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -70,8 +71,58 @@ def next_employment_release(
     return next_release(schedule, as_of=as_of, series="employment_situation")
 
 
+def is_ladder_keys(keys: Sequence[str]) -> bool:
+    """Exclusive-bucket keys derived from a threshold ladder: le_X, X..., gt_X (contracts.py)."""
+    return any(str(k).startswith("le_") for k in keys) and any(str(k).startswith("gt_") for k in keys)
+
+
+def ladder_buckets(keys: Sequence[str], *, step: float) -> list[RateBucket]:
+    """Bucket definitions for ladder keys.
+
+    A Kalshi rung "above F" pays when the published rate exceeds F; on a tenth-point grid
+    that is rate >= F + step. So `le_F` is the lower tail (<= F), a plain key `V` is the
+    exact published value V, and `gt_F` is the upper tail (>= F + step).
+    """
+    buckets: list[RateBucket] = []
+    for key in keys:
+        text = str(key)
+        if text.startswith("le_"):
+            buckets.append(RateBucket(key=text, kind="lower", value=_tenth_value(float(text[3:]))))
+        elif text.startswith("gt_"):
+            buckets.append(RateBucket(key=text, kind="upper", value=_tenth_value(float(text[3:]) + step)))
+        else:
+            buckets.append(RateBucket(key=text, kind="exact", value=_tenth_value(float(text))))
+    return buckets
+
+
+def _tenth_value(value: float) -> float:
+    return round(value, 1)
+
+
+def ladder_bucket_titles(keys: Sequence[str], *, step: float, subject: str) -> dict[str, str]:
+    """Human titles for ladder buckets in the same "will be ≤X%" form as Polymarket titles."""
+    titles: dict[str, str] = {}
+    for bucket in ladder_buckets(keys, step=step):
+        if bucket.kind == "lower":
+            titles[bucket.key] = f"{subject} will be ≤{bucket.value:.1f}%"
+        elif bucket.kind == "upper":
+            titles[bucket.key] = f"{subject} will be ≥{bucket.value:.1f}%"
+        else:
+            titles[bucket.key] = f"{subject} will be {bucket.value:.1f}%"
+    return titles
+
+
 def buckets_from_record(record: Mapping[str, Any]) -> list[RateBucket]:
-    """Bucket definitions from the priced record's contract titles, keyed by market id."""
+    """Bucket definitions from a priced record.
+
+    Polymarket events: one YES/NO contract per bucket, parsed from the contract titles and
+    keyed by market id. Kalshi ladders: keys of the derived exclusive buckets (`probabilities`
+    when present, otherwise the `contracts` mapping of a comparison record, whose keys are the
+    same bucket keys).
+    """
+    keys = list((record.get("probabilities") or record.get("contracts") or {}).keys())
+    if is_ladder_keys(keys):
+        return ladder_buckets(keys, step=ladder_step_for(str(record.get("topic", "unemployment"))))
     buckets: list[RateBucket] = []
     for market_id, title in record.get("contracts", {}).items():
         parsed = _bucket(str(title))
@@ -83,17 +134,28 @@ def buckets_from_record(record: Mapping[str, Any]) -> list[RateBucket]:
 
 
 def latest_bucket_record(
-    snapshot_dir: Path, *, release_at: datetime, topic: str
+    snapshot_dir: Path,
+    *,
+    release_at: datetime,
+    topic: str,
+    venue: str = "polymarket",
+    contract_series: str | None = None,
 ) -> tuple[Mapping[str, Any], str] | None:
-    """Newest priced Polymarket bucket record of `topic` that settles on the given release."""
+    """Newest priced record of `topic` on `venue` that settles on the given release.
+
+    `contract_series` (e.g. core_cpi_yoy_nsa) filters records that carry the series the
+    verified rules identified; records without the field are accepted only when no series
+    filter is given (pre-task-40 Polymarket snapshots).
+    """
     for path in sorted(snapshot_dir.glob("market_prices_*.json"), reverse=True):
         for record in json.loads(path.read_text(encoding="utf-8")):
             if (
-                record.get("venue") == "polymarket"
+                record.get("venue") == venue
                 and record.get("topic") == topic
                 and record.get("probabilities")
                 and record.get("outcome_at")
                 and datetime.fromisoformat(str(record["outcome_at"])) == release_at
+                and (contract_series is None or record.get("contract_series") == contract_series)
             ):
                 return record, path.name
     return None
@@ -122,6 +184,12 @@ def build_unemployment_comparison(
     latest = rows[-1]
     distribution = monthly_change_distribution(rows)
     buckets = buckets_from_record(record)
+    keys = list(record["probabilities"].keys())
+    if is_ladder_keys(keys):
+        step = ladder_step_for(str(record.get("topic", topic)))
+        titles = ladder_bucket_titles(keys, step=step, subject=f"{record.get('venue_event_id', '')} ladder bucket")
+    else:
+        titles = {str(k): str(v) for k, v in record.get("contracts", {}).items()}
     model = {p.outcome: p.probability for p in next_month_bucket_probabilities(latest.value, distribution, buckets)}
     market = {key: float(value) for key, value in record["probabilities"].items()}
     bounds = {key: [float(lo), float(hi)] for key, (lo, hi) in record.get("probability_bounds", {}).items()}
@@ -156,6 +224,7 @@ def build_unemployment_comparison(
         fee_schedule_id=fee_id,
         market_observed_at=str(record.get("observed_at", "")),
         market_source_file=source_file,
-        bucket_titles={str(k): str(v) for k, v in record.get("contracts", {}).items()},
+        bucket_titles=titles,
         topic=topic,
+        contract_series=record.get("contract_series"),
     )

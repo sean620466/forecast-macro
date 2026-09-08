@@ -1,5 +1,7 @@
 # 과제 37 — 0.1%p 간격 사다리의 폭 게이트 (제안 D-019)
 
+> 2026-09-08 사용자 승인("D-019 제안대로 해"). 구현은 과제 40(`tests/test_review_40.py`, `price_snapshots.ladder_spread_limits`).
+
 ## 배경
 
 과제 36에서 Kalshi 실업률(KXU3, 14단), 헤드라인 CPI 전년비(KXCPIYOY, 21~26단), Core CPI 전년비(KXCPICOREYOY, 15~16단) 사다리

@@ -18,7 +18,9 @@ def first_published_rates(client: AlfredClient, records) -> dict[str, float]:
     """UNRATE for each reference month as it stood on its release date (ALFRED vintage)."""
     realized: dict[str, float] = {}
     now = datetime.now(UTC)
-    for period, record in final_record_per_release(records).items():
+    for (period, _venue), record in final_record_per_release(records).items():
+        if period in realized:
+            continue
         release_at = datetime.fromisoformat(str(record["release_at"]))
         if release_at > now:
             continue

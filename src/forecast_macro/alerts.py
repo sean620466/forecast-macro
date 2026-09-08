@@ -31,6 +31,7 @@ TOPICS: dict[str, TopicSpec] = {
     "fed": TopicSpec("fed", "FOMC 금리 결정", "meeting_date", "scored_meetings"),
     "unemployment": TopicSpec("unemployment", "실업률 발표", "reference_period", "scored_releases"),
     "core_cpi": TopicSpec("core_cpi", "Core CPI YoY 발표", "reference_period", "scored_releases"),
+    "headline_cpi": TopicSpec("headline_cpi", "헤드라인 CPI YoY 발표", "reference_period", "scored_releases"),
 }
 
 
@@ -46,8 +47,11 @@ def new_scored_records(
     previous: Mapping[str, Any] | None, current: Mapping[str, Any], record_key: str
 ) -> list[Mapping[str, Any]]:
     """Records present in `current` whose key was not scored in `previous`."""
-    seen = {str(row[record_key]) for row in (previous or {}).get("records", [])}
-    return [row for row in current.get("records", []) if str(row[record_key]) not in seen]
+    def key(row: Mapping[str, Any]) -> tuple[str, str]:
+        return (str(row[record_key]), str(row.get("venue", "")))
+
+    seen = {key(row) for row in (previous or {}).get("records", [])}
+    return [row for row in current.get("records", []) if key(row) not in seen]
 
 
 def _pct(value: Any) -> str:
@@ -80,9 +84,10 @@ def _fed_record_lines(row: Mapping[str, Any]) -> list[str]:
 
 
 def _bucket_record_lines(row: Mapping[str, Any]) -> list[str]:
+    venue = f" · {row['venue']}" if row.get("venue") else ""
     return [
         (
-            f"- 기준월 {row['reference_period']} (발표 {row.get('release_at')}): 실제 **{row.get('realized_rate')}** "
+            f"- 기준월 {row['reference_period']}{venue} (발표 {row.get('release_at')}): 실제 **{row.get('realized_rate')}** "
             f"→ 구간 `{row.get('realized_bucket')}`"
         ),
         (
@@ -128,7 +133,7 @@ def scoring_alert(
     rows = new_scored_records(previous, current, spec.record_key)
     if not rows:
         return None
-    keys = ", ".join(str(row[spec.record_key]) for row in rows)
+    keys = ", ".join(sorted({str(row[spec.record_key]) for row in rows}))
     title = f"[채점] {spec.label} {keys}: 모델 vs 시장 결과"
     body_lines = [
         f"## {spec.label} — 새로 채점된 {len(rows)}건",

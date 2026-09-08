@@ -12,10 +12,11 @@
 
 | 파이프라인 | 주기 | 산출물 |
 | --- | --- | --- |
-| 시장 탐색 → 규칙·일정 검증 → 가격 스냅샷 | 6시간 | `data/generated/market_prices/*.json` (Kalshi Fed 사다리, Polymarket 실업률 구간) |
+| 시장 탐색 → 규칙·일정 검증 → 가격 스냅샷 | 6시간 | `data/generated/market_prices/*.json` (Kalshi Fed·실업률·CPI 사다리, Polymarket 실업률·Core CPI 구간) |
 | Fed 모델(cut/hold/hike) vs 시장 | 평일 09:40 ET | `data/generated/fed_market_comparisons/`, `fed_market_scoring.json` |
 | 실업률 baseline vs 시장 | 평일 09:40 ET | `data/generated/unemployment_market_comparisons/`, `unemployment_market_scoring.json` |
-| Core CPI YoY baseline vs 시장 | 평일 09:40 ET | `data/generated/core_cpi_market_comparisons/`, `core_cpi_market_scoring.json` |
+| Core CPI YoY baseline vs 시장 | 평일 09:40 ET | `data/generated/core_cpi_market_comparisons/`, `core_cpi_market_scoring.json` (Polymarket + Kalshi, 장소별 파일) |
+| 헤드라인 CPI YoY baseline vs 시장 (Kalshi) | 평일 09:40 ET | `data/generated/headline_cpi_market_comparisons/`, `headline_cpi_market_scoring.json` |
 | 시점별 특징 스냅샷(ALFRED) | 수동/변경 시 | `data/generated/fomc_feature_snapshots_2015_2026.json` (94회의; 2019–2026 파일은 회귀 테스트 고정값) |
 | 알림 | 워크플로 완료 시 / 채점 직후 | GitHub 이슈: `workflow-failure`(실패 시 열고 재성공 시 자동 닫힘), `scoring`(결과가 확정되어 채점된 회의·발표마다 1건) |
 
@@ -25,7 +26,7 @@
 
 - 계약 규칙: 공식 기관 호스트(BLS·연준·BEA)만 출처로 인정, 시리즈 정체성(Core/headline, YoY/MoM, SA/NSA) 명시 근거 필요
 - 결과 확정 시각: 거래소 값이 아니라 공식 발표 일정(`data/release_schedule.csv`)에서 생성(D-014)
-- 가격: 구간 시장은 `Σbid ≤ 1 ≤ Σask`·폭 ≤ 0.35(D-015), 사다리는 연속성·호가 범위 단조성·폭 게이트
+- 가격: 구간 시장은 `Σbid ≤ 1 ≤ Σask`·폭 ≤ 0.35(D-015), 사다리는 연속성·호가 범위 단조성·rung 스프레드 게이트(D-019: 평균 ≤ 0.05, 최대 ≤ 0.12)
 - 모델: ZLB에서 인하 확률 고정(D-011), 비-ZLB 30건 미만이면 연구 게이트도 통과 불가(D-013)
 
 ## Quick start
@@ -50,7 +51,7 @@ python scripts/run_fed_model_comparison.py --meetings data/fomc_meetings_2015_20
 
 ## Repository map
 
-- `DECISIONS.md` — 확정된 결정 D-001~D-018
+- `DECISIONS.md` — 확정된 결정 D-001~D-019
 - `reviews/FINDINGS.md` — 모든 검토 발견사항과 상태 (open/partial/fixed)
 - `reviews/` — 검토 보고서, 응답, `tasks/`
 - `docs/COLLABORATION.md` — 운영 규칙(현재 Claude 단독, CI 초록이면 직접 병합)
@@ -59,7 +60,7 @@ python scripts/run_fed_model_comparison.py --meetings data/fomc_meetings_2015_20
 - `src/forecast_macro/models/` — `fed.py`(휴리스틱 3원), `logistic.py`, `unemployment.py`, `cpi.py`
 - `src/forecast_macro/market_*.py`, `official_sources.py`, `release_schedule.py` — 시장 게이트
 - `src/forecast_macro/live_comparison.py`, `unemployment_comparison.py`, `*_scoring.py` — D-007 루프
-- `tests/` — 196개, 체크인된 JSON 재현 회귀 테스트 포함
+- `tests/` — 205개, 체크인된 JSON 재현 회귀 테스트 포함
 
 ## 현재 판정
 

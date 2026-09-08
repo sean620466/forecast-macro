@@ -181,9 +181,12 @@ def normalize_threshold_ladder(
     *,
     step: float = 0.25,
     monotonic_tolerance: float = 0.02,
-    max_width: float = 0.35,
+    max_width: float | None = 0.35,
 ) -> BucketProbabilities:
     """Turn a cumulative "greater than F" ladder into exclusive buckets with bounds.
+
+    `max_width=None` skips the whole-ladder width gate: under D-019 ladder liquidity is judged
+    per rung by the caller, because the exclusive-bucket width grows with the rung count.
 
     Kalshi rate markets quote YES = P(upper bound > F) for a grid of floors F. With floors
     F1 < F2 < ... < Fn on a fixed step, the exclusive outcomes are "<= F1", "== F1+step",
@@ -193,7 +196,7 @@ def normalize_threshold_ladder(
     """
     if len(ladder) < 2:
         raise ValueError("a threshold ladder needs at least two rungs")
-    if step <= 0 or monotonic_tolerance < 0 or max_width <= 0:
+    if step <= 0 or monotonic_tolerance < 0 or (max_width is not None and max_width <= 0):
         raise ValueError("step, tolerance and width must be positive")
     floors = sorted(ladder)
     for lower, upper in pairwise(floors):
@@ -238,7 +241,7 @@ def normalize_threshold_ladder(
         probabilities = {key: value / total for key, value in probabilities.items()}
     bid_sum = sum(lower_bounds.values())
     ask_sum = sum(upper_bounds.values())
-    if ask_sum - bid_sum > max_width:
+    if max_width is not None and ask_sum - bid_sum > max_width:
         raise ValueError("ladder quotes are too wide to price the event")
     return BucketProbabilities(
         probabilities=probabilities,

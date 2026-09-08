@@ -14,6 +14,23 @@ from forecast_macro.transforms import percent_change
 MODEL_VERSION = "core-cpi-yoy-empirical-change-0.1-uncalibrated"
 SERIES_ID = "CPILFENS"
 
+# Headline CPI-U (all items, NSA) on the same machinery; Kalshi KXCPIYOY settles on its YoY.
+HEADLINE_MODEL_VERSION = "headline-cpi-yoy-empirical-change-0.1-uncalibrated"
+HEADLINE_SERIES_ID = "CPIAUCNS"
+
+# Per measure: (FRED level series, model version, contract series named by the rules check,
+# comparison directory, file prefix).
+CPI_MEASURES: dict[str, tuple[str, str, str, str, str]] = {
+    "core": (SERIES_ID, MODEL_VERSION, "core_cpi_yoy_nsa", "core_cpi_market_comparisons", "core_cpi_comparison"),
+    "headline": (
+        HEADLINE_SERIES_ID,
+        HEADLINE_MODEL_VERSION,
+        "headline_cpi_yoy_nsa",
+        "headline_cpi_market_comparisons",
+        "headline_cpi_comparison",
+    ),
+}
+
 
 def core_cpi_yoy_history(levels: Sequence[MonthlyRate]) -> list[MonthlyRate]:
     """Published-style YoY (%) for every month with a level exactly twelve months earlier."""

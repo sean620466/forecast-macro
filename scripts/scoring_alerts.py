@@ -12,6 +12,7 @@ SCORING_FILES = {
     "fed": Path("data/generated/fed_market_scoring.json"),
     "unemployment": Path("data/generated/unemployment_market_scoring.json"),
     "core_cpi": Path("data/generated/core_cpi_market_scoring.json"),
+    "headline_cpi": Path("data/generated/headline_cpi_market_scoring.json"),
 }
 
 

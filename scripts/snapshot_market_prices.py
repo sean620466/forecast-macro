@@ -44,6 +44,7 @@ def main() -> None:
         market_id: (item.get("close_time") or {}).get("outcome_at")
         for market_id, item in evidence.items()
     }
+    series_by_market = {market_id: item.get("contract_series") for market_id, item in evidence.items()}
 
     events = approved_events(candidates, review["reviews"])
     client = PolymarketPublicClient()
@@ -55,6 +56,8 @@ def main() -> None:
             None,
         )
         outcome_at = datetime.fromisoformat(outcome_raw) if outcome_raw else None
+        series_set = {series_by_market.get(m.venue_market_id) for m in members}
+        contract_series = next(iter(series_set)) if len(series_set) == 1 else None
         if venue == "kalshi" and is_ladder_event(members):
             try:
                 markets, observed_at = kalshi.event_markets(event_id)
@@ -75,7 +78,13 @@ def main() -> None:
                 continue
             records.append(
                 price_ladder_event(
-                    members, reviews_by_market, quotes, rules_hashes, as_of=observed_at, outcome_at=outcome_at
+                    members,
+                    reviews_by_market,
+                    quotes,
+                    rules_hashes,
+                    as_of=observed_at,
+                    outcome_at=outcome_at,
+                    contract_series=contract_series,
                 ).to_dict()
             )
             continue
@@ -113,6 +122,7 @@ def main() -> None:
             as_of=observed_at,
             outcome_at=outcome_at,
             book_updated_at=updated,
+            contract_series=contract_series,
         )
         records.append(record.to_dict())
 

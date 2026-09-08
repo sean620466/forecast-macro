@@ -41,6 +41,9 @@ class EventPriceRecord:
     signal_eligible: bool = False
     # Two-leg taker fees per derived bucket (ladders only), in probability units (R19-M2).
     bucket_fees: dict[str, float] | None = None
+    # Statistic the contracts settle on, as identified from the verified rules (task 40); lets
+    # the comparison scripts tell core from headline CPI ladders on the same topic.
+    contract_series: str | None = None
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -110,6 +113,7 @@ def price_event(
     as_of: datetime,
     outcome_at: datetime | None,
     book_updated_at: Mapping[str, datetime] | None = None,
+    contract_series: str | None = None,
 ) -> EventPriceRecord:
     venue = members[0].venue
     event_id = members[0].venue_event_id or ""
@@ -146,6 +150,7 @@ def price_event(
             m.venue_market_id: rules_text_hashes.get(m.venue_market_id, "") for m in members
         },
         "book_updated_at": updated,
+        "contract_series": contract_series,
     }
     try:
         snapshot = build_event_price_snapshot(
@@ -177,14 +182,39 @@ def price_event(
     )
 
 
-def ladder_width_limit(as_of: datetime, outcome_at: datetime | None) -> float:
-    """D-018: 0.35 up to two months out, +0.05 per further month, capped at 0.60."""
-    if outcome_at is None:
-        return 0.35
+def _months_ahead(as_of: datetime, outcome_at: datetime) -> int:
     months = (outcome_at.year - as_of.year) * 12 + (outcome_at.month - as_of.month)
     if outcome_at.day < as_of.day:
         months -= 1
-    return min(0.60, 0.35 + 0.05 * max(0, months - 2))
+    return months
+
+
+def ladder_width_limit(as_of: datetime, outcome_at: datetime | None) -> float:
+    """D-018: 0.35 up to two months out, +0.05 per further month, capped at 0.60.
+
+    Recorded for information since D-019; the gate itself is `ladder_spread_limits`.
+    """
+    if outcome_at is None:
+        return 0.35
+    return min(0.60, 0.35 + 0.05 * max(0, _months_ahead(as_of, outcome_at) - 2))
+
+
+# D-019 base limits: the mean rung spread that flags low liquidity, and the widest single rung.
+MEAN_RUNG_SPREAD_LIMIT = 0.05
+MAX_RUNG_SPREAD_LIMIT = 0.12
+
+
+def ladder_spread_limits(as_of: datetime, outcome_at: datetime | None) -> tuple[float, float]:
+    """D-019: (mean rung spread limit, max rung spread limit), relaxed +0.01 per month beyond two.
+
+    Caps are 0.10 and 0.20. The gate is per rung because the exclusive-bucket width of a
+    ladder is roughly twice the sum of rung spreads, so the D-015/D-018 width gate measured
+    the rung count rather than the quotes (task 37).
+    """
+    extra = 0.0
+    if outcome_at is not None:
+        extra = 0.01 * max(0, _months_ahead(as_of, outcome_at) - 2)
+    return min(0.10, MEAN_RUNG_SPREAD_LIMIT + extra), min(0.20, MAX_RUNG_SPREAD_LIMIT + extra)
 
 
 def is_ladder_event(members: Sequence[MarketCandidate]) -> bool:
@@ -201,12 +231,14 @@ def price_ladder_event(
     outcome_at: datetime | None,
     wide_spread: float = 0.10,
     max_age_seconds: float = 120.0,
+    contract_series: str | None = None,
 ) -> EventPriceRecord:
     """Price a cumulative threshold ladder (Kalshi "greater than F") as exclusive buckets.
 
-    A single wide rung does not veto the event: far-dated ladders quote their tail rungs at
-    0.89/1.00 while the active rungs are tight. Wide rungs are listed in the record and the
-    D-015 width gate on the whole ladder (sum of asks minus sum of bids) decides (task 20).
+    Liquidity is judged per rung (D-019): the mean and the widest bid-ask spread across the
+    rungs must stay under `ladder_spread_limits`. Wide rungs are listed in the record; the
+    exclusive-bucket width (sum of asks minus sum of bids) is recorded but no longer gates,
+    because it grows with the number of rungs rather than with the quotes.
     """
     venue = members[0].venue
     event_id = members[0].venue_event_id or ""
@@ -254,6 +286,7 @@ def price_ladder_event(
             m.venue_market_id: rules_text_hashes.get(m.venue_market_id, "") for m in members
         },
         "book_updated_at": {"wide_rungs": wide_rungs} if wide_rungs else {},
+        "contract_series": contract_series,
     }
     if problems:
         return EventPriceRecord(
@@ -264,11 +297,32 @@ def price_ladder_event(
             source_mid_prices={},
             rejected_reason="; ".join(problems),
         )
-    # D-018: far-dated ladders may be wider; the record says so.
+    # D-019: per-rung liquidity gate, relaxed with horizon like D-018 was.
+    spreads = [ask - bid for bid, ask in ladder.values()]
+    mean_spread = sum(spreads) / len(spreads)
+    max_spread = max(spreads)
+    mean_limit, max_limit = ladder_spread_limits(as_of, outcome_at)
     width_limit = ladder_width_limit(as_of, outcome_at)
+    if mean_spread > mean_limit + 1e-12 or max_spread > max_limit + 1e-12:
+        return EventPriceRecord(
+            **base,
+            probabilities={},
+            probability_bounds={},
+            completeness={
+                "mean_rung_spread": mean_spread,
+                "max_rung_spread": max_spread,
+                "mean_rung_limit": mean_limit,
+                "max_rung_limit": max_limit,
+            },
+            source_mid_prices={},
+            rejected_reason=(
+                f"ladder rung spreads too wide (mean {mean_spread:.3f} > {mean_limit:.2f} or "
+                f"max {max_spread:.3f} > {max_limit:.2f}, D-019)"
+            ),
+        )
     step = ladder_step_for(members[0].topic.value)
     try:
-        normalized = normalize_threshold_ladder(ladder, step=step, max_width=width_limit)
+        normalized = normalize_threshold_ladder(ladder, step=step, max_width=None)
     except ValueError as error:
         return EventPriceRecord(
             **base,
@@ -299,7 +353,12 @@ def price_ladder_event(
         "wide_rung_count": float(len(wide_rungs)),
         "width": width,
         "width_limit": width_limit,
-        "low_liquidity": 1.0 if width > 0.35 else 0.0,
+        "mean_rung_spread": mean_spread,
+        "max_rung_spread": max_spread,
+        "mean_rung_limit": mean_limit,
+        "max_rung_limit": max_limit,
+        # D-019: low liquidity means the mean rung spread exceeds the base limit.
+        "low_liquidity": 1.0 if mean_spread > MEAN_RUNG_SPREAD_LIMIT + 1e-12 else 0.0,
     }
     return EventPriceRecord(
         **base,

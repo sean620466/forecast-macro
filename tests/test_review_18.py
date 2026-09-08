@@ -39,7 +39,9 @@ def test_last_pre_release_record_is_used() -> None:
         _record("2026-10-02T13:00:00+00:00", MODEL, MARKET),  # after 08:30 ET release
     ]
     chosen = final_record_per_release(records)
-    assert chosen["2026-09"]["as_of"] == "2026-10-01T13:40:00+00:00"
+    # Keyed by (reference period, venue) since task 40: each venue is its own baseline.
+    assert [period for period, _venue in chosen] == ["2026-09"]
+    assert next(iter(chosen.values()))["as_of"] == "2026-10-01T13:40:00+00:00"
 
 
 def test_scores_use_first_published_rounded_rate() -> None:

@@ -22,6 +22,7 @@ class ScoredUnemploymentRelease:
     market_brier: float
     model_probability_of_realized: float
     market_probability_of_realized: float
+    venue: str = ""
 
 
 @dataclass(frozen=True)
@@ -42,9 +43,13 @@ class UnemploymentScorecard:
 
 def final_record_per_release(
     records: Sequence[Mapping[str, Any]],
-) -> dict[str, Mapping[str, Any]]:
-    """Last comparison recorded before each release time, keyed by reference period."""
-    chosen: dict[str, Mapping[str, Any]] = {}
+) -> dict[tuple[str, str], Mapping[str, Any]]:
+    """Last comparison recorded before each release time, keyed by (reference period, venue).
+
+    Each venue is scored on its own: Polymarket buckets and a Kalshi ladder for the same
+    release are two market baselines, not one.
+    """
+    chosen: dict[tuple[str, str], Mapping[str, Any]] = {}
     for record in records:
         release_at = datetime.fromisoformat(str(record["release_at"]))
         as_of = datetime.fromisoformat(str(record["as_of"]))
@@ -52,10 +57,10 @@ def final_record_per_release(
             raise ValueError("timestamps must be timezone-aware")
         if as_of >= release_at:
             continue
-        period = str(record["reference_period"])
-        current = chosen.get(period)
+        key = (str(record["reference_period"]), str(record.get("venue", "")))
+        current = chosen.get(key)
         if current is None or as_of > datetime.fromisoformat(str(current["as_of"])):
-            chosen[period] = record
+            chosen[key] = record
     return chosen
 
 
@@ -82,11 +87,11 @@ def score_unemployment_comparisons(
     tenth. Contracts settle on that figure, so later revisions must not be used.
     """
     scored: list[ScoredUnemploymentRelease] = []
-    for period, record in sorted(final_record_per_release(records).items()):
+    for (period, venue), record in sorted(final_record_per_release(records).items()):
         if period not in realized:
             continue
         rate = _tenth(realized[period])
-        buckets = buckets_from_record({"contracts": record["bucket_titles"]})
+        buckets = buckets_from_record({"contracts": record["bucket_titles"], "topic": record.get("topic", "unemployment")})
         key = _bucket_for(rate, buckets)
         scored.append(
             ScoredUnemploymentRelease(
@@ -99,6 +104,7 @@ def score_unemployment_comparisons(
                 market_brier=_multiclass_brier(record["market"], key),
                 model_probability_of_realized=float(record["model"][key]),
                 market_probability_of_realized=float(record["market"][key]),
+                venue=venue,
             )
         )
     model = sum(s.model_brier for s in scored) / len(scored) if scored else None

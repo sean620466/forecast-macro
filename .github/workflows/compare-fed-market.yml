@@ -20,6 +20,7 @@ on:
       - "scripts/compare_core_cpi_market.py"
       - "scripts/score_core_cpi_comparisons.py"
       - "src/forecast_macro/models/core_cpi.py"
+      - "src/forecast_macro/unemployment_scoring.py"
       - "src/forecast_macro/live_comparison.py"
       - "src/forecast_macro/snapshots.py"
       - "src/forecast_macro/data/alfred.py"
@@ -56,12 +57,20 @@ jobs:
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: python scripts/compare_core_cpi_market.py
+      - name: Record headline CPI YoY bucket baseline vs market (Kalshi KXCPIYOY)
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: python scripts/compare_core_cpi_market.py --measure headline
       - name: Score past comparisons against realized decisions (D-007)
         run: python scripts/score_fed_comparisons.py
       - name: Score Core CPI comparisons against first-published YoY
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: python scripts/score_core_cpi_comparisons.py
+      - name: Score headline CPI comparisons against first-published YoY
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: python scripts/score_core_cpi_comparisons.py --measure headline
       - name: Score unemployment comparisons against first-published rates
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
@@ -89,6 +98,7 @@ jobs:
           for path in data/generated/fed_market_comparisons data/generated/fed_market_scoring.json \
                       data/generated/unemployment_market_comparisons data/generated/unemployment_market_scoring.json \
                       data/generated/core_cpi_market_comparisons data/generated/core_cpi_market_scoring.json \
+                      data/generated/headline_cpi_market_comparisons data/generated/headline_cpi_market_scoring.json \
                       docs/dashboard/index.html STATUS.md; do
             [ -e "$path" ] && git add "$path"
           done
