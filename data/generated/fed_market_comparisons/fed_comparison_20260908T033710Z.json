@@ -1,0 +1,65 @@
+{
+  "as_of": "2026-09-08T03:37:10.674690+00:00",
+  "meeting_date": "2026-09-16",
+  "event_ticker": "KXFED-26SEP",
+  "features": {
+    "meeting_date": "2026-09-16",
+    "vintage_date": "2026-09-07",
+    "cpi_yoy_nsa": 3.364825041479902,
+    "unemployment_rate": 4.1,
+    "unemployment_change_3m": -0.20000000000000018,
+    "policy_rate_upper": 3.75,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    },
+    "data_gaps": {
+      "CPIAUCNS": [
+        "2025-10"
+      ]
+    }
+  },
+  "model_version": "fed-live-0.2-three-way-uncalibrated",
+  "heuristic_cut": 0.15665336898298818,
+  "logistic_cut": 0.15420821767194,
+  "logistic_training_meetings": 60,
+  "market": {
+    "probability": 0.0050000000000000044,
+    "lower_bound": 0.0,
+    "upper_bound": 0.040000000000000036,
+    "hold_probability": 0.47,
+    "hike_probability": 0.525,
+    "current_upper": 3.75,
+    "observed_at": "2026-09-08T02:44:38.906531+00:00",
+    "source_file": "market_prices_20260908T024439Z.json",
+    "hold_lower_bound": 0.45999999999999996,
+    "hold_upper_bound": 0.48,
+    "hike_lower_bound": 0.5,
+    "hike_upper_bound": 0.5900000000000001
+  },
+  "heuristic_edge": 0.15165336898298817,
+  "logistic_edge": 0.14920821767194,
+  "heuristic_three_way": {
+    "cut": 0.15665336898298818,
+    "hold": 0.2829560282184863,
+    "hike": 0.5603906027985255
+  },
+  "logistic_three_way": {
+    "cut": 0.15420821767194,
+    "hold": 0.7752592123053491,
+    "hike": 0.07053257002271088
+  },
+  "heuristic_three_way_edge": {
+    "cut": 0.15165336898298817,
+    "hold": -0.18704397178151366,
+    "hike": 0.03539060279852546
+  },
+  "logistic_three_way_edge": {
+    "cut": 0.14920821767194,
+    "hold": 0.30525921230534914,
+    "hike": -0.4544674299772892
+  },
+  "signal_eligible": false,
+  "signal_eligible_reason": "no out-of-sample Brier skill against market prices yet (D-007)"
+}
