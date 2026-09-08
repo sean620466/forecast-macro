@@ -1,0 +1,14 @@
+{
+  "scored_meetings": 0,
+  "non_zlb_meetings": 0,
+  "minimum_sample_required": 30,
+  "heuristic_brier": null,
+  "logistic_brier": null,
+  "market_brier": null,
+  "heuristic_skill_vs_market": null,
+  "logistic_skill_vs_market": null,
+  "sample_gate_passed": false,
+  "signal_eligible": false,
+  "signal_eligible_reason": "sample gate not met (D-013)",
+  "records": []
+}
