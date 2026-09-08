@@ -133,3 +133,26 @@ def test_2019_2026_history_extends_the_fixture_without_gaps() -> None:
         "2025-10-29",
         "2025-12-10",
     ]
+
+
+@pytest.mark.parametrize(
+    "scope, filename",
+    [
+        ("all", "fed_baseline_backtest_all_2019_2026.json"),
+        ("window", "fed_baseline_backtest_window_2019_2026.json"),
+    ],
+)
+def test_checked_in_2019_2026_backtests_reproduce(scope: str, filename: str) -> None:
+    rows = load_fomc_history(ROOT / "data" / "fomc_meetings_2019_2026.csv")
+    if scope == "window":
+        rows = window_meetings(rows)
+    snapshots = json.loads((ROOT / "data" / "generated" / "fomc_feature_snapshots_2019_2026.json").read_text())
+    report = run_fed_baseline_backtest(rows, snapshots).to_dict()
+    checked_in = json.loads((ROOT / "data" / "generated" / filename).read_text())
+    for key, value in checked_in.items():
+        if key in {"event_scope", "dropped_predetermined_windows", "predictions"}:
+            continue
+        if isinstance(value, float):
+            assert report[key] == pytest.approx(value, abs=1e-9), key
+        else:
+            assert report[key] == value, key

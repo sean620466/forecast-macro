@@ -1,0 +1,381 @@
+{
+  "event_scope": "window",
+  "total_meetings": 59,
+  "evaluated_meetings": 51,
+  "non_zlb_evaluated_meetings": 36,
+  "warmup_meetings": 8,
+  "actual_cuts": 6,
+  "model_brier": 0.08349472349332185,
+  "sequential_climatology_brier": 0.12027908255831588,
+  "always_hold_brier": 0.11764705882352941,
+  "constant_50_brier": 0.25,
+  "brier_skill_vs_climatology": 0.3058250718462171,
+  "brier_skill_vs_always_hold": 0.2902948503067643,
+  "calibration_ece": 0.04578428156623933,
+  "minimum_sample_required": 30,
+  "passes_climatology_gate": true,
+  "market_baseline_available": false,
+  "signal_eligible": false,
+  "predictions": [
+    {
+      "meeting_date": "2020-01-29",
+      "probability_cut": 0.23476162192038158,
+      "baseline_probability_cut": 0.4,
+      "actual_cut": 0,
+      "squared_error": 0.05511301912668819
+    },
+    {
+      "meeting_date": "2020-06-10",
+      "probability_cut": 0.005,
+      "baseline_probability_cut": 0.36363636363636365,
+      "actual_cut": 0,
+      "squared_error": 2.5e-05
+    },
+    {
+      "meeting_date": "2020-07-29",
+      "probability_cut": 0.005,
+      "baseline_probability_cut": 0.3333333333333333,
+      "actual_cut": 0,
+      "squared_error": 2.5e-05
+    },
+    {
+      "meeting_date": "2020-09-16",
+      "probability_cut": 0.005,
+      "baseline_probability_cut": 0.3076923076923077,
+      "actual_cut": 0,
+      "squared_error": 2.5e-05
+    },
+    {
+      "meeting_date": "2020-11-05",
+      "probability_cut": 0.005,
+      "baseline_probability_cut": 0.2857142857142857,
+      "actual_cut": 0,
+      "squared_error": 2.5e-05
+    },
+    {
+      "meeting_date": "2020-12-16",
+      "probability_cut": 0.005,
+      "baseline_probability_cut": 0.26666666666666666,
+      "actual_cut": 0,
+      "squared_error": 2.5e-05
+    },
+    {
+      "meeting_date": "2021-01-27",
+      "probability_cut": 0.005,
+      "baseline_probability_cut": 0.25,
+      "actual_cut": 0,
+      "squared_error": 2.5e-05
+    },
+    {
+      "meeting_date": "2021-03-17",
+      "probability_cut": 0.005,
+      "baseline_probability_cut": 0.23529411764705882,
+      "actual_cut": 0,
+      "squared_error": 2.5e-05
+    },
+    {
+      "meeting_date": "2021-04-28",
+      "probability_cut": 0.005,
+      "baseline_probability_cut": 0.2222222222222222,
+      "actual_cut": 0,
+      "squared_error": 2.5e-05
+    },
+    {
+      "meeting_date": "2021-06-16",
+      "probability_cut": 0.005,
+      "baseline_probability_cut": 0.21052631578947367,
+      "actual_cut": 0,
+      "squared_error": 2.5e-05
+    },
+    {
+      "meeting_date": "2021-07-28",
+      "probability_cut": 0.005,
+      "baseline_probability_cut": 0.2,
+      "actual_cut": 0,
+      "squared_error": 2.5e-05
+    },
+    {
+      "meeting_date": "2021-09-22",
+      "probability_cut": 0.005,
+      "baseline_probability_cut": 0.19047619047619047,
+      "actual_cut": 0,
+      "squared_error": 2.5e-05
+    },
+    {
+      "meeting_date": "2021-11-03",
+      "probability_cut": 0.005,
+      "baseline_probability_cut": 0.18181818181818182,
+      "actual_cut": 0,
+      "squared_error": 2.5e-05
+    },
+    {
+      "meeting_date": "2021-12-15",
+      "probability_cut": 0.005,
+      "baseline_probability_cut": 0.17391304347826086,
+      "actual_cut": 0,
+      "squared_error": 2.5e-05
+    },
+    {
+      "meeting_date": "2022-01-26",
+      "probability_cut": 0.005,
+      "baseline_probability_cut": 0.16666666666666666,
+      "actual_cut": 0,
+      "squared_error": 2.5e-05
+    },
+    {
+      "meeting_date": "2022-03-16",
+      "probability_cut": 0.005,
+      "baseline_probability_cut": 0.16,
+      "actual_cut": 0,
+      "squared_error": 2.5e-05
+    },
+    {
+      "meeting_date": "2022-05-04",
+      "probability_cut": 0.0005806915369540966,
+      "baseline_probability_cut": 0.15384615384615385,
+      "actual_cut": 0,
+      "squared_error": 3.372026610901109e-07
+    },
+    {
+      "meeting_date": "2022-06-15",
+      "probability_cut": 0.0007161815745137962,
+      "baseline_probability_cut": 0.14814814814814814,
+      "actual_cut": 0,
+      "squared_error": 5.129160476730603e-07
+    },
+    {
+      "meeting_date": "2022-07-27",
+      "probability_cut": 0.0007140935962804878,
+      "baseline_probability_cut": 0.14285714285714285,
+      "actual_cut": 0,
+      "squared_error": 5.099296642488004e-07
+    },
+    {
+      "meeting_date": "2022-09-21",
+      "probability_cut": 0.002058076541477615,
+      "baseline_probability_cut": 0.13793103448275862,
+      "actual_cut": 0,
+      "squared_error": 4.2356790505804615e-06
+    },
+    {
+      "meeting_date": "2022-11-02",
+      "probability_cut": 0.0019238471388444787,
+      "baseline_probability_cut": 0.13333333333333333,
+      "actual_cut": 0,
+      "squared_error": 3.7011878136400867e-06
+    },
+    {
+      "meeting_date": "2022-12-14",
+      "probability_cut": 0.007452017800363326,
+      "baseline_probability_cut": 0.12903225806451613,
+      "actual_cut": 0,
+      "squared_error": 5.5532569296931865e-05
+    },
+    {
+      "meeting_date": "2023-02-01",
+      "probability_cut": 0.01411277998060831,
+      "baseline_probability_cut": 0.125,
+      "actual_cut": 0,
+      "squared_error": 0.0001991705587810587
+    },
+    {
+      "meeting_date": "2023-03-22",
+      "probability_cut": 0.022487493628461662,
+      "baseline_probability_cut": 0.12121212121212122,
+      "actual_cut": 0,
+      "squared_error": 0.0005056873696901038
+    },
+    {
+      "meeting_date": "2023-05-03",
+      "probability_cut": 0.057379497622429665,
+      "baseline_probability_cut": 0.11764705882352941,
+      "actual_cut": 0,
+      "squared_error": 0.0032924067474024116
+    },
+    {
+      "meeting_date": "2023-06-14",
+      "probability_cut": 0.15409362081463393,
+      "baseline_probability_cut": 0.11428571428571428,
+      "actual_cut": 0,
+      "squared_error": 0.023744843975764183
+    },
+    {
+      "meeting_date": "2023-07-26",
+      "probability_cut": 0.3170721451253883,
+      "baseline_probability_cut": 0.1111111111111111,
+      "actual_cut": 0,
+      "squared_error": 0.10053474521441529
+    },
+    {
+      "meeting_date": "2023-09-20",
+      "probability_cut": 0.2207843943174187,
+      "baseline_probability_cut": 0.10810810810810811,
+      "actual_cut": 0,
+      "squared_error": 0.04874574877410943
+    },
+    {
+      "meeting_date": "2023-11-01",
+      "probability_cut": 0.23645244311283503,
+      "baseline_probability_cut": 0.10526315789473684,
+      "actual_cut": 0,
+      "squared_error": 0.055909757854028484
+    },
+    {
+      "meeting_date": "2023-12-13",
+      "probability_cut": 0.25711006464752284,
+      "baseline_probability_cut": 0.10256410256410256,
+      "actual_cut": 0,
+      "squared_error": 0.06610558534305337
+    },
+    {
+      "meeting_date": "2024-01-31",
+      "probability_cut": 0.22193758567607016,
+      "baseline_probability_cut": 0.1,
+      "actual_cut": 0,
+      "squared_error": 0.049256291935722986
+    },
+    {
+      "meeting_date": "2024-03-20",
+      "probability_cut": 0.3440372632302526,
+      "baseline_probability_cut": 0.0975609756097561,
+      "actual_cut": 0,
+      "squared_error": 0.1183616384909621
+    },
+    {
+      "meeting_date": "2024-05-01",
+      "probability_cut": 0.2512142821298123,
+      "baseline_probability_cut": 0.09523809523809523,
+      "actual_cut": 0,
+      "squared_error": 0.06310861554599692
+    },
+    {
+      "meeting_date": "2024-06-12",
+      "probability_cut": 0.28615595491877316,
+      "baseline_probability_cut": 0.09302325581395349,
+      "actual_cut": 0,
+      "squared_error": 0.08188523053547493
+    },
+    {
+      "meeting_date": "2024-07-31",
+      "probability_cut": 0.42757368183951866,
+      "baseline_probability_cut": 0.09090909090909091,
+      "actual_cut": 0,
+      "squared_error": 0.18281925340180194
+    },
+    {
+      "meeting_date": "2024-09-18",
+      "probability_cut": 0.5049605205377605,
+      "baseline_probability_cut": 0.08888888888888889,
+      "actual_cut": 1,
+      "squared_error": 0.245064086226245
+    },
+    {
+      "meeting_date": "2024-11-07",
+      "probability_cut": 0.36840401377264226,
+      "baseline_probability_cut": 0.10869565217391304,
+      "actual_cut": 1,
+      "squared_error": 0.3989134898185086
+    },
+    {
+      "meeting_date": "2024-12-18",
+      "probability_cut": 0.35332801149564735,
+      "baseline_probability_cut": 0.1276595744680851,
+      "actual_cut": 1,
+      "squared_error": 0.41818466071617355
+    },
+    {
+      "meeting_date": "2025-01-29",
+      "probability_cut": 0.30433238665256285,
+      "baseline_probability_cut": 0.14583333333333334,
+      "actual_cut": 0,
+      "squared_error": 0.09261820156564501
+    },
+    {
+      "meeting_date": "2025-03-19",
+      "probability_cut": 0.291751200733691,
+      "baseline_probability_cut": 0.14285714285714285,
+      "actual_cut": 0,
+      "squared_error": 0.08511876312955045
+    },
+    {
+      "meeting_date": "2025-05-07",
+      "probability_cut": 0.47398533043051766,
+      "baseline_probability_cut": 0.14,
+      "actual_cut": 0,
+      "squared_error": 0.22466209346332702
+    },
+    {
+      "meeting_date": "2025-06-18",
+      "probability_cut": 0.4521699808266064,
+      "baseline_probability_cut": 0.13725490196078433,
+      "actual_cut": 0,
+      "squared_error": 0.20445769156073362
+    },
+    {
+      "meeting_date": "2025-07-30",
+      "probability_cut": 0.32086668647193867,
+      "baseline_probability_cut": 0.1346153846153846,
+      "actual_cut": 0,
+      "squared_error": 0.10295543048748139
+    },
+    {
+      "meeting_date": "2025-09-17",
+      "probability_cut": 0.3402777188767096,
+      "baseline_probability_cut": 0.1320754716981132,
+      "actual_cut": 1,
+      "squared_error": 0.4352334882105177
+    },
+    {
+      "meeting_date": "2025-10-29",
+      "probability_cut": 0.30759030677274973,
+      "baseline_probability_cut": 0.14814814814814814,
+      "actual_cut": 1,
+      "squared_error": 0.4794311832750549
+    },
+    {
+      "meeting_date": "2025-12-10",
+      "probability_cut": 0.35459331460503835,
+      "baseline_probability_cut": 0.16363636363636364,
+      "actual_cut": 1,
+      "squared_error": 0.41654978955251093
+    },
+    {
+      "meeting_date": "2026-01-28",
+      "probability_cut": 0.32753118316087193,
+      "baseline_probability_cut": 0.17857142857142858,
+      "actual_cut": 0,
+      "squared_error": 0.10727667594276064
+    },
+    {
+      "meeting_date": "2026-03-18",
+      "probability_cut": 0.35372583365946686,
+      "baseline_probability_cut": 0.17543859649122806,
+      "actual_cut": 0,
+      "squared_error": 0.12512196539808482
+    },
+    {
+      "meeting_date": "2026-04-29",
+      "probability_cut": 0.1984868710621348,
+      "baseline_probability_cut": 0.1724137931034483,
+      "actual_cut": 0,
+      "squared_error": 0.03939703798403653
+    },
+    {
+      "meeting_date": "2026-06-17",
+      "probability_cut": 0.09205424312131205,
+      "baseline_probability_cut": 0.1694915254237288,
+      "actual_cut": 0,
+      "squared_error": 0.008473983676637627
+    },
+    {
+      "meeting_date": "2026-07-29",
+      "probability_cut": 0.15732302054601427,
+      "baseline_probability_cut": 0.16666666666666666,
+      "actual_cut": 0,
+      "squared_error": 0.02475053279372163
+    }
+  ],
+  "dropped_predetermined_windows": [
+    "2020-04-29"
+  ]
+}

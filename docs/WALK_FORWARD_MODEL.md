@@ -59,3 +59,32 @@ python scripts/run_fed_model_comparison.py \
 ```
 
 `tests/test_review_5.py` recomputes the report and compares it to the checked-in JSON.
+
+## 2019–2026 result (62 meetings, 60 scheduled)
+
+Rerun on `data/generated/fomc_feature_snapshots_2019_2026.json` after the FOMC history was
+extended through July 2026 (task 14). Same optimizer settings, same warmup of eight meetings.
+
+| Metric | All 52 | Non-ZLB 36 |
+| --- | ---: | ---: |
+| Actual cuts | 6 | 6 |
+| Model Brier | 0.098137 | 0.141727 |
+| Sequential climatology Brier | 0.118438 | 0.145572 |
+| Always-hold Brier | 0.115385 | 0.166667 |
+| Intercept-only + ZLB mask Brier | 0.104385 | — |
+| BSS vs climatology | +0.171 | +0.026 |
+| BSS vs always-hold | +0.150 | — |
+| BSS vs intercept-only | +0.060 | — |
+| ECE (5 bins) | 0.064 | — |
+
+The D-013 floor of 30 non-ZLB predictions is met for the first time (36), so
+`climatology_gate_passed` is true. That is a research gate only. On the meetings where a cut
+was possible the model's edge over climatology is +0.03 and over the intercept-only ablation
++0.06 on the full sample: the features add little. The three late-2025 cuts were assigned
+0.31–0.36 by the heuristic baseline against climatology's 0.13–0.16, and the 2026 holds were
+assigned 0.09–0.35. `signal_eligible` stays false because D-007 needs a market baseline, which
+`data/generated/fed_market_comparisons/` only started accumulating on 2026-09-08.
+
+Compared with the 2019–2024 run, skill fell (BSS vs climatology +0.29 → +0.17): the 2025–2026
+period has three cuts followed by a long hold with inflation re-accelerating to 3–4% YoY,
+which the four-feature model reads as mixed. It also cannot express a hike at all.

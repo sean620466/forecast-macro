@@ -78,3 +78,24 @@ def test_always_hold_skill_is_none_without_cuts() -> None:
     assert report.actual_cuts == 0
     assert report.always_hold_brier == 0.0
     assert report.brier_skill_vs_always_hold is None
+
+
+def test_walk_forward_2019_2026_matches_checked_in_report_and_passes_sample_gate() -> None:
+    meetings = scheduled_meetings(load_fomc_history(ROOT / "data" / "fomc_meetings_2019_2026.csv"))
+    snapshots = json.loads(
+        (ROOT / "data" / "generated" / "fomc_feature_snapshots_2019_2026.json").read_text()
+    )
+    report = run_walk_forward_logistic(meetings, snapshots).to_dict()
+    checked_in = json.loads(
+        (ROOT / "data" / "generated" / "fed_walk_forward_logistic_2019_2026.json").read_text()
+    )
+    for key, value in checked_in.items():
+        if isinstance(value, float):
+            assert report[key] == pytest.approx(value, abs=1e-9), key
+        else:
+            assert report[key] == value, key
+    # D-013 sample floor is met for the first time; D-007 (market baseline) still is not.
+    assert report["non_zlb_evaluated_meetings"] >= 30
+    assert report["climatology_gate_passed"] is True
+    assert report["market_baseline_available"] is False
+    assert report["signal_eligible"] is False

@@ -1,0 +1,21 @@
+{
+  "evaluated_meetings": 52,
+  "non_zlb_evaluated_meetings": 36,
+  "actual_cuts": 6,
+  "model_brier": 0.09812811079355753,
+  "sequential_climatology_brier": 0.1184488873644122,
+  "always_hold_brier": 0.11538461538461539,
+  "intercept_only_brier": 0.10438495535224009,
+  "brier_skill_vs_climatology": 0.1715573444631614,
+  "brier_skill_vs_always_hold": 0.14955637312250147,
+  "brier_skill_vs_intercept_only": 0.05994009900726838,
+  "non_zlb_model_brier": 0.141729493368472,
+  "non_zlb_climatology_brier": 0.14556618736402271,
+  "non_zlb_always_hold_brier": 0.16666666666666666,
+  "non_zlb_brier_skill_vs_climatology": 0.0263570411853693,
+  "calibration_ece": 0.06397235193550307,
+  "minimum_sample_required": 30,
+  "climatology_gate_passed": true,
+  "market_baseline_available": false,
+  "signal_eligible": false
+}

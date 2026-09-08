@@ -71,3 +71,15 @@ the checked-in JSON.
 
 The successful snapshot build is GitHub Actions run `34155616512`; its artifact contains
 49 complete snapshots with no null fields.
+
+## 2019–2026 rerun (task 15)
+
+| Scope | OOS | Non-ZLB OOS | Cuts | Model Brier | Climatology | Always hold | BSS vs climatology | BSS vs always hold |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| All decisions | 54 | 38 | 8 | 0.102073 | 0.140890 | 0.148148 | +0.275529 | +0.310724 |
+| Window | 51 | 36 | 6 | 0.083525 | 0.120273 | 0.117647 | +0.305824 | +0.290326 |
+
+Files: `fed_baseline_backtest_{all,scheduled,window}_2019_2026.json`. October 2025 CPI and
+unemployment were never published (2025 shutdown); the affected snapshots record that month in
+`data_gaps` and the 12-month and 3-month changes use their endpoints. The 2019–2024 files are
+untouched and their regression tests still pass.
