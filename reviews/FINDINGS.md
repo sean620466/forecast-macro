@@ -9,8 +9,8 @@
 | ID | 등급 | 요약 | 상태 | 비고 |
 | --- | --- | --- | --- | --- |
 | R1-H3 | High | 예측시장 계약별 outcome bucket 확장 | partial | `contracts.py`에 `FedOutcome` 4구간 추가됨. 모델은 여전히 cut/hold_or_hike 이진 |
-| R1-H4 | High | CPI `forecast_mom` 산출(nowcast) 코드 부재 | open | CPI 모델은 외부 숫자에 정규분포를 씌우는 래퍼 상태 |
-| R1-M3 | Medium | CPI 불확실성 σ를 역사적 오차로 추정 | open | σ=0.12 고정 |
+| R1-H4 | High | CPI `forecast_mom` 산출(nowcast) 코드 부재 | fixed | 과제 42: `models/cpi.py`(외부 nowcast에 정규분포 래퍼) 삭제. CPI는 경험분포·기저효과 baseline(과제 35·41)으로 대체 |
+| R1-M3 | Medium | CPI 불확실성 σ를 역사적 오차로 추정 | fixed | 과제 42: σ 고정 래퍼 삭제로 소멸. 현재 CPI baseline은 경험분포라 σ가 없음 |
 | R1-M4 | Medium | YES/NO 호가·수수료 정규화 | fixed | 어댑터 bid/ask + claude/task-19 수수료 모델(`fees.py`) |
 | R1-X1 | Medium | 실제 발표 timestamp 테이블(ALFRED real-time date와 별개) | partial | claude/task-27: 최초 발표 **일자**는 스냅샷에 기록. 시각(08:30 ET 등)은 `data/release_schedule.csv`의 시리즈별 규칙과 결합해야 함(R4-M4 결정 대기) |
 
@@ -110,9 +110,9 @@
 
 | ID | 등급 | 요약 | 상태 | 비고 |
 | --- | --- | --- | --- | --- |
-| R13-M1 | Medium | 실시간 비교의 모델 확률은 2019–2024 전체로 학습한 로지스틱 + 휴리스틱. D-013(비-ZLB 30건) 미충족 상태의 모델이므로 기록 전용 | open | `signal_eligible=false`, 이유 필드 기록. 회의가 지나면 결과 라벨을 붙여 시장 대비 Brier를 누적하는 평가 스크립트가 다음 과제 |
-| R13-M2 | Medium | 실시간 특징의 vintage는 "오늘"이며 발표 시각(08:30 ET)과 워크플로 실행 시각(13:40 UTC = 09:40 ET) 사이 관계는 ALFRED `realtime_start`에 의존 | open | 발표 당일 ALFRED 반영 지연이 있으면 전날 값이 잡힘. 기록에 vintage 날짜가 남으므로 사후 검증 가능 |
-| R13-L1 | Low | 시장 P(cut)은 최신 **가격 성공** 스냅샷에서 읽음. 스냅샷이 6시간 주기라 모델 계산 시각과 최대 6시간 차이 | open | 비교 기록에 `market.observed_at`과 `source_file` 보존 |
+| R13-M1 | Medium | 실시간 비교의 모델 확률은 2019–2024 전체로 학습한 로지스틱 + 휴리스틱. D-013(비-ZLB 30건) 미충족 상태의 모델이므로 기록 전용 | fixed | 과제 18·19·35·40: `score_*_comparisons.py`가 결과 확정 후 시장 대비 Brier를 누적. 학습 표본은 2015–2026(과제 39) |
+| R13-M2 | Medium | 실시간 특징의 vintage는 "오늘"이며 발표 시각(08:30 ET)과 워크플로 실행 시각(13:40 UTC = 09:40 ET) 사이 관계는 ALFRED `realtime_start`에 의존 | fixed | 과제 42: 구간 비교 기록에 `inputs_current`(최신 입력 월 == 기준월−1) 추가. False면 채점의 최종 기록 후보에서 제외하고 `stale_input_records`로 집계 |
+| R13-L1 | Low | 시장 P(cut)은 최신 **가격 성공** 스냅샷에서 읽음. 스냅샷이 6시간 주기라 모델 계산 시각과 최대 6시간 차이 | fixed | 과제 42: 탐색·가격 스냅샷 워크플로를 평일 13:17 UTC에도 실행해 13:40 UTC 비교가 23분 이내의 호가를 씀. 기록의 `market_observed_at`/`as_of`로 검증 가능 |
 
 ## 과제 14 — FOMC 2025–2026 확장 및 실시간 비교 첫 실행 (`reviews/tasks/14-comparison-scoring.md`)
 

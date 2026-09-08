@@ -61,7 +61,7 @@ python scripts/run_fed_model_comparison.py --meetings data/fomc_meetings_2015_20
 - `src/forecast_macro/models/` — `fed.py`(휴리스틱 3원), `logistic.py`, `unemployment.py`, `cpi.py`
 - `src/forecast_macro/market_*.py`, `official_sources.py`, `release_schedule.py` — 시장 게이트
 - `src/forecast_macro/live_comparison.py`, `unemployment_comparison.py`, `*_scoring.py` — D-007 루프
-- `tests/` — 205개, 체크인된 JSON 재현 회귀 테스트 포함
+- `tests/` — 213개, 체크인된 JSON 재현 회귀 테스트 포함
 
 ## 현재 판정
 

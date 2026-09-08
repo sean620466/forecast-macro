@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "17 */6 * * *"
+    - cron: "17 13 * * 1-5"  # fresh quotes 23 minutes before the weekday model-vs-market run (R13-L1)
   push:
     branches: [main]
     paths:

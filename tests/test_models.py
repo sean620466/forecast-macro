@@ -1,6 +1,5 @@
 import pytest
 
-from forecast_macro.models.cpi import cpi_bucket_probabilities
 from forecast_macro.models.fed import rate_cut_probability
 from forecast_macro.signals import compare_to_market
 
@@ -14,11 +13,6 @@ def test_fed_probabilities_sum_to_one():
     )
     assert sum(item.probability for item in result) == pytest.approx(1.0)
 
-
-def test_cpi_probabilities_sum_to_one():
-    result = cpi_bucket_probabilities(forecast_mom=0.25)
-    assert sum(item.probability for item in result) == pytest.approx(1.0)
-    assert all(0 <= item.probability <= 1 for item in result)
 
 
 def test_signal_threshold():
@@ -44,14 +38,6 @@ def test_uncalibrated_model_never_displays_signal():
     assert not any(item.should_display for item in compare_to_market(model, market))
 
 
-def test_cpi_rejects_invalid_bucket_order():
-    with pytest.raises(ValueError, match="lower_cutoff"):
-        cpi_bucket_probabilities(forecast_mom=0.2, lower_cutoff=0.4, upper_cutoff=0.3)
-
-
-def test_cpi_rejects_nonpositive_uncertainty():
-    with pytest.raises(ValueError, match="std"):
-        cpi_bucket_probabilities(forecast_mom=0.2, uncertainty=0.0)
 
 
 def test_fed_extreme_values_do_not_overflow():

@@ -38,7 +38,7 @@ Claude의 답변을 이 ChatGPT 대화에 그대로 붙이면 된다. 사용자�
 - `CLAUDE.md`
 - `reviews/FIRST_REVIEW_TASK.md`
 - `src/forecast_macro/models/fed.py`
-- `src/forecast_macro/models/cpi.py`
+- `src/forecast_macro/models/core_cpi.py`, `models/cpi_base_effect.py`
 - `src/forecast_macro/signals.py`
 - `tests/test_models.py`
 

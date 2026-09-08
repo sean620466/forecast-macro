@@ -48,9 +48,20 @@ class UnemploymentComparisonRecord:
     signal_eligible_reason: str = "no out-of-sample skill against market prices (D-007)"
     topic: str = "unemployment"
     contract_series: str | None = None
+    # R13-M2: True when the latest input month is the month right before the reference period.
+    # False means ALFRED had not yet published the previous month when the record was made
+    # (release-day lag); scoring skips such records.
+    inputs_current: bool = True
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
+
+
+def expected_latest_month(reference_period: str) -> str:
+    """YYYY-MM-01 of the month before `reference_period` (YYYY-MM)."""
+    year, month = int(reference_period[:4]), int(reference_period[5:7])
+    year, month = (year - 1, 12) if month == 1 else (year, month - 1)
+    return f"{year:04d}-{month:02d}-01"
 
 
 def next_release(
@@ -230,4 +241,5 @@ def build_unemployment_comparison(
         bucket_titles=titles,
         topic=topic,
         contract_series=record.get("contract_series"),
+        inputs_current=latest.month.isoformat() == expected_latest_month(release.reference_period),
     )

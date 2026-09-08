@@ -36,6 +36,8 @@ class UnemploymentScorecard:
     signal_eligible: bool
     signal_eligible_reason: str
     records: list[ScoredUnemploymentRelease]
+    # Records whose inputs lagged the reference period (R13-M2); never used as a final record.
+    stale_input_records: int = 0
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -51,6 +53,8 @@ def final_record_per_release(
     """
     chosen: dict[tuple[str, str], Mapping[str, Any]] = {}
     for record in records:
+        if record.get("inputs_current", True) is False:
+            continue
         release_at = datetime.fromisoformat(str(record["release_at"]))
         as_of = datetime.fromisoformat(str(record["as_of"]))
         if as_of.tzinfo is None or release_at.tzinfo is None:
@@ -125,6 +129,7 @@ def score_unemployment_comparisons(
             else "eligibility requires a recorded decision even with positive skill (D-007)"
         ),
         records=scored,
+        stale_input_records=sum(1 for r in records if r.get("inputs_current", True) is False),
     )
 
 
