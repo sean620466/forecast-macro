@@ -23,7 +23,7 @@ from forecast_macro.release_schedule import load_release_schedule, verify_close_
 MODEL_SERIES: dict[str, tuple[str, ...]] = {
     # Contract series the repository can actually model; a contract on any other series of
     # the topic is blocked by the series gate. Core CPI YoY NSA: models/core_cpi.py.
-    "cpi": ("core_cpi_yoy_nsa", "headline_cpi_mom_sa"),
+    "cpi": ("core_cpi_yoy_nsa", "headline_cpi_yoy_nsa", "headline_cpi_mom_sa"),
     "unemployment": ("unemployment_rate_sa",),
     "fed_rate": ("federal_funds_target_range",),
     "gdp": ("real_gdp",),

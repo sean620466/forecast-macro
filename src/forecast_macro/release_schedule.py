@@ -46,6 +46,11 @@ _IN_EFFECT_STATEMENT = re.compile(
     rf"\s+on\s+(?P<month>{_MONTH_ALTERNATION})\.?\s+(?P<day>\d{{1,2}}),?\s+(?P<year>\d{{4}})",
     re.IGNORECASE,
 )
+# "in November 2026" / "ending August 2026" / "in Nov 2026" — a reference month whose release
+# time comes from the official calendar (Kalshi BLS ladders state no release time).
+_REFERENCE_MONTH = re.compile(
+    rf"\b(?:in|ending|for)\s+(?P<month>{_MONTH_ALTERNATION})\.?\s+(?P<year>\d{{4}})\b", re.IGNORECASE
+)
 # "following the Fed's Apr 28, 2027 meeting" / "September 16, 2026 FOMC meeting"
 _MEETING_STATEMENT = re.compile(
     rf"\b(?P<month>{_MONTH_ALTERNATION})\.?\s+(?P<day>\d{{1,2}}),?\s+(?P<year>\d{{4}})\s+(?:fomc\s+)?meeting\b",
@@ -148,6 +153,15 @@ def parse_in_effect_statement(text: str) -> datetime | None:
     )
 
 
+def parse_reference_month(text: str) -> str | None:
+    """Return 'YYYY-MM' for the last 'in/ending <Month> <Year>' phrase in the text."""
+    matches = list(_REFERENCE_MONTH.finditer(text))
+    if not matches:
+        return None
+    match = matches[-1]
+    return f"{int(match.group('year')):04d}-{_month_number(match.group('month')):02d}"
+
+
 def parse_meeting_statement(text: str) -> date | None:
     match = _MEETING_STATEMENT.search(text)
     if not match:
@@ -199,11 +213,20 @@ def verify_close_time(
             )
         else:
             stated = parse_release_statement(rule_text)
+        official = None
         if stated is None:
-            return CloseTimeVerification(
-                False, None, None, "", ("contract text does not state the official release time",)
+            # No explicit release time: fall back to the reference month on the calendar.
+            period = parse_reference_month(rule_text)
+            official = next(
+                (row for row in schedule if row.series == series and row.reference_period == period),
+                None,
             )
-        official = find_release(schedule, series=series, release_at=stated)
+            if official is None:
+                return CloseTimeVerification(
+                    False, None, None, "", ("contract text does not state the official release time",)
+                )
+            stated = official.release_at
+        official = official or find_release(schedule, series=series, release_at=stated)
         if official is None:
             return CloseTimeVerification(
                 False,

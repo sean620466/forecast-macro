@@ -11,7 +11,12 @@ from forecast_macro.contracts import OutcomeQuote, normalize_threshold_ladder
 from forecast_macro.fees import fee_summary, schedule_for
 from forecast_macro.market_discovery import MacroTopic, MarketCandidate
 from forecast_macro.market_pricing import build_event_price_snapshot
-from forecast_macro.market_review import CandidateReview, ReviewStatus, is_threshold_ladder
+from forecast_macro.market_review import (
+    CandidateReview,
+    ReviewStatus,
+    is_threshold_ladder,
+    ladder_step_for,
+)
 
 
 @dataclass(frozen=True)
@@ -261,8 +266,9 @@ def price_ladder_event(
         )
     # D-018: far-dated ladders may be wider; the record says so.
     width_limit = ladder_width_limit(as_of, outcome_at)
+    step = ladder_step_for(members[0].topic.value)
     try:
-        normalized = normalize_threshold_ladder(ladder, max_width=width_limit)
+        normalized = normalize_threshold_ladder(ladder, step=step, max_width=width_limit)
     except ValueError as error:
         return EventPriceRecord(
             **base,

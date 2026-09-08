@@ -39,7 +39,7 @@ TOPIC_TERMS: dict[str, tuple[str, ...]] = {
     "gdp": ("gross domestic product", "gdp"),
 }
 
-_YOY_TERMS = ("yoy", "year-over-year", "year over year", "12-month", "12 month", "annual rate")
+_YOY_TERMS = ("yoy", "year-over-year", "year over year", "12-month", "12 month", "twelve months", "twelve-month", "annual rate")
 _MOM_TERMS = ("mom", "month-over-month", "month over month", "monthly change", "from the prior month",
               "from the previous month")
 _CORE_TERMS = ("core", "excluding food and energy", "less food and energy")
@@ -76,6 +76,10 @@ def identify_contract_series(document: MarketRuleDocument, *, topic: str) -> str
             adjustment = "nsa"
         elif _any(text, _SA_TERMS):
             adjustment = "sa"
+        elif period == "yoy":
+            # BLS publishes 12-month percent changes from the not-seasonally-adjusted index
+            # only; a YoY contract that cites the BLS figure is NSA by construction.
+            adjustment = "nsa"
         else:
             return None
         return f"{measure}_cpi_{period}_{adjustment}"

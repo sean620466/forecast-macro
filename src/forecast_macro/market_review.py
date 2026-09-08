@@ -83,7 +83,13 @@ def _subject(title: str) -> str:
     return " ".join(stripped.lower().replace("?", "").split())
 
 
-LADDER_STEP = 0.25
+# Rung spacing by statistic: the Fed moves in quarter points, BLS rates are published to a tenth.
+LADDER_STEPS: dict[str, float] = {"fed_rate": 0.25, "unemployment": 0.1, "cpi": 0.1, "gdp": 0.1}
+LADDER_STEP = LADDER_STEPS["fed_rate"]
+
+
+def ladder_step_for(topic: str) -> float:
+    return LADDER_STEPS.get(topic, LADDER_STEP)
 
 
 def is_threshold_ladder(rows: Sequence[Mapping[str, Any]]) -> bool:
@@ -95,11 +101,12 @@ def is_threshold_ladder(rows: Sequence[Mapping[str, Any]]) -> bool:
 def _validate_ladder(rows: Sequence[Mapping[str, Any]]) -> tuple[str, ...]:
     """A cumulative ladder is complete when its floors form one contiguous fixed-step grid."""
     blockers: list[str] = []
+    step = ladder_step_for(str(rows[0].get("topic", "")))
     floors = sorted(float(row["strike"]) for row in rows)
     if len(set(floors)) != len(floors):
         blockers.append("duplicate ladder rung")
-    if any(abs((b - a) - LADDER_STEP) > 1e-9 for a, b in pairwise(floors)):
-        blockers.append(f"ladder rungs are not contiguous in {LADDER_STEP} steps")
+    if any(abs((b - a) - step) > 1e-9 for a, b in pairwise(floors)):
+        blockers.append(f"ladder rungs are not contiguous in {step} steps")
     if len({_subject(str(row.get("title", ""))) for row in rows}) != 1:
         blockers.append("ladder mixes reference meetings or series")
     return tuple(blockers)
