@@ -103,6 +103,7 @@ def build_feature_snapshot(
     meeting_date: date,
     vintage_date: date,
     build_commit: str = "",
+    first_release_dates: bool = False,
 ) -> HistoricalFeatureSnapshot:
     """Point-in-time features for a meeting as they were visible on vintage_date.
 
@@ -130,6 +131,19 @@ def build_feature_snapshot(
     )
     policy_rate = _latest(series["DFEDTARU"], on_or_before=vintage_date)
     gaps = {name: months for name, months in (("CPIAUCNS", cpi_gaps), ("UNRATE", unemp_gaps)) if months}
+    inputs = {
+        "cpi_latest": _describe(cpi_new),
+        "cpi_base_12m": _describe(cpi_old),
+        "unemployment_latest": _describe(unemp_new),
+        "unemployment_base_3m": _describe(unemp_old),
+        "policy_rate_upper": _describe(policy_rate),
+    }
+    if first_release_dates:
+        # R23-L1 / R1-X1: the single-vintage realtime_start above only proves visibility at
+        # the vintage. The first publication date comes from the observation's full history.
+        for key, row in (("cpi_latest", cpi_new), ("unemployment_latest", unemp_new), ("policy_rate_upper", policy_rate)):
+            first = client.first_release_date(row.series_id, row.observed_at)
+            inputs[key]["first_published_on"] = first.isoformat() if first else None
     return HistoricalFeatureSnapshot(
         meeting_date=meeting_date.isoformat(),
         vintage_date=vintage_date.isoformat(),
@@ -143,13 +157,7 @@ def build_feature_snapshot(
             "policy_rate_upper": "DFEDTARU",
         },
         data_gaps=gaps,
-        inputs={
-            "cpi_latest": _describe(cpi_new),
-            "cpi_base_12m": _describe(cpi_old),
-            "unemployment_latest": _describe(unemp_new),
-            "unemployment_base_3m": _describe(unemp_old),
-            "policy_rate_upper": _describe(policy_rate),
-        },
+        inputs=inputs,
         provenance={
             "builder_version": SNAPSHOT_BUILDER_VERSION,
             "built_at": datetime.now(UTC).isoformat(),

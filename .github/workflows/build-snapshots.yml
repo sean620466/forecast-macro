@@ -32,6 +32,7 @@ jobs:
           python scripts/build_fomc_snapshots.py
           --meetings data/fomc_meetings_2019_2026.csv
           --output artifacts/fomc_feature_snapshots_2019_2026.json
+          --first-release-dates
       - uses: actions/upload-artifact@v4
         with:
           name: fomc-feature-snapshots-2019-2026
@@ -39,7 +40,18 @@ jobs:
       - name: Persist snapshots in the repository
         # The 2019-2024 file stays untouched so its regression tests keep their fixture.
         run: |
-          cp artifacts/fomc_feature_snapshots_2019_2026.json data/generated/fomc_feature_snapshots_2019_2026.json
+          # Commit only when the data changed; build time and commit hash alone do not count.
+          python - <<'PY'
+          import json, pathlib, sys
+          new = json.load(open("artifacts/fomc_feature_snapshots_2019_2026.json"))
+          target = pathlib.Path("data/generated/fomc_feature_snapshots_2019_2026.json")
+          def strip(rows):
+              return [{k: v for k, v in row.items() if k != "provenance"} for row in rows]
+          if target.exists() and strip(json.load(target.open())) == strip(new):
+              print("snapshot data unchanged; not committing")
+              sys.exit(0)
+          target.write_text(json.dumps(new, indent=2) + "\n")
+          PY
           git config user.name "forecast-macro-bot"
           git config user.email "actions@users.noreply.github.com"
           git add data/generated/fomc_feature_snapshots_2019_2026.json

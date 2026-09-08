@@ -88,3 +88,29 @@ class AlfredClient:
                 )
             )
         return result
+
+
+    def first_release_date(self, series_id: str, observed_at: date) -> date | None:
+        """Earliest real-time date on which the observation for `observed_at` was published.
+
+        Queries the full vintage history of that single observation; the smallest
+        realtime_start is its first publication. None when the observation has no vintages.
+        """
+        params: dict[str, str | int] = {
+            "series_id": series_id,
+            "api_key": self.api_key,
+            "file_type": "json",
+            "realtime_start": "1776-07-04",
+            "realtime_end": "9999-12-31",
+            "observation_start": observed_at.isoformat(),
+            "observation_end": observed_at.isoformat(),
+            "output_type": 1,
+        }
+        response = self._get(params)
+        response.raise_for_status()
+        starts = [
+            date.fromisoformat(row["realtime_start"])
+            for row in response.json().get("observations", [])
+            if row.get("value") not in (None, ".")
+        ]
+        return min(starts) if starts else None

@@ -115,3 +115,31 @@ def test_snapshot_records_input_provenance():
     assert snapshot.provenance["builder_version"] == SNAPSHOT_BUILDER_VERSION
     assert snapshot.provenance["build_commit"] == "abc123"
     assert "inputs" in snapshot.to_dict() and "provenance" in snapshot.to_dict()
+
+
+def test_first_publication_dates_come_from_the_full_vintage_history():
+    from forecast_macro.snapshots import build_feature_snapshot
+
+    class WithHistory(FakeAlfredClient):
+        def __init__(self, series):
+            super().__init__(series)
+            self.first_release_queries = []
+
+        def first_release_date(self, series_id, observed_at):
+            self.first_release_queries.append((series_id, observed_at))
+            return {"CPIAUCNS": date(2026, 8, 12), "UNRATE": date(2026, 9, 4), "DFEDTARU": date(2025, 12, 11)}[series_id]
+
+    months = [(2025 + (index + 7) // 12, (index + 7) % 12 + 1) for index in range(13)]
+    cpi = [observation("CPIAUCNS", y, m, 320 + index) for index, (y, m) in enumerate(months)]
+    unemployment = [observation("UNRATE", 2026, m, v) for m, v in [(5, 4.3), (6, 4.2), (7, 4.1), (8, 4.1)]]
+    policy = [observation("DFEDTARU", 2026, 9, 3.75)]
+    client = WithHistory({"CPIAUCNS": cpi, "UNRATE": unemployment, "DFEDTARU": policy})
+    snapshot = build_feature_snapshot(
+        client, meeting_date=date(2026, 9, 16), vintage_date=date(2026, 9, 7), first_release_dates=True
+    )
+    assert snapshot.inputs["cpi_latest"]["first_published_on"] == "2026-08-12"
+    assert snapshot.inputs["unemployment_latest"]["first_published_on"] == "2026-09-04"
+    assert "first_published_on" not in snapshot.inputs["cpi_base_12m"]
+    assert len(client.first_release_queries) == 3
+    plain = build_feature_snapshot(client, meeting_date=date(2026, 9, 16), vintage_date=date(2026, 9, 7))
+    assert "first_published_on" not in plain.inputs["cpi_latest"]

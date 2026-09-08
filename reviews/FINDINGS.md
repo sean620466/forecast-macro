@@ -12,7 +12,7 @@
 | R1-H4 | High | CPI `forecast_mom` 산출(nowcast) 코드 부재 | open | CPI 모델은 외부 숫자에 정규분포를 씌우는 래퍼 상태 |
 | R1-M3 | Medium | CPI 불확실성 σ를 역사적 오차로 추정 | open | σ=0.12 고정 |
 | R1-M4 | Medium | YES/NO 호가·수수료 정규화 | fixed | 어댑터 bid/ask + claude/task-19 수수료 모델(`fees.py`) |
-| R1-X1 | Medium | 실제 발표 timestamp 테이블(ALFRED real-time date와 별개) | open | 스냅샷은 D-1 날짜 vintage만 사용(R4-M4와 연결) |
+| R1-X1 | Medium | 실제 발표 timestamp 테이블(ALFRED real-time date와 별개) | partial | claude/task-27: 최초 발표 **일자**는 스냅샷에 기록. 시각(08:30 ET 등)은 `data/release_schedule.csv`의 시리즈별 규칙과 결합해야 함(R4-M4 결정 대기) |
 
 ## 리뷰 2 — 백테스트 기반 (`2026-09-07-backtest-claude-review-2.md`)
 
@@ -160,5 +160,5 @@
 
 | ID | 등급 | 요약 | 상태 | 비고 |
 | --- | --- | --- | --- | --- |
-| R23-L1 | Low | 스냅샷 `inputs[*].realtime_start`는 요청한 vintage 날짜와 같게 나온다(ALFRED가 단일 `vintage_dates`로 조회하면 그 vintage 기준 real-time 시작을 돌려줌). 즉 "그 시점에 보였던 값"의 증거이지 **최초 발표일**이 아님 | open | 최초 발표일이 필요하면 `realtime_start=1776-07-04`로 전체 vintage 이력을 받아야 함. 리뷰 1의 released_at 정밀도 항목(R1-X1)과 동일 뿌리 |
+| R23-L1 | Low | 스냅샷 `inputs[*].realtime_start`는 요청한 vintage 날짜와 같게 나온다(ALFRED가 단일 `vintage_dates`로 조회하면 그 vintage 기준 real-time 시작을 돌려줌). 즉 "그 시점에 보였던 값"의 증거이지 **최초 발표일**이 아님 | fixed | claude/task-27: `AlfredClient.first_release_date`(전체 vintage 이력)로 최신 입력 3개에 `first_published_on` 기록. 빌드 워크플로 `--first-release-dates`. 데이터가 같으면 재빌드 커밋 생략 |
 | R25-L1 | Low | 실시간 워크플로가 push로 미국 심야에 실행되면 FRED 시계(Chicago) 기준 "내일" vintage를 요청해 500 | fixed | `latest_safe_vintage`(Chicago 날짜) + 500 시 하루 후퇴. 정기 실행(13:40 UTC)은 영향 없음 |

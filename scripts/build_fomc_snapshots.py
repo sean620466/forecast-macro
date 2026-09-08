@@ -15,6 +15,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Build point-in-time FOMC feature snapshots")
     parser.add_argument("--meetings", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument(
+        "--first-release-dates",
+        action="store_true",
+        help="Also query each latest input's first publication date (3 extra requests per meeting)",
+    )
     args = parser.parse_args()
 
     api_key = os.environ.get("FRED_API_KEY")
@@ -31,6 +36,7 @@ def main() -> None:
             meeting_date=meeting.meeting_at.date(),
             vintage_date=meeting.meeting_at.date() - timedelta(days=1),
             build_commit=build_commit,
+            first_release_dates=args.first_release_dates,
         ).to_dict()
         for meeting in meetings
     ]
