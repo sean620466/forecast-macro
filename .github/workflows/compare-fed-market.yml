@@ -106,6 +106,6 @@ jobs:
             echo "no new comparison"
             exit 0
           fi
-          git commit -m "Record Fed model vs market comparison $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          git commit -m "Record model vs market comparisons $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
           git pull --rebase origin main
           git push origin HEAD:main
