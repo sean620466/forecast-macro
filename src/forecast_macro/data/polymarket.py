@@ -11,6 +11,7 @@ from forecast_macro.market_rules import MarketRuleDocument, parse_polymarket_rul
 
 POLYMARKET_CLOB_URL = "https://clob.polymarket.com"
 POLYMARKET_GAMMA_URL = "https://gamma-api.polymarket.com"
+REQUEST_HEADERS = {"User-Agent": "forecast-macro/0.1 (+https://github.com/sean620466/forecast-macro)"}
 
 
 def parse_polymarket_orderbook(
@@ -68,6 +69,7 @@ class PolymarketPublicClient:
         response = httpx.get(
             f"{POLYMARKET_CLOB_URL}/book",
             params={"token_id": token_id},
+            headers=REQUEST_HEADERS,
             timeout=self.timeout,
         )
         response.raise_for_status()
@@ -81,6 +83,7 @@ class PolymarketPublicClient:
         response = httpx.post(
             f"{POLYMARKET_CLOB_URL}/books",
             json=[{"token_id": token_id} for token_id in token_ids],
+            headers=REQUEST_HEADERS,
             timeout=self.timeout,
         )
         response.raise_for_status()
@@ -90,6 +93,7 @@ class PolymarketPublicClient:
         response = httpx.get(
             f"{POLYMARKET_GAMMA_URL}/public-search",
             params={"q": query},
+            headers=REQUEST_HEADERS,
             timeout=self.timeout,
         )
         response.raise_for_status()
@@ -98,6 +102,7 @@ class PolymarketPublicClient:
     def market_rules(self, market_id: str) -> MarketRuleDocument:
         response = httpx.get(
             f"{POLYMARKET_GAMMA_URL}/markets/{market_id}",
+            headers=REQUEST_HEADERS,
             timeout=self.timeout,
         )
         response.raise_for_status()

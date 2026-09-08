@@ -57,3 +57,5 @@
 | R5-L2 | Low | `fee_schedule_id` 자리표시자, 수수료 모델 부재 | open | |
 | R5-L3 | Low | ruff 버전 미고정, 0.16.6에서 2건 실패 | fixed | 70e035a. `ruff==0.16.6` 고정 |
 | R5-L4 | Low | 계수 부호 비경제적(실업률 음) | open | R5-C2 수정 후에도 실업률 계수 음수(약 −0.8 표준화). 문서에 명시. 표본 확장 후 재점검 |
+| R5-X1 | Medium | `discover-markets` 워크플로가 GitHub 러너에서 탐색 단계 실패(로컬은 성공). 원인 로그 미확인 | partial | claude/fix-discovery-ci: 거래소별 오류를 `.status.json`에 기록하고 계속 진행, User-Agent 명시. 러너 IP 차단이면 self-hosted 또는 프록시 필요 |
+| R5-X2 | Medium | Kalshi 페이지네이션 후 후보 1692건 중 브라질/ECB 등 해외 및 "Fed posts on X" 같은 비통계 계약 포함 | fixed | claude/fix-discovery-ci: 해외 지역·비통계 패턴 확장, `federal funds` 인식 추가. 1576건으로 감소. 구간 정보가 제목이 아닌 ticker에 있어 Kalshi 그룹 검증은 여전히 전부 거부됨(R5-H2 잔여) |

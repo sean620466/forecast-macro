@@ -33,23 +33,35 @@ class MarketCandidate:
 
 
 TOPIC_PATTERNS: tuple[tuple[MacroTopic, re.Pattern[str], str], ...] = (
-    (MacroTopic.FED_RATE, re.compile(r"\b(fed|fomc|federal reserve)\b", re.IGNORECASE), "Fed/FOMC"),
+    (MacroTopic.FED_RATE, re.compile(r"\b(fed|fomc|federal reserve|federal funds|fed funds)\b", re.IGNORECASE), "Fed/FOMC"),
     (MacroTopic.CPI, re.compile(r"\b(cpi|consumer price|inflation rate)\b", re.IGNORECASE), "CPI/inflation"),
     (MacroTopic.UNEMPLOYMENT, re.compile(r"\b(unemployment|jobless rate)\b", re.IGNORECASE), "unemployment"),
     (MacroTopic.GDP, re.compile(r"\b(gdp|gross domestic product)\b", re.IGNORECASE), "GDP"),
 )
 FOREIGN_REGION_PATTERN = re.compile(
-    r"\b(china|chinese|eurozone|european union|canada|canadian|uk|united kingdom|"
-    r"germany|german|france|french|india|indian|japan|japanese|australia|russia)\b",
+    r"\b(china|chinese|eurozone|euro area|european union|ecb|canada|canadian|uk|united kingdom|"
+    r"britain|british|boe|germany|german|france|french|italy|italian|spain|spanish|india|indian|"
+    r"japan|japanese|boj|australia|australian|rba|russia|russian|brazil|brazilian|mexico|mexican|"
+    r"korea|korean|argentina|turkey|turkish|indonesia|south africa|switzerland|swiss|sweden|"
+    r"norway|new zealand|rbnz|singapore|hong kong|taiwan|philippines|vietnam|thailand|"
+    r"poland|netherlands|dutch|nigeria|egypt|saudi|uae|israel|chile|colombia|peru)\b",
+    re.IGNORECASE,
+)
+# Titles that mention a macro institution but do not settle on an economic statistic.
+NON_STATISTIC_PATTERN = re.compile(
+    r"\b(posts? on x|tweets?|tweeted|mentions?|say(?:s)? the word|press conference|"
+    r"nominee|nomination|chair(?:man)?\b.*\b(?:resign|fired|removed|leave)|approval rating)\b",
     re.IGNORECASE,
 )
 
 
 def classify_macro_title(title: str) -> tuple[MacroTopic, str] | None:
     normalized = " ".join(title.split())
+    if NON_STATISTIC_PATTERN.search(normalized):
+        return None
     for topic, pattern, basis in TOPIC_PATTERNS:
         if pattern.search(normalized):
-            if topic is not MacroTopic.FED_RATE and FOREIGN_REGION_PATTERN.search(normalized):
+            if FOREIGN_REGION_PATTERN.search(normalized):
                 return None
             return topic, basis
     return None
