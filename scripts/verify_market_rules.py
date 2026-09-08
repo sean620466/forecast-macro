@@ -7,7 +7,12 @@ from pathlib import Path
 
 from forecast_macro.data.polymarket import PolymarketPublicClient
 from forecast_macro.market_review import review_market_candidates
-from forecast_macro.market_rules import validate_official_rules, verified_rule_metadata
+from forecast_macro.market_rules import (
+    effective_resolution_source,
+    identify_contract_series,
+    validate_official_rules,
+    verified_rule_metadata,
+)
 
 MODEL_SERIES = {
     "cpi": "headline_cpi_mom_sa",
@@ -39,10 +44,17 @@ def main() -> None:
             blockers = validate_official_rules(
                 document, topic=topic, expected_series=expected_series
             )
+            source, origin = effective_resolution_source(document, topic=topic)
             evidence[market_id] = {
-                "resolution_source": document.resolution_source,
+                "resolution_source": source,
+                "resolution_source_origin": origin,
+                "rules_source_level": document.rules_source_level,
+                "contract_series": identify_contract_series(document, topic=topic),
+                "expected_series": expected_series,
                 "rules_text_hash": document.rules_text_hash,
                 "rules_version": document.rules_version,
+                "venue_updated_at": document.venue_updated_at,
+                "fetched_at": document.fetched_at,
                 "blockers": list(blockers),
             }
             verified = verified_rule_metadata(

@@ -44,13 +44,13 @@
 | --- | --- | --- | --- | --- |
 | R5-C1 | Critical | 워크포워드 로지스틱이 사실상 절편 전용. 개선분 94%가 ZLB 규칙 | fixed | ridge 수정 후 재검산(claude/fix-review-5). 절편 전용·비-ZLB 분해를 보고서와 문서에 추가. 비-ZLB BSS +0.06 |
 | R5-C2 | Critical | `ridge_strength`가 평균 경사 스케일에 적용돼 λ≈n. 기본 설정 학습 테스트 없음 | fixed | 7937715 (ChatGPT). 수정 후 Brier 0.067791 독립 재계산 일치 |
-| R5-H1 | High | 계약 시리즈 정체성(Core/headline, YoY/MoM, SA/NSA) 미검증 | partial | 2221e32 (ChatGPT) `identify_contract_series`. 단 키워드가 없으면 mom/sa로 **기본값** 처리돼 fail-open 방향. 명시 키워드 없으면 None 반환하도록 남음 |
+| R5-H1 | High | 계약 시리즈 정체성(Core/headline, YoY/MoM, SA/NSA) 미검증 | fixed | 2221e32 (ChatGPT) + claude/review-6: 명시 근거 없으면 `None`, 식별 불가는 항상 blocker (R6-H1) |
 | R5-H2 | High | Kalshi 탐색 `cursor` 무시. 열린 KXFED 87건 누락 | partial | 859e5f1 (ChatGPT) 페이지네이션 추가. 누적 임계값("above X%") 계약을 구간 확률로 바꾸는 매핑은 미구현 |
 | R5-H3 | High | Polymarket `endDate` 시간대 불신뢰(ET를 Z로 표기) | partial | 45a26f4 (ChatGPT) `closes_at=None` + `close_time_verified` blocker. BLS/Fed 공식 일정에서 마감시각을 생성하는 경로는 미구현 |
-| R5-M1 | Medium | `resolutionSource` 빈 값으로 CPI 시장 영구 차단 | open | 본문 URL 추출 경로 필요 |
-| R5-M2 | Medium | `rules_version=updatedAt`은 규칙 버전이 아님 | open | |
-| R5-M3 | Medium | `review_market_candidates`가 비어있지 않은 문자열이면 승인 | open | |
-| R5-M4 | Medium | 구간 정규식: 엄격 부등호, MoM/YoY, 월 미구분 | open | |
+| R5-M1 | Medium | `resolutionSource` 빈 값으로 CPI 시장 영구 차단 | fixed | claude/review-6: 본문에서 공식 호스트 URL 추출, `resolution_source_origin` 기록 (R6-M3). 실측 CPI 10건 출처 확보, 시리즈 불일치로만 차단 |
+| R5-M2 | Medium | `rules_version=updatedAt`은 규칙 버전이 아님 | fixed | claude/review-6: 내용 해시 기반 버전, `venue_updated_at`·`fetched_at` 분리 (R6-H3) |
+| R5-M3 | Medium | `review_market_candidates`가 비어있지 않은 문자열이면 승인 | fixed | claude/review-6: `official_sources.py` 공유, 리뷰 단계에서 호스트 검사 (R6-H2) |
+| R5-M4 | Medium | 구간 정규식: 엄격 부등호, MoM/YoY, 월 미구분 | fixed | claude/review-6: 엄격 부등호 blocker, 그룹 subject 일치 검사 (R6-M2) |
 | R5-M5 | Medium | 워크포워드에 입력 검증 없음, `forecast_at` 불일치 | fixed | claude/fix-review-5 |
 | R5-M6 | Medium | 워크포워드 보고서에 always-hold 없음(BSS +0.084) | fixed | claude/fix-review-5. 수정 후 BSS vs always-hold +0.119 |
 | R5-L1 | Low | 인하 0건이면 always-hold BSS 0 나눗셈 | fixed | claude/fix-review-5. `None` 반환 |
@@ -59,3 +59,17 @@
 | R5-L4 | Low | 계수 부호 비경제적(실업률 음) | open | R5-C2 수정 후에도 실업률 계수 음수(약 −0.8 표준화). 문서에 명시. 표본 확장 후 재점검 |
 | R5-X1 | Medium | `discover-markets` 워크플로가 GitHub 러너에서 탐색 단계 실패(로컬은 성공). 원인 로그 미확인 | partial | claude/fix-discovery-ci: 거래소별 오류를 `.status.json`에 기록하고 계속 진행, User-Agent 명시. 러너 IP 차단이면 self-hosted 또는 프록시 필요 |
 | R5-X2 | Medium | Kalshi 페이지네이션 후 후보 1692건 중 브라질/ECB 등 해외 및 "Fed posts on X" 같은 비통계 계약 포함 | fixed | claude/fix-discovery-ci: 해외 지역·비통계 패턴 확장, `federal funds` 인식 추가. 1576건으로 감소. 구간 정보가 제목이 아닌 ticker에 있어 Kalshi 그룹 검증은 여전히 전부 거부됨(R5-H2 잔여) |
+
+## 리뷰 6 — 시장 규칙 검증 게이트 (`2026-09-08-market-rules-claude-review-6.md`)
+
+| ID | 등급 | 요약 | 상태 | 비고 |
+| --- | --- | --- | --- | --- |
+| R6-H1 | High | 시리즈 식별 기본값이 모델 시리즈와 일치(fail-open) | fixed | 같은 브랜치. 근거 없으면 `None` + blocker |
+| R6-H2 | High | `review_market_candidates`가 출처 호스트 미검사 | fixed | 같은 브랜치. `official_sources.is_official_source` |
+| R6-H3 | High | 해시에 `updatedAt` 포함 → 규칙 불변에도 해시 변동, `fetched_at` 없음 | fixed | 같은 브랜치 |
+| R6-M1 | Medium | 시장/이벤트 수준 필드 혼합 | fixed | 같은 브랜치. `rules_source_level` |
+| R6-M2 | Medium | 엄격 부등호·월·시리즈 혼합 미감지 | fixed | 같은 브랜치 |
+| R6-M3 | Medium | 본문 URL 미활용으로 CPI 영구 차단 | fixed | 같은 브랜치 |
+| R6-L1 | Low | http 평문 출처 통과 | fixed | 같은 브랜치. https 강제 |
+| R6-L2 | Low | `MODEL_SERIES["cpi"]`가 어느 모델 기준인지 불명확 | open | CPI 구간 모델(MoM SA) 기준. Fed 특징(YoY NSA)과 다름을 문서화 필요 |
+| R6-X1 | Medium | 실업률 9건은 규칙 검증 전부 통과, `close_time_verified=False`만 남음 | open | R5-H3 구현이 다음 과제 |

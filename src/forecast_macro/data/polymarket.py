@@ -106,4 +106,4 @@ class PolymarketPublicClient:
             timeout=self.timeout,
         )
         response.raise_for_status()
-        return parse_polymarket_rules(response.json())
+        return parse_polymarket_rules(response.json(), fetched_at=datetime.now(UTC))
