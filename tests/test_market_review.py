@@ -15,6 +15,7 @@ def _row(market_id: str, title: str, topic: str = "cpi") -> dict[str, object]:
         "outcome_labels": ["Yes", "No"],
         "outcome_token_ids": [f"{market_id}-yes", f"{market_id}-no"],
         "requires_review": True,
+        "close_time_verified": True,
     }
 
 

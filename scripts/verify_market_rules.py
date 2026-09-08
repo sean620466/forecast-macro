@@ -9,6 +9,13 @@ from forecast_macro.data.polymarket import PolymarketPublicClient
 from forecast_macro.market_review import review_market_candidates
 from forecast_macro.market_rules import validate_official_rules, verified_rule_metadata
 
+MODEL_SERIES = {
+    "cpi": "headline_cpi_mom_sa",
+    "unemployment": "unemployment_rate_sa",
+    "fed_rate": "federal_funds_target_range",
+    "gdp": "real_gdp",
+}
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Fetch and verify candidate contract rules")
@@ -27,14 +34,20 @@ def main() -> None:
             continue
         try:
             document = client.market_rules(market_id)
-            blockers = validate_official_rules(document, topic=str(row["topic"]))
+            topic = str(row["topic"])
+            expected_series = MODEL_SERIES[topic]
+            blockers = validate_official_rules(
+                document, topic=topic, expected_series=expected_series
+            )
             evidence[market_id] = {
                 "resolution_source": document.resolution_source,
                 "rules_text_hash": document.rules_text_hash,
                 "rules_version": document.rules_version,
                 "blockers": list(blockers),
             }
-            verified = verified_rule_metadata(document, topic=str(row["topic"]))
+            verified = verified_rule_metadata(
+                document, topic=topic, expected_series=expected_series
+            )
             if verified is not None:
                 metadata[market_id] = verified
         except Exception as error:  # Fail closed when a public venue is temporarily unavailable.

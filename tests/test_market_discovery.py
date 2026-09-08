@@ -87,3 +87,5 @@ def test_polymarket_uses_event_title_to_classify_outcome_markets() -> None:
 
     assert len(candidates) == 1
     assert candidates[0].topic is MacroTopic.FED_RATE
+    assert candidates[0].closes_at is None
+    assert candidates[0].close_time_verified is False

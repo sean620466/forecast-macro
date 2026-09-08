@@ -62,10 +62,26 @@ class KalshiPublicClient:
         )
 
     def discover_open_macro_markets(self) -> list[MarketCandidate]:
-        response = httpx.get(
-            f"{KALSHI_API_URL}/markets",
-            params={"status": "open", "limit": 1000, "mve_filter": "exclude"},
-            timeout=self.timeout,
-        )
-        response.raise_for_status()
-        return kalshi_candidates(response.json())
+        candidates: list[MarketCandidate] = []
+        cursor: str | None = None
+        seen_cursors: set[str] = set()
+        while True:
+            params = {"status": "open", "limit": 1000, "mve_filter": "exclude"}
+            if cursor:
+                params["cursor"] = cursor
+            response = httpx.get(
+                f"{KALSHI_API_URL}/markets",
+                params=params,
+                timeout=self.timeout,
+            )
+            response.raise_for_status()
+            payload = response.json()
+            candidates.extend(kalshi_candidates(payload))
+            next_cursor = str(payload.get("cursor") or "")
+            if not next_cursor:
+                break
+            if next_cursor in seen_cursors:
+                raise ValueError("Kalshi pagination returned a repeated cursor")
+            seen_cursors.add(next_cursor)
+            cursor = next_cursor
+        return candidates
