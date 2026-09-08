@@ -79,7 +79,12 @@ def fit_logistic(
                 gradients[index] += error * value
         intercept -= learning_rate * intercept_gradient / sample_count
         for index in range(width):
-            regularized = gradients[index] / sample_count + ridge_strength * coefficients[index]
+            # ridge_strength is defined against summed log loss.  Divide its
+            # gradient with the data gradient so regularization does not grow
+            # by a factor of n when we optimize the mean loss.
+            regularized = (
+                gradients[index] + ridge_strength * coefficients[index]
+            ) / sample_count
             coefficients[index] -= learning_rate * regularized
 
     return LogisticModel(means, scales, intercept, tuple(coefficients))
