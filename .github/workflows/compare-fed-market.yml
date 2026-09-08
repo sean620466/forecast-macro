@@ -23,9 +23,12 @@ on:
       - "src/forecast_macro/live_comparison.py"
       - "src/forecast_macro/snapshots.py"
       - "src/forecast_macro/data/alfred.py"
+      - "scripts/scoring_alerts.py"
+      - "src/forecast_macro/alerts.py"
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: compare-fed-market
@@ -65,6 +68,19 @@ jobs:
         run: python scripts/score_unemployment_comparisons.py
       - name: Build the status dashboard and STATUS.md
         run: python scripts/build_dashboard.py
+      - name: Detect newly scored outcomes (compared with the committed scoring files)
+        run: python scripts/scoring_alerts.py --ref HEAD --output-dir artifacts/alerts
+      - name: Open one issue per newly scored topic
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          shopt -s nullglob
+          for file in artifacts/alerts/*.md; do
+            title=$(head -n 1 "$file")
+            tail -n +2 "$file" > /tmp/alert_body.md
+            gh label create scoring --color 0E8A16 --description "A realized outcome was scored" --force
+            gh issue create --title "$title" --label scoring --body-file /tmp/alert_body.md
+          done
       - name: Persist comparison in the repository
         run: |
           git config user.name "forecast-macro-bot"

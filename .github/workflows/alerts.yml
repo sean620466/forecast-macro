@@ -1,0 +1,57 @@
+name: Alerts
+
+# Opens a GitHub issue when a scheduled workflow fails and closes it when the same workflow
+# succeeds again. GitHub e-mails the repository owner for every issue it opens, so this is
+# the notification channel without any extra secret. Scoring alerts (a realized outcome
+# was scored) are raised from inside compare-fed-market.yml, next to the scoring step.
+
+on:
+  workflow_run:
+    workflows:
+      - CI
+      - Discover macro markets
+      - Compare Fed model with market
+      - Build historical snapshots
+    types: [completed]
+
+permissions:
+  issues: write
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'failure' || github.event.workflow_run.conclusion == 'success'
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      WORKFLOW_NAME: ${{ github.event.workflow_run.name }}
+      CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+      RUN_URL: ${{ github.event.workflow_run.html_url }}
+      HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+      EVENT: ${{ github.event.workflow_run.event }}
+    steps:
+      - name: Ensure labels exist
+        run: |
+          gh label create workflow-failure --color B60205 --description "A scheduled workflow failed" --force
+          gh label create scoring --color 0E8A16 --description "A realized outcome was scored" --force
+      - name: Open or update the failure issue
+        if: env.CONCLUSION == 'failure'
+        run: |
+          title="[실패] 워크플로 '${WORKFLOW_NAME}'"
+          existing=$(gh issue list --label workflow-failure --state open --search "\"$title\" in:title" --json number,title \
+            --jq ".[] | select(.title == \"$title\") | .number" | head -n 1)
+          body=$(printf '워크플로 **%s** 가 실패했습니다 (이벤트: %s, 커밋: %s).\n\n실행 로그: %s\n\n같은 워크플로가 다시 성공하면 이 이슈는 자동으로 닫힙니다.' \
+            "$WORKFLOW_NAME" "$EVENT" "${HEAD_SHA:0:7}" "$RUN_URL")
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh issue create --title "$title" --label workflow-failure --body "$body"
+          fi
+      - name: Close the failure issue after recovery
+        if: env.CONCLUSION == 'success'
+        run: |
+          title="[실패] 워크플로 '${WORKFLOW_NAME}'"
+          gh issue list --label workflow-failure --state open --search "\"$title\" in:title" --json number,title \
+            --jq ".[] | select(.title == \"$title\") | .number" | while read -r number; do
+            gh issue close "$number" --comment "다시 성공했습니다: $RUN_URL"
+          done

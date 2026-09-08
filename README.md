@@ -17,6 +17,7 @@
 | 실업률 baseline vs 시장 | 평일 09:40 ET | `data/generated/unemployment_market_comparisons/`, `unemployment_market_scoring.json` |
 | Core CPI YoY baseline vs 시장 | 평일 09:40 ET | `data/generated/core_cpi_market_comparisons/`, `core_cpi_market_scoring.json` |
 | 시점별 특징 스냅샷(ALFRED) | 수동/변경 시 | `data/generated/fomc_feature_snapshots_2019_2026.json` |
+| 알림 | 워크플로 완료 시 / 채점 직후 | GitHub 이슈: `workflow-failure`(실패 시 열고 재성공 시 자동 닫힘), `scoring`(결과가 확정되어 채점된 회의·발표마다 1건) |
 
 모든 산출물은 GitHub Actions의 봇 계정이 저장소에 커밋합니다. `signal_eligible`은 코드 전체에서 `false`이며, 결정(D-0xx) 없이는 바뀌지 않습니다.
 
@@ -49,7 +50,7 @@ python scripts/run_fed_model_comparison.py --meetings data/fomc_meetings_2019_20
 
 ## Repository map
 
-- `DECISIONS.md` — 확정된 결정 D-001~D-016
+- `DECISIONS.md` — 확정된 결정 D-001~D-018
 - `reviews/FINDINGS.md` — 모든 검토 발견사항과 상태 (open/partial/fixed)
 - `reviews/` — 검토 보고서, 응답, `tasks/`
 - `docs/COLLABORATION.md` — 운영 규칙(현재 Claude 단독, CI 초록이면 직접 병합)
@@ -58,7 +59,7 @@ python scripts/run_fed_model_comparison.py --meetings data/fomc_meetings_2019_20
 - `src/forecast_macro/models/` — `fed.py`(휴리스틱 3원), `logistic.py`, `unemployment.py`, `cpi.py`
 - `src/forecast_macro/market_*.py`, `official_sources.py`, `release_schedule.py` — 시장 게이트
 - `src/forecast_macro/live_comparison.py`, `unemployment_comparison.py`, `*_scoring.py` — D-007 루프
-- `tests/` — 165개, 체크인된 JSON 재현 회귀 테스트 포함
+- `tests/` — 191개, 체크인된 JSON 재현 회귀 테스트 포함
 
 ## 현재 판정
 

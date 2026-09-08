@@ -178,3 +178,4 @@
 | R35-M1 | Medium | Core CPI 모델은 "최신 YoY + YoY의 1개월 변화 경험분포"로, 실업률 baseline과 같은 무조정 구조. CPI YoY는 기저효과(12개월 전 지수)에 크게 좌우되므로 경험분포보다 단순한 구조가 존재함(기저효과 계산) | open | 다음 단계: 기저효과를 명시적으로 넣은 baseline과 비교. 채점 데이터 축적 후 |
 | R35-L1 | Low | 규칙 검증의 모델 시리즈가 토픽당 여러 개(`core_cpi_yoy_nsa`, `headline_cpi_mom_sa`). 계약이 그중 하나면 통과 | fixed | Polymarket 838712 (Core CPI YoY 8월) 10건 승인 예상 |
 | R37-M1 | Medium | 94회의 스냅샷 빌드(#12)가 11분 뒤 유효한 과거 vintage(2022-01-25)에 대한 FRED 일시적 500 한 번으로 중단. ALFRED 클라이언트는 429만 재시도했음 | fixed | 5xx·전송 오류(타임아웃)도 지수 백오프로 재시도(마지막 시도의 응답은 그대로 반환해 "내일 vintage" 500 폴백 유지). 빌드 스크립트는 회의마다 체크포인트 저장, `--resume` 지원 |
+| R38-L1 | Low | 워크플로 실패나 첫 채점 결과를 사람이 알 방법이 없었음(Actions 페이지를 직접 봐야 함) | fixed | `alerts.yml`: 예약 워크플로 실패 시 `workflow-failure` 이슈 생성·갱신, 재성공 시 자동 닫힘. `scripts/scoring_alerts.py`: 커밋된 채점 파일 대비 새로 채점된 회의·발표가 있으면 `scoring` 이슈 1건(수치 포함). 이슈는 알림일 뿐 `signal_eligible`과 무관 |
