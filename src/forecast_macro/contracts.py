@@ -87,7 +87,11 @@ def normalize_outcome_prices(
     quote_type: Literal["mid"] = "mid",
     tolerance: float = 0.05,
 ) -> dict[str, float]:
-    """Remove simple overround by normalizing mutually exclusive outcome prices."""
+    """Legacy D-010 mid-price normalization; superseded by normalize_bucket_quotes (D-015).
+
+    Kept for the review-3 tests and as the reference behaviour that D-015 replaced. Not used
+    by the pricing pipeline.
+    """
     if len(prices) < 2:
         raise ValueError("at least two outcome prices are required")
     if tolerance < 0:

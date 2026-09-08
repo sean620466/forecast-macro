@@ -1,51 +1,61 @@
 # FORECAST MACRO
 
-경제 데이터를 사람이 이해하기 쉽게 정리하고, AI가 현재 경제 상황을 분석하여 주요 거시경제 이벤트의 자체 확률을 계산하는 시스템입니다.
+경제 데이터를 시점별(vintage)로 수집하고, 주요 거시 이벤트에 대한 자체 확률을 예측시장 가격과 같은 결과공간에서 나란히 기록·채점하는
+시스템입니다. 신호를 보여주는 것이 아니라 **"모델이 시장보다 나은가"를 정직하게 측정하는 것**이 1차 목표입니다(D-001, D-007, D-012).
 
-## MVP capabilities
+## 현재 동작하는 것 (2026-09-08)
 
-- FRED 최신 관측값 수집
-- Fed 금리 인하 확률 baseline
-- CPI 결과 구간별 확률분포
-- 모델 확률과 예측시장 가격 비교
-- 기본 8%p edge 이상만 신호 표시
-- Claude 독립 검산 프로토콜
+| 파이프라인 | 주기 | 산출물 |
+| --- | --- | --- |
+| 시장 탐색 → 규칙·일정 검증 → 가격 스냅샷 | 6시간 | `data/generated/market_prices/*.json` (Kalshi Fed 사다리, Polymarket 실업률 구간) |
+| Fed 모델(cut/hold/hike) vs 시장 | 평일 09:40 ET | `data/generated/fed_market_comparisons/`, `fed_market_scoring.json` |
+| 실업률 baseline vs 시장 | 평일 09:40 ET | `data/generated/unemployment_market_comparisons/`, `unemployment_market_scoring.json` |
+| 시점별 특징 스냅샷(ALFRED) | 수동/변경 시 | `data/generated/fomc_feature_snapshots_2019_2026.json` |
 
-> 현재 모델 계수는 제품 구조를 검증하기 위한 baseline입니다. 실제 의사결정에 사용하기 전에 vintage data 백테스트와 캘리브레이션이 필요합니다.
+모든 산출물은 GitHub Actions의 봇 계정이 저장소에 커밋합니다. `signal_eligible`은 코드 전체에서 `false`이며, 결정(D-0xx) 없이는 바뀌지 않습니다.
+
+## 게이트 (fail-closed)
+
+- 계약 규칙: 공식 기관 호스트(BLS·연준·BEA)만 출처로 인정, 시리즈 정체성(Core/headline, YoY/MoM, SA/NSA) 명시 근거 필요
+- 결과 확정 시각: 거래소 값이 아니라 공식 발표 일정(`data/release_schedule.csv`)에서 생성(D-014)
+- 가격: 구간 시장은 `Σbid ≤ 1 ≤ Σask`·폭 ≤ 0.35(D-015), 사다리는 연속성·호가 범위 단조성·폭 게이트
+- 모델: ZLB에서 인하 확률 고정(D-011), 비-ZLB 30건 미만이면 연구 게이트도 통과 불가(D-013)
 
 ## Quick start
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -e ".[dev]"
-pytest -q
+uv venv --python 3.12 && uv pip install -e ".[dev]"
+.venv/bin/pytest -q
+.venv/bin/ruff check .
 ```
 
-예시:
+백테스트 재현:
 
 ```bash
-forecast-macro \
-  --inflation 2.6 \
-  --unemployment 4.3 \
-  --unemployment-change-3m 0.2 \
-  --policy-rate 4.5 \
-  --market-cut 0.35
+python scripts/run_fed_backtest.py --meetings data/fomc_meetings_2019_2026.csv \
+  --snapshots data/generated/fomc_feature_snapshots_2019_2026.json --event-scope window \
+  --output /tmp/window.json
+python scripts/run_fed_model_comparison.py --meetings data/fomc_meetings_2019_2026.csv \
+  --snapshots data/generated/fomc_feature_snapshots_2019_2026.json --output /tmp/wf.json
 ```
+
+실시간 스크립트(`scripts/compare_*.py`, `scripts/build_fomc_snapshots.py`)는 `FRED_API_KEY` 환경변수가 필요하며 저장소에는 GitHub secret으로만 존재합니다.
 
 ## Repository map
 
-- `ARCHITECTURE.md` — 전체 데이터 및 모델 흐름
-- `DECISIONS.md` — 확정된 의사결정
-- `docs/DATA_SOURCES.md` — 공식 경제 데이터 설계
-- `src/forecast_macro/data/` — 데이터 수집
-- `src/forecast_macro/models/` — 확률 모델
-- `src/forecast_macro/signals.py` — 시장가격 비교
-- `tests/` — 자동 테스트
-- `reviews/` — Claude 검산 결과
+- `DECISIONS.md` — 확정된 결정 D-001~D-016
+- `reviews/FINDINGS.md` — 모든 검토 발견사항과 상태 (open/partial/fixed)
+- `reviews/` — 검토 보고서, 응답, `tasks/`
+- `docs/COLLABORATION.md` — 운영 규칙(현재 Claude 단독, CI 초록이면 직접 병합)
+- `docs/EXTENDED_BACKTEST.md`, `docs/WALK_FORWARD_MODEL.md` — 백테스트 결과와 해석
+- `docs/CONTRACT_SCHEMA.md`, `docs/RELEASE_SCHEDULE.md` — 계약·일정 처리 규칙
+- `src/forecast_macro/models/` — `fed.py`(휴리스틱 3원), `logistic.py`, `unemployment.py`, `cpi.py`
+- `src/forecast_macro/market_*.py`, `official_sources.py`, `release_schedule.py` — 시장 게이트
+- `src/forecast_macro/live_comparison.py`, `unemployment_comparison.py`, `*_scoring.py` — D-007 루프
+- `tests/` — 165개, 체크인된 JSON 재현 회귀 테스트 포함
 
-## Collaboration
+## 현재 판정
 
-- 설계, 코드, 가설은 저장소에서 관리합니다.
-- Claude는 코드를 바로 덮어쓰지 않고 먼저 `reviews/`에 독립 검산 결과를 기록합니다.
-- 최종 의사결정은 `DECISIONS.md`에 남깁니다.
+- Fed 워크포워드 로지스틱: 2019–2026 비-ZLB 36건, climatology 대비 BSS +0.17이나 비-ZLB 부분표본에서는 +0.03. 인상 사이클 1개.
+- 시장 baseline 대비 채점: 첫 회의 2026-09-16, 첫 실업률 발표 2026-10-02. 30건까지 수년.
+- 결론: 아직 아무 신호도 자격이 없다. 그것이 이 저장소가 지금까지 확인한 사실이다.

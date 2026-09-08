@@ -94,7 +94,7 @@
 
 | ID | 등급 | 요약 | 상태 | 비고 |
 | --- | --- | --- | --- | --- |
-| R9-L1 | Low | `normalize_outcome_prices`(D-010 mid 규칙)는 코드에 남아 있으나 파이프라인에서 더는 쓰지 않음 | open | 리뷰 3 테스트가 참조. 제거 또는 "legacy" 표시 필요 |
+| R9-L1 | Low | `normalize_outcome_prices`(D-010 mid 규칙)는 코드에 남아 있으나 파이프라인에서 더는 쓰지 않음 | fixed | claude/task-21: docstring에 legacy 표시 |
 | R9-L2 | Low | 점추정의 스프레드 비례 배분은 결정으로 고정했으나, 대안(bid 기준, 유동성 가중)과의 비교는 시장 데이터가 쌓인 뒤 가능 | open | 스냅샷에 bid·ask·mid 합을 모두 저장하므로 사후 재계산 가능 |
 
 ## 과제 12 — Kalshi 누적 임계값 사다리 (`R5-H2` 잔여)
@@ -102,7 +102,7 @@
 | ID | 등급 | 요약 | 상태 | 비고 |
 | --- | --- | --- | --- | --- |
 | R12-M1 | Medium | KXFED 2026-12, 2027-01/03/04 이벤트는 승인됐으나 꼬리 rung 스프레드가 0.10을 넘어 가격 거부 | partial | claude/task-20: rung별 스프레드 거부를 없애고 `wide_rungs` 기록 + D-015 폭 게이트(Σask−Σbid ≤ 0.35)·단조성으로 판정. 단조성은 mid가 아니라 호가 범위(높은 rung의 bid > 낮은 rung의 ask)로 판정하도록 수정. 2026-09-08 실측에서는 12월·2027년 1/3/4월 모두 폭(Σask−Σbid > 0.35)으로 거부. 폭 상한 완화나 활성 구간만의 부분 가격은 결정 사항으로 남김 |
-| R12-M2 | Medium | Kalshi 규칙의 출처는 URL이 아닌 문구("Federal Reserve's official website")로 기재. 정확 문구 3개만 매핑, 기원 `rules_text_reference`가 아닌 `field`로 기록됨 | open | 기원 라벨을 `rules_text_reference`로 구분해야 감사 시 URL 출처와 구별 가능 |
+| R12-M2 | Medium | Kalshi 규칙의 출처는 URL이 아닌 문구("Federal Reserve's official website")로 기재. 정확 문구 3개만 매핑, 기원 `rules_text_reference`가 아닌 `field`로 기록됨 | fixed | claude/task-21: `resolution_source_kind=text_reference` → 기원 `rules_text_reference` |
 | R12-L1 | Low | KXFEDFUNDSYEAR(연말 금리), KXEFFR(실효금리) 이벤트는 구조는 통과했으나 발표 일정이 없어 `close_time` 미검증 | open | 연말 계약은 12월 FOMC로 매핑 가능, EFFR은 NY Fed 일별 게시라 별도 규칙 필요 |
 | R12-L2 | Low | 봇이 커밋하던 `macro_market_review_latest.json`이 38,960줄 | fixed | 같은 브랜치: 요약과 승인 행만 커밋 |
 
@@ -120,7 +120,7 @@
 | --- | --- | --- | --- | --- |
 | R14-H1 | High | 실시간 비교 첫 실행 실패: ALFRED가 `vintage_dates=2026-09-08`(UTC 날짜, 미국 시각으로는 전날 저녁)에 HTTP 500 | fixed | 같은 브랜치: vintage를 `America/New_York` 달력 날짜로 |
 | R14-H2 | High | 과제 12 응답이 Kalshi 9월 사다리를 "인하 0.47"로 해석했으나 현재 상단은 3.75%(2025-12-10 이후). 실제 의미는 동결 0.47 / 인상 0.51 | fixed | 응답 문서 정정. 코드(`market_cut_probability`)는 DFEDTARU 실측값을 쓰므로 영향 없음 |
-| R14-M1 | Medium | 학습 데이터가 2024-12까지라 2025년 인하 3회와 2026년 동결 5회가 모델에 없음 | partial | `data/fomc_meetings_2019_2026.csv` 13행 추가(보도자료 문장에서 전사, 전부 HTTP 200). 스냅샷은 `build-snapshots` 워크플로가 FRED로 만들어 커밋 예정 |
+| R14-M1 | Medium | 학습 데이터가 2024-12까지라 2025년 인하 3회와 2026년 동결 5회가 모델에 없음 | fixed | CSV 13행 + 봇 커밋 스냅샷 62건(`21852bf`). 실시간 비교와 백테스트 모두 2019–2026 사용 |
 | R14-H3 | High | 2025-10 CPI·실업률이 BLS 셧다운으로 미발표(FRED `.`). 13개월 연속성 검사가 2025-11 이후 모든 스냅샷과 실시간 비교를 거부 | fixed | claude/task-14b: 변화율은 양 끝 달만 요구, 중간 미발표 달은 `data_gaps`에 기록. 2019–2024 회귀 테스트로 기존 값 불변 확인 |
 | R14-M2 | Medium | 첫 실시간 비교(2026-09-08 02:57Z): 모델 P(cut) 휴리스틱 0.157 / 로지스틱 0.144 vs 시장 0.005. 시장은 인상 0.525를 보는데 모델에는 "인상" 결과가 없음(cut vs hold_or_hike 이진) | open | 기록 전용. 모델 결과공간을 cut/hold/hike 3원으로 확장하는 것이 다음 모델링 과제. 학습 데이터 2019–2026 스냅샷이 커밋되면 재학습 |
 | R14-L1 | Low | 채점 스크립트는 회의 결정 전 마지막 기록만 사용하고 미래 회의는 제외. 아직 채점 가능한 회의 0건 | fixed | `comparison_scoring.py`, 워크플로가 매일 `fed_market_scoring.json` 갱신 |

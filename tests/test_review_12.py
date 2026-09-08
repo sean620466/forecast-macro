@@ -110,7 +110,7 @@ def test_kalshi_rules_verify_against_fed_source_and_calendar() -> None:
     assert identify_contract_series(document, topic="fed_rate") == "federal_funds_target_range"
     assert validate_official_rules(document, topic="fed_rate", expected_series="federal_funds_target_range") == ()
     metadata = verified_rule_metadata(document, topic="fed_rate", expected_series="federal_funds_target_range")
-    assert metadata is not None and metadata.resolution_source_origin == "field"
+    assert metadata is not None and metadata.resolution_source_origin == "rules_text_reference"
 
     close = verify_close_time(
         topic="fed_rate",

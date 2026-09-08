@@ -27,6 +27,9 @@ class MarketRuleDocument:
     venue_updated_at: str = ""
     fetched_at: str = ""
     rules_source_level: str = "missing"  # "market" | "event" | "missing"
+    # "url" when the venue gave a resolution URL; "text_reference" when the URL was mapped
+    # from an exact phrase in the rules prose (Kalshi). Audits must see the difference.
+    resolution_source_kind: str = "url"
 
 
 TOPIC_TERMS: dict[str, tuple[str, ...]] = {
@@ -149,7 +152,8 @@ def parse_polymarket_rules(
 def effective_resolution_source(document: MarketRuleDocument, *, topic: str) -> tuple[str, str]:
     """Return (url, origin) where origin is 'field', 'description' or ''."""
     if document.resolution_source and is_official_source(document.resolution_source, topic=topic):
-        return document.resolution_source, "field"
+        origin = "field" if document.resolution_source_kind == "url" else "rules_text_reference"
+        return document.resolution_source, origin
     if not document.resolution_source:
         from_text = first_official_url(document.description, topic=topic)
         if from_text:
@@ -241,4 +245,5 @@ def parse_kalshi_rules(
         venue_updated_at=str(market.get("updated_time") or "").strip(),
         fetched_at=(fetched_at or datetime.now(UTC)).isoformat(),
         rules_source_level="market" if primary else "missing",
+        resolution_source_kind="text_reference" if source else "url",
     )
