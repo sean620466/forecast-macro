@@ -139,3 +139,32 @@ def test_models_and_comparison_record_keep_signals_off() -> None:
     assert record.signal_eligible is False
     assert record.model_version == "fed-live-0.2-three-way-uncalibrated"
     assert record.to_dict()["market"]["source_file"] == "x.json"
+
+
+def test_live_vintage_uses_fred_chicago_clock_and_falls_back_on_500() -> None:
+    import httpx
+
+    from forecast_macro.snapshots import build_feature_snapshot_with_fallback, latest_safe_vintage
+
+    # 04:05 UTC on Sep 8 is 23:05 on Sep 7 in Chicago: the vintage must be Sep 7.
+    assert latest_safe_vintage(datetime(2026, 9, 8, 4, 5, tzinfo=UTC)) == date(2026, 9, 7)
+    assert latest_safe_vintage(datetime(2026, 9, 8, 13, 40, tzinfo=UTC)) == date(2026, 9, 8)
+
+    class RejectsTomorrow(FakeAlfredClient):
+        def observations_as_of(self, series_id, *, vintage_date, observation_start, observation_end):
+            if vintage_date >= date(2026, 9, 8):
+                request = httpx.Request("GET", "https://api.stlouisfed.org/x")
+                raise httpx.HTTPStatusError("500", request=request, response=httpx.Response(500, request=request))
+            return super().observations_as_of(
+                series_id, vintage_date=vintage_date, observation_start=observation_start, observation_end=observation_end
+            )
+
+    months = [(2025 + (index + 7) // 12, (index + 7) % 12 + 1) for index in range(13)]
+    cpi = [observation("CPIAUCNS", y, m, 320 + index) for index, (y, m) in enumerate(months)]
+    unemployment = [observation("UNRATE", 2026, m, v) for m, v in [(4, 4.2), (5, 4.2), (6, 4.1), (7, 4.2)]]
+    policy = [observation("DFEDTARU", 2026, 9, 3.75)]
+    client = RejectsTomorrow({"CPIAUCNS": cpi, "UNRATE": unemployment, "DFEDTARU": policy})
+    snapshot = build_feature_snapshot_with_fallback(
+        client, meeting_date=date(2026, 9, 16), as_of=datetime(2026, 9, 8, 13, 40, tzinfo=UTC)
+    )
+    assert snapshot.vintage_date == "2026-09-07"  # stepped back once after the 500

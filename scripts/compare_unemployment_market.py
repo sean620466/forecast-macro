@@ -3,13 +3,15 @@ from __future__ import annotations
 import argparse
 import json
 import os
-from datetime import UTC, date, datetime
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
-from zoneinfo import ZoneInfo
+
+import httpx
 
 from forecast_macro.data.alfred import AlfredClient
 from forecast_macro.models.unemployment import MonthlyRate
 from forecast_macro.release_schedule import load_release_schedule
+from forecast_macro.snapshots import latest_safe_vintage
 from forecast_macro.unemployment_comparison import (
     build_unemployment_comparison,
     latest_unemployment_record,
@@ -41,11 +43,19 @@ def main() -> None:
         return
     record, source = found
 
-    vintage = as_of.astimezone(ZoneInfo("America/New_York")).date()
+    vintage = latest_safe_vintage(as_of)
     client = AlfredClient(api_key, request_interval=0.6)
-    observations = client.observations_as_of(
-        "UNRATE", vintage_date=vintage, observation_start=HISTORY_START, observation_end=vintage
-    )
+    try:
+        observations = client.observations_as_of(
+            "UNRATE", vintage_date=vintage, observation_start=HISTORY_START, observation_end=vintage
+        )
+    except httpx.HTTPStatusError as error:
+        if error.response.status_code != 500:
+            raise
+        vintage = vintage - timedelta(days=1)
+        observations = client.observations_as_of(
+            "UNRATE", vintage_date=vintage, observation_start=HISTORY_START, observation_end=vintage
+        )
     history = [MonthlyRate(month=row.observed_at, value=row.value) for row in observations]
 
     comparison = build_unemployment_comparison(

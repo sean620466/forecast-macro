@@ -118,7 +118,7 @@
 
 | ID | 등급 | 요약 | 상태 | 비고 |
 | --- | --- | --- | --- | --- |
-| R14-H1 | High | 실시간 비교 첫 실행 실패: ALFRED가 `vintage_dates=2026-09-08`(UTC 날짜, 미국 시각으로는 전날 저녁)에 HTTP 500 | fixed | 같은 브랜치: vintage를 `America/New_York` 달력 날짜로 |
+| R14-H1 | High | 실시간 비교 첫 실행 실패: ALFRED가 `vintage_dates=2026-09-08`(UTC 날짜, 미국 시각으로는 전날 저녁)에 HTTP 500 | fixed | task-14: ET 날짜 → 재발(04:05 UTC = 23:05 CT). claude/task-25: FRED 시계는 **America/Chicago**. `latest_safe_vintage` + 500이면 하루 후퇴(`build_feature_snapshot_with_fallback`) |
 | R14-H2 | High | 과제 12 응답이 Kalshi 9월 사다리를 "인하 0.47"로 해석했으나 현재 상단은 3.75%(2025-12-10 이후). 실제 의미는 동결 0.47 / 인상 0.51 | fixed | 응답 문서 정정. 코드(`market_cut_probability`)는 DFEDTARU 실측값을 쓰므로 영향 없음 |
 | R14-M1 | Medium | 학습 데이터가 2024-12까지라 2025년 인하 3회와 2026년 동결 5회가 모델에 없음 | fixed | CSV 13행 + 봇 커밋 스냅샷 62건(`21852bf`). 실시간 비교와 백테스트 모두 2019–2026 사용 |
 | R14-H3 | High | 2025-10 CPI·실업률이 BLS 셧다운으로 미발표(FRED `.`). 13개월 연속성 검사가 2025-11 이후 모든 스냅샷과 실시간 비교를 거부 | fixed | claude/task-14b: 변화율은 양 끝 달만 요구, 중간 미발표 달은 `data_gaps`에 기록. 2019–2024 회귀 테스트로 기존 값 불변 확인 |

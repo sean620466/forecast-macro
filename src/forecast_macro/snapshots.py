@@ -2,6 +2,9 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
 from datetime import UTC, date, datetime, timedelta
+from zoneinfo import ZoneInfo
+
+import httpx
 
 from forecast_macro.data.alfred import AlfredClient, VintageObservation
 from forecast_macro.datasets import HistoricalFomcRow
@@ -153,3 +156,34 @@ def build_feature_snapshot(
             "build_commit": build_commit,
         },
     )
+
+
+def latest_safe_vintage(as_of: datetime) -> date:
+    """The latest vintage date ALFRED will accept right now.
+
+    FRED's clock is America/Chicago. A vintage date that is still "tomorrow" there returns
+    HTTP 500 (observed on runs at 02:50 and 04:05 UTC), so the calendar date is taken in
+    Chicago time rather than Eastern or UTC.
+    """
+    return as_of.astimezone(ZoneInfo("America/Chicago")).date()
+
+
+def build_feature_snapshot_with_fallback(
+    client: AlfredClient,
+    *,
+    meeting_date: date,
+    as_of: datetime,
+    build_commit: str = "",
+) -> HistoricalFeatureSnapshot:
+    """Build at the latest safe vintage, stepping back one day if ALFRED still rejects it."""
+    vintage = latest_safe_vintage(as_of)
+    for attempt in range(2):
+        try:
+            return build_feature_snapshot(
+                client, meeting_date=meeting_date, vintage_date=vintage, build_commit=build_commit
+            )
+        except httpx.HTTPStatusError as error:
+            if error.response.status_code != 500 or attempt == 1:
+                raise
+            vintage = vintage - timedelta(days=1)
+    raise AssertionError("unreachable")
