@@ -138,4 +138,4 @@
 | --- | --- | --- | --- | --- |
 | R16-M1 | Medium | 휴리스틱의 인상 점수(인하 점수의 부호 반전)는 3원 Brier 0.69로 3원 climatology(0.53~0.59)보다 **나쁨**. 인상 Brier 0.24~0.28 | open | 부호 반전은 근거 없는 대칭 가정. 표본에 맞춰 조정하지 않고(사후 조정 금지) 기록만 남김. 휴리스틱은 cut 성분만 baseline으로 쓸 것 |
 | R16-L1 | Low | 로지스틱 조건부 인상 모델은 3원 Brier 0.34~0.35 vs climatology 0.53~0.56, 인상 Brier 0.09~0.11. 2022–2023 인상 국면이 인플레이션으로 학습됨 | open | 표본외이나 인상 사이클 1개뿐. 과대해석 금지 |
-| R16-L2 | Low | 채점(`comparison_scoring`)은 아직 cut 성분만 채점. 3원 Brier 채점은 첫 회의 결과가 나올 때 추가 | open | 기록에는 3원 벡터가 있으므로 소급 채점 가능 |
+| R16-L2 | Low | 채점(`comparison_scoring`)은 아직 cut 성분만 채점 | fixed | claude/task-16b: 벡터가 있는 기록은 3원 Brier와 시장 대비 3원 skill도 채점. 벡터 없는 옛 기록은 cut만 |

@@ -60,3 +60,20 @@ def test_empty_history_scores_nothing() -> None:
     assert card.scored_meetings == 0
     assert card.market_brier is None and card.logistic_skill_vs_market is None
     assert card.signal_eligible is False
+
+
+def test_three_way_scoring_uses_vectors_when_present() -> None:
+    record = _record("2025-09-17", "2025-09-16T13:40:00+00:00", heuristic=0.6, logistic=0.7, market=0.95)
+    record["heuristic_three_way"] = {"cut": 0.6, "hold": 0.3, "hike": 0.1}
+    record["logistic_three_way"] = {"cut": 0.7, "hold": 0.25, "hike": 0.05}
+    record["market"].update({"hold_probability": 0.04, "hike_probability": 0.01})
+    card = score_comparisons([record], meetings=MEETINGS)
+    assert card.three_way_meetings == 1
+    assert card.records[0].outcome == "cut"
+    assert card.logistic_three_way_brier == pytest.approx(0.3**2 + 0.25**2 + 0.05**2)
+    assert card.market_three_way_brier == pytest.approx(0.05**2 + 0.04**2 + 0.01**2)
+    assert card.logistic_three_way_skill_vs_market is not None and card.logistic_three_way_skill_vs_market < 0
+    # Records without vectors are still scored on the cut component only.
+    old = _record("2025-10-29", "2025-10-28T13:40:00+00:00", heuristic=0.5, logistic=0.8, market=0.97, rate=4.25)
+    card2 = score_comparisons([record, old], meetings=MEETINGS)
+    assert card2.scored_meetings == 2 and card2.three_way_meetings == 1

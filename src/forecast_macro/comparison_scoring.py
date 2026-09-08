@@ -24,6 +24,11 @@ class ScoredComparison:
     market_upper: float
     policy_rate_upper: float
     non_zlb: bool
+    # D-016: realized decision and three-way squared errors when the record carries vectors.
+    outcome: str = ""
+    heuristic_three_way_error: float | None = None
+    logistic_three_way_error: float | None = None
+    market_three_way_error: float | None = None
 
 
 @dataclass(frozen=True)
@@ -42,6 +47,12 @@ class ComparisonScorecard:
     signal_eligible: bool
     signal_eligible_reason: str
     records: list[ScoredComparison]
+    # D-016 three-way Brier over meetings whose records carry full vectors.
+    three_way_meetings: int = 0
+    heuristic_three_way_brier: float | None = None
+    logistic_three_way_brier: float | None = None
+    market_three_way_brier: float | None = None
+    logistic_three_way_skill_vs_market: float | None = None
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -51,6 +62,12 @@ def _brier(pairs: Sequence[tuple[float, int]]) -> float | None:
     if not pairs:
         return None
     return sum((p - y) ** 2 for p, y in pairs) / len(pairs)
+
+
+def _three_way_error(vector: Mapping[str, Any] | None, outcome: str) -> float | None:
+    if not vector:
+        return None
+    return sum((float(vector.get(key, 0.0)) - float(key == outcome)) ** 2 for key in ("cut", "hold", "hike"))
 
 
 def _skill(model: float | None, baseline: float | None) -> float | None:
@@ -96,6 +113,12 @@ def score_comparisons(
         row = outcomes[meeting_date]
         market = record["market"]
         policy_rate = float(record["features"]["policy_rate_upper"])
+        outcome = row.decision.value
+        market_vector = (
+            {"cut": market["probability"], "hold": market["hold_probability"], "hike": market["hike_probability"]}
+            if "hold_probability" in market and "hike_probability" in market
+            else None
+        )
         scored.append(
             ScoredComparison(
                 meeting_date=meeting_date,
@@ -108,6 +131,10 @@ def score_comparisons(
                 market_upper=float(market["upper_bound"]),
                 policy_rate_upper=policy_rate,
                 non_zlb=policy_rate > ZLB_UPPER_BOUND,
+                outcome=outcome,
+                heuristic_three_way_error=_three_way_error(record.get("heuristic_three_way"), outcome),
+                logistic_three_way_error=_three_way_error(record.get("logistic_three_way"), outcome),
+                market_three_way_error=_three_way_error(market_vector, outcome),
             )
         )
     heuristic = _brier([(s.heuristic_cut, s.outcome_cut) for s in scored])
@@ -116,6 +143,18 @@ def score_comparisons(
     non_zlb = sum(s.non_zlb for s in scored)
     gate = non_zlb >= minimum_sample_required
     logistic_skill = _skill(logistic, market)
+    with_vectors = [
+        s
+        for s in scored
+        if s.logistic_three_way_error is not None and s.market_three_way_error is not None
+    ]
+
+    def mean(values: list[float]) -> float | None:
+        return sum(values) / len(values) if values else None
+
+    heuristic_3 = mean([s.heuristic_three_way_error for s in with_vectors if s.heuristic_three_way_error is not None])
+    logistic_3 = mean([s.logistic_three_way_error for s in with_vectors])  # type: ignore[misc]
+    market_3 = mean([s.market_three_way_error for s in with_vectors])  # type: ignore[misc]
     return ComparisonScorecard(
         scored_meetings=len(scored),
         non_zlb_meetings=non_zlb,
@@ -135,6 +174,11 @@ def score_comparisons(
             else "no positive skill vs market (D-007)"
         ),
         records=scored,
+        three_way_meetings=len(with_vectors),
+        heuristic_three_way_brier=heuristic_3,
+        logistic_three_way_brier=logistic_3,
+        market_three_way_brier=market_3,
+        logistic_three_way_skill_vs_market=_skill(logistic_3, market_3),
     )
 
 
