@@ -5,6 +5,7 @@ import json
 import os
 from datetime import UTC, datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from forecast_macro.data.alfred import AlfredClient
 from forecast_macro.datasets import load_fomc_history, scheduled_meetings
@@ -42,8 +43,12 @@ def main() -> None:
     schedule = load_release_schedule()
     meeting = next_scheduled_meeting(schedule, as_of=as_of)
     client = AlfredClient(api_key, request_interval=0.6)
+    # ALFRED rejects a vintage date later than "today" in US time (HTTP 500 on the first
+    # scheduled run, which fired at 02:50 UTC = the previous evening in the US). Use the
+    # Eastern calendar date so the vintage never runs ahead of the data publisher's clock.
+    vintage_date = as_of.astimezone(ZoneInfo("America/New_York")).date()
     snapshot = build_feature_snapshot(
-        client, meeting_date=meeting.release_at.date(), vintage_date=as_of.date()
+        client, meeting_date=meeting.release_at.date(), vintage_date=vintage_date
     )
 
     training = scheduled_meetings(load_fomc_history(args.meetings))

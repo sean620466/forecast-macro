@@ -113,3 +113,11 @@
 | R13-M1 | Medium | 실시간 비교의 모델 확률은 2019–2024 전체로 학습한 로지스틱 + 휴리스틱. D-013(비-ZLB 30건) 미충족 상태의 모델이므로 기록 전용 | open | `signal_eligible=false`, 이유 필드 기록. 회의가 지나면 결과 라벨을 붙여 시장 대비 Brier를 누적하는 평가 스크립트가 다음 과제 |
 | R13-M2 | Medium | 실시간 특징의 vintage는 "오늘"이며 발표 시각(08:30 ET)과 워크플로 실행 시각(13:40 UTC = 09:40 ET) 사이 관계는 ALFRED `realtime_start`에 의존 | open | 발표 당일 ALFRED 반영 지연이 있으면 전날 값이 잡힘. 기록에 vintage 날짜가 남으므로 사후 검증 가능 |
 | R13-L1 | Low | 시장 P(cut)은 최신 **가격 성공** 스냅샷에서 읽음. 스냅샷이 6시간 주기라 모델 계산 시각과 최대 6시간 차이 | open | 비교 기록에 `market.observed_at`과 `source_file` 보존 |
+
+## 과제 14 — FOMC 2025–2026 확장 및 실시간 비교 첫 실행 (`reviews/tasks/14-comparison-scoring.md`)
+
+| ID | 등급 | 요약 | 상태 | 비고 |
+| --- | --- | --- | --- | --- |
+| R14-H1 | High | 실시간 비교 첫 실행 실패: ALFRED가 `vintage_dates=2026-09-08`(UTC 날짜, 미국 시각으로는 전날 저녁)에 HTTP 500 | fixed | 같은 브랜치: vintage를 `America/New_York` 달력 날짜로 |
+| R14-H2 | High | 과제 12 응답이 Kalshi 9월 사다리를 "인하 0.47"로 해석했으나 현재 상단은 3.75%(2025-12-10 이후). 실제 의미는 동결 0.47 / 인상 0.51 | fixed | 응답 문서 정정. 코드(`market_cut_probability`)는 DFEDTARU 실측값을 쓰므로 영향 없음 |
+| R14-M1 | Medium | 학습 데이터가 2024-12까지라 2025년 인하 3회와 2026년 동결 5회가 모델에 없음 | partial | `data/fomc_meetings_2019_2026.csv` 13행 추가(보도자료 문장에서 전사, 전부 HTTP 200). 스냅샷은 `build-snapshots` 워크플로가 FRED로 만들어 커밋 예정 |

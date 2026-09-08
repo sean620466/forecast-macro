@@ -119,3 +119,17 @@ def test_scheduled_scope_script_refuses_gap_without_flag(tmp_path: Path) -> None
     )
     assert result.returncode != 0
     assert "discontinuity before 2020-04-29" in result.stderr
+
+
+def test_2019_2026_history_extends_the_fixture_without_gaps() -> None:
+    rows = load_fomc_history(ROOT / "data" / "fomc_meetings_2019_2026.csv")
+    fixture = load_fomc_history(MEETINGS)
+    assert rows[: len(fixture)] == fixture
+    assert len(rows) == 62
+    validate_continuity(scheduled_meetings(rows[len(fixture) :]))
+    assert rows[-1].upper_after == 3.75
+    assert [r.meeting_at.date().isoformat() for r in rows if r.meeting_at.year == 2025 and r.decision is RateDecision.CUT] == [
+        "2025-09-17",
+        "2025-10-29",
+        "2025-12-10",
+    ]
