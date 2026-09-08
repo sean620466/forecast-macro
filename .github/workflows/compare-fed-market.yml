@@ -11,6 +11,9 @@ on:
       - "scripts/compare_fed_market.py"
       - "scripts/score_fed_comparisons.py"
       - "src/forecast_macro/comparison_scoring.py"
+      - "scripts/compare_unemployment_market.py"
+      - "src/forecast_macro/unemployment_comparison.py"
+      - "src/forecast_macro/models/unemployment.py"
       - "src/forecast_macro/live_comparison.py"
       - "src/forecast_macro/snapshots.py"
       - "src/forecast_macro/data/alfred.py"
@@ -36,13 +39,17 @@ jobs:
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: python scripts/compare_fed_market.py
+      - name: Record unemployment bucket baseline vs market
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: python scripts/compare_unemployment_market.py
       - name: Score past comparisons against realized decisions (D-007)
         run: python scripts/score_fed_comparisons.py
       - name: Persist comparison in the repository
         run: |
           git config user.name "forecast-macro-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/generated/fed_market_comparisons data/generated/fed_market_scoring.json
+          git add data/generated/fed_market_comparisons data/generated/fed_market_scoring.json data/generated/unemployment_market_comparisons
           if git diff --cached --quiet; then
             echo "no new comparison"
             exit 0
