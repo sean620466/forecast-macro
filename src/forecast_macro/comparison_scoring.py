@@ -24,6 +24,9 @@ class ScoredComparison:
     market_upper: float
     policy_rate_upper: float
     non_zlb: bool
+    # D-017 / D-018 flags carried from the record so aggregates can exclude them.
+    same_day_release: bool = False
+    low_liquidity: bool = False
     # D-016: realized decision and three-way squared errors when the record carries vectors.
     outcome: str = ""
     heuristic_three_way_error: float | None = None
@@ -47,6 +50,15 @@ class ComparisonScorecard:
     signal_eligible: bool
     signal_eligible_reason: str
     records: list[ScoredComparison]
+    # D-017: meetings where the market had a same-day 08:30 ET release the model did not see.
+    same_day_release_meetings: int = 0
+    # D-018: meetings priced from a ladder wider than 0.35.
+    low_liquidity_meetings: int = 0
+    # Clean subset: neither flag. This is the headline comparison for D-007.
+    clean_meetings: int = 0
+    clean_logistic_brier: float | None = None
+    clean_market_brier: float | None = None
+    clean_logistic_skill_vs_market: float | None = None
     # D-016 three-way Brier over meetings whose records carry full vectors.
     three_way_meetings: int = 0
     heuristic_three_way_brier: float | None = None
@@ -131,6 +143,8 @@ def score_comparisons(
                 market_upper=float(market["upper_bound"]),
                 policy_rate_upper=policy_rate,
                 non_zlb=policy_rate > ZLB_UPPER_BOUND,
+                same_day_release=bool(record.get("same_day_release", False)),
+                low_liquidity=bool(market.get("low_liquidity", False)),
                 outcome=outcome,
                 heuristic_three_way_error=_three_way_error(record.get("heuristic_three_way"), outcome),
                 logistic_three_way_error=_three_way_error(record.get("logistic_three_way"), outcome),
@@ -152,6 +166,9 @@ def score_comparisons(
     def mean(values: list[float]) -> float | None:
         return sum(values) / len(values) if values else None
 
+    clean = [s for s in scored if not s.same_day_release and not s.low_liquidity]
+    clean_logistic = _brier([(s.logistic_cut, s.outcome_cut) for s in clean])
+    clean_market = _brier([(s.market_cut, s.outcome_cut) for s in clean])
     heuristic_3 = mean([s.heuristic_three_way_error for s in with_vectors if s.heuristic_three_way_error is not None])
     logistic_3 = mean([s.logistic_three_way_error for s in with_vectors])  # type: ignore[misc]
     market_3 = mean([s.market_three_way_error for s in with_vectors])  # type: ignore[misc]
@@ -174,6 +191,12 @@ def score_comparisons(
             else "no positive skill vs market (D-007)"
         ),
         records=scored,
+        same_day_release_meetings=sum(s.same_day_release for s in scored),
+        low_liquidity_meetings=sum(s.low_liquidity for s in scored),
+        clean_meetings=len(clean),
+        clean_logistic_brier=clean_logistic,
+        clean_market_brier=clean_market,
+        clean_logistic_skill_vs_market=_skill(clean_logistic, clean_market),
         three_way_meetings=len(with_vectors),
         heuristic_three_way_brier=heuristic_3,
         logistic_three_way_brier=logistic_3,

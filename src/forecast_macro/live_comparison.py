@@ -42,6 +42,8 @@ class MarketCutProbability:
     hold_upper_bound: float = 0.0
     hike_lower_bound: float = 0.0
     hike_upper_bound: float = 0.0
+    # D-018: the priced ladder was wider than 0.35 (far-dated, thin tails).
+    low_liquidity: bool = False
 
 
 @dataclass(frozen=True)
@@ -62,6 +64,10 @@ class FedComparisonRecord:
     logistic_three_way: dict[str, float] | None = None
     heuristic_three_way_edge: dict[str, float] | None = None
     logistic_three_way_edge: dict[str, float] | None = None
+    # D-017: a CPI or Employment Situation release at 08:30 ET on the meeting day gives the
+    # market information the D-1 model input lacks; such meetings are scored separately.
+    same_day_release: bool = False
+    same_day_release_series: list[str] | None = None
     # D-007/D-012: comparisons are recorded for a future skill evaluation, never shown as signals.
     signal_eligible: bool = False
     signal_eligible_reason: str = "no out-of-sample Brier skill against market prices yet (D-007)"
@@ -115,7 +121,9 @@ def market_cut_probability(
         totals[outcome] += value
         lowers[outcome] += lo
         uppers[outcome] += hi
+    completeness = record.get("completeness") or {}
     return MarketCutProbability(
+        low_liquidity=bool(completeness.get("low_liquidity", 0.0)),
         probability=totals["cut"],
         lower_bound=min(lowers["cut"], 1.0),
         upper_bound=min(uppers["cut"], 1.0),
@@ -191,6 +199,19 @@ def _market_three_way(market: MarketCutProbability) -> dict[str, float]:
     }
 
 
+def same_day_releases(
+    schedule: Sequence[ScheduledRelease], *, meeting_date: date
+) -> list[str]:
+    """Data releases (CPI, Employment Situation) published on the meeting day itself."""
+    return sorted(
+        {
+            row.series
+            for row in schedule
+            if row.series in ("cpi", "employment_situation") and row.release_at.date() == meeting_date
+        }
+    )
+
+
 def build_comparison(
     *,
     as_of: datetime,
@@ -202,10 +223,12 @@ def build_comparison(
     market: MarketCutProbability | None,
     heuristic_three_way: Mapping[str, float] | None = None,
     logistic_three_way: Mapping[str, float] | None = None,
+    schedule: Sequence[ScheduledRelease] | None = None,
 ) -> FedComparisonRecord:
     if as_of.tzinfo is None:
         raise ValueError("as_of must be timezone-aware")
     meeting_date = meeting.release_at.date()
+    releases = same_day_releases(schedule, meeting_date=meeting_date) if schedule else []
     market_vector = _market_three_way(market) if market else None
 
     def edges(vector: Mapping[str, float] | None) -> dict[str, float] | None:
@@ -229,4 +252,6 @@ def build_comparison(
         logistic_three_way=dict(logistic_three_way) if logistic_three_way else None,
         heuristic_three_way_edge=edges(heuristic_three_way),
         logistic_three_way_edge=edges(logistic_three_way),
+        same_day_release=bool(releases),
+        same_day_release_series=releases or None,
     )

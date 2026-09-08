@@ -412,5 +412,8 @@
   "three_way_climatology_brier": 0.5557810585578704,
   "hold_brier": 0.34629348996279585,
   "hike_brier": 0.278112373390738,
-  "actual_hikes": 11
+  "actual_hikes": 11,
+  "same_day_release_meetings": null,
+  "model_brier_excluding_same_day": null,
+  "climatology_brier_excluding_same_day": null
 }

@@ -403,6 +403,9 @@
   "hold_brier": 0.35450492021309143,
   "hike_brier": 0.28457761432295087,
   "actual_hikes": 11,
+  "same_day_release_meetings": null,
+  "model_brier_excluding_same_day": null,
+  "climatology_brier_excluding_same_day": null,
   "dropped_predetermined_windows": [
     "2020-04-29"
   ]

@@ -32,7 +32,7 @@
 | R4-M1 | Medium | `signal_eligible` 의미 분리 | fixed | `945b36f`, D-012 |
 | R4-M2 | Medium | always-hold baseline | fixed | `fed_backtest`(945b36f) 및 워크포워드(claude/fix-review-5) 모두 보고 |
 | R4-M3 | Medium | 스냅샷 재현성 메타데이터(`fetched_at`, 관측월, `realtime_start`, 모델 버전) | fixed | claude/task-23: 각 스냅샷에 입력 5개의 `observed_at`·`realtime_start`·`fetched_at`·값, `builder_version`, `built_at`, `build_commit`(GITHUB_SHA). 빌드 워크플로가 2019–2026 파일을 재생성해 커밋 |
-| R4-M4 | Medium | forecast cutoff = 시장 관측시각 정렬 규칙 | open | 결정 미등록 |
+| R4-M4 | Medium | forecast cutoff = 시장 관측시각 정렬 규칙 | fixed | D-017 (2026-09-08 승인). 실시간 기록에 `same_day_release`(일정표 기준), 스냅샷에 다음 발표일 조회 기반 플래그, 채점에 clean 부분집합·같은 날 발표 집계 |
 | R4-L1 | Low | CSV `source`를 결정별 보도자료 URL로 | fixed | claude/task-10: 49행 전부 교체(HTTP 200 확인), 로더가 패턴 강제 |
 | R4-L2 | Low | scheduled 스코프 연속성 검증 | fixed | claude/task-10: `validate_continuity`, 스크립트는 `--allow-rate-gaps` 없이는 거부 |
 | R4-L3 | Low | `forecast_at` 인위적 시각 문서화 | open | R5-M5와 연결 |
@@ -101,7 +101,7 @@
 
 | ID | 등급 | 요약 | 상태 | 비고 |
 | --- | --- | --- | --- | --- |
-| R12-M1 | Medium | KXFED 2026-12, 2027-01/03/04 이벤트는 승인됐으나 꼬리 rung 스프레드가 0.10을 넘어 가격 거부 | partial | claude/task-20: rung별 스프레드 거부를 없애고 `wide_rungs` 기록 + D-015 폭 게이트(Σask−Σbid ≤ 0.35)·단조성으로 판정. 단조성은 mid가 아니라 호가 범위(높은 rung의 bid > 낮은 rung의 ask)로 판정하도록 수정. 2026-09-08 실측에서는 12월·2027년 1/3/4월 모두 폭(Σask−Σbid > 0.35)으로 거부. 폭 상한 완화나 활성 구간만의 부분 가격은 결정 사항으로 남김 |
+| R12-M1 | Medium | KXFED 2026-12, 2027-01/03/04 이벤트는 승인됐으나 꼬리 rung 스프레드가 0.10을 넘어 가격 거부 | fixed | claude/task-20: rung별 스프레드 거부를 없애고 `wide_rungs` 기록 + D-015 폭 게이트(Σask−Σbid ≤ 0.35)·단조성으로 판정. 단조성은 호가 범위로 판정. D-018 (2026-09-08 승인): 폭 상한을 만기까지 개월 수에 따라 최대 0.60까지 완화, 0.35 초과는 `low_liquidity` 표시 후 채점에서 분리 |
 | R12-M2 | Medium | Kalshi 규칙의 출처는 URL이 아닌 문구("Federal Reserve's official website")로 기재. 정확 문구 3개만 매핑, 기원 `rules_text_reference`가 아닌 `field`로 기록됨 | fixed | claude/task-21: `resolution_source_kind=text_reference` → 기원 `rules_text_reference` |
 | R12-L1 | Low | KXFEDFUNDSYEAR(연말 금리), KXEFFR(실효금리) 이벤트는 구조는 통과했으나 발표 일정이 없어 `close_time` 미검증 | fixed | claude/task-24: 연말 계약은 규칙의 "in effect at 11:59 PM ET on December 31, YYYY"를 결과 시각으로 사용(일정 불필요). EFFR은 `effective_federal_funds_rate` 시리즈로 식별돼 모델 시리즈 불일치로 차단(의도) |
 | R12-L2 | Low | 봇이 커밋하던 `macro_market_review_latest.json`이 38,960줄 | fixed | 같은 브랜치: 요약과 승인 행만 커밋 |
@@ -162,3 +162,10 @@
 | --- | --- | --- | --- | --- |
 | R23-L1 | Low | 스냅샷 `inputs[*].realtime_start`는 요청한 vintage 날짜와 같게 나온다(ALFRED가 단일 `vintage_dates`로 조회하면 그 vintage 기준 real-time 시작을 돌려줌). 즉 "그 시점에 보였던 값"의 증거이지 **최초 발표일**이 아님 | fixed | claude/task-27: `AlfredClient.first_release_date`(전체 vintage 이력)로 최신 입력 3개에 `first_published_on` 기록. 빌드 워크플로 `--first-release-dates`. 데이터가 같으면 재빌드 커밋 생략 |
 | R25-L1 | Low | 실시간 워크플로가 push로 미국 심야에 실행되면 FRED 시계(Chicago) 기준 "내일" vintage를 요청해 500 | fixed | `latest_safe_vintage`(Chicago 날짜) + 500 시 하루 후퇴. 정기 실행(13:40 UTC)은 영향 없음 |
+
+## 과제 30 — D-017·D-018 구현
+
+| ID | 등급 | 요약 | 상태 | 비고 |
+| --- | --- | --- | --- | --- |
+| R30-L1 | Low | 스냅샷의 `same_day_release`는 빌드 워크플로가 `--first-release-dates`로 다음 달 발표일을 조회해야 채워짐. 2019–2024 고정 파일에는 없음(`null`) | open | 백테스트 보고서의 same-day 집계는 2019–2026 파일 재생성 후 유효 |
+| R30-L2 | Low | D-018 완화 후에도 폭이 상한을 넘는 사다리는 여전히 거부. 2026-09-08 실측 기준 12월 이후 이벤트가 통과하는지는 다음 스냅샷에서 확인 | open | |

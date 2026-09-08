@@ -140,6 +140,8 @@ def test_first_publication_dates_come_from_the_full_vintage_history():
     assert snapshot.inputs["cpi_latest"]["first_published_on"] == "2026-08-12"
     assert snapshot.inputs["unemployment_latest"]["first_published_on"] == "2026-09-04"
     assert "first_published_on" not in snapshot.inputs["cpi_base_12m"]
-    assert len(client.first_release_queries) == 3
+    assert len(client.first_release_queries) == 5  # 3 first-release + 2 next-release (D-017)
+    assert snapshot.inputs["cpi_latest"]["next_release_on"] == "2026-08-12"
+    assert snapshot.same_day_release is False and snapshot.same_day_release_series == []
     plain = build_feature_snapshot(client, meeting_date=date(2026, 9, 16), vintage_date=date(2026, 9, 7))
     assert "first_published_on" not in plain.inputs["cpi_latest"]

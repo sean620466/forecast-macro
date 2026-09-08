@@ -74,6 +74,7 @@ def main() -> None:
         market=market,
         heuristic_three_way=heuristic_vector,
         logistic_three_way=logistic_vector,
+        schedule=schedule,
     )
     args.output_dir.mkdir(parents=True, exist_ok=True)
     output = args.output_dir / f"fed_comparison_{as_of.strftime('%Y%m%dT%H%M%SZ')}.json"

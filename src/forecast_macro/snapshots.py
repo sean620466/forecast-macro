@@ -27,6 +27,11 @@ class HistoricalFeatureSnapshot:
     # real-time start (first date the value was visible), and the fetch time; plus the build.
     inputs: dict[str, dict[str, object]] = field(default_factory=dict)
     provenance: dict[str, str] = field(default_factory=dict)
+    # D-017: True when CPI or the unemployment rate for the month after the latest input was
+    # first published on the meeting day itself (08:30 ET, before the 14:00 decision). None
+    # when the build did not query first-release dates.
+    same_day_release: bool | None = None
+    same_day_release_series: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -84,7 +89,7 @@ def build_historical_snapshot(
     )
 
 
-SNAPSHOT_BUILDER_VERSION = "fomc-feature-snapshot-0.2"
+SNAPSHOT_BUILDER_VERSION = "fomc-feature-snapshot-0.3"
 
 
 def _describe(row: VintageObservation) -> dict[str, object]:
@@ -138,12 +143,24 @@ def build_feature_snapshot(
         "unemployment_base_3m": _describe(unemp_old),
         "policy_rate_upper": _describe(policy_rate),
     }
+    same_day: bool | None = None
+    same_day_series: list[str] = []
     if first_release_dates:
         # R23-L1 / R1-X1: the single-vintage realtime_start above only proves visibility at
         # the vintage. The first publication date comes from the observation's full history.
         for key, row in (("cpi_latest", cpi_new), ("unemployment_latest", unemp_new), ("policy_rate_upper", policy_rate)):
             first = client.first_release_date(row.series_id, row.observed_at)
             inputs[key]["first_published_on"] = first.isoformat() if first else None
+        # D-017: was the *next* month's print released on the meeting day?
+        same_day = False
+        for key, row in (("cpi_latest", cpi_new), ("unemployment_latest", unemp_new)):
+            next_index = _month_index(row.observed_at) + 1
+            year, month = divmod(next_index - 1, 12)
+            next_release = client.first_release_date(row.series_id, date(year, month + 1, 1))
+            inputs[key]["next_release_on"] = next_release.isoformat() if next_release else None
+            if next_release == meeting_date:
+                same_day = True
+                same_day_series.append(row.series_id)
     return HistoricalFeatureSnapshot(
         meeting_date=meeting_date.isoformat(),
         vintage_date=vintage_date.isoformat(),
@@ -163,6 +180,8 @@ def build_feature_snapshot(
             "built_at": datetime.now(UTC).isoformat(),
             "build_commit": build_commit,
         },
+        same_day_release=same_day,
+        same_day_release_series=same_day_series,
     )
 
 

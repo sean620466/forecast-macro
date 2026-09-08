@@ -172,6 +172,16 @@ def price_event(
     )
 
 
+def ladder_width_limit(as_of: datetime, outcome_at: datetime | None) -> float:
+    """D-018: 0.35 up to two months out, +0.05 per further month, capped at 0.60."""
+    if outcome_at is None:
+        return 0.35
+    months = (outcome_at.year - as_of.year) * 12 + (outcome_at.month - as_of.month)
+    if outcome_at.day < as_of.day:
+        months -= 1
+    return min(0.60, 0.35 + 0.05 * max(0, months - 2))
+
+
 def is_ladder_event(members: Sequence[MarketCandidate]) -> bool:
     return is_threshold_ladder([asdict(m) for m in members])
 
@@ -249,8 +259,10 @@ def price_ladder_event(
             source_mid_prices={},
             rejected_reason="; ".join(problems),
         )
+    # D-018: far-dated ladders may be wider; the record says so.
+    width_limit = ladder_width_limit(as_of, outcome_at)
     try:
-        normalized = normalize_threshold_ladder(ladder)
+        normalized = normalize_threshold_ladder(ladder, max_width=width_limit)
     except ValueError as error:
         return EventPriceRecord(
             **base,
@@ -273,11 +285,15 @@ def price_ladder_event(
                 asks_by_floor[upper]
             )
         bucket_fees[f"gt_{last:.2f}"] = schedule.taker_fee(asks_by_floor[last])
+    width = normalized.ask_sum - normalized.bid_sum
     completeness: dict[str, float] = {
         "bid_sum": normalized.bid_sum,
         "ask_sum": normalized.ask_sum,
         "mid_sum": normalized.mid_sum,
         "wide_rung_count": float(len(wide_rungs)),
+        "width": width,
+        "width_limit": width_limit,
+        "low_liquidity": 1.0 if width > 0.35 else 0.0,
     }
     return EventPriceRecord(
         **base,

@@ -47,6 +47,10 @@ class FedBacktestReport:
     hold_brier: float = 0.0
     hike_brier: float = 0.0
     actual_hikes: int = 0
+    # D-017: meetings with a same-day 08:30 ET data release (None when snapshots lack the flag).
+    same_day_release_meetings: int | None = None
+    model_brier_excluding_same_day: float | None = None
+    climatology_brier_excluding_same_day: float | None = None
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -73,6 +77,7 @@ def run_fed_baseline_backtest(
     climatology_records: list[ForecastRecord] = []
     constant_records: list[ForecastRecord] = []
     always_hold_records: list[ForecastRecord] = []
+    same_day_flags: list[bool | None] = []
     prior_cuts = sum(row.decision is RateDecision.CUT for row in meetings[:warmup])
     prior_hikes = sum(row.decision is RateDecision.HIKE for row in meetings[:warmup])
     three_way_errors: list[float] = []
@@ -96,6 +101,7 @@ def run_fed_baseline_backtest(
         }
         probability = estimates["cut"]
         outcome = int(meeting.decision is RateDecision.CUT)
+        same_day_flags.append(snapshot.get("same_day_release"))
         is_hike = int(meeting.decision is RateDecision.HIKE)
         is_hold = int(meeting.decision is RateDecision.HOLD)
         # Laplace smoothing prevents a zero baseline before the first historical cut.
@@ -175,4 +181,22 @@ def run_fed_baseline_backtest(
         hold_brier=sum(hold_errors) / evaluated,
         hike_brier=sum(hike_errors) / evaluated,
         actual_hikes=sum(item.actual_decision == "hike" for item in predictions),
+        **_same_day_summary(same_day_flags, model_records, climatology_records),
     )
+
+
+def _same_day_summary(
+    flags: list[bool | None],
+    model_records: list[ForecastRecord],
+    climatology_records: list[ForecastRecord],
+) -> dict[str, object]:
+    if any(flag is None for flag in flags):
+        return {}
+    kept = [index for index, flag in enumerate(flags) if not flag]
+    if not kept:
+        return {"same_day_release_meetings": len(flags)}
+    return {
+        "same_day_release_meetings": sum(bool(flag) for flag in flags),
+        "model_brier_excluding_same_day": brier_score([model_records[i] for i in kept]),
+        "climatology_brier_excluding_same_day": brier_score([climatology_records[i] for i in kept]),
+    }
