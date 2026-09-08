@@ -92,3 +92,26 @@ def test_unpublished_middle_month_is_tolerated_and_recorded():
     assert snapshot.unemployment_change_3m == pytest.approx(-0.2)
     assert snapshot.data_gaps == {"CPIAUCNS": ["2025-10"]}
     assert "data_gaps" in snapshot.to_dict()
+
+
+def test_snapshot_records_input_provenance():
+    from forecast_macro.snapshots import SNAPSHOT_BUILDER_VERSION, build_feature_snapshot
+
+    months = [(2025 + (index + 7) // 12, (index + 7) % 12 + 1) for index in range(13)]
+    cpi = [observation("CPIAUCNS", y, m, 320 + index) for index, (y, m) in enumerate(months)]
+    unemployment = [observation("UNRATE", 2026, m, v) for m, v in [(4, 4.3), (5, 4.3), (6, 4.2), (7, 4.1)]]
+    policy = [observation("DFEDTARU", 2026, 9, 3.75)]
+    client = FakeAlfredClient({"CPIAUCNS": cpi, "UNRATE": unemployment, "DFEDTARU": policy})
+    snapshot = build_feature_snapshot(
+        client, meeting_date=date(2026, 9, 16), vintage_date=date(2026, 9, 7), build_commit="abc123"
+    )
+    assert set(snapshot.inputs) == {
+        "cpi_latest", "cpi_base_12m", "unemployment_latest", "unemployment_base_3m", "policy_rate_upper"
+    }
+    assert snapshot.inputs["cpi_latest"]["observed_at"] == "2026-08-01"
+    assert snapshot.inputs["cpi_base_12m"]["observed_at"] == "2025-08-01"
+    assert snapshot.inputs["unemployment_base_3m"]["observed_at"] == "2026-04-01"
+    assert snapshot.inputs["policy_rate_upper"]["realtime_start"] == "2024-09-17"  # fake vintage
+    assert snapshot.provenance["builder_version"] == SNAPSHOT_BUILDER_VERSION
+    assert snapshot.provenance["build_commit"] == "abc123"
+    assert "inputs" in snapshot.to_dict() and "provenance" in snapshot.to_dict()

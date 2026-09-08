@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
-from datetime import date, timedelta
+from datetime import UTC, date, datetime, timedelta
 
 from forecast_macro.data.alfred import AlfredClient, VintageObservation
 from forecast_macro.datasets import HistoricalFomcRow
@@ -20,6 +20,10 @@ class HistoricalFeatureSnapshot:
     # Months with no published observation between a feature's two endpoints (for example
     # October 2025, which BLS never published after the 2025 shutdown). Recorded, not hidden.
     data_gaps: dict[str, list[str]] = field(default_factory=dict)
+    # R4-M3 reproducibility: every input observation with its observation month, the ALFRED
+    # real-time start (first date the value was visible), and the fetch time; plus the build.
+    inputs: dict[str, dict[str, object]] = field(default_factory=dict)
+    provenance: dict[str, str] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -77,11 +81,25 @@ def build_historical_snapshot(
     )
 
 
+SNAPSHOT_BUILDER_VERSION = "fomc-feature-snapshot-0.2"
+
+
+def _describe(row: VintageObservation) -> dict[str, object]:
+    return {
+        "series_id": row.series_id,
+        "observed_at": row.observed_at.isoformat(),
+        "value": row.value,
+        "realtime_start": row.realtime_start.isoformat(),
+        "fetched_at": row.fetched_at.isoformat(),
+    }
+
+
 def build_feature_snapshot(
     client: AlfredClient,
     *,
     meeting_date: date,
     vintage_date: date,
+    build_commit: str = "",
 ) -> HistoricalFeatureSnapshot:
     """Point-in-time features for a meeting as they were visible on vintage_date.
 
@@ -122,4 +140,16 @@ def build_feature_snapshot(
             "policy_rate_upper": "DFEDTARU",
         },
         data_gaps=gaps,
+        inputs={
+            "cpi_latest": _describe(cpi_new),
+            "cpi_base_12m": _describe(cpi_old),
+            "unemployment_latest": _describe(unemp_new),
+            "unemployment_base_3m": _describe(unemp_old),
+            "policy_rate_upper": _describe(policy_rate),
+        },
+        provenance={
+            "builder_version": SNAPSHOT_BUILDER_VERSION,
+            "built_at": datetime.now(UTC).isoformat(),
+            "build_commit": build_commit,
+        },
     )

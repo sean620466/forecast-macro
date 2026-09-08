@@ -48,7 +48,10 @@ def main() -> None:
     # Eastern calendar date so the vintage never runs ahead of the data publisher's clock.
     vintage_date = as_of.astimezone(ZoneInfo("America/New_York")).date()
     snapshot = build_feature_snapshot(
-        client, meeting_date=meeting.release_at.date(), vintage_date=vintage_date
+        client,
+        meeting_date=meeting.release_at.date(),
+        vintage_date=vintage_date,
+        build_commit=os.environ.get("GITHUB_SHA", ""),
     )
 
     training = scheduled_meetings(load_fomc_history(args.meetings))

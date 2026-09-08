@@ -31,7 +31,7 @@
 | R4-H2 | High | `window` 스코프(정기회의 간 창 라벨) | fixed | claude/task-10: `window_meetings`. 2020-04-29 창은 예측 cutoff 전에 결정돼 `dropped_predetermined_windows`로 보고·제외 |
 | R4-M1 | Medium | `signal_eligible` 의미 분리 | fixed | `945b36f`, D-012 |
 | R4-M2 | Medium | always-hold baseline | fixed | `fed_backtest`(945b36f) 및 워크포워드(claude/fix-review-5) 모두 보고 |
-| R4-M3 | Medium | 스냅샷 재현성 메타데이터(`fetched_at`, 관측월, `realtime_start`, 모델 버전) | open | `snapshots.py`에 없음 |
+| R4-M3 | Medium | 스냅샷 재현성 메타데이터(`fetched_at`, 관측월, `realtime_start`, 모델 버전) | fixed | claude/task-23: 각 스냅샷에 입력 5개의 `observed_at`·`realtime_start`·`fetched_at`·값, `builder_version`, `built_at`, `build_commit`(GITHUB_SHA). 빌드 워크플로가 2019–2026 파일을 재생성해 커밋 |
 | R4-M4 | Medium | forecast cutoff = 시장 관측시각 정렬 규칙 | open | 결정 미등록 |
 | R4-L1 | Low | CSV `source`를 결정별 보도자료 URL로 | fixed | claude/task-10: 49행 전부 교체(HTTP 200 확인), 로더가 패턴 강제 |
 | R4-L2 | Low | scheduled 스코프 연속성 검증 | fixed | claude/task-10: `validate_continuity`, 스크립트는 `--allow-rate-gaps` 없이는 거부 |
