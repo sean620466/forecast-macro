@@ -50,10 +50,35 @@ def bar_rows(rows) -> str:
     return "\n".join(out)
 
 
+def bucket_label(title: str) -> str:
+    """'…be ≤4.0%…' / '…be 4.1%…' / '…be 2.0% or less…' / '…be 2.9% or more…' → '≤4.0%', '4.1%', '≤2.0%', '≥2.9%'."""
+    m = re.search(r"be (≤|≥)?(\d\.\d)%(?: or (less|more))?", title)
+    if not m:
+        return title
+    sign = m.group(1) or {"less": "≤", "more": "≥", None: ""}[m.group(3)]
+    return f"{sign}{m.group(2)}%"
+
+
+def bucket_rows(rec: dict) -> list:
+    """(label, model, market, lo, hi) per bucket, ordered by value with the open ends first/last."""
+    titles = rec["bucket_titles"]
+
+    def order(k):
+        label = bucket_label(titles[k])
+        return -1 if label.startswith("≤") else (99 if label.startswith("≥") else float(label[:-1]))
+
+    rows = []
+    for k in sorted(rec["model"], key=order):
+        lo, hi = rec["market_bounds"].get(k, [rec["market"][k]] * 2)
+        rows.append((bucket_label(titles[k]), rec["model"][k], rec["market"][k], lo, hi))
+    return rows
+
+
 def collect() -> dict:
     prices = latest_priced_by_event()
     fed_files = sorted(glob.glob(str(ROOT / "data/generated/fed_market_comparisons/*.json")))
     un_files = sorted(glob.glob(str(ROOT / "data/generated/unemployment_market_comparisons/*.json")))
+    cpi_files = sorted(glob.glob(str(ROOT / "data/generated/core_cpi_market_comparisons/*.json")))
     rows = FINDING_ROW.findall((ROOT / "reviews/FINDINGS.md").read_text(encoding="utf-8"))
     commit = subprocess.run(
         ["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True, cwd=ROOT, check=False
@@ -63,6 +88,7 @@ def collect() -> dict:
         "prices": prices,
         "fed": load(fed_files[-1]) if fed_files else None,
         "un": load(un_files[-1]) if un_files else None,
+        "cpi": load(cpi_files[-1]) if cpi_files else None,
         "wf": load(ROOT / "data/generated/fed_walk_forward_logistic_2019_2026.json"),
         "bw": {
             k: v
@@ -277,7 +303,7 @@ def calendar_section(today: str) -> str:
     import csv
 
     names = {"cpi": "CPI (소비자물가)", "employment_situation": "고용보고서 (실업률)", "fomc": "FOMC 금리 결정"}
-    scored = {"employment_situation": "실업률 비교 채점", "fomc": "Fed 비교 채점", "cpi": "모델 없음 (시장만 기록)"}
+    scored = {"employment_situation": "실업률 비교 채점", "fomc": "Fed 비교 채점", "cpi": "Core CPI YoY 비교 채점"}
     rows = [r for r in csv.DictReader((ROOT / "data/release_schedule.csv").open(encoding="utf-8")) if r["release_date"] >= today]
     rows.sort(key=lambda r: (r["release_date"], r["release_time_local"]))
     html_rows = "\n".join(
@@ -302,19 +328,12 @@ def render(d: dict) -> tuple[str, str]:
         (f"동결 ({current:.2f}%)", lm["hold"], m["hold_probability"], m["hold_lower_bound"], m["hold_upper_bound"]),
         (f"인상 ({current + 0.25:.2f}% 이상)", lm["hike"], m["hike_probability"], m["hike_lower_bound"], m["hike_upper_bound"]),
     ]
+    un_rows = bucket_rows(un)
     t = un["bucket_titles"]
-
-    def korder(k):
-        x = t[k]
-        return -1 if "≤" in x else (99 if "≥" in x else float(re.search(r"(\d\.\d)%", x).group(1)))
-
-    un_rows = []
-    for k in sorted(un["model"], key=korder):
-        lab = re.search(r"be (≤|≥)?(\d\.\d)%", t[k])
-        lo, hi = un["market_bounds"].get(k, [un["market"][k]] * 2)
-        un_rows.append(((lab.group(1) or "") + lab.group(2) + "%", un["model"][k], un["market"][k], lo, hi))
     net = un.get("net_edge_after_fees") or {}
     best_net = max(net.items(), key=lambda kv: kv[1]) if net else None
+    cpi = d["cpi"]
+    cpi_rows = bucket_rows(cpi) if cpi else []
     ladder_rows = []
     for ev in sorted(e for e in prices if e.startswith("KXFED-")):
         r = prices[ev]
@@ -328,6 +347,28 @@ def render(d: dict) -> tuple[str, str]:
     dec_html = "\n".join(f'<li><code>{a}</code> {esc(b)}</li>' for a, b in d["decisions"][-6:])
     scoring = d["fed_scoring"] or {}
     scored = scoring.get("scored_meetings", 0)
+    cpi_tile = cpi_panel = cpi_status = ""
+    if cpi:
+        cpi_mode_model = max(cpi["model"], key=cpi["model"].get)
+        cpi_mode_market = max(cpi["market"], key=cpi["market"].get)
+        cpi_tile = (
+            f'<div class="tile"><div class="k">다음 CPI 발표</div><div class="v">{esc(cpi["release_at"][5:7].lstrip("0"))}월 '
+            f'{esc(cpi["release_at"][8:10].lstrip("0"))}일</div><div class="d">최신 Core CPI YoY {cpi["latest_rate"]}% ({esc(cpi["latest_month"][:7])})</div></div>'
+        )
+        cpi_panel = (
+            f'<div class="panel"><h2>{esc(cpi["reference_period"])} Core CPI YoY ({esc(cpi["release_at"][:10])} 발표)</h2>'
+            f'<p class="sub">Polymarket 관측 {esc(cpi["market_observed_at"][:16].replace("T", " "))} UTC · 최신치 {cpi["latest_rate"]}% · 시장 최빈 {esc(bucket_label(cpi["bucket_titles"][cpi_mode_market]))}, 모델 최빈 {esc(bucket_label(cpi["bucket_titles"][cpi_mode_model]))}</p>'
+            '<div class="legend"><span><i style="background:var(--model)"></i>경험분포 baseline (CPILFENS)</span><span><i style="background:var(--market)"></i>시장 (Polymarket) · 호가 범위</span></div>'
+            f"{bar_rows(cpi_rows)}"
+            '<p class="note">모델은 "최신 YoY + 1990년 이후 YoY 1개월 변화의 경험분포". 기저효과(12개월 전 지수)를 명시적으로 넣지 않은 무조정 baseline (R35-M1). 채점은 발표 당일 첫 공표치 기준.</p></div>'
+        )
+        cpi_table = "\n".join(f"| {lab} | {pct(mo)} | {pct(ma)} |" for lab, mo, ma, _, _ in cpi_rows)
+        cpi_status = f"""
+## {cpi["reference_period"]} Core CPI YoY ({cpi["release_at"][:10]} 발표, 최신치 {cpi["latest_rate"]}%)
+| 구간 | 모델 | 시장 |
+| --- | ---: | ---: |
+{cpi_table}
+"""
     stamp = fed["as_of"][:16].replace("T", " ")
     sep = prices.get(fed["event_ticker"])
     sep_width = f"{sep['completeness'].get('width', sep['completeness']['ask_sum'] - sep['completeness']['bid_sum']):.2f}" if sep else "—"
@@ -338,10 +379,11 @@ def render(d: dict) -> tuple[str, str]:
 <style>{CSS}</style></head><body>
 <div class="wrap">
 <header><h1>Forecast Macro 콘솔</h1><div class="meta">main {esc(d["commit"])} · 데이터 기준 {esc(stamp)} UTC · 자동 생성 (scripts/build_dashboard.py)</div></header>
-<div class="verdict"><b>현재 판정: 신호 없음 (설계대로)</b><p>모델과 시장 확률은 매일 기록되지만, 시장보다 낫다는 증거는 아직 {scored}건입니다. 첫 채점은 다음 FOMC와 고용보고서 이후입니다. 이 화면의 모든 확률은 연구 기록이며 투자 신호가 아닙니다.</p></div>
+<div class="verdict"><b>현재 판정: 신호 없음 (설계대로)</b><p>모델과 시장 확률은 매일 기록되지만, 시장보다 낫다는 증거는 아직 {scored}건입니다. 첫 채점은 다음 CPI 발표(9월 11일)·FOMC·고용보고서 이후입니다. 이 화면의 모든 확률은 연구 기록이며 투자 신호가 아닙니다.</p></div>
 <div class="tiles">
 <div class="tile"><div class="k">다음 FOMC</div><div class="v">{esc(fed["meeting_date"][5:7].lstrip("0"))}월 {esc(fed["meeting_date"][8:10].lstrip("0"))}일</div><div class="d">현재 상단 {current:.2f}% · {esc(fed["event_ticker"])}</div></div>
 <div class="tile"><div class="k">다음 고용보고서</div><div class="v">{esc(un["release_at"][5:7].lstrip("0"))}월 {esc(un["release_at"][8:10].lstrip("0"))}일</div><div class="d">최신 실업률 {un["latest_rate"]}% ({esc(un["latest_month"][:7])})</div></div>
+{cpi_tile}
 <div class="tile"><div class="k">시장 대비 채점</div><div class="v">{scored} / {scoring.get("minimum_sample_required", 30)}</div><div class="d">D-013 표본 기준까지 남은 회의 수</div></div>
 <div class="tile"><div class="k">검토 장부</div><div class="v">{by.get("fixed", 0)} 해결</div><div class="d">{by.get("open", 0)} 미해결 · {by.get("partial", 0)} 부분 · 결정 {len(d["decisions"])}건</div></div>
 </div>
@@ -354,6 +396,7 @@ def render(d: dict) -> tuple[str, str]:
 <div class="legend"><span><i style="background:var(--model)"></i>경험분포 baseline</span><span><i style="background:var(--market)"></i>시장 (Polymarket) · 호가 범위</span></div>
 {bar_rows(un_rows)}
 <p class="note">모델은 "최신치 + 1990년 이후 1개월 변화의 경험분포". 수수료 차감 후 가장 큰 순 edge: {esc(t[best_net[0]][-14:]) if best_net else "—"} {("%+.1f%%p" % (best_net[1] * 100)) if best_net else ""}.</p></div>
+{cpi_panel}
 </div>
 <section><h2>왜 아직 신호가 아닌가</h2><p class="sub">각 게이트는 코드에서 강제됩니다. 하나라도 빨간색이면 화면에 신호가 나가지 않습니다.</p>
 <div class="gates">
@@ -402,7 +445,7 @@ def render(d: dict) -> tuple[str, str]:
 | 구간 | 모델 | 시장 |
 | --- | ---: | ---: |
 {un_table}
-
+{cpi_status}
 ## 게이트
 - 규칙·출처·일정 검증: 통과 (D-014)
 - 가격 정규화: 통과 (D-015, D-018)

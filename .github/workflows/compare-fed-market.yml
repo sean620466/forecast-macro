@@ -85,7 +85,13 @@ jobs:
         run: |
           git config user.name "forecast-macro-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/generated/fed_market_comparisons data/generated/fed_market_scoring.json data/generated/unemployment_market_comparisons data/generated/unemployment_market_scoring.json data/generated/core_cpi_market_comparisons data/generated/core_cpi_market_scoring.json docs/dashboard/index.html STATUS.md
+          # A topic with no priced market yet has no directory; git add must not fail on it (run #18).
+          for path in data/generated/fed_market_comparisons data/generated/fed_market_scoring.json \
+                      data/generated/unemployment_market_comparisons data/generated/unemployment_market_scoring.json \
+                      data/generated/core_cpi_market_comparisons data/generated/core_cpi_market_scoring.json \
+                      docs/dashboard/index.html STATUS.md; do
+            [ -e "$path" ] && git add "$path"
+          done
           if git diff --cached --quiet; then
             echo "no new comparison"
             exit 0
