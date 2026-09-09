@@ -94,6 +94,22 @@ looked good (BSS +0.31) because the sample began with the 2019–2020 cuts it is
 catch. Seven of the 83 meetings had a same-day 08:30 ET release (D-017); excluding them
 changes nothing material (0.1138 vs 0.1069).
 
+## Heuristic hold/hike split from climatology (task 46)
+
+The mirrored hike score (R16-M1) is gone. The heuristic keeps its cut score and splits the
+remainder by the Laplace-smoothed frequency of hikes among prior non-cut meetings, the same
+quantity the three-way climatology uses. Cut Brier is unchanged by construction.
+
+| File | Three-way Brier before → after | Climatology | Hold Brier | Hike Brier |
+| --- | ---: | ---: | ---: | ---: |
+| window 2019–2026 | 0.688 → 0.497 | 0.532 | 0.357 → 0.251 | 0.247 → 0.162 |
+| window 2015–2026 | 0.659 → 0.545 | 0.509 | 0.340 → 0.263 | 0.209 → 0.172 |
+| all 2015–2026 | 0.659 → 0.551 | 0.524 | 0.331 → 0.263 | 0.207 → 0.167 |
+
+On 2019–2026 the heuristic now beats the three-way climatology; on 2015–2026 it still trails
+it because its cut component does (BSS −0.12, section above). All checked-in
+`fed_baseline_backtest_*.json` files were regenerated.
+
 ## Three-way view of the heuristic (D-016)
 
 The heuristic's hike score is the cut score with its economic terms sign-flipped. On 2019–2026

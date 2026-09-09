@@ -23,8 +23,8 @@
       "baseline_probability_cut": 0.1,
       "actual_cut": 0,
       "squared_error": 0.33305916365448773,
-      "probability_hold": 0.33309519558723744,
-      "probability_hike": 0.08979202197375978,
+      "probability_hold": 0.3383097740487978,
+      "probability_hike": 0.08457744351219945,
       "actual_decision": "hold"
     },
     {
@@ -33,8 +33,8 @@
       "baseline_probability_cut": 0.09090909090909091,
       "actual_cut": 0,
       "squared_error": 0.18041792517312383,
-      "probability_hold": 0.3839524781051733,
-      "probability_hike": 0.1912912092011554,
+      "probability_hold": 0.4706539259779053,
+      "probability_hike": 0.1045897613284234,
       "actual_decision": "hold"
     },
     {
@@ -43,8 +43,8 @@
       "baseline_probability_cut": 0.08333333333333333,
       "actual_cut": 0,
       "squared_error": 0.3356779787184831,
-      "probability_hold": 0.3319630055632688,
-      "probability_hike": 0.08865976091915233,
+      "probability_hold": 0.3505189720686843,
+      "probability_hike": 0.07010379441373685,
       "actual_decision": "hold"
     },
     {
@@ -53,8 +53,8 @@
       "baseline_probability_cut": 0.07692307692307693,
       "actual_cut": 0,
       "squared_error": 0.18738743047657047,
-      "probability_hold": 0.38268137768638966,
-      "probability_hike": 0.18443592402622153,
+      "probability_hold": 0.47986848606451715,
+      "probability_hike": 0.08724881564809404,
       "actual_decision": "hold"
     },
     {
@@ -63,8 +63,8 @@
       "baseline_probability_cut": 0.07142857142857142,
       "actual_cut": 0,
       "squared_error": 0.25688720178440805,
-      "probability_hold": 0.3631648949762687,
-      "probability_hike": 0.1299946944560576,
+      "probability_hold": 0.4227082195134225,
+      "probability_hike": 0.07045136991890376,
       "actual_decision": "hold"
     },
     {
@@ -73,8 +73,8 @@
       "baseline_probability_cut": 0.06666666666666667,
       "actual_cut": 0,
       "squared_error": 0.3396909823785303,
-      "probability_hold": 0.33021826405353394,
-      "probability_hike": 0.08695158712218788,
+      "probability_hold": 0.36154720435229226,
+      "probability_hike": 0.05562264682342957,
       "actual_decision": "hold"
     },
     {
@@ -83,8 +83,8 @@
       "baseline_probability_cut": 0.0625,
       "actual_cut": 0,
       "squared_error": 0.22330473448466853,
-      "probability_hold": 0.37391350692423,
-      "probability_hike": 0.1535351895280298,
+      "probability_hold": 0.4615176093957273,
+      "probability_hike": 0.06593108705653247,
       "actual_decision": "hold"
     },
     {
@@ -93,8 +93,8 @@
       "baseline_probability_cut": 0.058823529411764705,
       "actual_cut": 0,
       "squared_error": 0.0853608144861321,
-      "probability_hold": 0.37426458990696704,
-      "probability_hike": 0.33356967889559747,
+      "probability_hold": 0.6245596489434393,
+      "probability_hike": 0.08327461985912524,
       "actual_decision": "hike"
     },
     {
@@ -103,8 +103,8 @@
       "baseline_probability_cut": 0.05555555555555555,
       "actual_cut": 0,
       "squared_error": 0.06599602116342108,
-      "probability_hold": 0.3600074558589381,
-      "probability_hike": 0.3830956364846616,
+      "probability_hold": 0.6192525769529997,
+      "probability_hike": 0.12385051539059995,
       "actual_decision": "hold"
     },
     {
@@ -113,8 +113,8 @@
       "baseline_probability_cut": 0.05263157894736842,
       "actual_cut": 0,
       "squared_error": 0.06378342627636198,
-      "probability_hold": 0.3578423345094251,
-      "probability_hike": 0.3896038568153503,
+      "probability_hold": 0.6294283716419161,
+      "probability_hike": 0.11801781968285927,
       "actual_decision": "hike"
     },
     {
@@ -123,8 +123,8 @@
       "baseline_probability_cut": 0.05,
       "actual_cut": 0,
       "squared_error": 0.04271687843215104,
-      "probability_hold": 0.32889673414807674,
-      "probability_hike": 0.4644226464601887,
+      "probability_hold": 0.6346555044866123,
+      "probability_hike": 0.1586638761216531,
       "actual_decision": "hold"
     },
     {
@@ -133,8 +133,8 @@
       "baseline_probability_cut": 0.047619047619047616,
       "actual_cut": 0,
       "squared_error": 0.0337047806127849,
-      "probability_hold": 0.30972241247026666,
-      "probability_hike": 0.5066889696560075,
+      "probability_hold": 0.6609044521974601,
+      "probability_hike": 0.15550692992881412,
       "actual_decision": "hike"
     },
     {
@@ -143,8 +143,8 @@
       "baseline_probability_cut": 0.045454545454545456,
       "actual_cut": 0,
       "squared_error": 0.13812469891799745,
-      "probability_hold": 0.3873980807601598,
-      "probability_hike": 0.24095060561644208,
+      "probability_hold": 0.48554216674555606,
+      "probability_hike": 0.14280651963104588,
       "actual_decision": "hold"
     },
     {
@@ -153,8 +153,8 @@
       "baseline_probability_cut": 0.043478260869565216,
       "actual_cut": 0,
       "squared_error": 0.1321538369533419,
-      "probability_hold": 0.3871271665991176,
-      "probability_hike": 0.24934314141776273,
+      "probability_hold": 0.4981071975784281,
+      "probability_hike": 0.13836311043845223,
       "actual_decision": "hold"
     },
     {
@@ -163,8 +163,8 @@
       "baseline_probability_cut": 0.041666666666666664,
       "actual_cut": 0,
       "squared_error": 0.04923660188244309,
-      "probability_hold": 0.3397797843404164,
-      "probability_hike": 0.4383269938558451,
+      "probability_hold": 0.6160011994053737,
+      "probability_hike": 0.16210557879088783,
       "actual_decision": "hold"
     },
     {
@@ -173,8 +173,8 @@
       "baseline_probability_cut": 0.04,
       "actual_cut": 0,
       "squared_error": 0.05060513468188509,
-      "probability_hold": 0.3418114299052313,
-      "probability_hike": 0.4332327195776393,
+      "probability_hold": 0.6200353195862964,
+      "probability_hike": 0.15500882989657414,
       "actual_decision": "hike"
     },
     {
@@ -183,8 +183,8 @@
       "baseline_probability_cut": 0.038461538461538464,
       "actual_cut": 0,
       "squared_error": 0.07278813849670804,
-      "probability_hold": 0.3658932916581252,
-      "probability_hike": 0.36431393880068047,
+      "probability_hold": 0.5616978695836966,
+      "probability_hike": 0.168509360875109,
       "actual_decision": "hold"
     },
     {
@@ -193,8 +193,8 @@
       "baseline_probability_cut": 0.037037037037037035,
       "actual_cut": 0,
       "squared_error": 0.07576597933394003,
-      "probability_hold": 0.3681483619693426,
-      "probability_hike": 0.3565954313178204,
+      "probability_hold": 0.5636896170011267,
+      "probability_hike": 0.16105417628603622,
       "actual_decision": "hike"
     },
     {
@@ -203,8 +203,8 @@
       "baseline_probability_cut": 0.03571428571428571,
       "actual_cut": 0,
       "squared_error": 0.06832637052035118,
-      "probability_hold": 0.3621508713456576,
-      "probability_hike": 0.3764559946198939,
+      "probability_hold": 0.5539551494741636,
+      "probability_hike": 0.18465171649138787,
       "actual_decision": "hold"
     },
     {
@@ -213,8 +213,8 @@
       "baseline_probability_cut": 0.034482758620689655,
       "actual_cut": 0,
       "squared_error": 0.016901417949612228,
-      "probability_hold": 0.25130959693054444,
-      "probability_hike": 0.6186849495314896,
+      "probability_hold": 0.6599958628332672,
+      "probability_hike": 0.20999868362876684,
       "actual_decision": "hike"
     },
     {
@@ -223,8 +223,8 @@
       "baseline_probability_cut": 0.03333333333333333,
       "actual_cut": 0,
       "squared_error": 0.028600804734434767,
-      "probability_hold": 0.29596078027566175,
-      "probability_hike": 0.5349214952409632,
+      "probability_hold": 0.6093136687121916,
+      "probability_hike": 0.22156860680443333,
       "actual_decision": "hold"
     },
     {
@@ -233,8 +233,8 @@
       "baseline_probability_cut": 0.03225806451612903,
       "actual_cut": 0,
       "squared_error": 0.05101868753505092,
-      "probability_hold": 0.3424097997104874,
-      "probability_hike": 0.43171703336822703,
+      "probability_hold": 0.5743521664777559,
+      "probability_hike": 0.19977466660095855,
       "actual_decision": "hike"
     },
     {
@@ -243,8 +243,8 @@
       "baseline_probability_cut": 0.03125,
       "actual_cut": 0,
       "squared_error": 0.05201321852515718,
-      "probability_hold": 0.34382015095941726,
-      "probability_hike": 0.4281157823287108,
+      "probability_hold": 0.554828952050842,
+      "probability_hike": 0.217106981237286,
       "actual_decision": "hold"
     },
     {
@@ -253,8 +253,8 @@
       "baseline_probability_cut": 0.030303030303030304,
       "actual_cut": 0,
       "squared_error": 0.059710148780336536,
-      "probability_hold": 0.353497050718442,
-      "probability_hike": 0.40214634761027807,
+      "probability_hold": 0.5495588351481601,
+      "probability_hike": 0.20608456318056,
       "actual_decision": "hike"
     },
     {
@@ -263,8 +263,8 @@
       "baseline_probability_cut": 0.029411764705882353,
       "actual_cut": 0,
       "squared_error": 0.18599984179276122,
-      "probability_hold": 0.3829472677555189,
-      "probability_hike": 0.1857757426046892,
+      "probability_hold": 0.4014515367248528,
+      "probability_hike": 0.16727147363535533,
       "actual_decision": "hold"
     },
     {
@@ -273,8 +273,8 @@
       "baseline_probability_cut": 0.02857142857142857,
       "actual_cut": 0,
       "squared_error": 0.2302612772461971,
-      "probability_hold": 0.3718593335280578,
-      "probability_hike": 0.14828519109816152,
+      "probability_hold": 0.37153180330444235,
+      "probability_hike": 0.14861272132177694,
       "actual_decision": "hold"
     },
     {
@@ -283,8 +283,8 @@
       "baseline_probability_cut": 0.027777777777777776,
       "actual_cut": 0,
       "squared_error": 0.12095745495426884,
-      "probability_hold": 0.3859495743053307,
-      "probability_hike": 0.26626104265621475,
+      "probability_hold": 0.4710410011388939,
+      "probability_hike": 0.18116961582265154,
       "actual_decision": "hold"
     },
     {
@@ -293,8 +293,8 @@
       "baseline_probability_cut": 0.02702702702702703,
       "actual_cut": 0,
       "squared_error": 0.10240921687646928,
-      "probability_hold": 0.3816515812945759,
-      "probability_hike": 0.2983340176599879,
+      "probability_hold": 0.4962057073452222,
+      "probability_hike": 0.18377989160934158,
       "actual_decision": "hold"
     },
     {
@@ -303,8 +303,8 @@
       "baseline_probability_cut": 0.02631578947368421,
       "actual_cut": 1,
       "squared_error": 0.37902817579624065,
-      "probability_hold": 0.3873797701309413,
-      "probability_hike": 0.22827287202715146,
+      "probability_hold": 0.45363878895859466,
+      "probability_hike": 0.1620138531994981,
       "actual_decision": "cut"
     },
     {
@@ -313,8 +313,8 @@
       "baseline_probability_cut": 0.05128205128205128,
       "actual_cut": 1,
       "squared_error": 0.35406158022607687,
-      "probability_hold": 0.3862497121946594,
-      "probability_hike": 0.2087810266971031,
+      "probability_hold": 0.4384437023412987,
+      "probability_hike": 0.1565870365504638,
       "actual_decision": "cut"
     },
     {
@@ -323,8 +323,8 @@
       "baseline_probability_cut": 0.075,
       "actual_cut": 1,
       "squared_error": 0.4886402919576368,
-      "probability_hold": 0.37695129644788156,
-      "probability_hike": 0.322076808822312,
+      "probability_hold": 0.5150733407254058,
+      "probability_hike": 0.18395476454478776,
       "actual_decision": "cut"
     },
     {
@@ -333,8 +333,8 @@
       "baseline_probability_cut": 0.0975609756097561,
       "actual_cut": 0,
       "squared_error": 0.07748121535906723,
-      "probability_hold": 0.3693656907724047,
-      "probability_hike": 0.3522798313418117,
+      "probability_hold": 0.53173880576837,
+      "probability_hike": 0.1899067163458464,
       "actual_decision": "hold"
     },
     {
@@ -343,8 +343,8 @@
       "baseline_probability_cut": 0.09523809523809523,
       "actual_cut": 0,
       "squared_error": 0.05511301912668819,
-      "probability_hold": 0.347969349574162,
-      "probability_hike": 0.4172690285054564,
+      "probability_hold": 0.5690234093412547,
+      "probability_hike": 0.19621496873836367,
       "actual_decision": "hold"
     },
     {
@@ -353,8 +353,8 @@
       "baseline_probability_cut": 0.09302325581395349,
       "actual_cut": 0,
       "squared_error": 2.5e-05,
-      "probability_hold": 0.814907751508706,
-      "probability_hike": 0.180092248491294,
+      "probability_hold": 0.74625,
+      "probability_hike": 0.24875,
       "actual_decision": "hold"
     },
     {
@@ -363,8 +363,8 @@
       "baseline_probability_cut": 0.09090909090909091,
       "actual_cut": 0,
       "squared_error": 2.5e-05,
-      "probability_hold": 0.994999005,
-      "probability_hike": 9.95e-07,
+      "probability_hold": 0.7523170731707317,
+      "probability_hike": 0.2426829268292683,
       "actual_decision": "hold"
     },
     {
@@ -373,8 +373,8 @@
       "baseline_probability_cut": 0.08888888888888889,
       "actual_cut": 0,
       "squared_error": 2.5e-05,
-      "probability_hold": 0.9949910500426763,
-      "probability_hike": 8.949957323650872e-06,
+      "probability_hold": 0.7580952380952382,
+      "probability_hike": 0.2369047619047619,
       "actual_decision": "hold"
     },
     {
@@ -383,8 +383,8 @@
       "baseline_probability_cut": 0.08695652173913043,
       "actual_cut": 0,
       "squared_error": 2.5e-05,
-      "probability_hold": 0.020860831970803795,
-      "probability_hike": 0.9741391680291962,
+      "probability_hold": 0.7636046511627907,
+      "probability_hike": 0.2313953488372093,
       "actual_decision": "hold"
     },
     {
@@ -393,8 +393,8 @@
       "baseline_probability_cut": 0.0851063829787234,
       "actual_cut": 0,
       "squared_error": 2.5e-05,
-      "probability_hold": 0.11508112767944556,
-      "probability_hike": 0.8799188723205544,
+      "probability_hold": 0.7688636363636363,
+      "probability_hike": 0.22613636363636364,
       "actual_decision": "hold"
     },
     {
@@ -403,8 +403,8 @@
       "baseline_probability_cut": 0.08333333333333333,
       "actual_cut": 0,
       "squared_error": 2.5e-05,
-      "probability_hold": 0.3810266493577005,
-      "probability_hike": 0.6139733506422995,
+      "probability_hold": 0.7738888888888888,
+      "probability_hike": 0.2211111111111111,
       "actual_decision": "hold"
     },
     {
@@ -413,8 +413,8 @@
       "baseline_probability_cut": 0.08163265306122448,
       "actual_cut": 0,
       "squared_error": 2.5e-05,
-      "probability_hold": 0.515947557973103,
-      "probability_hike": 0.479052442026897,
+      "probability_hold": 0.778695652173913,
+      "probability_hike": 0.21630434782608696,
       "actual_decision": "hold"
     },
     {
@@ -423,8 +423,8 @@
       "baseline_probability_cut": 0.08,
       "actual_cut": 0,
       "squared_error": 2.5e-05,
-      "probability_hold": 0.580400721503409,
-      "probability_hike": 0.414599278496591,
+      "probability_hold": 0.7832978723404256,
+      "probability_hike": 0.21170212765957447,
       "actual_decision": "hold"
     },
     {
@@ -433,8 +433,8 @@
       "baseline_probability_cut": 0.0784313725490196,
       "actual_cut": 0,
       "squared_error": 2.5e-05,
-      "probability_hold": 0.30364667226019015,
-      "probability_hike": 0.6913533277398098,
+      "probability_hold": 0.7877083333333333,
+      "probability_hike": 0.20729166666666668,
       "actual_decision": "hold"
     },
     {
@@ -443,8 +443,8 @@
       "baseline_probability_cut": 0.07692307692307693,
       "actual_cut": 0,
       "squared_error": 2.5e-05,
-      "probability_hold": 0.06453746622224543,
-      "probability_hike": 0.9304625337777546,
+      "probability_hold": 0.7919387755102041,
+      "probability_hike": 0.2030612244897959,
       "actual_decision": "hold"
     },
     {
@@ -453,8 +453,8 @@
       "baseline_probability_cut": 0.07547169811320754,
       "actual_cut": 0,
       "squared_error": 2.5e-05,
-      "probability_hold": 0.06675252354350891,
-      "probability_hike": 0.9282474764564911,
+      "probability_hold": 0.796,
+      "probability_hike": 0.199,
       "actual_decision": "hold"
     },
     {
@@ -463,8 +463,8 @@
       "baseline_probability_cut": 0.07407407407407407,
       "actual_cut": 0,
       "squared_error": 2.5e-05,
-      "probability_hold": 0.03368842077040146,
-      "probability_hike": 0.9613115792295985,
+      "probability_hold": 0.7999019607843137,
+      "probability_hike": 0.19509803921568628,
       "actual_decision": "hold"
     },
     {
@@ -473,8 +473,8 @@
       "baseline_probability_cut": 0.07272727272727272,
       "actual_cut": 0,
       "squared_error": 2.5e-05,
-      "probability_hold": 0.014465747437403476,
-      "probability_hike": 0.9805342525625965,
+      "probability_hold": 0.8036538461538462,
+      "probability_hike": 0.19134615384615386,
       "actual_decision": "hold"
     },
     {
@@ -483,8 +483,8 @@
       "baseline_probability_cut": 0.07142857142857142,
       "actual_cut": 0,
       "squared_error": 2.5e-05,
-      "probability_hold": 0.0037280539067904295,
-      "probability_hike": 0.9912719460932096,
+      "probability_hold": 0.8072641509433962,
+      "probability_hike": 0.1877358490566038,
       "actual_decision": "hold"
     },
     {
@@ -493,8 +493,8 @@
       "baseline_probability_cut": 0.07017543859649122,
       "actual_cut": 0,
       "squared_error": 2.5e-05,
-      "probability_hold": 0.0034780732735162356,
-      "probability_hike": 0.9915219267264838,
+      "probability_hold": 0.8107407407407408,
+      "probability_hike": 0.18425925925925926,
       "actual_decision": "hold"
     },
     {
@@ -503,8 +503,8 @@
       "baseline_probability_cut": 0.06896551724137931,
       "actual_cut": 0,
       "squared_error": 2.5e-05,
-      "probability_hold": 0.002563070504197462,
-      "probability_hike": 0.9924369294958025,
+      "probability_hold": 0.8140909090909091,
+      "probability_hike": 0.1809090909090909,
       "actual_decision": "hike"
     },
     {
@@ -513,8 +513,8 @@
       "baseline_probability_cut": 0.06779661016949153,
       "actual_cut": 0,
       "squared_error": 3.372026610901109e-07,
-      "probability_hold": 0.001575994127091862,
-      "probability_hike": 0.9978433143359541,
+      "probability_hold": 0.803104801443519,
+      "probability_hike": 0.19631450701952688,
       "actual_decision": "hike"
     },
     {
@@ -523,8 +523,8 @@
       "baseline_probability_cut": 0.06666666666666667,
       "actual_cut": 0,
       "squared_error": 5.129160476730603e-07,
-      "probability_hold": 0.0019429980526337598,
-      "probability_hike": 0.9973408203728524,
+      "probability_hold": 0.7889082777043313,
+      "probability_hike": 0.21037554072115497,
       "actual_decision": "hike"
     },
     {
@@ -533,8 +533,8 @@
       "baseline_probability_cut": 0.06557377049180328,
       "actual_cut": 0,
       "squared_error": 5.099296642488004e-07,
-      "probability_hold": 0.0019373443652915823,
-      "probability_hike": 0.9973485620384279,
+      "probability_hold": 0.7753080308304721,
+      "probability_hike": 0.22397787557324747,
       "actual_decision": "hike"
     },
     {
@@ -543,8 +543,8 @@
       "baseline_probability_cut": 0.06451612903225806,
       "actual_cut": 0,
       "squared_error": 4.2356790505804615e-06,
-      "probability_hold": 0.005563244683819746,
-      "probability_hike": 0.9923786787747026,
+      "probability_hold": 0.7611421450107374,
+      "probability_hike": 0.236799778447785,
       "actual_decision": "hike"
     },
     {
@@ -553,8 +553,8 @@
       "baseline_probability_cut": 0.06349206349206349,
       "actual_cut": 0,
       "squared_error": 3.7011878136400867e-06,
-      "probability_hold": 0.005202300541536697,
-      "probability_hike": 0.9928738523196188,
+      "probability_hold": 0.7485571146458666,
+      "probability_hike": 0.24951903821528887,
       "actual_decision": "hike"
     },
     {
@@ -563,8 +563,8 @@
       "baseline_probability_cut": 0.0625,
       "actual_cut": 0,
       "squared_error": 5.5532569296931865e-05,
-      "probability_hold": 0.019851539055561362,
-      "probability_hike": 0.9726964431440753,
+      "probability_hold": 0.732207527852191,
+      "probability_hike": 0.2603404543474457,
       "actual_decision": "hike"
     },
     {
@@ -573,8 +573,8 @@
       "baseline_probability_cut": 0.06153846153846154,
       "actual_cut": 0,
       "squared_error": 0.0001991705587810587,
-      "probability_hold": 0.03692567391202728,
-      "probability_hike": 0.9489615461073644,
+      "probability_hold": 0.7155633048527843,
+      "probability_hike": 0.27032391516660736,
       "actual_decision": "hike"
     },
     {
@@ -583,8 +583,8 @@
       "baseline_probability_cut": 0.06060606060606061,
       "actual_cut": 0,
       "squared_error": 0.0005056873696901038,
-      "probability_hold": 0.05752980151289899,
-      "probability_hike": 0.9199827048586393,
+      "probability_hold": 0.6982232188368132,
+      "probability_hike": 0.2792892875347252,
       "actual_decision": "hike"
     },
     {
@@ -593,8 +593,8 @@
       "baseline_probability_cut": 0.05970149253731343,
       "actual_cut": 0,
       "squared_error": 0.0032924067474024116,
-      "probability_hold": 0.1338291820826788,
-      "probability_hike": 0.8087913202948915,
+      "probability_hold": 0.6627800407342291,
+      "probability_hike": 0.2798404616433412,
       "actual_decision": "hike"
     },
     {
@@ -603,8 +603,8 @@
       "baseline_probability_cut": 0.058823529411764705,
       "actual_cut": 0,
       "squared_error": 0.023744843975764183,
-      "probability_hold": 0.2801481339111088,
-      "probability_hike": 0.5657582452742572,
+      "probability_hold": 0.5856274932821766,
+      "probability_hike": 0.26027888590318954,
       "actual_decision": "hold"
     },
     {
@@ -613,8 +613,8 @@
       "baseline_probability_cut": 0.057971014492753624,
       "actual_cut": 0,
       "squared_error": 0.10053474521441529,
-      "probability_hold": 0.3810217009511528,
-      "probability_hike": 0.30190615392345893,
+      "probability_hold": 0.4759800200641233,
+      "probability_hike": 0.2069478348104884,
       "actual_decision": "hike"
     },
     {
@@ -623,8 +623,8 @@
       "baseline_probability_cut": 0.05714285714285714,
       "actual_cut": 0,
       "squared_error": 0.04874574877410943,
-      "probability_hold": 0.33903128779972025,
-      "probability_hike": 0.44018431788286105,
+      "probability_hold": 0.5349838486775931,
+      "probability_hike": 0.24423175700498817,
       "actual_decision": "hold"
     },
     {
@@ -633,8 +633,8 @@
       "baseline_probability_cut": 0.056338028169014086,
       "actual_cut": 0,
       "squared_error": 0.055909757854028484,
-      "probability_hold": 0.3489786778504863,
-      "probability_hike": 0.4145688790366787,
+      "probability_hold": 0.5277461054955406,
+      "probability_hike": 0.2358014513916245,
       "actual_decision": "hold"
     },
     {
@@ -643,8 +643,8 @@
       "baseline_probability_cut": 0.05555555555555555,
       "actual_cut": 0,
       "squared_error": 0.06610558534305337,
-      "probability_hold": 0.36011131080179043,
-      "probability_hike": 0.38277862455068673,
+      "probability_hold": 0.5167929985060711,
+      "probability_hike": 0.2260969368464061,
       "actual_decision": "hold"
     },
     {
@@ -653,8 +653,8 @@
       "baseline_probability_cut": 0.0547945205479452,
       "actual_cut": 0,
       "squared_error": 0.049256291935722986,
-      "probability_hold": 0.33980958784093657,
-      "probability_hike": 0.4382528264829933,
+      "probability_hold": 0.544643690026751,
+      "probability_hike": 0.23341872429717894,
       "actual_decision": "hold"
     },
     {
@@ -663,8 +663,8 @@
       "baseline_probability_cut": 0.05405405405405406,
       "actual_cut": 0,
       "squared_error": 0.1183616384909621,
-      "probability_hold": 0.38553800825202356,
-      "probability_hike": 0.2704247285177238,
+      "probability_hold": 0.46194558927447,
+      "probability_hike": 0.19401714749527738,
       "actual_decision": "hold"
     },
     {
@@ -673,8 +673,8 @@
       "baseline_probability_cut": 0.05333333333333334,
       "actual_cut": 0,
       "squared_error": 0.06310861554599692,
-      "probability_hold": 0.35715554644102293,
-      "probability_hike": 0.39163017142916484,
+      "probability_hold": 0.5303898834913829,
+      "probability_hike": 0.21839583437880478,
       "actual_decision": "hold"
     },
     {
@@ -683,8 +683,8 @@
       "baseline_probability_cut": 0.05263157894736842,
       "actual_cut": 0,
       "squared_error": 0.08188523053547493,
-      "probability_hold": 0.3722374955967032,
-      "probability_hike": 0.3416065494845237,
+      "probability_hold": 0.5084916485510109,
+      "probability_hike": 0.20535239653021595,
       "actual_decision": "hold"
     },
     {
@@ -693,8 +693,8 @@
       "baseline_probability_cut": 0.05194805194805195,
       "actual_cut": 0,
       "squared_error": 0.18281925340180194,
-      "probability_hold": 0.3835329162586761,
-      "probability_hike": 0.1888934019018053,
+      "probability_hold": 0.40998101165547995,
+      "probability_hike": 0.16244530650500147,
       "actual_decision": "hold"
     },
     {
@@ -703,8 +703,8 @@
       "baseline_probability_cut": 0.05128205128205128,
       "actual_cut": 1,
       "squared_error": 0.245064086226245,
-      "probability_hold": 0.36382528762328875,
-      "probability_hike": 0.13121419183895072,
+      "probability_hold": 0.35642842521281237,
+      "probability_hike": 0.13861105424942707,
       "actual_decision": "cut"
     },
     {
@@ -713,8 +713,8 @@
       "baseline_probability_cut": 0.06329113924050633,
       "actual_cut": 1,
       "squared_error": 0.3989134898185086,
-      "probability_hold": 0.3873166631225008,
-      "probability_hike": 0.2442793231048569,
+      "probability_hold": 0.4547491100836975,
+      "probability_hike": 0.17684687614366018,
       "actual_decision": "cut"
     },
     {
@@ -723,8 +723,8 @@
       "baseline_probability_cut": 0.075,
       "actual_cut": 1,
       "squared_error": 0.41818466071617355,
-      "probability_hold": 0.3864640296133592,
-      "probability_hike": 0.2602079588909934,
+      "probability_hold": 0.46560383172313385,
+      "probability_hike": 0.18106815678121874,
       "actual_decision": "cut"
     },
     {
@@ -733,8 +733,8 @@
       "baseline_probability_cut": 0.08641975308641975,
       "actual_cut": 0,
       "squared_error": 0.09261820156564501,
-      "probability_hold": 0.377889510295376,
-      "probability_hike": 0.3177781030520611,
+      "probability_hold": 0.5008806816101548,
+      "probability_hike": 0.1947869317372824,
       "actual_decision": "hold"
     },
     {
@@ -743,8 +743,8 @@
       "baseline_probability_cut": 0.08536585365853659,
       "actual_cut": 0,
       "squared_error": 0.08511876312955045,
-      "probability_hold": 0.3741298639185769,
-      "probability_hike": 0.3341189353477321,
+      "probability_hold": 0.5125484731532499,
+      "probability_hike": 0.1957003261130591,
       "actual_decision": "hold"
     },
     {
@@ -753,8 +753,8 @@
       "baseline_probability_cut": 0.08433734939759036,
       "actual_cut": 0,
       "squared_error": 0.22466209346332702,
-      "probability_hold": 0.37352058069428395,
-      "probability_hike": 0.1524940888751983,
+      "probability_hold": 0.38255612332325983,
+      "probability_hike": 0.14345854624622242,
       "actual_decision": "hold"
     },
     {
@@ -763,8 +763,8 @@
       "baseline_probability_cut": 0.08333333333333333,
       "actual_cut": 0,
       "squared_error": 0.20445769156073362,
-      "probability_hold": 0.3789356735232413,
-      "probability_hike": 0.16889434565015224,
+      "probability_hold": 0.4003373217036338,
+      "probability_hike": 0.1474926974697598,
       "actual_decision": "hold"
     },
     {
@@ -773,8 +773,8 @@
       "baseline_probability_cut": 0.08235294117647059,
       "actual_cut": 0,
       "squared_error": 0.10295543048748139,
-      "probability_hold": 0.38182760562301205,
-      "probability_hike": 0.29730570790504923,
+      "probability_hold": 0.49860420486870327,
+      "probability_hike": 0.18052910865935803,
       "actual_decision": "hold"
     },
     {
@@ -783,8 +783,8 @@
       "baseline_probability_cut": 0.08139534883720931,
       "actual_cut": 1,
       "squared_error": 0.4352334882105177,
-      "probability_hold": 0.3850738271642765,
-      "probability_hike": 0.2746484539590138,
+      "probability_hold": 0.4865451823284266,
+      "probability_hike": 0.17317709879486373,
       "actual_decision": "cut"
     },
     {
@@ -793,8 +793,8 @@
       "baseline_probability_cut": 0.09195402298850575,
       "actual_cut": 1,
       "squared_error": 0.4794311832750549,
-      "probability_hold": 0.3787539742831284,
-      "probability_hike": 0.3136557189441219,
+      "probability_hold": 0.5106521487550971,
+      "probability_hike": 0.18175754447215323,
       "actual_decision": "cut"
     },
     {
@@ -803,8 +803,8 @@
       "baseline_probability_cut": 0.10227272727272728,
       "actual_cut": 1,
       "squared_error": 0.41654978955251093,
-      "probability_hold": 0.3865661617689161,
-      "probability_hike": 0.2588405236260455,
+      "probability_hold": 0.47598743047878417,
+      "probability_hike": 0.16941925491617743,
       "actual_decision": "cut"
     },
     {
@@ -813,8 +813,8 @@
       "baseline_probability_cut": 0.11235955056179775,
       "actual_cut": 0,
       "squared_error": 0.10727667594276064,
-      "probability_hold": 0.3831055275292497,
-      "probability_hike": 0.28936328930987837,
+      "probability_hold": 0.49594575241885697,
+      "probability_hike": 0.17652306442027113,
       "actual_decision": "hold"
     },
     {
@@ -823,8 +823,8 @@
       "baseline_probability_cut": 0.1111111111111111,
       "actual_cut": 0,
       "squared_error": 0.12512196539808482,
-      "probability_hold": 0.3864967540703198,
-      "probability_hike": 0.25977741227021334,
+      "probability_hold": 0.4787216046966912,
+      "probability_hike": 0.1675525616438419,
       "actual_decision": "hold"
     },
     {
@@ -833,8 +833,8 @@
       "baseline_probability_cut": 0.10989010989010989,
       "actual_cut": 0,
       "squared_error": 0.03939703798403653,
-      "probability_hold": 0.3224704103378191,
-      "probability_hike": 0.4790427186000461,
+      "probability_hold": 0.5962475715269485,
+      "probability_hike": 0.2052655574109167,
       "actual_decision": "hold"
     },
     {
@@ -843,8 +843,8 @@
       "baseline_probability_cut": 0.10869565217391304,
       "actual_cut": 0,
       "squared_error": 0.008473983676637627,
-      "probability_hold": 0.1961661012708784,
-      "probability_hike": 0.7117796556078095,
+      "probability_hold": 0.6782245412828753,
+      "probability_hike": 0.2297212155958126,
       "actual_decision": "hold"
     },
     {
@@ -853,15 +853,15 @@
       "baseline_probability_cut": 0.10752688172043011,
       "actual_cut": 0,
       "squared_error": 0.02475053279372163,
-      "probability_hold": 0.28368276061600795,
-      "probability_hike": 0.5589942188379777,
+      "probability_hold": 0.6320077345904893,
+      "probability_hike": 0.21066924486349642,
       "actual_decision": "hold"
     }
   ],
-  "three_way_brier": 0.6515540268950156,
+  "three_way_brier": 0.5400114246396545,
   "three_way_climatology_brier": 0.5050880384770432,
-  "hold_brier": 0.3361454040687249,
-  "hike_brier": 0.20659520225104652,
+  "hold_brier": 0.26072610673782115,
+  "hike_brier": 0.17047189732658902,
   "actual_hikes": 19,
   "same_day_release_meetings": 7,
   "model_brier_excluding_same_day": 0.11236915085301061,

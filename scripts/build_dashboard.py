@@ -446,7 +446,7 @@ def render(d: dict) -> tuple[str, str]:
 <div class="panel"><h2>{esc(fed["meeting_date"])} FOMC: 상단 금리는 어디로</h2><p class="sub">Kalshi 관측 {esc(m["observed_at"][:16].replace("T", " "))} UTC · 모델 vintage {esc(fed["features"]["vintage_date"])}</p>
 <div class="legend"><span><i style="background:var(--model)"></i>로지스틱 모델 (2015–2026 학습, {fed.get("logistic_training_meetings", "")}회의)</span><span><i style="background:var(--market)"></i>시장 (Kalshi) · 짙은 선은 호가 범위</span></div>
 {bar_rows(fed_rows)}
-<p class="note">모델 입력: CPI 전년비 {fed["features"]["cpi_yoy_nsa"]:.2f}%, 실업률 {fed["features"]["unemployment_rate"]}%, 3개월 변화 {fed["features"]["unemployment_change_3m"]:+.1f}. 휴리스틱: 인하 {pct(hm["cut"])} / 동결 {pct(hm["hold"])} / 인상 {pct(hm["hike"])} (인상 성분은 백테스트에서 빈도 기준보다 나쁨). 회의 당일 발표: {"있음" if fed.get("same_day_release") else "없음"}.</p></div>
+<p class="note">모델 입력: CPI 전년비 {fed["features"]["cpi_yoy_nsa"]:.2f}%, 실업률 {fed["features"]["unemployment_rate"]}%, 3개월 변화 {fed["features"]["unemployment_change_3m"]:+.1f}. 휴리스틱: 인하 {pct(hm["cut"])} / 동결 {pct(hm["hold"])} / 인상 {pct(hm["hike"])} (동결·인상 분할은 과거 비인하 회의의 인상 빈도, 과제 46). 회의 당일 발표: {"있음" if fed.get("same_day_release") else "없음"}.</p></div>
 <div class="panel"><h2>{esc(un["reference_period"])} 실업률 ({esc(un["release_at"][:10])} 발표)</h2><p class="sub">Polymarket 관측 {esc(un["market_observed_at"][:16].replace("T", " "))} UTC · 최신치 {un["latest_rate"]}%</p>
 <div class="legend"><span><i style="background:var(--model)"></i>경험분포 baseline</span><span><i style="background:var(--market)"></i>시장 (Polymarket) · 호가 범위</span>{un_kalshi_legend}</div>
 {bar_rows(un_rows, un_kalshi_bars)}

@@ -81,13 +81,20 @@ def rate_decision_probabilities(
     unemployment_change_3m: float,
     policy_rate: float,
     neutral_rate: float = 2.75,
+    hike_given_no_cut: float | None = None,
 ) -> list[Probability]:
-    """Baseline heuristic over cut / hold / hike; coefficients are uncalibrated (D-016)."""
+    """Baseline heuristic over cut / hold / hike; coefficients are uncalibrated (D-016).
+
+    `hike_given_no_cut` replaces the mirrored hike score with an externally supplied
+    conditional hike probability. The backtest and the live comparison pass the sequential
+    climatology frequency of hikes among non-cut meetings (task 46, R16-M1): the mirrored
+    score was an unfounded symmetry assumption and scored worse than climatology. The cut
+    component is unchanged either way.
+    """
     args = (inflation_yoy, unemployment_rate, unemployment_change_3m, policy_rate, neutral_rate)
     cut = apply_cut_feasibility(_sigmoid(_cut_score(*args)), policy_rate=policy_rate)
-    hike_given_no_cut = min(
-        max(_sigmoid(_hike_score(*args)), PROBABILITY_EPSILON), 1.0 - PROBABILITY_EPSILON
-    )
+    raw_hike = _sigmoid(_hike_score(*args)) if hike_given_no_cut is None else hike_given_no_cut
+    hike_given_no_cut = min(max(raw_hike, PROBABILITY_EPSILON), 1.0 - PROBABILITY_EPSILON)
     cut, hold, hike = split_remainder(cut, hike_given_no_cut)
     return [Probability("cut", cut), Probability("hold", hold), Probability("hike", hike)]
 

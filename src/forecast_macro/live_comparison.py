@@ -14,6 +14,7 @@ from forecast_macro.fed_model_comparison import (
     fit_hike_given_no_cut,
     hike_probability_given_no_cut,
 )
+from forecast_macro.fomc import RateDecision
 from forecast_macro.models.fed import (
     apply_cut_feasibility,
     rate_decision_probabilities,
@@ -24,7 +25,8 @@ from forecast_macro.snapshots import HistoricalFeatureSnapshot
 
 # 0.3 (task 39): trained on the 2015–2026 history (94 meetings, two hiking cycles) instead of 2019–2026.
 # 0.4 (task 43): the cut model is trained on non-ZLB meetings only (D-011 applied to training).
-MODEL_VERSION = "fed-live-0.4-three-way-2015-nonzlb-uncalibrated"
+# 0.5 (task 46): the heuristic splits hold/hike by the climatology hike frequency, not a mirrored score.
+MODEL_VERSION = "fed-live-0.5-three-way-2015-nonzlb-climhike-uncalibrated"
 _MONTH_CODES = ("JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC")
 
 
@@ -161,6 +163,8 @@ def model_three_way_probabilities(
     training_snapshots: Sequence[Mapping[str, Any]],
 ) -> tuple[dict[str, float], dict[str, float]]:
     """Heuristic baseline and logistic candidate as cut/hold/hike vectors (D-016)."""
+    prior_hikes = sum(row.decision is RateDecision.HIKE for row in training)
+    prior_non_cuts = sum(row.decision is not RateDecision.CUT for row in training)
     heuristic = {
         item.outcome: item.probability
         for item in rate_decision_probabilities(
@@ -168,6 +172,8 @@ def model_three_way_probabilities(
             unemployment_rate=snapshot.unemployment_rate,
             unemployment_change_3m=snapshot.unemployment_change_3m,
             policy_rate=snapshot.policy_rate_upper,
+            # Task 46: climatology hike frequency among non-cut meetings, like the backtest.
+            hike_given_no_cut=(prior_hikes + 1) / (prior_non_cuts + 2),
         )
     }
     rows = list(training)

@@ -139,7 +139,7 @@ The heuristic (`fed_baseline_backtest_window_2015_2026.json`) is worse than clim
 this sample: Brier 0.1101 vs 0.0984, BSS −0.120, and it fails the climatology gate.
 
 Consequences: the live comparison (`scripts/compare_fed_market.py`, model version
-`fed-live-0.4-three-way-2015-nonzlb-uncalibrated`) trains on the 94-meeting file because a training
+`fed-live-0.5-three-way-2015-nonzlb-climhike-uncalibrated`) trains on the 94-meeting file because a training
 set chosen after seeing which period scores better would be tuning on results. The research
 gate D-013 is met on numbers (68 non-ZLB, model < climatology), but the margin is one
 meeting's worth of Brier. `signal_eligible` stays false; D-007 still needs the market
@@ -163,7 +163,7 @@ ECE 0.081 → 0.061, three-way 0.467 → 0.466; 2019–2026 +0.172 → +0.149 (n
 2019–2024 +0.291 → +0.528. The change is adopted on structural grounds (a training row where
 the outcome was impossible carries no information about the propensity), not because of these
 numbers, and the conclusion of the previous section stands: the model's edge over
-climatology on 94 meetings is small. Live model version `fed-live-0.4-three-way-2015-nonzlb-uncalibrated`.
+climatology on 94 meetings is small. Live model version `fed-live-0.5-three-way-2015-nonzlb-climhike-uncalibrated`.
 
 ## Three-way outcome space (D-016)
 

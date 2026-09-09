@@ -90,6 +90,9 @@ def run_fed_baseline_backtest(
         policy_rate = float(snapshot["policy_rate_upper"])
         if abs(policy_rate - meeting.upper_before) > 1e-9:
             raise ValueError(f"policy-rate snapshot mismatch for {meeting.meeting_at.date()}")
+        # Task 46: the heuristic's hike/hold split is the climatology frequency of hikes among
+        # prior non-cut meetings (Laplace-smoothed), not the mirrored cut score.
+        prior_non_cuts = index - prior_cuts
         estimates = {
             item.outcome: item.probability
             for item in rate_decision_probabilities(
@@ -97,6 +100,7 @@ def run_fed_baseline_backtest(
                 unemployment_rate=float(snapshot["unemployment_rate"]),
                 unemployment_change_3m=float(snapshot["unemployment_change_3m"]),
                 policy_rate=policy_rate,
+                hike_given_no_cut=(prior_hikes + 1) / (prior_non_cuts + 2),
             )
         }
         probability = estimates["cut"]
