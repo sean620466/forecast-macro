@@ -1,0 +1,112 @@
+{
+  "as_of": "2026-09-10T13:45:50.000636+00:00",
+  "meeting_date": "2026-09-16",
+  "event_ticker": "KXFED-26SEP",
+  "features": {
+    "meeting_date": "2026-09-16",
+    "vintage_date": "2026-09-10",
+    "cpi_yoy_nsa": 3.364825041479902,
+    "unemployment_rate": 4.1,
+    "unemployment_change_3m": -0.20000000000000018,
+    "policy_rate_upper": 3.75,
+    "source_series": {
+      "cpi_yoy_nsa": "CPIAUCNS",
+      "unemployment_rate": "UNRATE",
+      "policy_rate_upper": "DFEDTARU"
+    },
+    "data_gaps": {
+      "CPIAUCNS": [
+        "2025-10"
+      ]
+    },
+    "inputs": {
+      "cpi_latest": {
+        "series_id": "CPIAUCNS",
+        "observed_at": "2026-07-01",
+        "value": 333.918,
+        "realtime_start": "2026-09-10",
+        "fetched_at": "2026-09-10T13:45:50.656468+00:00"
+      },
+      "cpi_base_12m": {
+        "series_id": "CPIAUCNS",
+        "observed_at": "2025-07-01",
+        "value": 323.048,
+        "realtime_start": "2026-09-10",
+        "fetched_at": "2026-09-10T13:45:50.656468+00:00"
+      },
+      "unemployment_latest": {
+        "series_id": "UNRATE",
+        "observed_at": "2026-08-01",
+        "value": 4.1,
+        "realtime_start": "2026-09-10",
+        "fetched_at": "2026-09-10T13:45:52.596630+00:00"
+      },
+      "unemployment_base_3m": {
+        "series_id": "UNRATE",
+        "observed_at": "2026-05-01",
+        "value": 4.3,
+        "realtime_start": "2026-09-10",
+        "fetched_at": "2026-09-10T13:45:52.596630+00:00"
+      },
+      "policy_rate_upper": {
+        "series_id": "DFEDTARU",
+        "observed_at": "2026-09-09",
+        "value": 3.75,
+        "realtime_start": "2026-09-10",
+        "fetched_at": "2026-09-10T13:45:53.414790+00:00"
+      }
+    },
+    "provenance": {
+      "builder_version": "fomc-feature-snapshot-0.3",
+      "built_at": "2026-09-10T13:45:53.418595+00:00",
+      "build_commit": "3014b8b85bfc9bdd350afe3ec0ffa624af3bfdbf"
+    },
+    "same_day_release": null,
+    "same_day_release_series": []
+  },
+  "model_version": "fed-live-0.5-three-way-2015-nonzlb-climhike-uncalibrated",
+  "heuristic_cut": 0.15665336898298818,
+  "logistic_cut": 0.08942413963157657,
+  "logistic_training_meetings": 92,
+  "market": {
+    "probability": 0.0050000000000000044,
+    "lower_bound": 0.0,
+    "upper_bound": 0.040000000000000036,
+    "hold_probability": 0.33999999999999997,
+    "hike_probability": 0.655,
+    "current_upper": 3.75,
+    "observed_at": "2026-09-10T13:31:27.300379+00:00",
+    "source_file": "market_prices_20260910T133128Z.json",
+    "hold_lower_bound": 0.32999999999999996,
+    "hold_upper_bound": 0.35,
+    "hike_lower_bound": 0.63,
+    "hike_upper_bound": 0.7200000000000001,
+    "low_liquidity": false
+  },
+  "heuristic_edge": 0.15165336898298817,
+  "logistic_edge": 0.08442413963157656,
+  "heuristic_three_way": {
+    "cut": 0.15665336898298818,
+    "hold": 0.634990404530456,
+    "hike": 0.20835622648655586
+  },
+  "logistic_three_way": {
+    "cut": 0.08942413963157657,
+    "hold": 0.7182633739862267,
+    "hike": 0.1923124863821966
+  },
+  "heuristic_three_way_edge": {
+    "cut": 0.15165336898298817,
+    "hold": 0.294990404530456,
+    "hike": -0.4466437735134442
+  },
+  "logistic_three_way_edge": {
+    "cut": 0.08442413963157656,
+    "hold": 0.3782633739862268,
+    "hike": -0.4626875136178034
+  },
+  "same_day_release": false,
+  "same_day_release_series": null,
+  "signal_eligible": false,
+  "signal_eligible_reason": "no out-of-sample Brier skill against market prices yet (D-007)"
+}
