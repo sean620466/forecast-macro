@@ -1,12 +1,25 @@
 {
-  "scored_releases": 0,
+  "scored_releases": 1,
   "minimum_sample_required": 30,
-  "model_brier": null,
-  "market_brier": null,
-  "model_skill_vs_market": null,
+  "model_brier": 0.7524619139803045,
+  "market_brier": 0.3889297315689981,
+  "model_skill_vs_market": -0.9346988746392968,
   "sample_gate_passed": false,
   "signal_eligible": false,
   "signal_eligible_reason": "sample gate not met (D-013 analogue: 30 scored releases)",
-  "records": [],
+  "records": [
+    {
+      "reference_period": "2026-08",
+      "release_at": "2026-09-11T08:30:00-04:00",
+      "as_of": "2026-09-10T13:45:54.283534+00:00",
+      "realized_rate": 2.4,
+      "realized_bucket": "3539696",
+      "model_brier": 0.7524619139803045,
+      "market_brier": 0.3889297315689981,
+      "model_probability_of_realized": 0.22706422018348624,
+      "market_probability_of_realized": 0.4752173913043478,
+      "venue": "polymarket"
+    }
+  ],
   "stale_input_records": 0
 }
