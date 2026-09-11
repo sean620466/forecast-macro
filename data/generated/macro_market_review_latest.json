@@ -1,10 +1,10 @@
 {
   "summary": {
-    "approved": 221,
+    "approved": 211,
     "rejected": 1103,
-    "structure_valid_rules_required": 275
+    "structure_valid_rules_required": 268
   },
-  "approved_contracts": 221,
+  "approved_contracts": 211,
   "signal_eligible": false,
   "approved": [
     {
@@ -1091,156 +1091,6 @@
       "venue": "kalshi",
       "venue_event_id": "KXCPICOREYOY-26SEP",
       "venue_market_id": "KXCPICOREYOY-26SEP-T3.5",
-      "topic": "cpi",
-      "status": "approved",
-      "checks_passed": [
-        "macro topic classified",
-        "candidate requires manual review",
-        "YES/NO token mapping complete",
-        "resolution source and versioned rules verified",
-        "bucket structure complete"
-      ],
-      "blockers": []
-    },
-    {
-      "venue": "polymarket",
-      "venue_event_id": "838712",
-      "venue_market_id": "3539692",
-      "topic": "cpi",
-      "status": "approved",
-      "checks_passed": [
-        "macro topic classified",
-        "candidate requires manual review",
-        "YES/NO token mapping complete",
-        "resolution source and versioned rules verified",
-        "bucket structure complete"
-      ],
-      "blockers": []
-    },
-    {
-      "venue": "polymarket",
-      "venue_event_id": "838712",
-      "venue_market_id": "3539693",
-      "topic": "cpi",
-      "status": "approved",
-      "checks_passed": [
-        "macro topic classified",
-        "candidate requires manual review",
-        "YES/NO token mapping complete",
-        "resolution source and versioned rules verified",
-        "bucket structure complete"
-      ],
-      "blockers": []
-    },
-    {
-      "venue": "polymarket",
-      "venue_event_id": "838712",
-      "venue_market_id": "3539694",
-      "topic": "cpi",
-      "status": "approved",
-      "checks_passed": [
-        "macro topic classified",
-        "candidate requires manual review",
-        "YES/NO token mapping complete",
-        "resolution source and versioned rules verified",
-        "bucket structure complete"
-      ],
-      "blockers": []
-    },
-    {
-      "venue": "polymarket",
-      "venue_event_id": "838712",
-      "venue_market_id": "3539695",
-      "topic": "cpi",
-      "status": "approved",
-      "checks_passed": [
-        "macro topic classified",
-        "candidate requires manual review",
-        "YES/NO token mapping complete",
-        "resolution source and versioned rules verified",
-        "bucket structure complete"
-      ],
-      "blockers": []
-    },
-    {
-      "venue": "polymarket",
-      "venue_event_id": "838712",
-      "venue_market_id": "3539696",
-      "topic": "cpi",
-      "status": "approved",
-      "checks_passed": [
-        "macro topic classified",
-        "candidate requires manual review",
-        "YES/NO token mapping complete",
-        "resolution source and versioned rules verified",
-        "bucket structure complete"
-      ],
-      "blockers": []
-    },
-    {
-      "venue": "polymarket",
-      "venue_event_id": "838712",
-      "venue_market_id": "3539697",
-      "topic": "cpi",
-      "status": "approved",
-      "checks_passed": [
-        "macro topic classified",
-        "candidate requires manual review",
-        "YES/NO token mapping complete",
-        "resolution source and versioned rules verified",
-        "bucket structure complete"
-      ],
-      "blockers": []
-    },
-    {
-      "venue": "polymarket",
-      "venue_event_id": "838712",
-      "venue_market_id": "3539698",
-      "topic": "cpi",
-      "status": "approved",
-      "checks_passed": [
-        "macro topic classified",
-        "candidate requires manual review",
-        "YES/NO token mapping complete",
-        "resolution source and versioned rules verified",
-        "bucket structure complete"
-      ],
-      "blockers": []
-    },
-    {
-      "venue": "polymarket",
-      "venue_event_id": "838712",
-      "venue_market_id": "3539699",
-      "topic": "cpi",
-      "status": "approved",
-      "checks_passed": [
-        "macro topic classified",
-        "candidate requires manual review",
-        "YES/NO token mapping complete",
-        "resolution source and versioned rules verified",
-        "bucket structure complete"
-      ],
-      "blockers": []
-    },
-    {
-      "venue": "polymarket",
-      "venue_event_id": "838712",
-      "venue_market_id": "3539700",
-      "topic": "cpi",
-      "status": "approved",
-      "checks_passed": [
-        "macro topic classified",
-        "candidate requires manual review",
-        "YES/NO token mapping complete",
-        "resolution source and versioned rules verified",
-        "bucket structure complete"
-      ],
-      "blockers": []
-    },
-    {
-      "venue": "polymarket",
-      "venue_event_id": "838712",
-      "venue_market_id": "3539701",
       "topic": "cpi",
       "status": "approved",
       "checks_passed": [
