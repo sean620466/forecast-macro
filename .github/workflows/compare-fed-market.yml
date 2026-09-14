@@ -2,6 +2,11 @@ name: Compare Fed model with market
 
 on:
   workflow_dispatch:
+    inputs:
+      verify_statement_fetch:
+        description: "Also fetch the last labelled FOMC statement and check the parser against its row (task 48 self-test)"
+        type: boolean
+        default: false
   schedule:
     - cron: "40 13 * * 1-5"  # weekdays after the 08:30 ET releases have settled
   push:
@@ -10,6 +15,9 @@ on:
       - ".github/workflows/compare-fed-market.yml"
       - "scripts/compare_fed_market.py"
       - "scripts/score_fed_comparisons.py"
+      - "scripts/record_fomc_decisions.py"
+      - "src/forecast_macro/fomc_decisions.py"
+      - "src/forecast_macro/datasets.py"
       - "src/forecast_macro/comparison_scoring.py"
       - "scripts/compare_unemployment_market.py"
       - "src/forecast_macro/unemployment_comparison.py"
@@ -65,6 +73,16 @@ jobs:
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: python scripts/compare_core_cpi_market.py --measure headline
+      - name: Record realized FOMC decisions from the decision press release (task 48)
+        # continue-on-error so the day's comparisons are still scored and persisted; the last
+        # step turns a failure here into a red run, which alerts.yml reports as an issue.
+        id: decisions
+        continue-on-error: true
+        run: |
+          if [ "${{ inputs.verify_statement_fetch }}" = "true" ]; then
+            python scripts/record_fomc_decisions.py --verify-last
+          fi
+          python scripts/record_fomc_decisions.py
       - name: Score past comparisons against realized decisions (D-007)
         run: python scripts/score_fed_comparisons.py
       - name: Score Core CPI comparisons against first-published YoY
@@ -100,6 +118,7 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           # A topic with no priced market yet has no directory; git add must not fail on it (run #18).
           for path in data/generated/fed_market_comparisons data/generated/fed_market_scoring.json \
+                      data/generated/fomc_decisions.csv \
                       data/generated/unemployment_market_comparisons data/generated/unemployment_market_scoring.json \
                       data/generated/core_cpi_market_comparisons data/generated/core_cpi_market_scoring.json \
                       data/generated/headline_cpi_market_comparisons data/generated/headline_cpi_market_scoring.json \
@@ -113,3 +132,9 @@ jobs:
           git commit -m "Record model vs market comparisons $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
           git pull --rebase origin main
           git push origin HEAD:main
+      - name: Fail the run when a realized FOMC decision could not be recorded
+        if: steps.decisions.outcome == 'failure'
+        run: |
+          echo "record_fomc_decisions.py failed; the D-007 scoring for that meeting is blocked until the"
+          echo "statement is recorded (docs/FOMC_DATASET.md, 'Realized decisions')."
+          exit 1
