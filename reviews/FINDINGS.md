@@ -184,4 +184,9 @@
 | R40-L2 | Low | 실업률·CPI 비교가 Polymarket 한 곳만 기록했음. 채점 키가 기준월뿐이라 두 장소를 넣으면 한쪽이 덮어써졌음 | fixed | 장소별 비교 파일(`*_kalshi.json`)과 (기준월, 장소) 키 채점, 알림도 장소별. 헤드라인 CPI YoY(CPIAUCNS)는 Kalshi KXCPIYOY 대상으로 같은 machinery로 추가 |
 | R41-L1 | Low | R35-M1 후속: 기저효과를 명시한 CPI YoY baseline(`models/cpi_base_effect.py`: 알려진 L[t]/L[t-11] × (1+다음 달 MoM), MoM은 달력월 평균 + 전체 잔차 풀링 또는 같은 달만)과 경험분포 baseline을 2000년 이후 공표 지수로 연구 백테스트(`scripts/backtest_cpi_baselines.py`, 워크플로 `cpi-baselines.yml`) | fixed | `data/generated/cpi_baseline_backtest.json` (vintage 2026-09-08). 헤드라인 실시간 모델 `headline-cpi-yoy-base-effect-pooled-mom-0.1`, Core는 `core-cpi-yoy-empirical-change-0.1` 유지. 연도별로는 Core 2021·2011·2012, 헤드라인 2003·2008·2012·2015만 반대 |
 | R43-M1 | Medium | 인하 모델 학습에 ZLB 회의가 '인하 없음'으로 들어가 있었음. D-011은 예측에서만 ZLB를 가렸고 학습은 그대로였음. 2019–2026 60회의 중 16건, 2015–2026 92회의 중 24건이 ZLB | fixed | 과제 43: 비-ZLB 회의만으로 인하 모델 학습(4건 미만이면 전체로 폴백). 워크포워드 2015–2026: BSS +0.020→+0.028, 비-ZLB +0.007→+0.015, ECE 0.081→0.061. 2019–2026은 +0.172→+0.149로 약간 나빠짐. 구조적 근거로 채택, 결론("skill 거의 없음")은 불변 |
+
+## 과제 48 — 결정 후 첫 D-007 채점 자동화 (`2026-09-14-fomc-auto-scoring-claude.md`)
+
+| ID | 등급 | 요약 | 상태 | 비고 |
+| --- | --- | --- | --- | --- |
 | R48-H1 | High | 2026-09-16 결정 후 첫 D-007 채점이 자동으로 돌지 않음. 채점기의 결과 라벨은 손으로 전사하는 `fomc_meetings_2019_2026.csv` 한 곳이고, 그 CSV는 회귀 테스트·학습 스냅샷에 고정돼 워크플로가 늘릴 수 없음. 09-17 실행은 `scored_meetings: 0`을 다시 썼을 것 | fixed | b030bae: 결정 보도자료(D-002 출처)를 파싱해 봇 소유 `data/generated/fomc_decisions.csv`에 검증된 행을 추가하고 채점기가 이력에 병합. 보도자료 미수신은 6시간 뒤 실행 실패로 알림. 러너에서 fetch·파싱 확인은 `verify_statement_fetch` 수동 실행으로 (`reviews/2026-09-14-fomc-auto-scoring-claude.md`) |
