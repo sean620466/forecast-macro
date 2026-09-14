@@ -1,6 +1,6 @@
 # STATUS (자동 생성, scripts/build_dashboard.py)
 
-기준: main 6266718, 데이터 2026-09-14 13:47 UTC. 대시보드: docs/dashboard/index.html
+기준: main 71cb6c9, 데이터 2026-09-14 16:56 UTC. 대시보드: docs/dashboard/index.html
 
 ## 한 문장
 모델과 예측시장 확률을 매일 같은 기준으로 기록하고 결과로 채점하는 장치는 완성됐고, "시장보다 나은가"의 답은 아직 없다 (채점 0건).
@@ -81,4 +81,4 @@
 - 휴리스틱(window) 2019–2026: Brier 0.0835 vs climatology 0.1203, 3원 0.496 vs 0.532
 
 ## 장부
-해결 80 · 미해결 6 · 부분 2 · 결정 19건 (`reviews/FINDINGS.md`, `DECISIONS.md`)
+해결 81 · 미해결 6 · 부분 2 · 결정 19건 (`reviews/FINDINGS.md`, `DECISIONS.md`)
