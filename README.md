@@ -14,6 +14,7 @@
 | --- | --- | --- |
 | 시장 탐색 → 규칙·일정 검증 → 가격 스냅샷 | 6시간 | `data/generated/market_prices/*.json` (Kalshi Fed·실업률·CPI 사다리, Polymarket 실업률·Core CPI 구간) |
 | Fed 모델(cut/hold/hike) vs 시장 | 평일 09:40 ET | `data/generated/fed_market_comparisons/`, `fed_market_scoring.json` |
+| FOMC 결정 라벨 (결정 보도자료 파싱) | 평일 09:40 ET, 결정 다음 실행 | `data/generated/fomc_decisions.csv` (회의 CSV 스키마; 채점기가 이력에 병합, 학습 데이터는 별도) |
 | 실업률 baseline vs 시장 | 평일 09:40 ET | `data/generated/unemployment_market_comparisons/`, `unemployment_market_scoring.json` |
 | Core CPI YoY baseline vs 시장 | 평일 09:40 ET | `data/generated/core_cpi_market_comparisons/`, `core_cpi_market_scoring.json` (Polymarket + Kalshi, 장소별 파일) |
 | 헤드라인 CPI YoY baseline vs 시장 (Kalshi) | 평일 09:40 ET | `data/generated/headline_cpi_market_comparisons/`, `headline_cpi_market_scoring.json` (기저효과 모델) |
