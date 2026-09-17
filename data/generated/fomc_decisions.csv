@@ -1,1 +1,2 @@
 meeting_date,decision_time_local,timezone,upper_before,upper_after,change_bps,decision,event_type,source
+2026-09-16,14:00,America/New_York,3.75,4.00,25,hike,scheduled,https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm
