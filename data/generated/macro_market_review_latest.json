@@ -1,10 +1,10 @@
 {
   "summary": {
-    "approved": 200,
-    "rejected": 1256,
-    "structure_valid_rules_required": 304
+    "approved": 346,
+    "rejected": 1314,
+    "structure_valid_rules_required": 340
   },
-  "approved_contracts": 200,
+  "approved_contracts": 346,
   "signal_eligible": false,
   "approved": [
     {
@@ -1374,6 +1374,486 @@
     },
     {
       "venue": "kalshi",
+      "venue_event_id": "KXFED-27APR",
+      "venue_market_id": "KXFED-27APR-T4.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27APR",
+      "venue_market_id": "KXFED-27APR-T4.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27APR",
+      "venue_market_id": "KXFED-27APR-T5.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27APR",
+      "venue_market_id": "KXFED-27APR-T5.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27APR",
+      "venue_market_id": "KXFED-27APR-T5.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27APR",
+      "venue_market_id": "KXFED-27APR-T5.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27APR",
+      "venue_market_id": "KXFED-27APR-T6.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T0.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T0.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T0.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T0.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T1.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T1.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T1.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T1.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T2.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T2.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T2.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T2.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T3.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T3.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T3.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T3.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T4.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T4.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T4.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T4.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T5.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T5.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T5.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T5.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27DEC",
+      "venue_market_id": "KXFED-27DEC-T6.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
       "venue_event_id": "KXFED-27JAN",
       "venue_market_id": "KXFED-27JAN-T0.00",
       "topic": "fed_rate",
@@ -1644,6 +2124,861 @@
     },
     {
       "venue": "kalshi",
+      "venue_event_id": "KXFED-27JAN",
+      "venue_market_id": "KXFED-27JAN-T4.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JAN",
+      "venue_market_id": "KXFED-27JAN-T4.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JAN",
+      "venue_market_id": "KXFED-27JAN-T5.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JAN",
+      "venue_market_id": "KXFED-27JAN-T5.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JAN",
+      "venue_market_id": "KXFED-27JAN-T5.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JAN",
+      "venue_market_id": "KXFED-27JAN-T5.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JAN",
+      "venue_market_id": "KXFED-27JAN-T6.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T0.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T0.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T0.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T0.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T1.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T1.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T1.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T1.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T2.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T2.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T2.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T2.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T3.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T3.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T3.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T3.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T4.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T4.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T4.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T4.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T5.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T5.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T5.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T5.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUL",
+      "venue_market_id": "KXFED-27JUL-T6.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T0.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T0.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T0.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T0.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T1.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T1.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T1.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T1.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T2.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T2.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T2.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T2.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T3.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T3.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T3.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T3.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T4.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T4.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T4.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T4.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T5.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T5.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T5.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T5.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27JUN",
+      "venue_market_id": "KXFED-27JUN-T6.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
       "venue_event_id": "KXFED-27MAR",
       "venue_market_id": "KXFED-27MAR-T0.00",
       "topic": "fed_rate",
@@ -1901,6 +3236,861 @@
       "venue": "kalshi",
       "venue_event_id": "KXFED-27MAR",
       "venue_market_id": "KXFED-27MAR-T4.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27MAR",
+      "venue_market_id": "KXFED-27MAR-T4.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27MAR",
+      "venue_market_id": "KXFED-27MAR-T4.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27MAR",
+      "venue_market_id": "KXFED-27MAR-T5.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27MAR",
+      "venue_market_id": "KXFED-27MAR-T5.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27MAR",
+      "venue_market_id": "KXFED-27MAR-T5.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27MAR",
+      "venue_market_id": "KXFED-27MAR-T5.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27MAR",
+      "venue_market_id": "KXFED-27MAR-T6.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T0.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T0.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T0.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T0.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T1.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T1.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T1.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T1.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T2.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T2.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T2.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T2.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T3.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T3.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T3.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T3.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T4.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T4.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T4.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T4.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T5.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T5.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T5.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T5.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27OCT",
+      "venue_market_id": "KXFED-27OCT-T6.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T0.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T0.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T0.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T0.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T1.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T1.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T1.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T1.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T2.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T2.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T2.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T2.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T3.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T3.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T3.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T3.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T4.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T4.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T4.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T4.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T5.00",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T5.25",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T5.50",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T5.75",
+      "topic": "fed_rate",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "kalshi",
+      "venue_event_id": "KXFED-27SEP",
+      "venue_market_id": "KXFED-27SEP-T6.00",
       "topic": "fed_rate",
       "status": "approved",
       "checks_passed": [
