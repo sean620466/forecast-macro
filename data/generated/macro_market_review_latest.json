@@ -1,8 +1,8 @@
 {
   "summary": {
     "approved": 346,
-    "rejected": 1354,
-    "structure_valid_rules_required": 340
+    "rejected": 1361,
+    "structure_valid_rules_required": 347
   },
   "approved_contracts": 346,
   "signal_eligible": false,
