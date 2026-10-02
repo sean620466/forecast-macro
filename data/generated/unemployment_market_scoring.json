@@ -1,12 +1,37 @@
 {
-  "scored_releases": 0,
+  "scored_releases": 2,
   "minimum_sample_required": 30,
-  "model_brier": null,
-  "market_brier": null,
-  "model_skill_vs_market": null,
+  "model_brier": 0.8239400112060073,
+  "market_brier": 0.6593993738378099,
+  "model_skill_vs_market": -0.24953107918581208,
   "sample_gate_passed": false,
   "signal_eligible": false,
   "signal_eligible_reason": "sample gate not met (D-013 analogue: 30 scored releases)",
-  "records": [],
+  "records": [
+    {
+      "reference_period": "2026-09",
+      "release_at": "2026-10-02T08:30:00-04:00",
+      "as_of": "2026-10-01T19:00:31.079339+00:00",
+      "realized_rate": 4.2,
+      "realized_bucket": "4.20",
+      "model_brier": 0.8230864695317042,
+      "market_brier": 0.6059499999999999,
+      "model_probability_of_realized": 0.1853546910755149,
+      "market_probability_of_realized": 0.32,
+      "venue": "kalshi"
+    },
+    {
+      "reference_period": "2026-09",
+      "release_at": "2026-10-02T08:30:00-04:00",
+      "as_of": "2026-10-01T19:00:31.079339+00:00",
+      "realized_rate": 4.2,
+      "realized_bucket": "4217157",
+      "model_brier": 0.8247935528803105,
+      "market_brier": 0.7128487476756198,
+      "model_probability_of_realized": 0.1853546910755149,
+      "market_probability_of_realized": 0.27397727272727274,
+      "venue": "polymarket"
+    }
+  ],
   "stale_input_records": 0
 }
