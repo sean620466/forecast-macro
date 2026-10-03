@@ -1,9 +1,9 @@
 {
-  "discovered_at": "2026-10-02T22:14:17.237312+00:00",
-  "unique_candidates": 2018,
+  "discovered_at": "2026-10-03T05:18:26.016097+00:00",
+  "unique_candidates": 2011,
   "venue_counts": {
     "kalshi": 1983,
-    "polymarket": 35
+    "polymarket": 28
   },
   "errors": {},
   "complete": true
