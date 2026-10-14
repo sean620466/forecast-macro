@@ -1,9 +1,9 @@
 {
-  "scored_releases": 1,
+  "scored_releases": 2,
   "minimum_sample_required": 30,
-  "model_brier": 0.8578603316326531,
-  "market_brier": 0.4694000000000001,
-  "model_skill_vs_market": -0.8275678134483444,
+  "model_brier": 0.9262491275278261,
+  "market_brier": 0.4940500000000001,
+  "model_skill_vs_market": -0.8748084759190888,
   "sample_gate_passed": false,
   "signal_eligible": false,
   "signal_eligible_reason": "sample gate not met (D-013 analogue: 30 scored releases)",
@@ -18,6 +18,18 @@
       "market_brier": 0.4694000000000001,
       "model_probability_of_realized": 0.13169642857142858,
       "market_probability_of_realized": 0.39999999999999997,
+      "venue": "kalshi"
+    },
+    {
+      "reference_period": "2026-09",
+      "release_at": "2026-10-14T08:30:00-04:00",
+      "as_of": "2026-10-13T19:56:31.820418+00:00",
+      "realized_rate": 3.7,
+      "realized_bucket": "3.70",
+      "model_brier": 0.9946379234229991,
+      "market_brier": 0.5187000000000002,
+      "model_probability_of_realized": 0.0645879732739421,
+      "market_probability_of_realized": 0.4,
       "venue": "kalshi"
     }
   ],
