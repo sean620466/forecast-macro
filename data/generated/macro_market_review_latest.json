@@ -1,10 +1,10 @@
 {
   "summary": {
-    "approved": 262,
-    "rejected": 1096,
-    "structure_valid_rules_required": 318
+    "approved": 271,
+    "rejected": 1119,
+    "structure_valid_rules_required": 328
   },
-  "approved_contracts": 262,
+  "approved_contracts": 271,
   "signal_eligible": false,
   "approved": [
     {
@@ -3926,6 +3926,141 @@
       "venue": "kalshi",
       "venue_event_id": "KXU3-26NOV",
       "venue_market_id": "KXU3-26NOV-T5.0",
+      "topic": "unemployment",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "polymarket",
+      "venue_event_id": "1357780",
+      "venue_market_id": "6937474",
+      "topic": "unemployment",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "polymarket",
+      "venue_event_id": "1357780",
+      "venue_market_id": "6937478",
+      "topic": "unemployment",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "polymarket",
+      "venue_event_id": "1357780",
+      "venue_market_id": "6937481",
+      "topic": "unemployment",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "polymarket",
+      "venue_event_id": "1357780",
+      "venue_market_id": "6937485",
+      "topic": "unemployment",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "polymarket",
+      "venue_event_id": "1357780",
+      "venue_market_id": "6937488",
+      "topic": "unemployment",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "polymarket",
+      "venue_event_id": "1357780",
+      "venue_market_id": "6937494",
+      "topic": "unemployment",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "polymarket",
+      "venue_event_id": "1357780",
+      "venue_market_id": "6937499",
+      "topic": "unemployment",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "polymarket",
+      "venue_event_id": "1357780",
+      "venue_market_id": "6937472",
+      "topic": "unemployment",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "polymarket",
+      "venue_event_id": "1357780",
+      "venue_market_id": "6937503",
       "topic": "unemployment",
       "status": "approved",
       "checks_passed": [
