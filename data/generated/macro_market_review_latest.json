@@ -1,10 +1,10 @@
 {
   "summary": {
-    "approved": 270,
-    "rejected": 1277,
-    "structure_valid_rules_required": 319
+    "approved": 271,
+    "rejected": 1278,
+    "structure_valid_rules_required": 318
   },
-  "approved_contracts": 270,
+  "approved_contracts": 271,
   "signal_eligible": false,
   "approved": [
     {
@@ -3971,6 +3971,21 @@
       "venue": "polymarket",
       "venue_event_id": "1357780",
       "venue_market_id": "6937481",
+      "topic": "unemployment",
+      "status": "approved",
+      "checks_passed": [
+        "macro topic classified",
+        "candidate requires manual review",
+        "YES/NO token mapping complete",
+        "resolution source and versioned rules verified",
+        "bucket structure complete"
+      ],
+      "blockers": []
+    },
+    {
+      "venue": "polymarket",
+      "venue_event_id": "1357780",
+      "venue_market_id": "6937485",
       "topic": "unemployment",
       "status": "approved",
       "checks_passed": [
